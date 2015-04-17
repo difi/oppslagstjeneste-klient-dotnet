@@ -1,7 +1,7 @@
 ﻿
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
-namespace Difi.Oppslagstjenesten.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class HentPrintSertifikatEnvelope : OppslagstjenesteEnvelope
     {

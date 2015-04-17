@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Difi.Oppslagstjenesten
+namespace Difi.Oppslagstjeneste.Klient
 {
     /// <summary>
     /// Beskriver det opplysningskrav som en Virksomhet har definert.

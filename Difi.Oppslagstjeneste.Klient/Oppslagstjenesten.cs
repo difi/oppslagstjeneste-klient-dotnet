@@ -4,11 +4,11 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 using Difi.Oppslagstjenesten.Domene;
-using Difi.Oppslagstjenesten.Envelope;
 
-namespace Difi.Oppslagstjenesten
+namespace Difi.Oppslagstjeneste.Klient
 {
     /// <summary>
     /// Kontakt- og reservasjonsregisteret er et register over innbyggerens kontaktinformasjon og reservasjon, og er en fellesløsning som alle offentlige virksomheter skal bruke i sin tjenesteutvikling. Registeret gir tilgang til innbyggerens digitale kontaktinformasjon.

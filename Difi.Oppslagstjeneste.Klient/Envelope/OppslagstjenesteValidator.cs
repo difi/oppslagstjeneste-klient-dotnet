@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Felles.Security;
 
-namespace Difi.Oppslagstjenesten.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class OppslagstjenesteValidator : ResponseValidator
     {

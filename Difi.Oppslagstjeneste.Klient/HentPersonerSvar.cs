@@ -3,7 +3,7 @@ using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 using Difi.Oppslagstjenesten.Domene;
 
-namespace Difi.Oppslagstjenesten
+namespace Difi.Oppslagstjeneste.Klient
 {
     public class HentPersonerSvar
     {

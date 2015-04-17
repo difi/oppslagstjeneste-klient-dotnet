@@ -1,7 +1,7 @@
 ﻿using System;
 using Difi.Felles;
 
-namespace Difi.Oppslagstjenesten
+namespace Difi.Oppslagstjeneste.Klient
 {
     public class OppslagstjenesteKonfigurasjon : Klientkonfigurasjon
     {

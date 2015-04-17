@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
-namespace Difi.Oppslagstjenesten
+namespace Difi.Oppslagstjeneste.Klient
 {
     internal static class OppslagstjenesteLogger
     {

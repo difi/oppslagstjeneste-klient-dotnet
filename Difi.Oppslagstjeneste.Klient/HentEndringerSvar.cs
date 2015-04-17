@@ -3,7 +3,7 @@ using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 using Difi.Oppslagstjenesten.Domene;
 
-namespace Difi.Oppslagstjenesten
+namespace Difi.Oppslagstjeneste.Klient
 {
     /// <summary>
     /// Response sendt fra Oppslagstjensten for å levere ut endringer fra kontakt og reservasjonsregisteret til Virksomhet

@@ -2,11 +2,11 @@
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 using Difi.Oppslagstjeneste.Klient.Felles.Security;
 
-namespace Difi.Oppslagstjenesten.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class OppslagstjenesteInstillinger : EnvelopeSettings
     {
-        public OppslagstjenesteInstillinger() : base(SoapVersion.Soap11){ }
+        public OppslagstjenesteInstillinger() : base(SoapVersion.Soap11) { }
 
         /// <summary>
         /// Sertifikat som bl.a. benyttes for å signere utgående meldinger. Må inneholde en privatnøkkel.

@@ -45,7 +45,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
         {
             XmlElement timestamp = Context.CreateElement("wsu", "Timestamp", Navnerom.wsu);
             {
-                var utcNow = DateTime.UtcNow.AddMinutes(-1);
+                var utcNow = DateTime.UtcNow;
                 timestamp.AppendChildElement("Created", "wsu", Navnerom.wsu, utcNow.ToString(DateUtility.DateFormat));
                 timestamp.AppendChildElement("Expires", "wsu", Navnerom.wsu, utcNow.Add(_timespan.Value).ToString(DateUtility.DateFormat));
             }

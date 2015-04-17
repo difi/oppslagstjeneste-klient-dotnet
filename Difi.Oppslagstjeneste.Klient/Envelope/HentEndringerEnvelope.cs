@@ -2,7 +2,7 @@
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
-namespace Difi.Oppslagstjenesten.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class HentEndringerEnvelope : OppslagstjenesteEnvelope
     {
