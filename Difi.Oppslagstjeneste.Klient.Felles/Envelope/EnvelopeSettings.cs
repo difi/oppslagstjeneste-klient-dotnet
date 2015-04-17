@@ -14,7 +14,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
         {
             get
             {
-                if (SoapVersion == Felles.Security.SoapVersion.Soap11)
+                if (SoapVersion == SoapVersion.Soap11)
                     return Navnerom.env11;
                 else
                     return Navnerom.env12;

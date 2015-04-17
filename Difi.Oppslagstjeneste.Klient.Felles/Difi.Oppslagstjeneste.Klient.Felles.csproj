@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -45,6 +46,7 @@
     <Compile Include="Envelope\EnvelopeSettings.cs" />
     <Compile Include="Envelope\EnvelopeXmlPart.cs" />
     <Compile Include="Envelope\Konstanter.cs" />
+    <Compile Include="Klientkonfigurasjon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Envelope\Security.cs" />
     <Compile Include="Envelope\XmlElementExtensions.cs" />

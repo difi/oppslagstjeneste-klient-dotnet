@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,7 +40,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Envelope\HentEndringerEnvelope.cs" />
+    <Compile Include="Envelope\HentPersonerEnvelope.cs" />
+    <Compile Include="Envelope\HentPrintSertifikatEnvelope.cs" />
+    <Compile Include="Envelope\OppslagstjenesteEnvelope.cs" />
+    <Compile Include="Envelope\OppslagstjenesteInstillinger.cs" />
+    <Compile Include="Envelope\OppslagstjenesteValidator.cs" />
+    <Compile Include="HentEndringerSvar.cs" />
+    <Compile Include="HentPersonerSvar.cs" />
+    <Compile Include="HentPrintSertifikatSvar.cs" />
+    <Compile Include="Informasjonsbehov.cs" />
+    <Compile Include="OppslagstjenesteKonfigurasjon.cs" />
+    <Compile Include="OppslagstjenesteLogger.cs" />
+    <Compile Include="Oppslagstjenesten.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
+      <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
+      <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Felles\Difi.Oppslagstjeneste.Klient.Felles.csproj">
+      <Project>{1652EB8A-222A-4D26-98AA-BBBFFE079D56}</Project>
+      <Name>Difi.Oppslagstjeneste.Klient.Felles</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
