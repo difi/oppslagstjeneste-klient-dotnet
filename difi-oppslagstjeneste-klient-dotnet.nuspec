@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>difi-oppslagstjeneste-klient</id>
+    <version>0.0.0.0</version>
+    <authors>Jan Gylta, Aleksander Sjåfjell</authors>
+    <owners>Direktoratet for forvaltning og IKT</owners>    
+    <projectUrl>https://github.com/difi/sikker-digital-post-net-klient/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Klientbibliotek for Difi´s oppslagstjeneste </description>    
+    <copyright>Copyright 2015</copyright>
+    <tags>Difi Oppslagstjeneste Sikker Digital Post SikkerDigitalPost</tags>
+  </metadata>
+  <files>
+    <file src ="Difi.Oppslagstjeneste.Klient\bin\Release\*.dll" target="lib\net45" />   
+  </files>
+</package>
