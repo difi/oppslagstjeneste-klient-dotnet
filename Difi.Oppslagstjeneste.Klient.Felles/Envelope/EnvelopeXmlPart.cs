@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace Difi.Felles.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
 {
     public abstract class EnvelopeXmlPart
     {

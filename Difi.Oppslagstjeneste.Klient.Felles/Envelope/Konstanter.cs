@@ -1,4 +1,4 @@
-﻿namespace Difi.Felles.Envelope
+﻿namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
 {
     public class Navnerom
     {

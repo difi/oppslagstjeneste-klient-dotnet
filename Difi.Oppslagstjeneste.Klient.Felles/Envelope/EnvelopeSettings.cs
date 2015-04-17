@@ -1,7 +1,7 @@
 ﻿using System;
-using Difi.Felles.Security;
+using Difi.Oppslagstjeneste.Klient.Felles.Security;
 
-namespace Difi.Felles.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
 {
     public class EnvelopeSettings
     {        
