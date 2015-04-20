@@ -1,4 +1,4 @@
-﻿namespace Difi.Oppslagstjenesten.Domene
+﻿namespace Difi.Oppslagstjeneste.Klient.Domene
 {
     /// <summary>
     /// For oppslag av Person(er) er alle statuskoder relevante. For oppslag på endringer er kun status AKTIV og SLETTET relevant.

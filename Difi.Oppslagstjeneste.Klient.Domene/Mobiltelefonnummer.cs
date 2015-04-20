@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Xml;
-using Difi.Oppslagstjenesten.Domene;
 
-namespace Difi.Oppslagstjenesten.Domene
+namespace Difi.Oppslagstjeneste.Klient.Domene
 {
     /// <summary>
     /// Informasjon om en Person sitt Mobiltelefonnummer registrert i kontakt og reservasjonsregisteret

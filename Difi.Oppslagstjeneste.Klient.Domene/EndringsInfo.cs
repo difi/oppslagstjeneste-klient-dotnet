@@ -2,7 +2,7 @@
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
-namespace Difi.Oppslagstjenesten.Domene
+namespace Difi.Oppslagstjeneste.Klient.Domene
 {
     public abstract class EndringsInfo
     {

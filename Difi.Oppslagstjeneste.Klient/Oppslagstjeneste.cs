@@ -4,16 +4,16 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
-using Difi.Oppslagstjenesten.Domene;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
     /// <summary>
     /// Kontakt- og reservasjonsregisteret er et register over innbyggerens kontaktinformasjon og reservasjon, og er en fellesløsning som alle offentlige virksomheter skal bruke i sin tjenesteutvikling. Registeret gir tilgang til innbyggerens digitale kontaktinformasjon.
     /// </summary>
-    public class Oppslagstjenesten
+    public class Oppslagstjeneste
     {
         OppslagstjenesteInstillinger instillinger;
         OppslagstjenesteKonfigurasjon konfigurasjon;
@@ -23,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         /// <param name="sertifikat">Brukes for å signere forespørselen mot oppslagstjenesten.</param>
         /// <param name="valideringsSertifikat">Brukes for å validere svar fra oppslagstjenesten.</param>
-        public Oppslagstjenesten(X509Certificate2 sertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
+        public Oppslagstjeneste(X509Certificate2 sertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
         {
             instillinger = new OppslagstjenesteInstillinger
             {

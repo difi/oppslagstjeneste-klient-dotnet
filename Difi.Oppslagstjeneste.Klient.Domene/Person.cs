@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
-namespace Difi.Oppslagstjenesten.Domene
+namespace Difi.Oppslagstjeneste.Klient.Domene
 {
     [DebuggerDisplay("Personidentifikator = {Personidentifikator} Status = {Status}")]
     public class Person

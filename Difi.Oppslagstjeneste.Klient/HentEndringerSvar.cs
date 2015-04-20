@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
-using Difi.Oppslagstjenesten.Domene;
 
 namespace Difi.Oppslagstjeneste.Klient
 {

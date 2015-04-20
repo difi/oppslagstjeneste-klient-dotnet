@@ -23,10 +23,10 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
                 ServiceUri = new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v4")
             };
 
-            Oppslagstjenesten register = new Oppslagstjenesten(avsenderSertifikat, valideringsSertifikat, konfig);
+            Oppslagstjeneste register = new Oppslagstjeneste(avsenderSertifikat, valideringsSertifikat, konfig);
 
             var endringer = register.HentEndringer(886730, Informasjonsbehov.Kontaktinfo | Informasjonsbehov.Sertifikat | Informasjonsbehov.SikkerDigitalPost | Informasjonsbehov.Person);
-            var personer = register.HentPersoner(new string[] { "08077000292" }, Informasjonsbehov.Sertifikat | Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost);
+            var personer = register.HentPersoner(new string[] { "080770002Leg92" }, Informasjonsbehov.Sertifikat | Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost);
             var printSertifikat = register.HentPrintSertifikat();
         }
     }

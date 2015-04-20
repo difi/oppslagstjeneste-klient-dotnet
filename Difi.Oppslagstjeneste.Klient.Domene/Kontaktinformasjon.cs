@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
-namespace Difi.Oppslagstjenesten.Domene
+namespace Difi.Oppslagstjeneste.Klient.Domene
 {
     /// <summary>
     /// Kontaktinformasjon er Adresse informasjon knyttet til en Person for å kommunisere med person

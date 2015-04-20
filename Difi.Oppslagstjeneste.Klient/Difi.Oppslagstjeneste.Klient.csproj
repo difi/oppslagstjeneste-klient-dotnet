@@ -52,7 +52,7 @@
     <Compile Include="Informasjonsbehov.cs" />
     <Compile Include="OppslagstjenesteKonfigurasjon.cs" />
     <Compile Include="OppslagstjenesteLogger.cs" />
-    <Compile Include="Oppslagstjenesten.cs" />
+    <Compile Include="Oppslagstjeneste.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
