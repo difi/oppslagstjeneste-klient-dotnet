@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\difi-oppslagstjeneste.pfx">
-      <Link>difi-oppslagstjeneste.pfx</Link>
+      <Link>Properties\difi-oppslagstjeneste.pfx</Link>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
