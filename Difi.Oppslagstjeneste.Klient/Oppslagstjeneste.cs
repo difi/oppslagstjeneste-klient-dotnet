@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
@@ -87,7 +88,7 @@ namespace Difi.Oppslagstjeneste.Klient
             var xml = envelope.ToXml();
             var bytes = Encoding.UTF8.GetBytes(xml.OuterXml);
 
-            OppslagstjenesteLogger.LogInfo("Ugående soap melding:\r\n" + xml.OuterXml);
+            Logging.Log(TraceEventType.Verbose, xml.OuterXml);
 
             var requestStream = request.GetRequestStream();
             requestStream.Write(bytes, 0, bytes.Length);
@@ -103,7 +104,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 using (var reader = new StreamReader(stream))
                 {
                     var error = reader.ReadToEnd();
-                    OppslagstjenesteLogger.LogError("Feil ved sending av soap melding:\r\n" + error);
+                    Logging.Log(TraceEventType.Critical, "Feil ved sending" + error);
                 }
                 throw;
             }
