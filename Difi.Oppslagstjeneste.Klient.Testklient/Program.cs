@@ -26,8 +26,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             ResourceUtility rr = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Testklient.Resources");
             var certBytes = rr.ReadAllBytes(true, "cert.idporten-ver2.difi.no-v2.crt");
             var valideringsSertifikat = new X509Certificate2(certBytes);
-
-
+            
             Oppslagstjeneste register = new Oppslagstjeneste(avsenderSertifikat, valideringsSertifikat, konfig);
 
             var endringer = register.HentEndringer(886730, Informasjonsbehov.Kontaktinfo | Informasjonsbehov.Sertifikat | Informasjonsbehov.SikkerDigitalPost | Informasjonsbehov.Person);
