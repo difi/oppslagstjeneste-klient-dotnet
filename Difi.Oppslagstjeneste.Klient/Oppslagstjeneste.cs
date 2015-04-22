@@ -8,6 +8,7 @@ using System.Text;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
+using Difi.Oppslagstjeneste.Klient.Svar;
 
 namespace Difi.Oppslagstjeneste.Klient
 {

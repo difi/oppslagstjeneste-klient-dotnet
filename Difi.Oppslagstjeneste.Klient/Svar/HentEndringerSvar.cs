@@ -6,7 +6,7 @@ using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
-namespace Difi.Oppslagstjeneste.Klient
+namespace Difi.Oppslagstjeneste.Klient.Svar
 {
     /// <summary>
     /// Response sendt fra Oppslagstjensten for å levere ut endringer fra kontakt og reservasjonsregisteret til Virksomhet

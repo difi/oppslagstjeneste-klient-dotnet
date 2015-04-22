@@ -4,19 +4,16 @@ using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
-namespace Difi.Oppslagstjeneste.Klient
+namespace Difi.Oppslagstjeneste.Klient.Svar
 {
     /// <summary>
     /// Svar fra Oppslagstjeneste som inneholder sertifikat til printleverandør og adressen til leverandøren
     /// av postkassetjenesten.
     /// </summary>
-    public class HentPrintSertifikatSvar
+    public class HentPrintSertifikatSvar : HentSvar
     {
-        private readonly XmlNamespaceManager _namespaceManager;
-
-        public HentPrintSertifikatSvar(XmlDocument xmlDocument)
+        public HentPrintSertifikatSvar(XmlDocument xmlDocument) : base(xmlDocument)
         {
-            _namespaceManager = InitalizeNamespaceManager(xmlDocument);
             ParseToClassMembers(xmlDocument);
         }
         
@@ -31,27 +28,18 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public string PostkasseleverandørAdresse { get; set; }
 
-        private XmlNamespaceManager InitalizeNamespaceManager(XmlDocument xmlDocument)
-        {
-            var namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
-            namespaceManager.AddNamespace("env", Navnerom.env11);
-            namespaceManager.AddNamespace("ns", Navnerom.krr);
-            namespaceManager.AddNamespace("difi", Navnerom.difi);
-            return namespaceManager;
-        }
-
         private void ParseToClassMembers(XmlDocument xmlDocument)
         {
             try
             {
                 var personElements = xmlDocument.SelectSingleNode(
-                    "/env:Envelope/env:Body/ns:HentPrintSertifikatRespons", _namespaceManager);
+                    "/env:Envelope/env:Body/ns:HentPrintSertifikatRespons", XmlNamespaceManager);
 
                 PostkasseleverandørAdresse =
-                    personElements.SelectSingleNode("./ns:postkasseleverandoerAdresse", _namespaceManager).InnerText;
+                    personElements.SelectSingleNode("./ns:postkasseleverandoerAdresse", XmlNamespaceManager).InnerText;
                 Printsertifikat = new X509Certificate2(
                     Convert.FromBase64String(
-                        personElements.SelectSingleNode("./ns:X509Sertifikat", _namespaceManager).InnerText));
+                        personElements.SelectSingleNode("./ns:X509Sertifikat", XmlNamespaceManager).InnerText));
             }
             catch (Exception e)
             {

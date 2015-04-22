@@ -6,7 +6,7 @@ using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
-namespace Difi.Oppslagstjeneste.Klient
+namespace Difi.Oppslagstjeneste.Klient.Svar
 {
     public class HentPersonerSvar
     {

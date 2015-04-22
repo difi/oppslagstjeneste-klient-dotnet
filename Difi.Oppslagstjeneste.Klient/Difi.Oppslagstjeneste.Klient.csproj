@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-	<TeamCityBuild>false</TeamCityBuild>
+    <TeamCityBuild>false</TeamCityBuild>
     <ProjectGuid>{13B840F4-199B-4482-B4A8-CB71AC1B0C99}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -13,8 +13,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-	<PropertyGroup Condition=" '$(TEAMCITY_BUILD_PROPERTIES_FILE)' != ''">
-	<TeamCityBuild>true</TeamCityBuild>
+  <PropertyGroup Condition=" '$(TEAMCITY_BUILD_PROPERTIES_FILE)' != ''">
+    <TeamCityBuild>true</TeamCityBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,9 +59,9 @@
     <Compile Include="Envelope\OppslagstjenesteEnvelope.cs" />
     <Compile Include="Envelope\OppslagstjenesteInstillinger.cs" />
     <Compile Include="Envelope\OppslagstjenesteValidator.cs" />
-    <Compile Include="HentEndringerSvar.cs" />
-    <Compile Include="HentPersonerSvar.cs" />
-    <Compile Include="HentPrintSertifikatSvar.cs" />
+    <Compile Include="Svar\HentEndringerSvar.cs" />
+    <Compile Include="Svar\HentPersonerSvar.cs" />
+    <Compile Include="Svar\HentPrintSertifikatSvar.cs" />
     <Compile Include="Informasjonsbehov.cs" />
     <Compile Include="OppslagstjenesteKonfigurasjon.cs" />
     <Compile Include="OppslagstjenesteLogger.cs" />
@@ -70,6 +70,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Svar\HentSvar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
@@ -92,10 +93,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-	<Target Name="TeamCity" AfterTargets="Build" Condition=" '$(TeamCityBuild)'=='true'">
-		<GetAssemblyIdentity AssemblyFiles="bin\$(ConfigurationName)\$(TargetFileName)">
-			<Output TaskParameter="Assemblies" ItemName="AssemblyIdentity" />
-		</GetAssemblyIdentity>
-		<Message Text="##teamcity[buildNumber '%(AssemblyIdentity.Version)']" />
-	</Target>
+  <Target Name="TeamCity" AfterTargets="Build" Condition=" '$(TeamCityBuild)'=='true'">
+    <GetAssemblyIdentity AssemblyFiles="bin\$(ConfigurationName)\$(TargetFileName)">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyIdentity" />
+    </GetAssemblyIdentity>
+    <Message Text="##teamcity[buildNumber '%(AssemblyIdentity.Version)']" />
+  </Target>
 </Project>
