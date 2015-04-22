@@ -41,12 +41,12 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         /// <param name="fraEndringsNummer">Brukes i endringsforespørsler for å hente alle endringer fra og med et bestemt endringsNummer.</param>
         /// <param name="informasjonsbehov">Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.</param>
-        public HentEndringerSvar HentEndringer(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
+        public EndringerSvar HentEndringer(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
         {
             var envelope = new HentEndringerEnvelope(instillinger, fraEndringsNummer, informasjonsbehov);
             var validator = SendEnvelope(envelope);
             validator.Valider();
-            return new HentEndringerSvar(validator.ResponseDocument);
+            return new EndringerSvar(validator.ResponseDocument);
         }
 
 
@@ -60,18 +60,18 @@ namespace Difi.Oppslagstjeneste.Klient
             var envelope = new HentPersonerEnvelope(instillinger, personidentifikator, informasjonsbehov);
             OppslagstjenesteValidator validator = SendEnvelope(envelope);
             validator.Valider();
-            return new HentPersonerSvar(validator.ResponseDocument).Personer;
+            return new PersonerSvar(validator.ResponseDocument).Personer;
         }
 
         /// <summary>
         /// Forespørsel sendt fra Virksomhet for å hente Sertifikater fra Printleverandør i Sikker Digital Post.
         /// </summary>
-        public HentPrintSertifikatSvar HentPrintSertifikat()
+        public PrintSertifikatSvar HentPrintSertifikat()
         {
             var envelope = new HentPrintSertifikatEnvelope(instillinger);
             var validator = SendEnvelope(envelope);
             validator.Valider();
-            return new HentPrintSertifikatSvar(validator.ResponseDocument);
+            return new PrintSertifikatSvar(validator.ResponseDocument);
         }
 
         private OppslagstjenesteValidator SendEnvelope(AbstractEnvelope envelope)
