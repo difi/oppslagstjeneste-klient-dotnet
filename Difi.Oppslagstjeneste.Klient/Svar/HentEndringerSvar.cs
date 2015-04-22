@@ -4,20 +4,16 @@ using System.Linq;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
-using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient.Svar
 {
     /// <summary>
     /// Response sendt fra Oppslagstjensten for å levere ut endringer fra kontakt og reservasjonsregisteret til Virksomhet
     /// </summary>
-    public class HentEndringerSvar
+    public class HentEndringerSvar : HentSvar
     {
-        private readonly XmlNamespaceManager _namespaceManager;
-
-        public HentEndringerSvar(XmlDocument xmlDocument)
+        public HentEndringerSvar(XmlDocument xmlDocument) : base(xmlDocument)
         {
-            _namespaceManager = InitializeNamespaceManager(xmlDocument);
             ParseToClassMembers(xmlDocument);
         }
 
@@ -51,27 +47,18 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         /// </summary>
         public IEnumerable<Person> Personer { get; set; }
 
-        private XmlNamespaceManager InitializeNamespaceManager(XmlDocument xmlDocument)
-        {
-            var namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
-            namespaceManager.AddNamespace("env", Navnerom.env11);
-            namespaceManager.AddNamespace("ns", Navnerom.krr);
-            namespaceManager.AddNamespace("difi", Navnerom.difi);
-            return namespaceManager;
-        }
-
         private void ParseToClassMembers(XmlDocument xmlDocument)
         {
             try
             {
                 var responseElement =
-                    xmlDocument.SelectSingleNode("/env:Envelope/env:Body/ns:HentEndringerRespons", _namespaceManager) as XmlElement;
+                    xmlDocument.SelectSingleNode("/env:Envelope/env:Body/ns:HentEndringerRespons", XmlNamespaceManager) as XmlElement;
 
                 FraEndringsNummer = long.Parse(responseElement.Attributes["fraEndringsNummer"].Value);
                 TilEndringsNummer = long.Parse(responseElement.Attributes["tilEndringsNummer"].Value);
                 SenesteEndringsNummer = long.Parse(responseElement.Attributes["senesteEndringsNummer"].Value);
 
-                XmlNodeList xmlNoderPersoner = responseElement.SelectNodes("./difi:Person", _namespaceManager);
+                XmlNodeList xmlNoderPersoner = responseElement.SelectNodes("./difi:Person", XmlNamespaceManager);
 
                 Personer = from XmlElement item in xmlNoderPersoner select new Person(item);
             }
