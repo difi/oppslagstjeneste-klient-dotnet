@@ -45,7 +45,7 @@ namespace Difi.Oppslagstjeneste.Klient
             var envelope = new HentEndringerEnvelope(instillinger, fraEndringsNummer, informasjonsbehov);
             var validator = SendEnvelope(envelope);
             validator.Valider();
-            return HentEndringerSvar.FromDocument(validator.ResponseDocument);
+            return new HentEndringerSvar(validator.ResponseDocument);
         }
 
 
