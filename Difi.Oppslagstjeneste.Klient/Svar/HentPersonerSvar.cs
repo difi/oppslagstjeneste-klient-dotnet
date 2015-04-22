@@ -8,13 +8,10 @@ using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient.Svar
 {
-    public class HentPersonerSvar
+    public class HentPersonerSvar : HentSvar
     {
-        private XmlNamespaceManager _namespaceManager;
-
-        public HentPersonerSvar(XmlDocument xmlDocument)
+        public HentPersonerSvar(XmlDocument xmlDocument) : base(xmlDocument)
         {
-            _namespaceManager = InitializeNamespaceManager(xmlDocument);
             ParseToClassMembers(xmlDocument);
         }
 
@@ -23,7 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
             try
             {
                 var personElements = xmlDocument.SelectNodes(
-                    "/env:Envelope/env:Body/ns:HentPersonerRespons/difi:Person", _namespaceManager);
+                    "/env:Envelope/env:Body/ns:HentPersonerRespons/difi:Person", XmlNamespaceManager);
                 List<Person> result =
                     (from object item in personElements select new Person(item as XmlElement)).ToList();
 
@@ -34,17 +31,6 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
                 throw new XmlParseException("Klarte ikke å parse svar fra Oppslagstjenesten.", e);
             }
         }
-
-        private XmlNamespaceManager InitializeNamespaceManager(XmlDocument xmlDocument)
-        {
-            var namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
-            namespaceManager.AddNamespace("env", Navnerom.env11);
-            namespaceManager.AddNamespace("ns", Navnerom.krr);
-            namespaceManager.AddNamespace("difi", Navnerom.difi);
-            return namespaceManager;
-        }
-
-
 
         public IEnumerable<Person> Personer { get; set; }
     }
