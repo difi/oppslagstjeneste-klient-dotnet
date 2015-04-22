@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
+using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient
@@ -17,30 +19,6 @@ namespace Difi.Oppslagstjeneste.Klient
         {
             _namespaceManager = InitializeNamespaceManager(xmlDocument);
             ParseToClassMembers(xmlDocument);
-        }
-
-        private void ParseToClassMembers(XmlDocument xmlDocument)
-        {
-            var responseElement =
-                xmlDocument.SelectSingleNode("/env:Envelope/env:Body/ns:HentEndringerRespons", _namespaceManager) as XmlElement;
-
-            FraEndringsNummer = long.Parse(responseElement.Attributes["fraEndringsNummer"].Value);
-            TilEndringsNummer = long.Parse(responseElement.Attributes["tilEndringsNummer"].Value);
-            SenesteEndringsNummer = long.Parse(responseElement.Attributes["senesteEndringsNummer"].Value);
-
-            XmlNodeList xmlNoderPersoner = responseElement.SelectNodes("./difi:Person", _namespaceManager);
-            
-            Personer = from XmlElement item in xmlNoderPersoner select new Person(item);
-
-        }
-
-        private XmlNamespaceManager InitializeNamespaceManager(XmlDocument xmlDocument)
-        {
-            var namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
-            namespaceManager.AddNamespace("env", Navnerom.env11);
-            namespaceManager.AddNamespace("ns", Navnerom.krr);
-            namespaceManager.AddNamespace("difi", Navnerom.difi);
-            return namespaceManager;
         }
 
         /// <summary>
@@ -73,9 +51,34 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public IEnumerable<Person> Personer { get; set; }
 
-        public HentEndringerSvar()
+        private XmlNamespaceManager InitializeNamespaceManager(XmlDocument xmlDocument)
         {
-            this.Personer = new List<Person>();
+            var namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
+            namespaceManager.AddNamespace("env", Navnerom.env11);
+            namespaceManager.AddNamespace("ns", Navnerom.krr);
+            namespaceManager.AddNamespace("difi", Navnerom.difi);
+            return namespaceManager;
+        }
+
+        private void ParseToClassMembers(XmlDocument xmlDocument)
+        {
+            try
+            {
+                var responseElement =
+                    xmlDocument.SelectSingleNode("/env:Envelope/env:Body/ns:HentEndringerRespons", _namespaceManager) as XmlElement;
+
+                FraEndringsNummer = long.Parse(responseElement.Attributes["fraEndringsNummer"].Value);
+                TilEndringsNummer = long.Parse(responseElement.Attributes["tilEndringsNummer"].Value);
+                SenesteEndringsNummer = long.Parse(responseElement.Attributes["senesteEndringsNummer"].Value);
+
+                XmlNodeList xmlNoderPersoner = responseElement.SelectNodes("./difi:Person", _namespaceManager);
+
+                Personer = from XmlElement item in xmlNoderPersoner select new Person(item);
+            }
+            catch (Exception e)
+            {
+                throw new XmlParseException("Klarte ikke å parse svar fra Oppslagstjenesten.", e);
+            }
         }
     }
 }
