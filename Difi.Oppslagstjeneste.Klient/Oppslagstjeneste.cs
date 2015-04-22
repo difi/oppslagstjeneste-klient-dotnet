@@ -59,7 +59,7 @@ namespace Difi.Oppslagstjeneste.Klient
             var envelope = new HentPersonerEnvelope(instillinger, personidentifikator, informasjonsbehov);
             OppslagstjenesteValidator validator = SendEnvelope(envelope);
             validator.Valider();
-            return new HentPersonerSvar(validator.ResponseDocument).Personer();
+            return new HentPersonerSvar(validator.ResponseDocument).Personer;
         }
 
         /// <summary>
