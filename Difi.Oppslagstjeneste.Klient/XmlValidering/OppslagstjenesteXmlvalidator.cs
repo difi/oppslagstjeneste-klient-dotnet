@@ -12,9 +12,10 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
             schemaSet.Add(Navnerom.difi, XsdFromResource(XsdRessurs.OppslagstjenesteMetadata));
             schemaSet.Add(Navnerom.wsse, XsdFromResource(XsdRessurs.WssecuritySecext10));
             schemaSet.Add(Navnerom.wsu, XsdFromResource(XsdRessurs.WssecurityUtility10));
-            
+            schemaSet.Add(Navnerom.Ns2, XsdFromResource(XsdRessurs.SoapEnvelope));
+            schemaSet.Add(Navnerom.ds, XsdFromResource(XsdRessurs.XmlDsig));
+            schemaSet.Add(Navnerom.ec, XsdFromResource(XsdRessurs.XmlExcC14));
             return schemaSet;
-
         }
     }
 }

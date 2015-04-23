@@ -84,10 +84,19 @@
     <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-metadata-14-05.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidering\Xsd\oasis-200401-wss-wssecurity-secext-1.0.xsd">
+    <EmbeddedResource Include="XmlValidering\Xsd\wssecurity\oasis-200401-wss-wssecurity-secext-1.0.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidering\Xsd\oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <EmbeddedResource Include="XmlValidering\Xsd\wssecurity\oasis-200401-wss-wssecurity-utility-1.0.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XmlValidering\Xsd\soap\soap.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XmlValidering\Xsd\w3\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XmlValidering\Xsd\w3\exc-c14n.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">

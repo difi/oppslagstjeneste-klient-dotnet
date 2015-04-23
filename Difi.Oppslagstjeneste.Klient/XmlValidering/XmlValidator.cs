@@ -13,6 +13,9 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
         private bool _harWarnings;
         private bool _harErrors;
 
+        private const string ErrorToleratedPrefix = "The 'PrefixList' attribute is invalid - The value '' is invalid according to its datatype 'http://www.w3.org/2001/XMLSchema:NMTOKENS' - The attribute value cannot be empty.";
+
+
         private const string WarningMessage = "\tWarning: Matching schema not found. No validation occurred.";
         private const string ErrorMessage = "\tValidation error:";
 
@@ -45,30 +48,14 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
                     break;
                 case XmlSeverityType.Error:
                     ValideringsVarsler += String.Format("{0} {1}\n", ErrorMessage, e.Message);
-                    //if (!e.Message.Equals(ToleratedError) && !e.Message.Equals(ErrorToleratedPrefix))
+                    if (!e.Message.Equals(ErrorToleratedPrefix))
                         _harErrors = true;
-                    //else
-                    //    ValideringsVarsler +=
-                    //        "Feilen over er ikke noe vi håndterer, og er heller ikke årsaken til at validering feilet\n";
+                    else
+                        ValideringsVarsler +=
+                            "Feilen over er ikke noe vi håndterer, og er heller ikke årsaken til at validering feilet\n";
                     break;
             }
         }
-
-        public enum XsdRessurs
-        {
-            OppslagstjenesteDefinisjon,
-            OppslagstjenesteMetadata,
-            WssecuritySecext10,
-            WssecurityUtility10
-        }
-
-        private readonly Dictionary<XsdRessurs, string> _xsdRessurserDictionary = new Dictionary<XsdRessurs, string>
-        {
-           {XsdRessurs.OppslagstjenesteDefinisjon, "oppslagstjeneste-ws-14-05.xsd" },
-           {XsdRessurs.OppslagstjenesteMetadata, "oppslagstjeneste-metadata-14-05.xsd"},
-           {XsdRessurs.WssecuritySecext10, "oasis-200401-wss-wssecurity-secext-1.0.xsd"},
-           {XsdRessurs.WssecurityUtility10, "oasis-200401-wss-wssecurity-utility-1.0.xsd"}
-        };  
 
         protected XmlReader XsdFromResource(XsdRessurs xsdRessurs)
         {
@@ -82,5 +69,26 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
             return XmlReader.Create(s);
         }
 
+        public enum XsdRessurs
+        {
+            OppslagstjenesteDefinisjon,
+            OppslagstjenesteMetadata,
+            WssecuritySecext10,
+            WssecurityUtility10,
+            SoapEnvelope,
+            XmlDsig,
+            XmlExcC14
+        }
+
+        private readonly Dictionary<XsdRessurs, string> _xsdRessurserDictionary = new Dictionary<XsdRessurs, string>
+        {
+            {XsdRessurs.OppslagstjenesteDefinisjon, "oppslagstjeneste-ws-14-05.xsd" },
+            {XsdRessurs.OppslagstjenesteMetadata, "oppslagstjeneste-metadata-14-05.xsd"},
+            {XsdRessurs.WssecuritySecext10, "wssecurity.oasis-200401-wss-wssecurity-secext-1.0.xsd"},
+            {XsdRessurs.WssecurityUtility10, "wssecurity.oasis-200401-wss-wssecurity-utility-1.0.xsd"},
+            {XsdRessurs.SoapEnvelope, "soap.soap.xsd"},
+            {XsdRessurs.XmlDsig, "w3.xmldsig-core-schema.xsd"},
+            {XsdRessurs.XmlExcC14, "w3.exc-c14n.xsd"}
+        };
     }
 }

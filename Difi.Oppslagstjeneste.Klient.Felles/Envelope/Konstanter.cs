@@ -52,5 +52,15 @@
         /// </summary>
         public const string xenc = "http://www.w3.org/2001/04/xmlenc#";
 
+        /// <summary>
+        /// http://schemas.xmlsoap.org/soap/envelope/
+        /// </summary>
+        public const string Ns2 = "http://schemas.xmlsoap.org/soap/envelope/";
+
+        /// <summary>
+        /// http://www.w3.org/2001/10/xml-exc-c14n#
+        /// </summary>
+        public const string ec = "http://www.w3.org/2001/10/xml-exc-c14n#";
+
     }
 }
