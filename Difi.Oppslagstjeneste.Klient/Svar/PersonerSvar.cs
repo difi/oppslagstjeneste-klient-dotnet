@@ -12,14 +12,15 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
     {
         public PersonerSvar(XmlDocument xmlDocument) : base(xmlDocument)
         {
-            ParseToClassMembers(xmlDocument);
         }
 
-        private void ParseToClassMembers(XmlDocument xmlDocument)
+        public IEnumerable<Person> Personer { get; set; }
+
+        protected override void ParseToClassMembers()
         {
             try
             {
-                var personElements = xmlDocument.SelectNodes(
+                var personElements = XmlDocument.SelectNodes(
                     "/env:Envelope/env:Body/ns:HentPersonerRespons/difi:Person", XmlNamespaceManager);
                 List<Person> result =
                     (from object item in personElements select new Person(item as XmlElement)).ToList();
@@ -31,7 +32,5 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
                 throw new XmlParseException("Klarte ikke å parse svar fra Oppslagstjenesten.", e);
             }
         }
-
-        public IEnumerable<Person> Personer { get; set; }
     }
 }

@@ -14,7 +14,6 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
     {
         public EndringerSvar(XmlDocument xmlDocument) : base(xmlDocument)
         {
-            ParseToClassMembers(xmlDocument);
         }
 
         /// <summary>
@@ -47,12 +46,12 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         /// </summary>
         public IEnumerable<Person> Personer { get; set; }
 
-        private void ParseToClassMembers(XmlDocument xmlDocument)
+        protected override void ParseToClassMembers()
         {
             try
             {
                 var responseElement =
-                    xmlDocument.SelectSingleNode("/env:Envelope/env:Body/ns:HentEndringerRespons", XmlNamespaceManager) as XmlElement;
+                    XmlDocument.SelectSingleNode("/env:Envelope/env:Body/ns:HentEndringerRespons", XmlNamespaceManager) as XmlElement;
 
                 FraEndringsNummer = long.Parse(responseElement.Attributes["fraEndringsNummer"].Value);
                 TilEndringsNummer = long.Parse(responseElement.Attributes["tilEndringsNummer"].Value);

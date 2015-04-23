@@ -14,7 +14,6 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
     {
         public PrintSertifikatSvar(XmlDocument xmlDocument) : base(xmlDocument)
         {
-            ParseToClassMembers(xmlDocument);
         }
         
         /// <summary>
@@ -28,11 +27,11 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         /// </summary>
         public string PostkasseleverandørAdresse { get; set; }
 
-        private void ParseToClassMembers(XmlDocument xmlDocument)
+        protected override void ParseToClassMembers()
         {
             try
             {
-                var personElements = xmlDocument.SelectSingleNode(
+                var personElements = XmlDocument.SelectSingleNode(
                     "/env:Envelope/env:Body/ns:HentPrintSertifikatRespons", XmlNamespaceManager);
 
                 PostkasseleverandørAdresse =
