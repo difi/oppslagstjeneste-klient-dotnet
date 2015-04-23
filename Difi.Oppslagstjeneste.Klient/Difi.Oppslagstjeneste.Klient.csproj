@@ -59,9 +59,9 @@
     <Compile Include="Envelope\OppslagstjenesteEnvelope.cs" />
     <Compile Include="Envelope\OppslagstjenesteInstillinger.cs" />
     <Compile Include="Envelope\OppslagstjenesteValidator.cs" />
-    <Compile Include="Svar\HentEndringerSvar.cs" />
-    <Compile Include="Svar\HentPersonerSvar.cs" />
-    <Compile Include="Svar\HentPrintSertifikatSvar.cs" />
+    <Compile Include="Svar\EndringerSvar.cs" />
+    <Compile Include="Svar\PersonerSvar.cs" />
+    <Compile Include="Svar\PrintSertifikatSvar.cs" />
     <Compile Include="Informasjonsbehov.cs" />
     <Compile Include="OppslagstjenesteKonfigurasjon.cs" />
     <Compile Include="OppslagstjenesteLogger.cs" />
@@ -70,7 +70,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Svar\HentSvar.cs" />
+    <Compile Include="Svar\Svar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
