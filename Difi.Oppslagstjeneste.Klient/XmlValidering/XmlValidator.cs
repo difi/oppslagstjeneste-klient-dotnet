@@ -14,10 +14,23 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
         private bool _harErrors;
 
         private const string ErrorToleratedPrefix = "The 'PrefixList' attribute is invalid - The value '' is invalid according to its datatype 'http://www.w3.org/2001/XMLSchema:NMTOKENS' - The attribute value cannot be empty.";
-
-
         private const string WarningMessage = "\tWarning: Matching schema not found. No validation occurred.";
         private const string ErrorMessage = "\tValidation error:";
+
+        private readonly string _rotressurssti;
+        private readonly Dictionary<XsdRessurs, string> _xsdRessurserDictionary = new Dictionary<XsdRessurs, string>();
+
+
+        /// <summary>
+        /// Rotsti til hvor ressursene ligger i prosjektet. Dette er en sti hvor stiseparator er punktum (.).
+        /// Hvis alle XSD-filer liggger i mappe Mitt.Prosjektnavn/Xsd/Minxsd.xsd, så blir ressurssti 
+        /// Mitt.Prosjektnavn.Xsd
+        /// </summary>
+        /// <param name="rotressurssti"></param>
+        protected XmlValidator(string rotressurssti)
+        {
+            _rotressurssti = rotressurssti;
+        }
 
         public string ValideringsVarsler { get; private set; }
 
@@ -62,13 +75,6 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
             return XsdResource(_xsdRessurserDictionary[xsdRessurs]);
         }
 
-        private XmlReader XsdResource(string resource)
-        {
-            ResourceUtility resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.XmlValidering.Xsd");
-            Stream s = new MemoryStream(resourceUtility.ReadAllBytes(true, resource));
-            return XmlReader.Create(s);
-        }
-
         public enum XsdRessurs
         {
             OppslagstjenesteDefinisjon,
@@ -80,15 +86,21 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
             XmlExcC14
         }
 
-        private readonly Dictionary<XsdRessurs, string> _xsdRessurserDictionary = new Dictionary<XsdRessurs, string>
+        /// <summary>
+        /// Legg til en referanse til en XSD-fil.
+        /// </summary>
+        /// <param name="ressurs"></param>
+        /// <param name="ressursSti">Dottede stien til en ressurs relativt til rotressurssti som klassen ble initialisert med. </param>
+        protected void LeggTilRessurs(XsdRessurs ressurs, string ressursSti)
         {
-            {XsdRessurs.OppslagstjenesteDefinisjon, "oppslagstjeneste-ws-14-05.xsd" },
-            {XsdRessurs.OppslagstjenesteMetadata, "oppslagstjeneste-metadata-14-05.xsd"},
-            {XsdRessurs.WssecuritySecext10, "wssecurity.oasis-200401-wss-wssecurity-secext-1.0.xsd"},
-            {XsdRessurs.WssecurityUtility10, "wssecurity.oasis-200401-wss-wssecurity-utility-1.0.xsd"},
-            {XsdRessurs.SoapEnvelope, "soap.soap.xsd"},
-            {XsdRessurs.XmlDsig, "w3.xmldsig-core-schema.xsd"},
-            {XsdRessurs.XmlExcC14, "w3.exc-c14n.xsd"}
-        };
+            _xsdRessurserDictionary.Add(ressurs, ressursSti);
+        }
+        
+        private XmlReader XsdResource(string resource)
+        {
+            ResourceUtility resourceUtility = new ResourceUtility(_rotressurssti);
+            Stream s = new MemoryStream(resourceUtility.ReadAllBytes(true, resource));
+            return XmlReader.Create(s);
+        }
     }
 }
