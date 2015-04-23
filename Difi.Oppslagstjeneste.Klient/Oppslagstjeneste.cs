@@ -5,9 +5,11 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
+using Difi.Oppslagstjeneste.Klient.XmlValidering;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
@@ -87,6 +89,13 @@ namespace Difi.Oppslagstjeneste.Klient
 
             var xml = envelope.ToXml();
             var bytes = Encoding.UTF8.GetBytes(xml.OuterXml);
+
+            var xmlValidator = new OppslagstjenesteXmlvalidator();
+            var xmlValidert = xmlValidator.ValiderDokumentMotXsd(xml.OuterXml);
+            if (!xmlValidert)
+            {
+                throw new XmlException(xmlValidator.ValideringsVarsler);
+            }
 
             Logging.Log(TraceEventType.Verbose, xml.OuterXml);
 

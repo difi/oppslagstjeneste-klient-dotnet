@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-	<TeamCityBuild>false</TeamCityBuild>
+    <TeamCityBuild>false</TeamCityBuild>
     <ProjectGuid>{13B840F4-199B-4482-B4A8-CB71AC1B0C99}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -13,8 +13,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-	<PropertyGroup Condition=" '$(TEAMCITY_BUILD_PROPERTIES_FILE)' != ''">
-	<TeamCityBuild>true</TeamCityBuild>
+  <PropertyGroup Condition=" '$(TEAMCITY_BUILD_PROPERTIES_FILE)' != ''">
+    <TeamCityBuild>true</TeamCityBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +43,9 @@
     <AssemblyOriginatorKeyFile>..\difi-oppslagstjeneste.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApiClientShared">
+      <HintPath>..\packages\api-client-shared.1.0.5578.25965\lib\net45\ApiClientShared.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Security" />
@@ -70,8 +73,23 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlValidering\OppslagstjenesteXmlvalidator.cs" />
+    <Compile Include="XmlValidering\XmlValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-ws-14-05.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-metadata-14-05.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XmlValidering\Xsd\oasis-200401-wss-wssecurity-secext-1.0.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XmlValidering\Xsd\oasis-200401-wss-wssecurity-utility-1.0.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
       <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
@@ -84,6 +102,7 @@
       <Link>difi-oppslagstjeneste.pfx</Link>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -92,10 +111,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-	<Target Name="TeamCity" AfterTargets="Build" Condition=" '$(TeamCityBuild)'=='true'">
-		<GetAssemblyIdentity AssemblyFiles="bin\$(ConfigurationName)\$(TargetFileName)">
-			<Output TaskParameter="Assemblies" ItemName="AssemblyIdentity" />
-		</GetAssemblyIdentity>
-		<Message Text="##teamcity[buildNumber '%(AssemblyIdentity.Version)']" />
-	</Target>
+  <Target Name="TeamCity" AfterTargets="Build" Condition=" '$(TeamCityBuild)'=='true'">
+    <GetAssemblyIdentity AssemblyFiles="bin\$(ConfigurationName)\$(TargetFileName)">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyIdentity" />
+    </GetAssemblyIdentity>
+    <Message Text="##teamcity[buildNumber '%(AssemblyIdentity.Version)']" />
+  </Target>
 </Project>
