@@ -11,7 +11,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         public HentEndringerEnvelope(OppslagstjenesteInstillinger instillinger, long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
             : base(instillinger)
-        {
+        {   
             _fraEndringsNummer = fraEndringsNummer;
             _informasjonsbehov = informasjonsbehov;
         }

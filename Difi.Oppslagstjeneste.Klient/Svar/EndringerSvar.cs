@@ -1,15 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
-using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
+using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 
-namespace Difi.Oppslagstjeneste.Klient
+namespace Difi.Oppslagstjeneste.Klient.Svar
 {
     /// <summary>
     /// Response sendt fra Oppslagstjensten for å levere ut endringer fra kontakt og reservasjonsregisteret til Virksomhet
     /// </summary>
-    public class HentEndringerSvar
+    public class EndringerSvar : Svar
     {
+        public EndringerSvar(XmlDocument xmlDocument) : base(xmlDocument)
+        {
+        }
+
         /// <summary>
         /// Et endringsNummer, et nummer som identifiserer en endring i et register.
         /// </summary>
@@ -38,38 +44,27 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <summary>
         /// Person er en Innbygger utlevert fra kontakt og reservasjonsregisteret.
         /// </summary>
-        public IEnumerable<Person> Person { get; set; }
+        public IEnumerable<Person> Personer { get; set; }
 
-        public HentEndringerSvar()
+        protected override void ParseToClassMembers()
         {
-            this.Person = new List<Person>();
-        }
-
-        public static HentEndringerSvar FromDocument(XmlDocument xmlDocument)
-        {
-            var nsmgr = new XmlNamespaceManager(xmlDocument.NameTable);
-            nsmgr.AddNamespace("env", Navnerom.env11);
-            nsmgr.AddNamespace("ns", Navnerom.krr);
-            nsmgr.AddNamespace("difi", Navnerom.difi);
-            
-            var responseElement = xmlDocument.SelectSingleNode("/env:Envelope/env:Body/ns:HentEndringerRespons", nsmgr) as XmlElement;
-
-            var response = new HentEndringerSvar
+            try
             {
-                FraEndringsNummer = long.Parse(responseElement.Attributes["fraEndringsNummer"].Value),
-                TilEndringsNummer = long.Parse(responseElement.Attributes["tilEndringsNummer"].Value),
-                SenesteEndringsNummer = long.Parse(responseElement.Attributes["senesteEndringsNummer"].Value)
-            };
+                var responseElement =
+                    XmlDocument.SelectSingleNode("/env:Envelope/env:Body/ns:HentEndringerRespons", XmlNamespaceManager) as XmlElement;
 
-            var personer = responseElement.SelectNodes("./difi:Person", nsmgr);
+                FraEndringsNummer = long.Parse(responseElement.Attributes["fraEndringsNummer"].Value);
+                TilEndringsNummer = long.Parse(responseElement.Attributes["tilEndringsNummer"].Value);
+                SenesteEndringsNummer = long.Parse(responseElement.Attributes["senesteEndringsNummer"].Value);
 
-            var collection = response.Person as List<Person>;
-            foreach (XmlElement item in personer)
-            {
-                collection.Add(new Person(item));
+                XmlNodeList xmlNoderPersoner = responseElement.SelectNodes("./difi:Person", XmlNamespaceManager);
+
+                Personer = from XmlElement item in xmlNoderPersoner select new Person(item);
             }
-
-            return response;
+            catch (Exception e)
+            {
+                throw new XmlParseException("Klarte ikke å parse svar fra Oppslagstjenesten.", e);
+            }
         }
     }
 }

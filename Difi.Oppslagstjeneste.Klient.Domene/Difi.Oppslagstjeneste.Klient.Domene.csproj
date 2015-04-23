@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="EndringsInfo.cs" />
     <Compile Include="Epostadresse.cs" />
+    <Compile Include="Exceptions\OppslagstjenesteException.cs" />
+    <Compile Include="Exceptions\XmlParseException.cs" />
     <Compile Include="Kontaktinformasjon.cs" />
     <Compile Include="Mobiltelefonnummer.cs" />
     <Compile Include="Person.cs" />
@@ -71,6 +73,7 @@
       <Link>Properties\difi-oppslagstjeneste.pfx</Link>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
