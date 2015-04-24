@@ -34,13 +34,13 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
 
             nsmgr = new XmlNamespaceManager(ResponseDocument.NameTable);
             if (version == SoapVersion.Soap11)
-                nsmgr.AddNamespace("env", Navnerom.env11);
+                nsmgr.AddNamespace("env", Navnerom.SoapEnvelope);
             else
-                nsmgr.AddNamespace("env", Navnerom.env12);
+                nsmgr.AddNamespace("env", Navnerom.SoapEnvelopeEnv12);
             nsmgr.AddNamespace("wsse", Navnerom.WssecuritySecext10);
             nsmgr.AddNamespace("ds", Navnerom.XmlDsig);            
             nsmgr.AddNamespace("xenc", Navnerom.xenc); 
-            nsmgr.AddNamespace("wsse11", Navnerom.wsse11);
+            nsmgr.AddNamespace("wsse11", Navnerom.WssecuritySecext11);
             nsmgr.AddNamespace("wsu", Navnerom.WssecurityUtility10);
 
             HeaderSecurityElement = ResponseDocument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security", nsmgr) as XmlElement;

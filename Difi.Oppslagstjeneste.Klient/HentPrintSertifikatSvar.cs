@@ -10,7 +10,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public HentPrintSertifikatSvar(XmlDocument xmlDocument)
         {
             var nsmgr = new XmlNamespaceManager(xmlDocument.NameTable);
-            nsmgr.AddNamespace("env", Navnerom.env11);
+            nsmgr.AddNamespace("env", Navnerom.SoapEnvelope);
             nsmgr.AddNamespace("ns", Navnerom.OppslagstjenesteDefinisjon);
             nsmgr.AddNamespace("difi", Navnerom.OppslagstjenesteMetadata);
 

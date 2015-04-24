@@ -17,7 +17,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public IEnumerable<Person> Personer()
         {
             var nsmgr = new XmlNamespaceManager(document.NameTable);
-            nsmgr.AddNamespace("env", Navnerom.env11);
+            nsmgr.AddNamespace("env", Navnerom.SoapEnvelope);
             nsmgr.AddNamespace("ns", Navnerom.OppslagstjenesteDefinisjon);
             nsmgr.AddNamespace("difi", Navnerom.OppslagstjenesteMetadata); 
             

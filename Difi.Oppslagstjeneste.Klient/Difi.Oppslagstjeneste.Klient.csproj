@@ -68,7 +68,7 @@
     <Compile Include="Informasjonsbehov.cs" />
     <Compile Include="OppslagstjenesteKonfigurasjon.cs" />
     <Compile Include="OppslagstjenesteLogger.cs" />
-    <Compile Include="Oppslagstjeneste.cs" />
+    <Compile Include="OppslagstjenesteKlient.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>

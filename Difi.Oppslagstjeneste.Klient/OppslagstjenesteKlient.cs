@@ -16,7 +16,7 @@ namespace Difi.Oppslagstjeneste.Klient
     /// <summary>
     /// Kontakt- og reservasjonsregisteret er et register over innbyggerens kontaktinformasjon og reservasjon, og er en fellesløsning som alle offentlige virksomheter skal bruke i sin tjenesteutvikling. Registeret gir tilgang til innbyggerens digitale kontaktinformasjon.
     /// </summary>
-    public class Oppslagstjeneste
+    public class OppslagstjenesteKlient
     {
         OppslagstjenesteInstillinger instillinger;
         OppslagstjenesteKonfigurasjon konfigurasjon;
@@ -26,7 +26,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         /// <param name="sertifikat">Brukes for å signere forespørselen mot oppslagstjenesten.</param>
         /// <param name="valideringsSertifikat">Brukes for å validere svar fra oppslagstjenesten.</param>
-        public Oppslagstjeneste(X509Certificate2 sertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
+        public OppslagstjenesteKlient(X509Certificate2 sertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
         {
             instillinger = new OppslagstjenesteInstillinger
             {

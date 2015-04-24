@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Resources;
 using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 
@@ -14,7 +13,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             {
                 ServiceUri = new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v4")
             };
-
+            
             Logging.Initialize(konfig);
             Logging.Log(TraceEventType.Information, "> Starter program!");
 
@@ -27,7 +26,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             var certBytes = rr.ReadAllBytes(true, "cert.idporten-ver2.difi.no-v2.crt");
             var valideringsSertifikat = new X509Certificate2(certBytes);
             
-            Oppslagstjeneste register = new Oppslagstjeneste(avsenderSertifikat, valideringsSertifikat, konfig);
+            OppslagstjenesteKlient register = new OppslagstjenesteKlient(avsenderSertifikat, valideringsSertifikat, konfig);
 
             var endringer = register.HentEndringer(886730, Informasjonsbehov.Kontaktinfo | Informasjonsbehov.Sertifikat | Informasjonsbehov.SikkerDigitalPost | Informasjonsbehov.Person);
             var personer = register.HentPersoner(new string[] { "08077000292" }, Informasjonsbehov.Sertifikat | Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost);
