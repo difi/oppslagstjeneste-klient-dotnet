@@ -12,7 +12,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         protected override System.Xml.XmlElement CreateBody()
         {
             var body = base.CreateBody();
-            var element = Document.CreateElement("ns", "HentPrintSertifikatForespoersel", Navnerom.krr);
+            var element = Document.CreateElement("ns", "HentPrintSertifikatForespoersel", Navnerom.OppslagstjenesteDefinisjon);
             body.AppendChild(element);
             return body;
         }

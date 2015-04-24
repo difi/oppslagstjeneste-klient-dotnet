@@ -33,7 +33,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             var body = base.CreateBody();
 
             // Legger til Id på body node for å kunne identifisere body element fra header-signaturen.
-            var idAttribute = Document.CreateAttribute("wsu", "Id", Navnerom.wsu);
+            var idAttribute = Document.CreateAttribute("wsu", "Id", Navnerom.WssecurityUtility10);
             idAttribute.Value = Settings.BodyId;
             body.SetAttributeNode(idAttribute);
 

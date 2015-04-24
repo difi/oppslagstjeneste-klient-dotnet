@@ -11,8 +11,8 @@ namespace Difi.Oppslagstjeneste.Klient
         {
             var nsmgr = new XmlNamespaceManager(xmlDocument.NameTable);
             nsmgr.AddNamespace("env", Navnerom.env11);
-            nsmgr.AddNamespace("ns", Navnerom.krr);
-            nsmgr.AddNamespace("difi", Navnerom.difi);
+            nsmgr.AddNamespace("ns", Navnerom.OppslagstjenesteDefinisjon);
+            nsmgr.AddNamespace("difi", Navnerom.OppslagstjenesteMetadata);
 
             var personElements = xmlDocument.SelectSingleNode("/env:Envelope/env:Body/ns:HentPrintSertifikatRespons", nsmgr);
 

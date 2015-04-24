@@ -30,8 +30,8 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
 
         public Sikkerdigitalpostadresse(XmlElement element)
         {
-            this.Postkasseadresse = element["postkasseadresse", Navnerom.difi].InnerText;
-            this.PostkasseleverandoerAdresse = element["postkasseleverandoerAdresse", Navnerom.difi].InnerText;
+            this.Postkasseadresse = element["postkasseadresse", Navnerom.OppslagstjenesteMetadata].InnerText;
+            this.PostkasseleverandoerAdresse = element["postkasseleverandoerAdresse", Navnerom.OppslagstjenesteMetadata].InnerText;
         }
     }
 }

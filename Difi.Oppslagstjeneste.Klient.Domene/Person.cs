@@ -54,9 +54,9 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
 
         public Person(System.Xml.XmlElement item)
         {
-            this.Personidentifikator = item["personidentifikator", Navnerom.difi].InnerText;
+            this.Personidentifikator = item["personidentifikator", Navnerom.OppslagstjenesteMetadata].InnerText;
 
-            var reservasjon = item["reservasjon", Navnerom.difi];
+            var reservasjon = item["reservasjon", Navnerom.OppslagstjenesteMetadata];
             if (reservasjon != null)
             {
                 if (reservasjon.InnerText == "NEI")
@@ -65,19 +65,19 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
                     this.Reservasjon = true;
             }
 
-            var status = item["status", Navnerom.difi];
+            var status = item["status", Navnerom.OppslagstjenesteMetadata];
             if (status != null)
                 this.Status = (Tilstand)Enum.Parse(typeof(Tilstand), status.InnerText);
 
-            var kontaktinformasjon = item["Kontaktinformasjon", Navnerom.difi];
+            var kontaktinformasjon = item["Kontaktinformasjon", Navnerom.OppslagstjenesteMetadata];
             if (kontaktinformasjon != null)
                 this.Kontaktinformasjon = new Kontaktinformasjon(kontaktinformasjon);
 
-            var sikkerDigitalPostAdresse = item["SikkerDigitalPostAdresse", Navnerom.difi];
+            var sikkerDigitalPostAdresse = item["SikkerDigitalPostAdresse", Navnerom.OppslagstjenesteMetadata];
             if (sikkerDigitalPostAdresse != null)
                 this.Sikkerdigitalpostadresse = new Sikkerdigitalpostadresse(sikkerDigitalPostAdresse);
 
-            var X509Certificate = item["X509Sertifikat", Navnerom.difi];
+            var X509Certificate = item["X509Sertifikat", Navnerom.OppslagstjenesteMetadata];
             if (X509Certificate != null)
             {
                 X509sertifikat = new X509Certificate2(System.Convert.FromBase64String(X509Certificate.InnerText));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
@@ -18,8 +19,8 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
         private const string ErrorMessage = "\tValidation error:";
 
         private readonly string _rotressurssti;
-        private readonly Dictionary<XsdRessurs, string> _xsdRessurserDictionary = new Dictionary<XsdRessurs, string>();
-
+        private readonly Dictionary<string, string> _ressurserEtterNavnerom = new Dictionary<string, string>();
+        
 
         /// <summary>
         /// Rotsti til hvor ressursene ligger i prosjektet. Dette er en sti hvor stiseparator er punktum (.).
@@ -34,7 +35,20 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
 
         public string ValideringsVarsler { get; private set; }
 
-        protected abstract XmlSchemaSet GenererSchemaSet();
+        private XmlSchemaSet GenererSchemaSet()
+        {
+            if (_ressurserEtterNavnerom.Count == 0)
+            {
+                throw new IndexOutOfRangeException("Ingen xsdressurser funnet. Legg til ved å bruke LeggTilRessurs()");
+            }
+
+            var schemaSet = new XmlSchemaSet();
+            foreach (KeyValuePair<string,string> par in _ressurserEtterNavnerom )
+            {
+                schemaSet.Add(par.Key, XsdResource(par.Value));
+            }
+            return schemaSet;
+        }
 
         public bool ValiderDokumentMotXsd(string document)
         {
@@ -70,32 +84,16 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
             }
         }
 
-        protected XmlReader XsdFromResource(XsdRessurs xsdRessurs)
-        {
-            return XsdResource(_xsdRessurserDictionary[xsdRessurs]);
-        }
-
-        public enum XsdRessurs
-        {
-            OppslagstjenesteDefinisjon,
-            OppslagstjenesteMetadata,
-            WssecuritySecext10,
-            WssecurityUtility10,
-            SoapEnvelope,
-            XmlDsig,
-            XmlExcC14
-        }
-
-        /// <summary>
+       /// <summary>
         /// Legg til en referanse til en XSD-fil.
         /// </summary>
-        /// <param name="ressurs"></param>
-        /// <param name="ressursSti">Dottede stien til en ressurs relativt til rotressurssti som klassen ble initialisert med. </param>
-        protected void LeggTilRessurs(XsdRessurs ressurs, string ressursSti)
+        /// <param name="navnerom">Navnerom på xmlfil som lastes inn.</param>
+        /// <param name="dottstiTilRessurs">Dottede stien til en ressurs relativt til rotressurssti som klassen ble initialisert med. </param>
+        protected void LeggTilRessurs(string navnerom, string dottstiTilRessurs)
         {
-            _xsdRessurserDictionary.Add(ressurs, ressursSti);
+            _ressurserEtterNavnerom.Add(navnerom,dottstiTilRessurs);
         }
-        
+
         private XmlReader XsdResource(string resource)
         {
             ResourceUtility resourceUtility = new ResourceUtility(_rotressurssti);
