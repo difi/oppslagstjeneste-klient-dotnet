@@ -17,8 +17,8 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
 
         public override XmlNode Xml()
         {
-            var securityElement = Context.CreateElement("wsse", "Security", Navnerom.wsse);
-            securityElement.SetAttribute("xmlns:wsu", Navnerom.wsu);
+            var securityElement = Context.CreateElement("wsse", "Security", Navnerom.WssecuritySecext10);
+            securityElement.SetAttribute("xmlns:wsu", Navnerom.WssecurityUtility10);
 
             // BinarySecurityTokenElement
 
@@ -43,14 +43,14 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
 
         private XmlElement TimestampElement()
         {
-            XmlElement timestamp = Context.CreateElement("wsu", "Timestamp", Navnerom.wsu);
+            XmlElement timestamp = Context.CreateElement("wsu", "Timestamp", Navnerom.WssecurityUtility10);
             {
                 var utcNow = DateTime.UtcNow;
-                timestamp.AppendChildElement("Created", "wsu", Navnerom.wsu, utcNow.ToString(DateUtility.DateFormat));
-                timestamp.AppendChildElement("Expires", "wsu", Navnerom.wsu, utcNow.Add(_timespan.Value).ToString(DateUtility.DateFormat));
+                timestamp.AppendChildElement("Created", "wsu", Navnerom.WssecurityUtility10, utcNow.ToString(DateUtility.DateFormat));
+                timestamp.AppendChildElement("Expires", "wsu", Navnerom.WssecurityUtility10, utcNow.Add(_timespan.Value).ToString(DateUtility.DateFormat));
             }
 
-            timestamp.SetAttribute("Id", Navnerom.wsu, Settings.TimestampId);
+            timestamp.SetAttribute("Id", Navnerom.WssecurityUtility10, Settings.TimestampId);
             return timestamp;
         }
     }

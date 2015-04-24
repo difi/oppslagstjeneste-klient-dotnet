@@ -20,11 +20,11 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
 
         public Kontaktinformasjon(XmlElement element)
         {            
-            var epost = element["Epostadresse", Navnerom.difi];
+            var epost = element["Epostadresse", Navnerom.OppslagstjenesteMetadata];
             if (epost != null)
                 this.Epostadresse = new Epostadresse(epost);
 
-            var mobiltelefonnummer = element["Mobiltelefonnummer", Navnerom.difi];
+            var mobiltelefonnummer = element["Mobiltelefonnummer", Navnerom.OppslagstjenesteMetadata];
             if (mobiltelefonnummer != null)
                 this.Mobiltelefonnummer = new Mobiltelefonnummer(mobiltelefonnummer);
         }

@@ -20,13 +20,13 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
             var body = base.CreateBody();
 
-            var element = Document.CreateElement("ns", "HentPersonerForespoersel", Navnerom.krr);
+            var element = Document.CreateElement("ns", "HentPersonerForespoersel", Navnerom.OppslagstjenesteDefinisjon);
 
             foreach (Informasjonsbehov info in Enum.GetValues(typeof(Informasjonsbehov)))
             {
                 if (_informasjonsbehov.HasFlag(info))
                 {
-                    var node = Document.CreateElement("ns", "informasjonsbehov", Navnerom.krr);
+                    var node = Document.CreateElement("ns", "informasjonsbehov", Navnerom.OppslagstjenesteDefinisjon);
                     node.InnerText = info.ToString();
                     element.AppendChild(node);
                 }
@@ -34,7 +34,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             foreach (var item in personidentifikator)
             {
-                var node = Document.CreateElement("ns", "personidentifikator", Navnerom.krr);
+                var node = Document.CreateElement("ns", "personidentifikator", Navnerom.OppslagstjenesteDefinisjon);
                 node.InnerText = item;
                 element.AppendChild(node);                
             }

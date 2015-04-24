@@ -5,17 +5,19 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
+using Difi.Oppslagstjeneste.Klient.XmlValidering;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
     /// <summary>
     /// Kontakt- og reservasjonsregisteret er et register over innbyggerens kontaktinformasjon og reservasjon, og er en fellesløsning som alle offentlige virksomheter skal bruke i sin tjenesteutvikling. Registeret gir tilgang til innbyggerens digitale kontaktinformasjon.
     /// </summary>
-    public class Oppslagstjeneste
+    public class OppslagstjenesteKlient
     {
         OppslagstjenesteInstillinger instillinger;
         OppslagstjenesteKonfigurasjon konfigurasjon;
@@ -25,7 +27,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         /// <param name="sertifikat">Brukes for å signere forespørselen mot oppslagstjenesten.</param>
         /// <param name="valideringsSertifikat">Brukes for å validere svar fra oppslagstjenesten.</param>
-        public Oppslagstjeneste(X509Certificate2 sertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
+        public OppslagstjenesteKlient(X509Certificate2 sertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
         {
             instillinger = new OppslagstjenesteInstillinger
             {
@@ -88,6 +90,13 @@ namespace Difi.Oppslagstjeneste.Klient
 
             var xml = envelope.ToXml();
             var bytes = Encoding.UTF8.GetBytes(xml.OuterXml);
+
+            var xmlValidator = new OppslagstjenesteXmlvalidator("Difi.Oppslagstjeneste.Klient.XmlValidering.Xsd");
+            var xmlValidert = xmlValidator.ValiderDokumentMotXsd(xml.OuterXml);
+            if (!xmlValidert)
+            {
+                throw new XmlException(xmlValidator.ValideringsVarsler);
+            }
 
             Logging.Log(TraceEventType.Verbose, xml.OuterXml);
 

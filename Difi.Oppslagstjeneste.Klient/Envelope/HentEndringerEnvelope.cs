@@ -21,7 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             var body = base.CreateBody();
 
             // HentEndringerForespoersel
-            var hentEndringer = Document.CreateElement("ns", "HentEndringerForespoersel", Navnerom.krr);
+            var hentEndringer = Document.CreateElement("ns", "HentEndringerForespoersel", Navnerom.OppslagstjenesteDefinisjon);
             hentEndringer.SetAttribute("fraEndringsNummer", _fraEndringsNummer.ToString());
             body.AppendChild(hentEndringer);
 
@@ -29,7 +29,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             {
                 if (_informasjonsbehov.HasFlag(info))
                 {
-                    var node = Document.CreateElement("ns", "informasjonsbehov", Navnerom.krr);
+                    var node = Document.CreateElement("ns", "informasjonsbehov", Navnerom.OppslagstjenesteDefinisjon);
                     node.InnerText = info.ToString();
                     hentEndringer.AppendChild(node);
                 }

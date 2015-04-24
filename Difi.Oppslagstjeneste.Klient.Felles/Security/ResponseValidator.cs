@@ -34,14 +34,14 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
 
             nsmgr = new XmlNamespaceManager(ResponseDocument.NameTable);
             if (version == SoapVersion.Soap11)
-                nsmgr.AddNamespace("env", Navnerom.env11);
+                nsmgr.AddNamespace("env", Navnerom.SoapEnvelope);
             else
-                nsmgr.AddNamespace("env", Navnerom.env12);
-            nsmgr.AddNamespace("wsse", Navnerom.wsse);
-            nsmgr.AddNamespace("ds", Navnerom.ds);            
+                nsmgr.AddNamespace("env", Navnerom.SoapEnvelopeEnv12);
+            nsmgr.AddNamespace("wsse", Navnerom.WssecuritySecext10);
+            nsmgr.AddNamespace("ds", Navnerom.XmlDsig);            
             nsmgr.AddNamespace("xenc", Navnerom.xenc); 
-            nsmgr.AddNamespace("wsse11", Navnerom.wsse11);
-            nsmgr.AddNamespace("wsu", Navnerom.wsu);
+            nsmgr.AddNamespace("wsse11", Navnerom.WssecuritySecext11);
+            nsmgr.AddNamespace("wsu", Navnerom.WssecurityUtility10);
 
             HeaderSecurityElement = ResponseDocument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security", nsmgr) as XmlElement;
             HeaderSignatureElement = HeaderSecurityElement.SelectSingleNode("./ds:Signature", nsmgr) as XmlElement;
@@ -82,8 +82,8 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
         {
             var timestampElement = HeaderSecurityElement.SelectSingleNode("./wsu:Timestamp", nsmgr);
 
-            var created = DateTimeOffset.Parse(timestampElement["Created", Navnerom.wsu].InnerText);
-            var expires = DateTimeOffset.Parse(timestampElement["Expires", Navnerom.wsu].InnerText);
+            var created = DateTimeOffset.Parse(timestampElement["Created", Navnerom.WssecurityUtility10].InnerText);
+            var expires = DateTimeOffset.Parse(timestampElement["Expires", Navnerom.WssecurityUtility10].InnerText);
 
             if (created > DateTimeOffset.Now.AddMinutes(5))
                 throw new Exception("Motatt melding har opprettelsetidspunkt mer enn fem minutter inn i fremtiden." + created.ToString());

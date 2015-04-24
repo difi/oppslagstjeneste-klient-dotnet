@@ -18,9 +18,9 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         private XmlNamespaceManager InitalizeNamespaceManager(XmlDocument xmlDocument)
         {
             var namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
-            namespaceManager.AddNamespace("env", Navnerom.env11);
-            namespaceManager.AddNamespace("ns", Navnerom.krr);
-            namespaceManager.AddNamespace("difi", Navnerom.difi);
+            namespaceManager.AddNamespace("env", Navnerom.SoapEnvelope);
+            namespaceManager.AddNamespace("ns", Navnerom.OppslagstjenesteDefinisjon);
+            namespaceManager.AddNamespace("difi", Navnerom.OppslagstjenesteMetadata);
             return namespaceManager;
         }
 
