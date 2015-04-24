@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
@@ -14,6 +13,7 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
         private bool _harWarnings;
         private bool _harErrors;
 
+        private const string ToleratedError = "It is an error if there is a member of the attribute uses of a type definition with type xs:ID or derived from xs:ID and another attribute with type xs:ID matches an attribute wildcard.";
         private const string ErrorToleratedPrefix = "The 'PrefixList' attribute is invalid - The value '' is invalid according to its datatype 'http://www.w3.org/2001/XMLSchema:NMTOKENS' - The attribute value cannot be empty.";
         private const string WarningMessage = "\tWarning: Matching schema not found. No validation occurred.";
         private const string ErrorMessage = "\tValidation error:";
@@ -75,7 +75,7 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
                     break;
                 case XmlSeverityType.Error:
                     ValideringsVarsler += String.Format("{0} {1}\n", ErrorMessage, e.Message);
-                    if (!e.Message.Equals(ErrorToleratedPrefix))
+                    if (!e.Message.Equals(ToleratedError) && !e.Message.Equals(ErrorToleratedPrefix))
                         _harErrors = true;
                     else
                         ValideringsVarsler +=
