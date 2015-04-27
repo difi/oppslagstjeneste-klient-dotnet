@@ -99,7 +99,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 throw new XmlException(xmlValidator.ValideringsVarsler);
             }
 
-            Logging.Log(TraceEventType.Verbose, xml.OuterXml);
+            //Logging.Log(TraceEventType.Verbose, xml.OuterXml);
 
             var requestStream = request.GetRequestStream();
             requestStream.Write(bytes, 0, bytes.Length);
@@ -115,8 +115,9 @@ namespace Difi.Oppslagstjeneste.Klient
                 using (var reader = new StreamReader(stream))
                 {
                     var error = reader.ReadToEnd();
-                    Logging.Log(TraceEventType.Critical, "Feil ved sending" + error);
                     var exception = new SoapException(error);
+                    Logging.Log(TraceEventType.Critical, string.Format("> Feil ved sending (Skyldig: {0})", exception.Skyldig));
+                    Logging.Log(TraceEventType.Critical, String.Format("  - {0}", exception.Beskrivelse));
                     throw exception;
                 }
             }

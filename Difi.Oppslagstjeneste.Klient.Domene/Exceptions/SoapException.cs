@@ -7,6 +7,11 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
     public class SoapException : OppslagstjenesteException
     {
         public SoapException(string outerXml)
+            : this(outerXml, null)
+        {
+        }
+
+        public SoapException(string outerXml, Exception innerException) : base("SoapException: Klarte ikke parse svar fra serveren.", innerException)
         {
             ParseTilKlassemedlemmer(outerXml);
         }
@@ -35,7 +40,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
             }
             catch ( Exception e)
             {
-                throw new XmlParseException("Feilmelding mottat, klarte ikke å parse feilkode og feilmelding. Se Xml for rådata.", e);
+                throw new XmlParseException("Feilmelding mottatt, klarte ikke å parse feilkode og feilmelding. Se Xml for rådata.", e);
             }
         }
     }
