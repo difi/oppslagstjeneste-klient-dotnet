@@ -29,7 +29,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             OppslagstjenesteKlient register = new OppslagstjenesteKlient(avsenderSertifikat, valideringsSertifikat, konfig);
 
             var endringer = register.HentEndringer(886730, Informasjonsbehov.Kontaktinfo | Informasjonsbehov.Sertifikat | Informasjonsbehov.SikkerDigitalPost | Informasjonsbehov.Person);
-            var personer = register.HentPersoner(new string[] { "08077000292" }, Informasjonsbehov.Sertifikat | Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost);
+            var personer = register.HentPersoner(new string[] { "080770002921337" }, Informasjonsbehov.Sertifikat | Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost);
             var printSertifikat = register.HentPrintSertifikat();
             Console.ReadKey();
         }
