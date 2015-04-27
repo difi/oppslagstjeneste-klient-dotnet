@@ -27,7 +27,7 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         /// </summary>
         public string PostkasseleverandørAdresse { get; set; }
 
-        protected override void ParseToClassMembers()
+        protected override void ParseTilKlassemedlemmer()
         {
             try
             {

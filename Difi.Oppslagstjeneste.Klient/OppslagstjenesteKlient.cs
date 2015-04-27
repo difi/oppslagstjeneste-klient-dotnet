@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
+using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
@@ -19,8 +20,8 @@ namespace Difi.Oppslagstjeneste.Klient
     /// </summary>
     public class OppslagstjenesteKlient
     {
-        OppslagstjenesteInstillinger instillinger;
-        OppslagstjenesteKonfigurasjon konfigurasjon;
+        readonly OppslagstjenesteInstillinger _instillinger;
+        readonly OppslagstjenesteKonfigurasjon _konfigurasjon;
 
         /// <summary>
         /// Oppslagstjenesten for kontakt og reservasjonsregisteret.
@@ -29,13 +30,13 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <param name="valideringsSertifikat">Brukes for å validere svar fra oppslagstjenesten.</param>
         public OppslagstjenesteKlient(X509Certificate2 sertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
         {
-            instillinger = new OppslagstjenesteInstillinger
+            _instillinger = new OppslagstjenesteInstillinger
             {
                 Sertifikat = sertifikat,
                 Valideringssertifikat = valideringsSertifikat
             };
             
-            this.konfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
+            this._konfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
         }
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <param name="informasjonsbehov">Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.</param>
         public EndringerSvar HentEndringer(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
         {
-            var envelope = new HentEndringerEnvelope(instillinger, fraEndringsNummer, informasjonsbehov);
+            var envelope = new HentEndringerEnvelope(_instillinger, fraEndringsNummer, informasjonsbehov);
             var validator = SendEnvelope(envelope);
             validator.Valider();
             return new EndringerSvar(validator.ResponseDocument);
@@ -59,7 +60,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <param name="informasjonsbehov">Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.</param>
         public IEnumerable<Person> HentPersoner(string[] personidentifikator, Informasjonsbehov informasjonsbehov)
         {
-            var envelope = new HentPersonerEnvelope(instillinger, personidentifikator, informasjonsbehov);
+            var envelope = new HentPersonerEnvelope(_instillinger, personidentifikator, informasjonsbehov);
             OppslagstjenesteValidator validator = SendEnvelope(envelope);
             validator.Valider();
             return new PersonerSvar(validator.ResponseDocument).Personer;
@@ -70,7 +71,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public PrintSertifikatSvar HentPrintSertifikat()
         {
-            var envelope = new HentPrintSertifikatEnvelope(instillinger);
+            var envelope = new HentPrintSertifikatEnvelope(_instillinger);
             var validator = SendEnvelope(envelope);
             validator.Valider();
             return new PrintSertifikatSvar(validator.ResponseDocument);
@@ -78,15 +79,15 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private OppslagstjenesteValidator SendEnvelope(AbstractEnvelope envelope)
         {
-            var request = (HttpWebRequest)WebRequest.Create(konfigurasjon.ServiceUri);
+            var request = (HttpWebRequest)WebRequest.Create(_konfigurasjon.ServiceUri);
             request.ContentType = "text/xml;charset=UTF-8";
             request.Headers.Add("SOAPAction", "\"\"");
             request.Method = "POST";
             request.KeepAlive = true;
             request.ServicePoint.Expect100Continue = false;
-            request.Timeout = konfigurasjon.TimeoutIMillisekunder;
-            if (konfigurasjon.BrukProxy)
-                request.Proxy = new WebProxy(new UriBuilder(konfigurasjon.ProxyScheme, konfigurasjon.ProxyHost, konfigurasjon.ProxyPort).Uri);
+            request.Timeout = _konfigurasjon.TimeoutIMillisekunder;
+            if (_konfigurasjon.BrukProxy)
+                request.Proxy = new WebProxy(new UriBuilder(_konfigurasjon.ProxyScheme, _konfigurasjon.ProxyHost, _konfigurasjon.ProxyPort).Uri);
 
             var xml = envelope.ToXml();
             var bytes = Encoding.UTF8.GetBytes(xml.OuterXml);
@@ -115,8 +116,9 @@ namespace Difi.Oppslagstjeneste.Klient
                 {
                     var error = reader.ReadToEnd();
                     Logging.Log(TraceEventType.Critical, "Feil ved sending" + error);
+                    var exception = new SoapException(error);
+                    throw exception;
                 }
-                throw;
             }
         }
     }

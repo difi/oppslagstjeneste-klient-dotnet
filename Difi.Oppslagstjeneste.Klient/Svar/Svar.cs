@@ -12,7 +12,7 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         {
             XmlDocument = xmlDocument;
             XmlNamespaceManager = InitalizeNamespaceManager(XmlDocument);
-            ParseToClassMembers();
+            ParseTilKlassemedlemmer();
         }
 
         private XmlNamespaceManager InitalizeNamespaceManager(XmlDocument xmlDocument)
@@ -24,6 +24,6 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
             return namespaceManager;
         }
 
-        protected abstract void ParseToClassMembers();
+        protected abstract void ParseTilKlassemedlemmer();
     }
 }

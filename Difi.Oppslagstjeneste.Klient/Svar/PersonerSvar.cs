@@ -16,7 +16,7 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
 
         public IEnumerable<Person> Personer { get; set; }
 
-        protected override void ParseToClassMembers()
+        protected override void ParseTilKlassemedlemmer()
         {
             try
             {
