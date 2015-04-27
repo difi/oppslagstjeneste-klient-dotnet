@@ -1,0 +1,60 @@
+# name of the software
+name: Oppslagstjeneste .NET
+# current version of the software
+version: 0.1
+# url of the download button
+downloadUrl: https://www.nuget.org/packages/difi-oppslagstjeneste-klient/
+# licence of the software
+license: Apace Licence 2.0
+licenseUrl: https://www.apache.org/licenses/LICENSE-2.0
+
+#baseurl: "/sikker-digital-post-net-klient" # the subpath of your site, e.g. /blog/
+coreUrl: "/difi-oppslagstjeneste-klient-dotnet"
+collections:
+  doks:
+    output: true
+
+# list of additional links on the right of the top menu
+headerLinks:
+  - title: GitHub
+    url: https://github.com/difi/sikker-digital-post-oppslagstjeneste-dotnet
+
+# list if additional links on the footer
+footerLinks:
+  - title: GitHub
+    url: https://github.com/difi/sikker-digital-post-oppslagstjeneste-dotnet
+  - title: Issues
+    url: https://github.com/difi/sikker-digital-post-oppslagstjeneste-dotnet/issues
+
+# header
+header:
+  color1: "#606369"
+  color2: "#4D4F53"
+  trianglify: true
+
+# github buttons
+githubButton:
+  user: difi
+  repo: difi/difi-sikker-digital-post-klient-dotnet
+
+# twitter buttons
+twitter:
+  enabled: false
+  via:
+  hash:
+  account:
+
+# facebook buttons
+facebook:
+  enabled: false
+  profileUrl:
+
+# google analytics
+analytics:
+  account:
+  domain:
+
+# DON'T MODIFY
+highlight: rouge
+
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile']
