@@ -6,17 +6,34 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
     [TestClass]
     public class SoapExceptionTester
     {
-        [TestMethod]
-        public void ParseSoapExceptionSuksess()
+        private static SoapException _exception;
+
+        [ClassInitialize]
+        public static void ParseSoapExceptionSuksess(TestContext context)
         {
             try
             {
-                var exception = new SoapException(Feilmelding());
+                _exception = new SoapException(Feilmelding());
             }
             catch
             {
                 Assert.Fail();
             }
+        }
+
+        [TestMethod]
+        public void HentSkyldigSuksess()
+        {
+            Assert.AreEqual("SOAP-ENV:Client", _exception.Skyldig.Trim());
+        }
+
+        [TestMethod]
+        public void HentFeilmeldingSuksess()
+        {
+            var expected =
+                "[4001] Input xml er ikke i henhold til xsd Feilinstanse:1e113062-dbef-499b-af58-7ce735d69882";
+
+            Assert.AreEqual(expected,_exception.Beskrivelse.Trim());
         }
 
         private static string Feilmelding()
