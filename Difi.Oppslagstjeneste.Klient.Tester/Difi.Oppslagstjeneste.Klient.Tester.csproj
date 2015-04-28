@@ -37,6 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApiClientShared">
+      <HintPath>..\packages\api-client-shared.1.0.5578.25965\lib\net45\ApiClientShared.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -72,6 +75,13 @@
       <Project>{1652EB8A-222A-4D26-98AA-BBBFFE079D56}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Felles</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient\Difi.Oppslagstjeneste.Klient.csproj">
+      <Project>{13B840F4-199B-4482-B4A8-CB71AC1B0C99}</Project>
+      <Name>Difi.Oppslagstjeneste.Klient</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

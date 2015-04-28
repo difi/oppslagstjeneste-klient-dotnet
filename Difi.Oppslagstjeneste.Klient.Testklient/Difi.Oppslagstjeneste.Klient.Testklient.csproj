@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EmbeddedResource Include="Resources\cert\idporten-ver2.difi.no-v2.crt" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
