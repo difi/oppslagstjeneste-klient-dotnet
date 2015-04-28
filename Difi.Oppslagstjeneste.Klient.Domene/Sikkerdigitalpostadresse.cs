@@ -7,7 +7,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
     /// <summary>
     /// Adresse informasjon om Person sin Sikker DigitalPostKasse.
     /// </summary>
-    [DebuggerDisplay("Postkasseadresse = {Postkasseadresse} PostkasseleverandoerAdresse = {PostkasseleverandoerAdresse}")]
+    [DebuggerDisplay("Postkasseadresse = {Postkasseadresse} PostkasseleverandørAdresse = {PostkasseleverandørAdresse}")]
     public class SikkerDigitalPostAdresse
     { 
         /// <summary>
@@ -26,12 +26,12 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
         /// Dette er en unik adresse for en leverandør, enten en Postkasseleverandør eller Utskrifts og forsendelsestjeneeste leverandør. 
         /// Adressen brukt for adressering er Organisasjonsnummeret for leverandører
         /// </remarks>
-        public string PostkasseleverandoerAdresse { get; set; }
+        public string PostkasseleverandørAdresse { get; set; }
 
         public SikkerDigitalPostAdresse(XmlElement element)
         {
             Postkasseadresse = element["postkasseadresse", Navnerom.OppslagstjenesteMetadata].InnerText;
-            PostkasseleverandoerAdresse = element["postkasseleverandoerAdresse", Navnerom.OppslagstjenesteMetadata].InnerText;
+            PostkasseleverandørAdresse = element["postkasseleverandoerAdresse", Navnerom.OppslagstjenesteMetadata].InnerText;
         }
     }
 }
