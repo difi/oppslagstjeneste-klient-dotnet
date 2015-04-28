@@ -23,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             
             OppslagstjenesteKlient register = new OppslagstjenesteKlient(avsenderSertifikat, valideringssertifikat, konfig);
 
-            var endringer = register.HentEndringer(886730, 
+            var endringer = register.HentEndringer(983831, 
                 Informasjonsbehov.Kontaktinfo | 
                 Informasjonsbehov.Sertifikat | 
                 Informasjonsbehov.SikkerDigitalPost |
