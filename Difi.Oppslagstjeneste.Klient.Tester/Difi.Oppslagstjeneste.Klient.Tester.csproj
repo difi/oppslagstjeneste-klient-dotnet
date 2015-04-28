@@ -38,6 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -52,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="OppslagstjenesteKonfigurasjonTester.cs" />
     <Compile Include="Svar\EndringerSvarTester.cs" />
     <Compile Include="Domene\EndringsInfoTester.cs" />
     <Compile Include="Svar\PersonerSvarTester.cs" />
@@ -61,6 +63,16 @@
     <Compile Include="Integrasjon\Integrasjonstester.cs" />
     <Compile Include="Domene\SikkerDigitalPostAdresseTester.cs" />
     <Compile Include="Domene\SoapExceptionTester.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
+      <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
+      <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Felles\Difi.Oppslagstjeneste.Klient.Felles.csproj">
+      <Project>{1652EB8A-222A-4D26-98AA-BBBFFE079D56}</Project>
+      <Name>Difi.Oppslagstjeneste.Klient.Felles</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
