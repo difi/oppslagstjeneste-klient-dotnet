@@ -31,7 +31,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
 
         public Mobiltelefonnummer(XmlElement element) : base(element)
         {
-            this.Nummer = element.InnerText;
+            Nummer = element.InnerText;
         }
     }
 }

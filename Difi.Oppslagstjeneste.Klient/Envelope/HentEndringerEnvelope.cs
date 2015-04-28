@@ -6,8 +6,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class HentEndringerEnvelope : OppslagstjenesteEnvelope
     {
-        private long _fraEndringsNummer;
-        private Informasjonsbehov _informasjonsbehov;
+        private readonly long _fraEndringsNummer;
+        private readonly Informasjonsbehov _informasjonsbehov;
 
         public HentEndringerEnvelope(OppslagstjenesteInstillinger instillinger, long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
             : base(instillinger)

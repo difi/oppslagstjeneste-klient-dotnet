@@ -52,7 +52,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EndringsInfoTester.cs" />
+    <Compile Include="PersonTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Integrasjonstester.cs" />
+    <Compile Include="SikkerDigitalPostAdresseTester.cs" />
+    <Compile Include="SoapExceptionTester.cs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

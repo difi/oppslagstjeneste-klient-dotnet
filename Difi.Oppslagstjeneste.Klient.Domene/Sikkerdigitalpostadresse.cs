@@ -8,7 +8,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
     /// Adresse informasjon om Person sin Sikker DigitalPostKasse.
     /// </summary>
     [DebuggerDisplay("Postkasseadresse = {Postkasseadresse} PostkasseleverandoerAdresse = {PostkasseleverandoerAdresse}")]
-    public class Sikkerdigitalpostadresse
+    public class SikkerDigitalPostAdresse
     { 
         /// <summary>
         /// Adresse til en Innbygger sin Postkasse hos en Postkasseleverandør
@@ -28,10 +28,10 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
         /// </remarks>
         public string PostkasseleverandoerAdresse { get; set; }
 
-        public Sikkerdigitalpostadresse(XmlElement element)
+        public SikkerDigitalPostAdresse(XmlElement element)
         {
-            this.Postkasseadresse = element["postkasseadresse", Navnerom.OppslagstjenesteMetadata].InnerText;
-            this.PostkasseleverandoerAdresse = element["postkasseleverandoerAdresse", Navnerom.OppslagstjenesteMetadata].InnerText;
+            Postkasseadresse = element["postkasseadresse", Navnerom.OppslagstjenesteMetadata].InnerText;
+            PostkasseleverandoerAdresse = element["postkasseleverandoerAdresse", Navnerom.OppslagstjenesteMetadata].InnerText;
         }
     }
 }

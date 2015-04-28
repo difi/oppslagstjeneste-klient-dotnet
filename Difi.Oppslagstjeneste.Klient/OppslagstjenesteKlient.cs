@@ -6,6 +6,7 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
+using ApiClientShared.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Envelope;
@@ -26,17 +27,27 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <summary>
         /// Oppslagstjenesten for kontakt og reservasjonsregisteret.
         /// </summary>
-        /// <param name="sertifikat">Brukes for å signere forespørselen mot oppslagstjenesten.</param>
+        /// <param name="avsendersertifikat">Brukes for å signere forespørselen mot oppslagstjenesten.</param>
         /// <param name="valideringsSertifikat">Brukes for å validere svar fra oppslagstjenesten.</param>
-        public OppslagstjenesteKlient(X509Certificate2 sertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
+        public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
         {
             _instillinger = new OppslagstjenesteInstillinger
             {
-                Sertifikat = sertifikat,
+                Sertifikat = avsendersertifikat,
                 Valideringssertifikat = valideringsSertifikat
             };
             
-            this._konfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
+            _konfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
+        }
+
+        public OppslagstjenesteKlient(string avsendersertifikatThumbprint, string valideringssertifikatThumbprint, OppslagstjenesteKonfigurasjon konfigurasjon = null)
+        {
+            _instillinger = new OppslagstjenesteInstillinger()
+            {
+                Sertifikat =  ApiClientShared.CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),
+                Valideringssertifikat = ApiClientShared.CertificateUtility.ReceiverCertificate(valideringssertifikatThumbprint, Language.Norwegian)
+            };
+            
         }
 
         /// <summary>

@@ -22,7 +22,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
         /// </remarks>
         public DateTimeOffset? SistVerifisert { get; set; }
 
-        public EndringsInfo(XmlElement element)
+        protected EndringsInfo(XmlElement element)
         {
             var sistVerifisert = element.Attributes["sistVerifisert", Navnerom.OppslagstjenesteMetadata];
             if (sistVerifisert != null)
