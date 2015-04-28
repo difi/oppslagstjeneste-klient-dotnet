@@ -24,11 +24,13 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Abstract
 
         protected EndringsInfo(XmlElement element)
         {
-            var sistVerifisert = element.Attributes["sistVerifisert", Navnerom.OppslagstjenesteMetadata];
+            var rotElement = element.FirstChild;
+
+            var sistVerifisert = element.Attributes["sistVerifisert"];
             if (sistVerifisert != null)
                 SistVerifisert = DateTimeOffset.Parse(sistVerifisert.Value);
 
-            var sistOppdatert = element.Attributes["sistOppdatert", Navnerom.OppslagstjenesteMetadata];
+            var sistOppdatert = element.Attributes["sistOppdatert"];
             if (sistOppdatert != null)
                 SistOppdatert = DateTimeOffset.Parse(sistOppdatert.Value);
         }
