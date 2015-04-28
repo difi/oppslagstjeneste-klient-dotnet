@@ -56,9 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Envelope\HentEndringerEnvelope.cs" />
-    <Compile Include="Envelope\HentPersonerEnvelope.cs" />
-    <Compile Include="Envelope\HentPrintSertifikatEnvelope.cs" />
+    <Compile Include="Envelope\EndringerEnvelope.cs" />
+    <Compile Include="Envelope\PersonerEnvelope.cs" />
+    <Compile Include="Envelope\PrintSertifikatEnvelope.cs" />
     <Compile Include="Envelope\OppslagstjenesteEnvelope.cs" />
     <Compile Include="Envelope\OppslagstjenesteInstillinger.cs" />
     <Compile Include="Envelope\OppslagstjenesteValidator.cs" />

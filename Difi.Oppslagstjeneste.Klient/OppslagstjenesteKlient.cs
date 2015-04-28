@@ -57,7 +57,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <param name="informasjonsbehov">Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.</param>
         public EndringerSvar HentEndringer(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
         {
-            var envelope = new HentEndringerEnvelope(_instillinger, fraEndringsNummer, informasjonsbehov);
+            var envelope = new EndringerEnvelope(_instillinger, fraEndringsNummer, informasjonsbehov);
             var validator = SendEnvelope(envelope);
             validator.Valider();
             return new EndringerSvar(validator.ResponseDocument);
@@ -71,7 +71,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <param name="informasjonsbehov">Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.</param>
         public IEnumerable<Person> HentPersoner(string[] personidentifikator, Informasjonsbehov informasjonsbehov)
         {
-            var envelope = new HentPersonerEnvelope(_instillinger, personidentifikator, informasjonsbehov);
+            var envelope = new PersonerEnvelope(_instillinger, personidentifikator, informasjonsbehov);
             OppslagstjenesteValidator validator = SendEnvelope(envelope);
             validator.Valider();
             return new PersonerSvar(validator.ResponseDocument).Personer;
@@ -82,7 +82,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public PrintSertifikatSvar HentPrintSertifikat()
         {
-            var envelope = new HentPrintSertifikatEnvelope(_instillinger);
+            var envelope = new PrintSertifikatEnvelope(_instillinger);
             var validator = SendEnvelope(envelope);
             validator.Valider();
             return new PrintSertifikatSvar(validator.ResponseDocument);
