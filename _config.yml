@@ -9,7 +9,7 @@ license: Apace Licence 2.0
 licenseUrl: https://www.apache.org/licenses/LICENSE-2.0
 
 #baseurl: "/sikker-digital-post-net-klient" # the subpath of your site, e.g. /blog/
-coreUrl: "/difi-oppslagstjeneste-klient-dotnet"
+coreUrl: "/oppslagstjeneste-dotnet"
 collections:
   doks:
     output: true
