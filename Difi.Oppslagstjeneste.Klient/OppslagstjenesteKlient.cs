@@ -17,7 +17,7 @@ using Difi.Oppslagstjeneste.Klient.XmlValidering;
 namespace Difi.Oppslagstjeneste.Klient
 {
     /// <summary>
-    /// Kontakt- og reservasjonsregisteret er et register over innbyggerens kontaktinformasjon og reservasjon, og er en fellesløsning som alle offentlige virksomheter skal bruke i sin tjenesteutvikling. Registeret gir tilgang til innbyggerens digitale kontaktinformasjon.
+    /// Oppslagstjenesten er et register over innbyggerens kontaktinformasjon og reservasjon, og er en fellesløsning som alle offentlige virksomheter skal bruke i sin tjenesteutvikling. Registeret gir tilgang til innbyggerens digitale kontaktinformasjon.
     /// </summary>
     public class OppslagstjenesteKlient
     {
@@ -27,31 +27,41 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <summary>
         /// Oppslagstjenesten for kontakt og reservasjonsregisteret.
         /// </summary>
-        /// <param name="avsendersertifikat">Brukes for å signere forespørselen mot oppslagstjenesten.</param>
-        /// <param name="valideringsSertifikat">Brukes for å validere svar fra oppslagstjenesten.</param>
+        /// <param name="avsendersertifikat">Brukes for å signere forespørselen mot Oppslagstjenesten. For informasjon om sertifikat, se online dokumentasjon:
+        ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
+        /// <param name="valideringsSertifikat">Brukes for å validere svar fra Oppslagstjenesten. For informasjon om sertifikat, se online dokumentasjon:
+        ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
         public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
         {
             _instillinger = new OppslagstjenesteInstillinger
             {
-                Sertifikat = avsendersertifikat,
-                Valideringssertifikat = valideringsSertifikat
+                Avsendersertifikat = avsendersertifikat,
+                Valideringssertifikat = valideringsSertifikat 
             };
-            
             _konfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
         }
-
+        
+        /// <summary>
+        /// Oppslagstjenesten for kontakt og reservasjonsregisteret.
+        /// </summary>
+        /// <param name="avsendersertifikatThumbprint">Thumbprint til sertifikat Virksomhet bruker til å signere 
+        /// forespørselen. For informasjon om hvordan du finner dette, se online dokumentasjon:
+        ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/>.</param>
+        /// <param name="valideringssertifikatThumbprint">Thumbprint til sertifikat Virksomhet bruker til å validere
+        /// svar fra Oppslagstjenesten. For informasjon om hvordan du finner dette, se online dokumentasjon:
+        ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
+        /// <param name="konfigurasjon"></param>
         public OppslagstjenesteKlient(string avsendersertifikatThumbprint, string valideringssertifikatThumbprint, OppslagstjenesteKonfigurasjon konfigurasjon = null)
         {
             _instillinger = new OppslagstjenesteInstillinger()
             {
-                Sertifikat =  ApiClientShared.CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),
+                Avsendersertifikat =  ApiClientShared.CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),
                 Valideringssertifikat = ApiClientShared.CertificateUtility.ReceiverCertificate(valideringssertifikatThumbprint, Language.Norwegian)
             };
-            
         }
 
         /// <summary>
-        /// Forespørsel sendt fra Virksomhet for å hente endringer fra kontakt og reservasjonsregisteret.
+        /// Forespørsel sendt fra Virksomhet for å hente endringer fra Oppslagstjenesten.
         /// </summary>
         /// <param name="fraEndringsNummer">Brukes i endringsforespørsler for å hente alle endringer fra og med et bestemt endringsNummer.</param>
         /// <param name="informasjonsbehov">Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.</param>
@@ -65,7 +75,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
 
         /// <summary>
-        /// Forespørsel sendt fra Virksomhet for å hente Personer fra kontakt og reservasjonsregisteret.
+        /// Forespørsel sendt fra Virksomhet for å hente Personer fra Oppslagstjenesten.
         /// </summary>
         /// <param name="personidentifikator">Identifikasjon av en person. Personidentifikator er er enten et fødselsnummer et gyldig D-nummer.</param>
         /// <param name="informasjonsbehov">Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.</param>
@@ -78,7 +88,8 @@ namespace Difi.Oppslagstjeneste.Klient
         }
 
         /// <summary>
-        /// Forespørsel sendt fra Virksomhet for å hente Sertifikater fra Printleverandør i Sikker Digital Post.
+        /// Forespørsel sendt fra Virksomhet for å hente Sertifikater fra Printleverandør i Sikker Digital Post fra
+        /// Oppslagstjenesten.
         /// </summary>
         public PrintSertifikatSvar HentPrintSertifikat()
         {

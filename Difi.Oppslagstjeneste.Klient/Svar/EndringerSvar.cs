@@ -20,7 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         /// Et endringsNummer, et nummer som identifiserer en endring i et register.
         /// </summary>
         /// <remarks>
-        /// Enhver endring i Kontakt- og reservasjonsregisteret tilordnes ett løpenummer som øker med en (1) for hver endring. Dette brukes for at virksomheter som vedlikeholder 
+        /// Enhver endring i Oppslagstjenesten tilordnes ett løpenummer som øker med en (1) for hver endring. Dette brukes for at virksomheter som vedlikeholder 
         /// lokale kopier av registeret enkelt skal ha sporbarhet på alle endringer.
         /// </remarks>
         public long FraEndringsNummer { get; set; }

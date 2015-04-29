@@ -42,7 +42,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         protected override void AddSignatureToHeader(XmlNode node)
         {
-            SignedXml signed = new SignedXmlWithAgnosticId(Document, Instillinger.Sertifikat);
+            SignedXml signed = new SignedXmlWithAgnosticId(Document, Instillinger.Avsendersertifikat);
 
             signed.SignedInfo.CanonicalizationMethod = "http://www.w3.org/2001/10/xml-exc-c14n#";
 
@@ -56,7 +56,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             bodyReference.AddTransform(new XmlDsigExcC14NTransform(""));
             signed.AddReference(bodyReference);
 
-            signed.KeyInfo.AddClause(new SecurityTokenReferenceClause(Instillinger.Sertifikat));
+            signed.KeyInfo.AddClause(new SecurityTokenReferenceClause(Instillinger.Avsendersertifikat));
             signed.KeyInfo.Id = "KS-asdasdasdasd";
 
             signed.ComputeSignature();
