@@ -11,7 +11,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
         /// Adresse til en elektronisk postkasse på Internett
         /// </summary>
         /// <remarks>
-        /// •Enn tekststreng på formatet “^[\\w-\\](?:\\.[\\w-\\])*@(?:[\\w-]\.)[a-zA-Z]{2,7}$”
+        /// •En tekststreng på formatet “^[\\w-\\](?:\\.[\\w-\\])*@(?:[\\w-]\.)[a-zA-Z]{2,7}$”
         /// •Klassifikasjon er Open Web Application Security Project (OWASP): Regulære uttrykk for validering
         /// </remarks>
         public string Epost { get; set; }
