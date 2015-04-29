@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Xml;
+using Difi.Oppslagstjeneste.Klient.Domene.Abstract;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene
 {
@@ -31,7 +32,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
 
         public Mobiltelefonnummer(XmlElement element) : base(element)
         {
-            this.Nummer = element.InnerText;
+            Nummer = element.InnerText;
         }
     }
 }

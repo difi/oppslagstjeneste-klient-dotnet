@@ -4,12 +4,12 @@ using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public class HentEndringerEnvelope : OppslagstjenesteEnvelope
+    public class EndringerEnvelope : OppslagstjenesteEnvelope
     {
-        private long _fraEndringsNummer;
-        private Informasjonsbehov _informasjonsbehov;
+        private readonly long _fraEndringsNummer;
+        private readonly Informasjonsbehov _informasjonsbehov;
 
-        public HentEndringerEnvelope(OppslagstjenesteInstillinger instillinger, long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
+        public EndringerEnvelope(OppslagstjenesteInstillinger instillinger, long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
             : base(instillinger)
         {   
             _fraEndringsNummer = fraEndringsNummer;

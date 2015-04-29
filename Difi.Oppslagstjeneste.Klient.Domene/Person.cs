@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene
@@ -40,47 +41,44 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
         /// <remarks>
         /// SikkerDigitalPostAdresse er Innbygger sin adresse til Postkassen. Det inneholder nok informasjon til å adresse post til Innbygger sin postkasse.
         /// </remarks>
-        public Sikkerdigitalpostadresse Sikkerdigitalpostadresse { get; set; }
+        public SikkerDigitalPostAdresse SikkerDigitalPostAdresse { get; set; }
 
         /// <summary>
         /// Et X509 Sertifikat.
         /// </summary>
-        public X509Certificate2 X509sertifikat { get; set; }
+        public X509Certificate2 X509Sertifikat { get; set; }
 
         public Person()
         {
-            this.Reservasjon = false;
+            Reservasjon = false;
         }
 
-        public Person(System.Xml.XmlElement item)
+        public Person(XmlElement item)
         {
-            this.Personidentifikator = item["personidentifikator", Navnerom.OppslagstjenesteMetadata].InnerText;
+            Personidentifikator = item["personidentifikator", Navnerom.OppslagstjenesteMetadata].InnerText;
 
             var reservasjon = item["reservasjon", Navnerom.OppslagstjenesteMetadata];
             if (reservasjon != null)
             {
-                if (reservasjon.InnerText == "NEI")
-                    this.Reservasjon = false;
-                else
-                    this.Reservasjon = true;
+                Reservasjon = reservasjon.InnerText != "NEI";
             }
 
             var status = item["status", Navnerom.OppslagstjenesteMetadata];
             if (status != null)
-                this.Status = (Tilstand)Enum.Parse(typeof(Tilstand), status.InnerText);
+                Status = (Tilstand)Enum.Parse(typeof(Tilstand), status.InnerText);
 
             var kontaktinformasjon = item["Kontaktinformasjon", Navnerom.OppslagstjenesteMetadata];
             if (kontaktinformasjon != null)
-                this.Kontaktinformasjon = new Kontaktinformasjon(kontaktinformasjon);
+                Kontaktinformasjon = new Kontaktinformasjon(kontaktinformasjon);
 
             var sikkerDigitalPostAdresse = item["SikkerDigitalPostAdresse", Navnerom.OppslagstjenesteMetadata];
             if (sikkerDigitalPostAdresse != null)
-                this.Sikkerdigitalpostadresse = new Sikkerdigitalpostadresse(sikkerDigitalPostAdresse);
+                SikkerDigitalPostAdresse = new SikkerDigitalPostAdresse(sikkerDigitalPostAdresse);
 
-            var X509Certificate = item["X509Sertifikat", Navnerom.OppslagstjenesteMetadata];
-            if (X509Certificate != null)
+            var x509Certificate = item["X509Sertifikat", Navnerom.OppslagstjenesteMetadata];
+            if (x509Certificate != null)
             {
-                X509sertifikat = new X509Certificate2(System.Convert.FromBase64String(X509Certificate.InnerText));
+                X509Sertifikat = new X509Certificate2(Convert.FromBase64String(x509Certificate.InnerText));
             }
 
         }

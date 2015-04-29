@@ -41,14 +41,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EndringsInfo.cs" />
+    <Compile Include="Abstract\EndringsInfo.cs" />
     <Compile Include="Epostadresse.cs" />
     <Compile Include="Exceptions\OppslagstjenesteException.cs" />
     <Compile Include="Exceptions\SoapException.cs" />

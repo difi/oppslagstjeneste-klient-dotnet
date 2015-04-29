@@ -4,12 +4,12 @@ using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public class HentPersonerEnvelope : OppslagstjenesteEnvelope
+    public class PersonerEnvelope : OppslagstjenesteEnvelope
     {
         private string[] personidentifikator;
         private Informasjonsbehov _informasjonsbehov;
         
-        public HentPersonerEnvelope(OppslagstjenesteInstillinger instillinger, string[] personidentifikator, Informasjonsbehov informasjonsbehov)
+        public PersonerEnvelope(OppslagstjenesteInstillinger instillinger, string[] personidentifikator, Informasjonsbehov informasjonsbehov)
             : base(instillinger)
         {
             this.personidentifikator = personidentifikator;

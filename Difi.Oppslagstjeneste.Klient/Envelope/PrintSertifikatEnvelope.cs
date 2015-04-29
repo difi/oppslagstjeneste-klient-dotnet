@@ -3,9 +3,9 @@ using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public class HentPrintSertifikatEnvelope : OppslagstjenesteEnvelope
+    public class PrintSertifikatEnvelope : OppslagstjenesteEnvelope
     {
-        public HentPrintSertifikatEnvelope(OppslagstjenesteInstillinger instillinger) : base(instillinger)
+        public PrintSertifikatEnvelope(OppslagstjenesteInstillinger instillinger) : base(instillinger)
         {
         }
 

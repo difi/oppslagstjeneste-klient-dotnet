@@ -2,7 +2,7 @@
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
-namespace Difi.Oppslagstjeneste.Klient.Domene
+namespace Difi.Oppslagstjeneste.Klient.Domene.Abstract
 {
     public abstract class EndringsInfo
     {
@@ -22,13 +22,15 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
         /// </remarks>
         public DateTimeOffset? SistVerifisert { get; set; }
 
-        public EndringsInfo(XmlElement element)
+        protected EndringsInfo(XmlElement element)
         {
-            var sistVerifisert = element.Attributes["sistVerifisert", Navnerom.OppslagstjenesteMetadata];
+            var rotElement = element.FirstChild;
+
+            var sistVerifisert = element.Attributes["sistVerifisert"];
             if (sistVerifisert != null)
                 SistVerifisert = DateTimeOffset.Parse(sistVerifisert.Value);
 
-            var sistOppdatert = element.Attributes["sistOppdatert", Navnerom.OppslagstjenesteMetadata];
+            var sistOppdatert = element.Attributes["sistOppdatert"];
             if (sistOppdatert != null)
                 SistOppdatert = DateTimeOffset.Parse(sistOppdatert.Value);
         }

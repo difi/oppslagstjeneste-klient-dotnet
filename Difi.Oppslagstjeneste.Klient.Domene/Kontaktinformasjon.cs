@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using Difi.Oppslagstjeneste.Klient.Domene.Abstract;
 using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene
@@ -22,11 +23,11 @@ namespace Difi.Oppslagstjeneste.Klient.Domene
         {            
             var epost = element["Epostadresse", Navnerom.OppslagstjenesteMetadata];
             if (epost != null)
-                this.Epostadresse = new Epostadresse(epost);
+                Epostadresse = new Epostadresse(epost);
 
             var mobiltelefonnummer = element["Mobiltelefonnummer", Navnerom.OppslagstjenesteMetadata];
             if (mobiltelefonnummer != null)
-                this.Mobiltelefonnummer = new Mobiltelefonnummer(mobiltelefonnummer);
+                Mobiltelefonnummer = new Mobiltelefonnummer(mobiltelefonnummer);
         }
     }
 }

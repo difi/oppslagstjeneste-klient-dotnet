@@ -10,7 +10,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         OppslagstjenesteInstillinger instillinger;
 
         public OppslagstjenesteValidator(Stream response, XmlDocument sentEnvelope, OppslagstjenesteInstillinger instillinger)
-            : base(response, SoapVersion.Soap11, sentEnvelope, instillinger.Sertifikat)
+            : base(response, SoapVersion.Soap11, sentEnvelope, instillinger.Avsendersertifikat)
         {
             this.instillinger = instillinger;
         }

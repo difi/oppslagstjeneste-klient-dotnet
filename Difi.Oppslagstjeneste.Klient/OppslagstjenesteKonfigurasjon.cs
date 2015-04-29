@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using Difi.Felles;
+using Difi.Oppslagstjeneste.Klient.Felles;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
