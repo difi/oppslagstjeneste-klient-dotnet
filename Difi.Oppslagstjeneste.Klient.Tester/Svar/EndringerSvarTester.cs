@@ -1,10 +1,5 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
-using System.Windows.Forms.VisualStyles;
+﻿using System.Linq;
 using System.Xml;
-using Difi.Oppslagstjeneste.Klient.Domene;
-using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

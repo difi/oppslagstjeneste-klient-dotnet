@@ -41,7 +41,6 @@
       <HintPath>..\packages\api-client-shared.1.0.5578.25965\lib\net45\ApiClientShared.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
@@ -57,7 +56,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="OppslagstjenesteKonfigurasjonTester.cs" />
     <Compile Include="Svar\EndringerSvarTester.cs" />
     <Compile Include="Svar\PersonerSvarTester.cs" />
     <Compile Include="Domene\PersonTester.cs" />

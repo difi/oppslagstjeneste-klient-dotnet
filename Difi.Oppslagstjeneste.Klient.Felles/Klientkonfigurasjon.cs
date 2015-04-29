@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace Difi.Felles
+namespace Difi.Oppslagstjeneste.Klient.Felles
 {
     public abstract class Klientkonfigurasjon
     {
