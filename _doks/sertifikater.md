@@ -6,11 +6,13 @@ description: Installere sertifikater for signering og kryptering av post
 isHome: false
 ---
 
-For å sende sikker digital post trenger du å installere sertifikater. 
+For å sende forespørsler til Oppslagstjenesten trenger du å installere sertifikater på maskinen. Grunnen til at de skal installeres
+er i hovedsak sikkerhet. Når du installerer ditt private avsendersertifikat på datamaskinen så blir du spurt om passord. Dette skjer 
+kun én gang, og etter dette kan du bruke sertifikatet i koden uten å eksponere passordet. 
 
-<h3 id="databehandlersertifikat">Legg inn databehandlersertifikat i certificate store</h3>
+<h3 id="databehandlersertifikat">Installere avsendersertifikat</h3>
 
-<blockquote> Databehandlersertifikat er det sertifikatet du har fått utstedt for å kunne sende post.  </blockquote>
+<blockquote> Avsendersertifikatet brukes av Virksomhet for å signere forespørsler som går til Oppslagstjenesten.  </blockquote>
 
 1.  Dobbeltklikk på sertifikatet (Sertifikatnavn.p12)
 2.  Velg at sertifikatet skal lagres i _Current User_ og trykk _Next_
@@ -21,15 +23,15 @@ For å sende sikker digital post trenger du å installere sertifikater.
 7.  Får du spørsmål om å godta sertifikatet så gjør det.
 8.  Du skal da få en dialog som sier at importeringen var vellykket. Trykk _Ok_.
 
-<h3 id="mottakersertifikat">Legg inn mottakersertifikat i certificate store</h3>
+<h3 id="mottakersertifikat">Legg inn valideringssertifikat i certificate store</h3>
 
-<blockquote> Mottakerens sertifikat vil være sertifikatet til Digipost eller E-Boks.</blockquote>
+<blockquote> Valideringssertifikat vil være sertifikatet som brukes for å validere svar fra Oppslagstjenesten.</blockquote>
 
 1.  Start mmc.exe (Trykk windowstast og skriv _mmc.exe_)
 2.  Velg _File_ -> _Add/Remove Snap-in..._ 
 3.  Merk _Certificates_ og trykk _Add >_
 4.  Velg _My user account_ og trykk _Finish_
-5.  Åpne noden _Certificates - Current User_
+5.  Åpne noden _Certificates - Current User_ - Trusted People - Certificates_
 6.  Høyreklikk på _Trusted People_ og velg _All Tasks_ -> _Import..._
 7.  Trykk _Next_
 8.  Finn mottaker-sertifikatet (Sertifikatnavn.cer) og legg det til. Trykk _Next_
@@ -39,28 +41,17 @@ For å sende sikker digital post trenger du å installere sertifikater.
 
 <h3 id="mottakersertifikat">Finne installert sertifikat</h3>
 
-For å kunne koble opp mot Oppslagstjenesten trenger du et sertifikat for å kunne autentisere deg.
+OppslagstjenesteKlient har støtte for å ta inn _thumbprint_ direkte. For å finne _thumbprint_ så er det lettest å gjøre det vha _Microsoft Management Console_ (mmc.exe). 
 
-De installerte sertifikatene kan hentes inn vha. thumbprint. Dette finner du ved å åpne sertifikatet i Explorer og kopier verdien _Thumbprint_.
+1.  Start mmc.exe (Trykk windowstast og skriv _mmc.exe_)
+2.  Velg _File_ -> _Add/Remove Snap-in..._ 
+3.  Merk _Certificates_ og trykk _Add >_
+4.  Velg _My user account_ og trykk _Finish_
+5.	Åpne mappe for sertifikat
+	1. Avsendersertifikat: Åpne noden _Certificates - Current User - Personal - Certificates_
+	2. Valideringssertifikat: Åpne noden _Certificates - Current User - Trusted People - Certificates_
+6. 	Dobbeltklikk på sertifikatet du installerte
+7.	Velg _Details_, scroll ned til _Thumbprint_ og kopier
+8.	VIKTIG: Hvis du får problemer i kode med at sertifikat ikke finnes, så kan det hende du får med en usynling _BOM_(Byte Order Mark). Slett derfor denne med å sette peker før første tegn i thumbprint i en teksteditor. Hvis det var en BOM der så forsvant ikke det første synlige tegnet i thumbprint. 
 
-Sertifikatene kan hentes på følgende måte:
-{% highlight csharp %}
-//Sertifikat for databehandler
-X509Store storeMy = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-X509Certificate2 databehandlersertifikat;
-storeMy.Open(OpenFlags.ReadOnly);
-databehandlersertifikat = storeMy.Certificates.Find(
-	X509FindType.FindByThumbprint, hash, true)[0];
-storeMy.Close();
-
- //Sertifikat for mottaker
- var storeTrusted = new X509Store(StoreName.TrustedPeople, StoreLocation.CurrentUser);
- X509Certificate2 mottakerSertifikat;
- storeTrusted.Open(OpenFlags.ReadOnly);
- mottakerSertifikat = storeTrusted.Certificates.Find(
- 	X509FindType.FindByThumbprint, hash, true)[0];
- storeTrusted.Close();
-{% endhighlight %}
-
-
-
+Ønsker du å sende inn sertifikater du har allerede har initialisert, kan du kalle konstruktøren som tar inn <code> X509Certificate2</code>.
