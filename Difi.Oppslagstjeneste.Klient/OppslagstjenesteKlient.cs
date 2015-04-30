@@ -114,7 +114,7 @@ namespace Difi.Oppslagstjeneste.Klient
             var xml = envelope.ToXml();
             var bytes = Encoding.UTF8.GetBytes(xml.OuterXml);
 
-            var xmlValidator = new OppslagstjenesteXmlvalidator("Difi.Oppslagstjeneste.Klient.XmlValidering.Xsd");
+            var xmlValidator = new OppslagstjenesteXmlvalidator();
             var xmlValidert = xmlValidator.ValiderDokumentMotXsd(xml.OuterXml);
             if (!xmlValidert)
             {
