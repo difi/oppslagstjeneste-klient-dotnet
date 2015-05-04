@@ -41,7 +41,13 @@ kun én gang, og etter dette kan du bruke sertifikatet i koden uten å eksponere
 
 <h3 id="mottakersertifikat">Finne installert sertifikat</h3>
 
-OppslagstjenesteKlient har støtte for å ta inn _thumbprint_ direkte. For å finne _thumbprint_ så er det lettest å gjøre det vha _Microsoft Management Console_ (mmc.exe). 
+<code>OppslagstjenesteKlient</code> har støtte for å ta inn _thumbprint_ direkte:
+
+{% highlight csharp %}
+OppslagstjenesteKlient(avsendersertifikatThumbprint, valideringssertifikatThumbprint)
+{% endhighlight %}
+
+ . For å finne _thumbprint_ så er det lettest å gjøre det vha _Microsoft Management Console_ (mmc.exe). 
 
 1.  Start mmc.exe (Trykk windowstast og skriv _mmc.exe_)
 2.  Velg _File_ -> _Add/Remove Snap-in..._ 
