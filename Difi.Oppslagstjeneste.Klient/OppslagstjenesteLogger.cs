@@ -50,5 +50,5 @@ namespace Difi.Oppslagstjeneste.Klient
             };
         }
     }
-}
+}   
 

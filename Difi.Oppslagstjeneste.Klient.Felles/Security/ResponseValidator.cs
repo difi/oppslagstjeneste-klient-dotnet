@@ -15,7 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
 
     public abstract class ResponseValidator
     {
-        protected XmlNamespaceManager nsmgr;
+        protected XmlNamespaceManager Nsmgr;
         
         public XmlDocument ResponseDocument { get; private set; }
 
@@ -32,19 +32,16 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
             ResponseDocument = new XmlDocument();
             ResponseDocument.Load(stream);
 
-            nsmgr = new XmlNamespaceManager(ResponseDocument.NameTable);
-            if (version == SoapVersion.Soap11)
-                nsmgr.AddNamespace("env", Navnerom.SoapEnvelope);
-            else
-                nsmgr.AddNamespace("env", Navnerom.SoapEnvelopeEnv12);
-            nsmgr.AddNamespace("wsse", Navnerom.WssecuritySecext10);
-            nsmgr.AddNamespace("ds", Navnerom.XmlDsig);            
-            nsmgr.AddNamespace("xenc", Navnerom.xenc); 
-            nsmgr.AddNamespace("wsse11", Navnerom.WssecuritySecext11);
-            nsmgr.AddNamespace("wsu", Navnerom.WssecurityUtility10);
+            Nsmgr = new XmlNamespaceManager(ResponseDocument.NameTable);
+            Nsmgr.AddNamespace("env", version == SoapVersion.Soap11 ? Navnerom.SoapEnvelope : Navnerom.SoapEnvelopeEnv12);
+            Nsmgr.AddNamespace("wsse", Navnerom.WssecuritySecext10);
+            Nsmgr.AddNamespace("ds", Navnerom.XmlDsig);            
+            Nsmgr.AddNamespace("xenc", Navnerom.xenc); 
+            Nsmgr.AddNamespace("wsse11", Navnerom.WssecuritySecext11);
+            Nsmgr.AddNamespace("wsu", Navnerom.WssecurityUtility10);
 
-            HeaderSecurityElement = ResponseDocument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security", nsmgr) as XmlElement;
-            HeaderSignatureElement = HeaderSecurityElement.SelectSingleNode("./ds:Signature", nsmgr) as XmlElement;
+            HeaderSecurityElement = ResponseDocument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security", Nsmgr) as XmlElement;
+            HeaderSignatureElement = HeaderSecurityElement.SelectSingleNode("./ds:Signature", Nsmgr) as XmlElement;
 
             if (xmlDekrypteringsSertifikat != null)
                 DecryptDocument(xmlDekrypteringsSertifikat);
@@ -52,35 +49,32 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
 
         private void DecryptDocument(X509Certificate2 decryptionSertificate)
         {
-            // TODO: Use more of .NET native code.
-            var encryptedNode = ResponseDocument.SelectSingleNode("/env:Envelope/env:Body/xenc:EncryptedData", nsmgr) as XmlElement;
+            var encryptedNode = ResponseDocument.SelectSingleNode("/env:Envelope/env:Body/xenc:EncryptedData", Nsmgr) as XmlElement;
             if (encryptedNode == null)
                 return;
             
-            EncryptedXml enc = new EncryptedXml(ResponseDocument);
-            
-            EncryptedData ed = new EncryptedData();
-            ed.LoadXml(encryptedNode);
+            var encryptedXml = new EncryptedXml(ResponseDocument);
+            var encryptedData = new EncryptedData();
+            encryptedData.LoadXml(encryptedNode);
 
             var privateKey = decryptionSertificate.PrivateKey as RSACryptoServiceProvider;
-            var cipher = ResponseDocument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue", nsmgr).InnerText;
+            var cipher = ResponseDocument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue", Nsmgr).InnerText;
 
-            var test = enc.GetDecryptionKey(ed, "http://www.w3.org/2001/04/xmlenc#aes256-cbc");
+            AesManaged aes = new AesManaged
+            {
+                Mode = CipherMode.CBC,
+                KeySize = 256,
+                Padding = PaddingMode.None,
+                Key = privateKey.Decrypt(Convert.FromBase64String(cipher), true)
+            };
 
-            AesManaged aes = new AesManaged();
-            aes.Mode = CipherMode.CBC;
-            aes.KeySize = 256;
-            aes.Padding = PaddingMode.None;
-            aes.Key = privateKey.Decrypt(System.Convert.FromBase64String(cipher), true);
-
-            enc.ReplaceData(encryptedNode, enc.DecryptData(ed, aes));
-
+            encryptedXml.ReplaceData(encryptedNode, encryptedXml.DecryptData(encryptedData, aes));
         }
 
 
         protected void SjekkTimestamp(TimeSpan timeSpan)
         {
-            var timestampElement = HeaderSecurityElement.SelectSingleNode("./wsu:Timestamp", nsmgr);
+            var timestampElement = HeaderSecurityElement.SelectSingleNode("./wsu:Timestamp", Nsmgr);
 
             var created = DateTimeOffset.Parse(timestampElement["Created", Navnerom.WssecurityUtility10].InnerText);
             var expires = DateTimeOffset.Parse(timestampElement["Expires", Navnerom.WssecurityUtility10].InnerText);
@@ -103,7 +97,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
             foreach (var elementXPath in requiredReferences)
             {
                 // Sørg for at svar inneholde påkrevede noder.
-                var nodes = ResponseDocument.SelectNodes(elementXPath, nsmgr);
+                var nodes = ResponseDocument.SelectNodes(elementXPath, Nsmgr);
                 if (nodes == null || nodes.Count == 0)
                     throw new Exception(string.Format("Kan ikke finne påkrevet element '{0}' i svar fra meldingsformidler.", elementXPath));
                 if (nodes.Count > 1)
@@ -112,7 +106,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
                 // Sørg for at det finnes en refereanse til node i signatur element
                 var elementId = nodes[0].Attributes["wsu:Id"].Value;
 
-                var references = signature.SelectNodes(string.Format("./ds:SignedInfo/ds:Reference[@URI='#{0}']", elementId), nsmgr);
+                var references = signature.SelectNodes(string.Format("./ds:SignedInfo/ds:Reference[@URI='#{0}']", elementId), Nsmgr);
                 if (references == null || references.Count == 0)
                     throw new Exception(string.Format("Kan ikke finne påkrevet refereanse til element '{0}' i signatur fra meldingsformidler.", elementXPath));
                 if (references.Count > 1)
@@ -129,11 +123,11 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
         protected void PerformSignatureConfirmation(XmlElement securityNode)
         {
             // Locate SignatureConfirmation element in response document
-            var signatureConfirmationNode = securityNode.SelectSingleNode("./wsse11:SignatureConfirmation", nsmgr);
+            var signatureConfirmationNode = securityNode.SelectSingleNode("./wsse11:SignatureConfirmation", Nsmgr);
             var signatureConfirmation = signatureConfirmationNode.Attributes["Value"].Value;
 
             // Locate sent signature
-            var sentSignatureValueNode = SentEnvelope.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/ds:Signature/ds:SignatureValue", nsmgr);
+            var sentSignatureValueNode = SentEnvelope.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/ds:Signature/ds:SignatureValue", Nsmgr);
             var sentSignatureValue = sentSignatureValueNode.InnerText;
 
             // match against sent signature

@@ -13,18 +13,9 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
     /// </remarks>
     public class SignedXmlWithAgnosticId : SignedXml
     {
-        private XmlDocument m_containingDocument;
-
         public SignedXmlWithAgnosticId(XmlDocument xml)
             : base(xml)
         {
-            this.m_containingDocument = xml;
-        }
-
-        public SignedXmlWithAgnosticId(XmlElement xmlElement)
-            : base(xmlElement)
-        {
-            this.m_containingDocument = xmlElement.OwnerDocument;
         }
 
         /// <param name="xml">The document containing the references to be signed.</param>
@@ -35,7 +26,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
             Initialize(xml, certificate);
         }
 
-        protected virtual void Initialize(XmlDocument xml, X509Certificate2 certificate)
+        protected void Initialize(XmlDocument xml, X509Certificate2 certificate)
         {
             // Makes sure the signingkey has a private key.
             if (!certificate.HasPrivateKey)
@@ -51,22 +42,18 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
             XmlElement idElem = base.GetIdElement(doc, id) ?? FindIdElement(doc, id);
 
             // Check to se if id element is within the signatures object node. This is used by ESIs Xml Advanced Electronic Signatures (Xades)
-            if (idElem == null)
+            if (idElem == null && (Signature != null && Signature.ObjectList != null))
             {
-                if (Signature != null && Signature.ObjectList != null)
+                foreach (DataObject dataObject in Signature.ObjectList)
                 {
-                    foreach (DataObject dataObject in Signature.ObjectList)
+                    if (dataObject.Data == null || dataObject.Data.Count <= 0) continue;
+
+                    foreach (XmlNode dataNode in dataObject.Data)
                     {
-                        if (dataObject.Data != null && dataObject.Data.Count > 0)
+                        idElem = FindIdElement(dataNode, id);
+                        if (idElem != null)
                         {
-                            foreach (XmlNode dataNode in dataObject.Data)
-                            {
-                                idElem = FindIdElement(dataNode, id);
-                                if (idElem != null)
-                                {
-                                    return idElem;
-                                }
-                            }
+                            return idElem;
                         }
                     }
                 }

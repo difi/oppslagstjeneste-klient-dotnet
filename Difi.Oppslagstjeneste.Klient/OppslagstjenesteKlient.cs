@@ -58,6 +58,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 Avsendersertifikat =  ApiClientShared.CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),
                 Valideringssertifikat = ApiClientShared.CertificateUtility.ReceiverCertificate(valideringssertifikatThumbprint, Language.Norwegian)
             };
+            _konfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
         }
 
         /// <summary>
@@ -121,7 +122,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 throw new XmlException(xmlValidator.ValideringsVarsler);
             }
 
-            //Logging.Log(TraceEventType.Verbose, xml.OuterXml);
+            Logging.Log(TraceEventType.Verbose, xml.OuterXml);
 
             var requestStream = request.GetRequestStream();
             requestStream.Write(bytes, 0, bytes.Length);
