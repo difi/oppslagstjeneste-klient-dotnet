@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
-using ApiClientShared;
-using ApiClientShared.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Testklient
 {
