@@ -27,7 +27,7 @@ kun én gang, og etter dette kan du bruke sertifikatet i koden uten å eksponere
 
 <blockquote> Valideringssertifikat vil være sertifikatet som brukes for å validere svar fra Oppslagstjenesten.</blockquote>
 
-Hvis du skal kjøre mot Difis testserver(https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v4), så skal du bruke [Difi Testsertifikat (prefiks test)](https://github.com/difi/oppslagstjeneste-klient-dotnet/tree/gh-pages/cert/). Høyreklikk og lagre til disk.  
+Hvis du skal kjøre mot Difis testserver(https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v4), så skal du bruke [Test_Difi.cer](https://github.com/difi/oppslagstjeneste-klient-dotnet/tree/gh-pages/cert/Test_Difi.cer). Høyreklikk og lagre til disk.  
 
 1.  Start mmc.exe (Trykk windowstast og skriv _mmc.exe_)
 2.  Velg _File_ -> _Add/Remove Snap-in..._ 
