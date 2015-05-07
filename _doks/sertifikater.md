@@ -10,7 +10,7 @@ For å sende forespørsler til Oppslagstjenesten trenger du å installere sertif
 er i hovedsak sikkerhet. Når du installerer ditt private avsendersertifikat på datamaskinen så blir du spurt om passord. Dette skjer 
 kun én gang, og etter dette kan du bruke sertifikatet i koden uten å eksponere passordet. 
 
-<h3 id="databehandlersertifikat">Installere avsendersertifikat</h3>
+<h3 id="databehandlersertifikat">Installere avsendersertifikat/virksomhetssertifikat</h3>
 
 <blockquote> Avsendersertifikatet brukes av Virksomhet for å signere forespørsler som går til Oppslagstjenesten.  </blockquote>
 
@@ -26,6 +26,8 @@ kun én gang, og etter dette kan du bruke sertifikatet i koden uten å eksponere
 <h3 id="mottakersertifikat">Legg inn valideringssertifikat i certificate store</h3>
 
 <blockquote> Valideringssertifikat vil være sertifikatet som brukes for å validere svar fra Oppslagstjenesten.</blockquote>
+
+Hvis du skal kjøre mot Difis testserver(https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v4), så skal du bruke [Difi Testsertifikat (prefiks test)](https://github.com/difi/oppslagstjeneste-klient-dotnet/tree/gh-pages/cert/). Høyreklikk og lagre til disk.  
 
 1.  Start mmc.exe (Trykk windowstast og skriv _mmc.exe_)
 2.  Velg _File_ -> _Add/Remove Snap-in..._ 
