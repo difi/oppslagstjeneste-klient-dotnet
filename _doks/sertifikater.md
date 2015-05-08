@@ -41,7 +41,7 @@ Hvis du skal kjøre mot Difis testserver(https://kontaktinfo-ws-ver2.difi.no/kon
 10. _Next_ og _Finish_
 11. Du skal da få en dialog som sier at importeringen var vellykket. Trykk _Ok_.
 
-<h3 id="mottakersertifikat">Finne installert sertifikat</h3>
+<h3 id="finneinstallertsertifikat">Finne installert sertifikat</h3>
 
 <code>OppslagstjenesteKlient</code> har støtte for å ta inn _thumbprint_ direkte:
 
