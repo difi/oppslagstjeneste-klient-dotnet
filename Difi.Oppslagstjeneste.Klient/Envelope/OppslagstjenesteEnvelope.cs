@@ -57,7 +57,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             signed.AddReference(bodyReference);
 
             signed.KeyInfo.AddClause(new SecurityTokenReferenceClause(Instillinger.Avsendersertifikat));
-            signed.KeyInfo.Id = "KS-asdasdasdasd";
+            signed.KeyInfo.Id = String.Format("KS-{0}", Guid.NewGuid());
 
             signed.ComputeSignature();
 

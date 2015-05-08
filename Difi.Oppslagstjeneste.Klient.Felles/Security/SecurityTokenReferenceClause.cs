@@ -23,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
 
         public override XmlElement GetXml()
         {
-            return GetXml(new XmlDocument() { PreserveWhitespace = true });
+            return GetXml(new XmlDocument { PreserveWhitespace = true });
         }
 
         private XmlElement GetXml(XmlDocument xmlDocument)
@@ -31,7 +31,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
             XmlElement element1 = xmlDocument.CreateElement("wsse", "SecurityTokenReference", Navnerom.WssecuritySecext10);
 
             var idAttribute = xmlDocument.CreateAttribute("wsu", "Id", Navnerom.WssecurityUtility10);
-            idAttribute.Value = "STR-0C65FAC3DD4C8DBAAD142827305718654";
+            idAttribute.Value = string.Format("STR-{0}", Guid.NewGuid());
             element1.SetAttributeNode(idAttribute);
 
             if (!string.IsNullOrEmpty(Uri))
@@ -41,6 +41,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
                 element2.SetAttribute("ValueType", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3");
                 element1.AppendChild(element2);
             }
+
             if (Certificate != null)
             {
                 var keyIdentifier  = xmlDocument.CreateElement("wsse", "KeyIdentifier", Navnerom.WssecuritySecext10);

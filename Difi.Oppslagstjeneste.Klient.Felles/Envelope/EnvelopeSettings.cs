@@ -7,7 +7,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
     {        
         public SoapVersion SoapVersion { get; set; }
      
-        public virtual string BodyId { get; set; }
+        public string BodyId { get; set; }
         public virtual string TimestampId { get; set; }
 
         public string SoapNamespace
@@ -25,7 +25,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
         {
             SoapVersion = version;
 
-            BodyId = String.Format("id-{0}", Guid.NewGuid());
+            BodyId = string.Format("id-{0}", Guid.NewGuid());
             TimestampId = String.Format("TS-{0}", Guid.NewGuid());
         }
     }
