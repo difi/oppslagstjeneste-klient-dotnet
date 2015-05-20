@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
@@ -109,6 +111,16 @@ namespace Difi.Oppslagstjeneste.Klient
             request.KeepAlive = true;
             request.ServicePoint.Expect100Continue = false;
             request.Timeout = _konfigurasjon.TimeoutIMillisekunder;
+
+            string netVersion = Assembly
+                     .GetExecutingAssembly()
+                     .GetReferencedAssemblies()
+                     .Where(x => x.Name == "System.Core").First().Version.ToString();
+
+            var assemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+
+            request.UserAgent = string.Format("DifiOppslagstjeneste/{1} .NET/{0},", netVersion, assemblyVersion);
+
             if (_konfigurasjon.BrukProxy)
                 request.Proxy = new WebProxy(new UriBuilder(_konfigurasjon.ProxyScheme, _konfigurasjon.ProxyHost, _konfigurasjon.ProxyPort).Uri);
 
