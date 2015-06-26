@@ -40,7 +40,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\difi-oppslagstjeneste.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApiClientShared">
@@ -106,9 +106,6 @@
       <Project>{1652EB8A-222A-4D26-98AA-BBBFFE079D56}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Felles</Name>
     </ProjectReference>
-    <None Include="..\difi-oppslagstjeneste.pfx">
-      <Link>difi-oppslagstjeneste.pfx</Link>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
