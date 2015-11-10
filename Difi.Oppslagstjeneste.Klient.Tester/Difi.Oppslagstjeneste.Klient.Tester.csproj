@@ -69,10 +69,6 @@
       <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Felles\Difi.Oppslagstjeneste.Klient.Felles.csproj">
-      <Project>{1652EB8A-222A-4D26-98AA-BBBFFE079D56}</Project>
-      <Name>Difi.Oppslagstjeneste.Klient.Felles</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient\Difi.Oppslagstjeneste.Klient.csproj">
       <Project>{13B840F4-199B-4482-B4A8-CB71AC1B0C99}</Project>
       <Name>Difi.Oppslagstjeneste.Klient</Name>

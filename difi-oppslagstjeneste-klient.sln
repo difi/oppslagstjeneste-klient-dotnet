@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient", "Difi.Oppslagstjeneste.Klient\Difi.Oppslagstjeneste.Klient.csproj", "{13B840F4-199B-4482-B4A8-CB71AC1B0C99}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient.Domene", "Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj", "{3EC8D196-7BD8-4C88-B989-216801AD0840}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient.Tester", "Difi.Oppslagstjeneste.Klient.Tester\Difi.Oppslagstjeneste.Klient.Tester.csproj", "{E895DDE0-3B5C-4832-83A5-B545A59570F9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient.Felles", "Difi.Oppslagstjeneste.Klient.Felles\Difi.Oppslagstjeneste.Klient.Felles.csproj", "{1652EB8A-222A-4D26-98AA-BBBFFE079D56}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35CACDAF-9027-4799-AB9E-16210A7EF014}"
 	ProjectSection(SolutionItems) = preProject
@@ -41,10 +39,6 @@ Global
 		{E895DDE0-3B5C-4832-83A5-B545A59570F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E895DDE0-3B5C-4832-83A5-B545A59570F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E895DDE0-3B5C-4832-83A5-B545A59570F9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1652EB8A-222A-4D26-98AA-BBBFFE079D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1652EB8A-222A-4D26-98AA-BBBFFE079D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1652EB8A-222A-4D26-98AA-BBBFFE079D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1652EB8A-222A-4D26-98AA-BBBFFE079D56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

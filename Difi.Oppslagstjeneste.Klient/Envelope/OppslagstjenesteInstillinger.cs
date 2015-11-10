@@ -1,6 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
-using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
-using Difi.Oppslagstjeneste.Klient.Felles.Security;
+using Difi.Oppslagstjeneste.Klient.Security;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {

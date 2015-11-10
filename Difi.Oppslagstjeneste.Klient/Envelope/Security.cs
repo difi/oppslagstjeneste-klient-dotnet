@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Xml;
+using Difi.Oppslagstjeneste.Klient.Domene;
 
-namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    
-
     public class Security : EnvelopeXmlPart
     {
         private TimeSpan? _timespan;

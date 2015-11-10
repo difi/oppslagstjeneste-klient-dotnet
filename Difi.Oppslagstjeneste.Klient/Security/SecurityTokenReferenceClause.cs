@@ -2,9 +2,9 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
-using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
+using Difi.Oppslagstjeneste.Klient.Domene;
 
-namespace Difi.Oppslagstjeneste.Klient.Felles.Security
+namespace Difi.Oppslagstjeneste.Klient.Security
 {
     public class SecurityTokenReferenceClause : KeyInfoClause
     {
@@ -28,7 +28,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
 
         private XmlElement GetXml(XmlDocument xmlDocument)
         {
-            XmlElement element1 = xmlDocument.CreateElement("wsse", "SecurityTokenReference", Navnerom.WssecuritySecext10);
+            XmlElement element1 = xmlDocument.CreateElement("wsse", "SecurityTokenReference",  Navnerom.WssecuritySecext10);
 
             var idAttribute = xmlDocument.CreateAttribute("wsu", "Id", Navnerom.WssecurityUtility10);
             idAttribute.Value = string.Format("STR-{0}", Guid.NewGuid());

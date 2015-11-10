@@ -2,7 +2,6 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
-using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient.Svar
 {

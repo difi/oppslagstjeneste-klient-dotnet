@@ -1,8 +1,8 @@
 ﻿using System.Xml;
 
-namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Domene
 {
-    internal static class XmlElementExtensions
+    public static class XmlElementExtensions
     {
         public static XmlElement AppendChildElement(this XmlElement parent, string childname, string namespaceUri, XmlDocument document)
         {

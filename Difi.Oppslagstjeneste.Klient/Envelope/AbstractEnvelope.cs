@@ -1,7 +1,7 @@
 ﻿using System.Xml;
-using Difi.Oppslagstjeneste.Klient.Felles.Security;
+using Difi.Oppslagstjeneste.Klient.Security;
 
-namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public abstract class AbstractEnvelope
     {
