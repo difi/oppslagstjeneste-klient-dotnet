@@ -52,6 +52,7 @@
     <Compile Include="Exceptions\XmlParseException.cs" />
     <Compile Include="Kontaktinformasjon.cs" />
     <Compile Include="Mobiltelefonnummer.cs" />
+    <Compile Include="Navnerom.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
@@ -59,12 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sikkerdigitalpostadresse.cs" />
     <Compile Include="Tilstand.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Felles\Difi.Oppslagstjeneste.Klient.Felles.csproj">
-      <Project>{1652EB8A-222A-4D26-98AA-BBBFFE079D56}</Project>
-      <Name>Difi.Oppslagstjeneste.Klient.Felles</Name>
-    </ProjectReference>
+    <Compile Include="XmlElementExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\difi-oppslagstjeneste.pfx">

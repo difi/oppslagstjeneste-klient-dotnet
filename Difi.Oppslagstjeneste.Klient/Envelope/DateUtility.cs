@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     internal static class DateUtility
     {

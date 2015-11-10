@@ -2,7 +2,8 @@
 using System.Xml;
 using ApiClientShared;
 using Difi.Felles.Utility;
-using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
+using Difi.Oppslagstjeneste.Klient.Domene;
+using Difi.Oppslagstjeneste.Klient.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient.XmlValidering
 {

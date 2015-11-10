@@ -1,7 +1,8 @@
 ﻿using System;
-using Difi.Oppslagstjeneste.Klient.Felles.Security;
+using Difi.Oppslagstjeneste.Klient.Domene;
+using Difi.Oppslagstjeneste.Klient.Security;
 
-namespace Difi.Oppslagstjeneste.Klient.Felles.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class EnvelopeSettings
     {        

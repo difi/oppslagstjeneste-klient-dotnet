@@ -10,7 +10,6 @@ using ApiClientShared.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Envelope;
-using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.XmlValidering;
 

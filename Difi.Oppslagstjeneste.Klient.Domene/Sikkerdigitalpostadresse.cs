@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Xml;
-using Difi.Oppslagstjeneste.Klient.Felles.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene
 {
