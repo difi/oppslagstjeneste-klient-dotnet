@@ -13,7 +13,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
         Soap12
     }
 
-    public abstract class ResponseValidator
+    public abstract class Responsvalidator
     {
         protected XmlNamespaceManager Nsmgr;
         
@@ -25,7 +25,7 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
         
         protected XmlElement HeaderSignatureElement {get; private set;}
                
-        public ResponseValidator(System.IO.Stream stream, SoapVersion version, XmlDocument sentEnvelope, X509Certificate2 xmlDekrypteringsSertifikat = null)
+        public Responsvalidator(System.IO.Stream stream, SoapVersion version, XmlDocument sentEnvelope, X509Certificate2 xmlDekrypteringsSertifikat = null)
         {
             SentEnvelope = sentEnvelope;
 
@@ -92,31 +92,59 @@ namespace Difi.Oppslagstjeneste.Klient.Felles.Security
         /// <summary>
         /// Sjekker at soap envelopen inneholder timestamp, body og messaging element med korrekt id og referanser i security signaturen.
         /// </summary>
-        protected void ValiderSignaturReferences(XmlElement signature, SignedXmlWithAgnosticId signedXml, string[] requiredReferences)
+        protected void ValiderSignaturreferanser(XmlElement signature, SignedXmlWithAgnosticId signedXml, string[] påkrevdeReferanser)
         {
-            foreach (var elementXPath in requiredReferences)
+            foreach (var påkrevdReferanse in påkrevdeReferanser)
             {
-                // Sørg for at svar inneholde påkrevede noder.
-                var nodes = ResponseDocument.SelectNodes(elementXPath, Nsmgr);
-                if (nodes == null || nodes.Count == 0)
-                    throw new Exception(string.Format("Kan ikke finne påkrevet element '{0}' i svar fra meldingsformidler.", elementXPath));
-                if (nodes.Count > 1)
-                    throw new Exception(string.Format("Påkrevet element '{0}' kan kun forekomme én gang i svar fra meldingsformidler. Ble funnet {1} ganger.", elementXPath, nodes.Count));
+                var node = InneholderNode(påkrevdReferanse);
+                var elementId = NodeFinnesISignaturElement(signature, node, påkrevdReferanse);
 
-                // Sørg for at det finnes en refereanse til node i signatur element
-                var elementId = nodes[0].Attributes["wsu:Id"].Value;
-
-                var references = signature.SelectNodes(string.Format("./ds:SignedInfo/ds:Reference[@URI='#{0}']", elementId), Nsmgr);
-                if (references == null || references.Count == 0)
-                    throw new Exception(string.Format("Kan ikke finne påkrevet refereanse til element '{0}' i signatur fra meldingsformidler.", elementXPath));
-                if (references.Count > 1)
-                    throw new Exception(string.Format("Påkrevet refereanse til element '{0}' kan kun forekomme én gang i signatur fra meldingsformidler. Ble funnet {1} ganger.", elementXPath, references.Count));
-
-                // Sørg for at Id node matcher
-                var targetNode = signedXml.GetIdElement(ResponseDocument, elementId);
-                if (targetNode != nodes[0])
-                    throw new Exception(string.Format("Signaturreferansen med id '{0}' må refererer til node med sti '{1}'", elementId, elementXPath));
+                IdNodeMatcher(signedXml, elementId, node, påkrevdReferanse);
             }
+        }
+
+        private void IdNodeMatcher(SignedXmlWithAgnosticId signedXml, string elementId, XmlNodeList nodes, string elementXPath)
+        {
+            var targetNode = signedXml.GetIdElement(ResponseDocument, elementId);
+            if (targetNode != nodes[0])
+                throw new Exception(string.Format("Signaturreferansen med id '{0}' må refererer til node med sti '{1}'",
+                    elementId, elementXPath));
+        }
+
+        private string NodeFinnesISignaturElement(XmlElement signature, XmlNodeList nodes, string elementXPath)
+        {
+            var elementId = nodes[0].Attributes["wsu:Id"].Value;
+
+            var references = signature.SelectNodes(string.Format("./ds:SignedInfo/ds:Reference[@URI='#{0}']", elementId), Nsmgr);
+            if (references == null || references.Count == 0)
+            { 
+                throw new Exception(
+                    string.Format("Kan ikke finne påkrevet refereanse til element '{0}' i signatur fra meldingsformidler.",elementXPath)
+                    );
+            }
+            if (references.Count > 1)
+                throw new Exception(
+                    string.Format("Påkrevet refereanse til element '{0}' kan kun forekomme én gang i signatur fra meldingsformidler. Ble funnet {1} ganger.",elementXPath, references.Count)
+                    );
+            return elementId;
+        }
+
+        private XmlNodeList InneholderNode(string elementXPath)
+        {
+            var nodes = ResponseDocument.SelectNodes(elementXPath, Nsmgr);
+            if (nodes == null || nodes.Count == 0)
+            {
+                throw new Exception(string.Format("Kan ikke finne påkrevet element '{0}' i svar fra meldingsformidler.",elementXPath));
+            }
+
+            if (nodes.Count > 1)
+            {
+                throw new Exception(
+                    string.Format("Påkrevet element '{0}' kan kun forekomme én gang i svar fra meldingsformidler. Ble funnet {1} ganger.", elementXPath, nodes.Count)
+                    );
+            }
+                
+            return nodes;
         }
 
 

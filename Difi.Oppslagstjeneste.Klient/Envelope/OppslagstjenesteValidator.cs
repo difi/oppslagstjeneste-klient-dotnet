@@ -5,7 +5,7 @@ using Difi.Oppslagstjeneste.Klient.Felles.Security;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public class OppslagstjenesteValidator : ResponseValidator
+    public class OppslagstjenesteValidator : Responsvalidator
     {
         OppslagstjenesteInstillinger instillinger;
 
@@ -21,7 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             signed.LoadXml(HeaderSignatureElement);
 
             // Sørger for at motatt envelope inneholder signature confirmation og body samt at id'ne matcher mot header signatur
-            ValiderSignaturReferences(HeaderSignatureElement, signed, new string[] { "/env:Envelope/env:Header/wsse:Security/wsse11:SignatureConfirmation", "/env:Envelope/env:Body" });
+            ValiderSignaturreferanser(HeaderSignatureElement, signed, new string[] { "/env:Envelope/env:Header/wsse:Security/wsse11:SignatureConfirmation", "/env:Envelope/env:Body" });
 
             // Validerer SignatureConfirmation
             PerformSignatureConfirmation(HeaderSecurityElement);
