@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration.Internal;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -23,8 +24,8 @@ namespace Difi.Oppslagstjeneste.Klient
     /// </summary>
     public class OppslagstjenesteKlient
     {
-        readonly OppslagstjenesteInstillinger _instillinger;
-        readonly OppslagstjenesteKonfigurasjon _konfigurasjon;
+        public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
+        public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
 
         /// <summary>
         /// Oppslagstjenesten for kontakt og reservasjonsregisteret.
@@ -35,12 +36,12 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
         public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
         {
-            _instillinger = new OppslagstjenesteInstillinger
+            OppslagstjenesteInstillinger = new OppslagstjenesteInstillinger
             {
                 Avsendersertifikat = avsendersertifikat,
                 Valideringssertifikat = valideringsSertifikat 
             };
-            _konfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
+            OppslagstjenesteKonfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
         }
         
         /// <summary>
@@ -55,12 +56,12 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <param name="konfigurasjon"></param>
         public OppslagstjenesteKlient(string avsendersertifikatThumbprint, string valideringssertifikatThumbprint, OppslagstjenesteKonfigurasjon konfigurasjon = null)
         {
-            _instillinger = new OppslagstjenesteInstillinger()
+            OppslagstjenesteInstillinger = new OppslagstjenesteInstillinger()
             {
                 Avsendersertifikat =  ApiClientShared.CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),
                 Valideringssertifikat = ApiClientShared.CertificateUtility.ReceiverCertificate(valideringssertifikatThumbprint, Language.Norwegian)
             };
-            _konfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
+            OppslagstjenesteKonfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
         }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <param name="informasjonsbehov">Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.</param>
         public EndringerSvar HentEndringer(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
         {
-            var envelope = new EndringerEnvelope(_instillinger, fraEndringsNummer, informasjonsbehov);
+            var envelope = new EndringerEnvelope(OppslagstjenesteInstillinger, fraEndringsNummer, informasjonsbehov);
             var validator = SendEnvelope(envelope);
             validator.Valider();
             return new EndringerSvar(validator.MottattDokument);
@@ -84,7 +85,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <param name="informasjonsbehov">Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.</param>
         public IEnumerable<Person> HentPersoner(string[] personidentifikator, Informasjonsbehov informasjonsbehov)
         {
-            var envelope = new PersonerEnvelope(_instillinger, personidentifikator, informasjonsbehov);
+            var envelope = new PersonerEnvelope(OppslagstjenesteInstillinger, personidentifikator, informasjonsbehov);
             Oppslagstjenestevalidator validator = SendEnvelope(envelope);
             validator.Valider();
             return new PersonerSvar(validator.MottattDokument).Personer;
@@ -96,7 +97,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public PrintSertifikatSvar HentPrintSertifikat()
         {
-            var envelope = new PrintSertifikatEnvelope(_instillinger);
+            var envelope = new PrintSertifikatEnvelope(OppslagstjenesteInstillinger);
             var validator = SendEnvelope(envelope);
             validator.Valider();
             return new PrintSertifikatSvar(validator.MottattDokument);
@@ -104,13 +105,13 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private Oppslagstjenestevalidator SendEnvelope(AbstractEnvelope envelope)
         {
-            var request = (HttpWebRequest)WebRequest.Create(_konfigurasjon.ServiceUri);
+            var request = (HttpWebRequest)WebRequest.Create(OppslagstjenesteKonfigurasjon.ServiceUri);
             request.ContentType = "text/xml;charset=UTF-8";
             request.Headers.Add("SOAPAction", "\"\"");
             request.Method = "POST";
             request.KeepAlive = true;
             request.ServicePoint.Expect100Continue = false;
-            request.Timeout = _konfigurasjon.TimeoutIMillisekunder;
+            request.Timeout = OppslagstjenesteKonfigurasjon.TimeoutIMillisekunder;
 
             string netVersion = Assembly
                      .GetExecutingAssembly()
@@ -121,8 +122,8 @@ namespace Difi.Oppslagstjeneste.Klient
 
             request.UserAgent = string.Format("DifiOppslagstjeneste/{1} .NET/{0},", netVersion, assemblyVersion);
 
-            if (_konfigurasjon.BrukProxy)
-                request.Proxy = new WebProxy(new UriBuilder(_konfigurasjon.ProxyScheme, _konfigurasjon.ProxyHost, _konfigurasjon.ProxyPort).Uri);
+            if (OppslagstjenesteKonfigurasjon.BrukProxy)
+                request.Proxy = new WebProxy(new UriBuilder(OppslagstjenesteKonfigurasjon.ProxyScheme, OppslagstjenesteKonfigurasjon.ProxyHost, OppslagstjenesteKonfigurasjon.ProxyPort).Uri);
 
             var xml = envelope.ToXml();
             var bytes = Encoding.UTF8.GetBytes(xml.OuterXml);
