@@ -20,13 +20,11 @@ namespace Difi.Oppslagstjeneste.Klient.Security
         protected XmlElement HeaderSecurityElement {get; private set;}
         
         protected XmlElement HeaderSignatureElement {get; private set;}
-               
-        public Responsvalidator(System.IO.Stream stream, SoapVersion version, XmlDocument sentEnvelope, X509Certificate2 xmlDekrypteringsSertifikat = null)
+
+        protected Responsvalidator(XmlDocument responsdokument, SoapVersion version, XmlDocument sentEnvelope, X509Certificate2 xmlDekrypteringsSertifikat = null)
         {
             SentEnvelope = sentEnvelope;
-
-            ResponseDocument = new XmlDocument();
-            ResponseDocument.Load(stream);
+            ResponseDocument = responsdokument;
 
             Nsmgr = new XmlNamespaceManager(ResponseDocument.NameTable);
             Nsmgr.AddNamespace("env", version == SoapVersion.Soap11 ? Navnerom.SoapEnvelope : Navnerom.SoapEnvelopeEnv12);

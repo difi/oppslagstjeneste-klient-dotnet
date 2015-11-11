@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security;
 using System.Xml;
 using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
@@ -10,11 +11,12 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
     public class OppslagstjenesteValidator : Responsvalidator
     {
         OppslagstjenesteInstillinger instillinger;
-
-        public OppslagstjenesteValidator(Stream response, XmlDocument sentEnvelope, OppslagstjenesteInstillinger instillinger)
-            : base(response, SoapVersion.Soap11, sentEnvelope, instillinger.Avsendersertifikat)
+        
+        public OppslagstjenesteValidator(XmlDocument responsdokument, XmlDocument sentEnvelope, OppslagstjenesteInstillinger instillinger)
+            : base(responsdokument, SoapVersion.Soap11, sentEnvelope, instillinger.Avsendersertifikat)
         {
             this.instillinger = instillinger;
+      
         }
 
         public void Valider()
@@ -30,9 +32,21 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             SjekkTimestamp(TimeSpan.FromSeconds(2000));
 
+            ValiderResponssertifikat(signed);
+        }
+
+        private void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
+        {
             // Sjekker signatur
             if (!signed.CheckSignature(instillinger.Valideringssertifikat.PublicKey.Key))
                 throw new Exception("Signaturen i motatt svar er ikke gyldig");
+
+            //var erGyldigSertifikat = Sertifikatkjedevalidator.ErGyldigResponssertifikat(_sertifikat);
+
+            //if (!erGyldigSertifikat)
+            //{
+            //    throw new SecurityException("Sertifikatet som er angitt i signaturen er ikke en del av en gyldig sertifikatkjede.");
+            //}
         }
     }
 }

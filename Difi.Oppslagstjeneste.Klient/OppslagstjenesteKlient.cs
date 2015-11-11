@@ -148,7 +148,11 @@ namespace Difi.Oppslagstjeneste.Klient
             try
             {
                 var response = request.GetResponse();
-                var validator = new OppslagstjenesteValidator(response.GetResponseStream(), xml, (OppslagstjenesteInstillinger)envelope.Settings);
+
+                var responsdokument = new XmlDocument();
+                responsdokument.Load(response.GetResponseStream());
+
+                var validator = new OppslagstjenesteValidator(responsdokument, xml, (OppslagstjenesteInstillinger)envelope.Settings);
                 return validator;
             }
             catch (WebException we)
