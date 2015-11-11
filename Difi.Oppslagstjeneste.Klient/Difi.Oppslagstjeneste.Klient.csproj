@@ -69,6 +69,7 @@
     <Compile Include="Envelope\OppslagstjenesteInstillinger.cs" />
     <Compile Include="Envelope\OppslagstjenesteValidator.cs" />
     <Compile Include="Envelope\Security.cs" />
+    <Compile Include="Extensions\XmlElementExtensions.cs" />
     <Compile Include="Klientkonfigurasjon.cs" />
     <Compile Include="Security\ResponsValidator.cs" />
     <Compile Include="Security\SecurityTokenReferenceClause.cs" />
