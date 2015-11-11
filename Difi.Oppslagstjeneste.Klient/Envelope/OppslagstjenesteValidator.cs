@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Security;
 using System.Xml;
 using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
@@ -8,20 +6,19 @@ using Difi.Oppslagstjeneste.Klient.Security;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public class OppslagstjenesteValidator : Responsvalidator
+    public class Oppslagstjenestevalidator : Responsvalidator
     {
-        OppslagstjenesteInstillinger instillinger;
+        public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
         
-        public OppslagstjenesteValidator(XmlDocument responsdokument, XmlDocument sentEnvelope, OppslagstjenesteInstillinger instillinger)
-            : base(responsdokument, SoapVersion.Soap11, sentEnvelope, instillinger.Avsendersertifikat)
+        public Oppslagstjenestevalidator(XmlDocument mottattDokument, XmlDocument sendtDokument, OppslagstjenesteInstillinger oppslagstjenesteInstillinger)
+            : base(mottattDokument, SoapVersion.Soap11, sendtDokument, oppslagstjenesteInstillinger.Avsendersertifikat)
         {
-            this.instillinger = instillinger;
-      
+            OppslagstjenesteInstillinger = oppslagstjenesteInstillinger;
         }
 
         public void Valider()
         {
-            var signed = new SignedXmlWithAgnosticId(ResponseDocument);
+            var signed = new SignedXmlWithAgnosticId(MottattDokument);
             signed.LoadXml(HeaderSignatureElement);
 
             // Sørger for at motatt envelope inneholder signature confirmation og body samt at id'ne matcher mot header signatur
@@ -38,7 +35,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         private void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
         {
             // Sjekker signatur
-            if (!signed.CheckSignature(instillinger.Valideringssertifikat.PublicKey.Key))
+            if (!signed.CheckSignature(OppslagstjenesteInstillinger.Valideringssertifikat.PublicKey.Key))
                 throw new Exception("Signaturen i motatt svar er ikke gyldig");
 
             //var erGyldigSertifikat = Sertifikatkjedevalidator.ErGyldigResponssertifikat(_sertifikat);

@@ -73,7 +73,7 @@ namespace Difi.Oppslagstjeneste.Klient
             var envelope = new EndringerEnvelope(_instillinger, fraEndringsNummer, informasjonsbehov);
             var validator = SendEnvelope(envelope);
             validator.Valider();
-            return new EndringerSvar(validator.ResponseDocument);
+            return new EndringerSvar(validator.MottattDokument);
         }
 
 
@@ -85,9 +85,9 @@ namespace Difi.Oppslagstjeneste.Klient
         public IEnumerable<Person> HentPersoner(string[] personidentifikator, Informasjonsbehov informasjonsbehov)
         {
             var envelope = new PersonerEnvelope(_instillinger, personidentifikator, informasjonsbehov);
-            OppslagstjenesteValidator validator = SendEnvelope(envelope);
+            Oppslagstjenestevalidator validator = SendEnvelope(envelope);
             validator.Valider();
-            return new PersonerSvar(validator.ResponseDocument).Personer;
+            return new PersonerSvar(validator.MottattDokument).Personer;
         }
 
         /// <summary>
@@ -99,10 +99,10 @@ namespace Difi.Oppslagstjeneste.Klient
             var envelope = new PrintSertifikatEnvelope(_instillinger);
             var validator = SendEnvelope(envelope);
             validator.Valider();
-            return new PrintSertifikatSvar(validator.ResponseDocument);
+            return new PrintSertifikatSvar(validator.MottattDokument);
         }
 
-        private OppslagstjenesteValidator SendEnvelope(AbstractEnvelope envelope)
+        private Oppslagstjenestevalidator SendEnvelope(AbstractEnvelope envelope)
         {
             var request = (HttpWebRequest)WebRequest.Create(_konfigurasjon.ServiceUri);
             request.ContentType = "text/xml;charset=UTF-8";
@@ -152,7 +152,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 var responsdokument = new XmlDocument();
                 responsdokument.Load(response.GetResponseStream());
 
-                var validator = new OppslagstjenesteValidator(responsdokument, xml, (OppslagstjenesteInstillinger)envelope.Settings);
+                var validator = new Oppslagstjenestevalidator(responsdokument, xml, (OppslagstjenesteInstillinger)envelope.Settings);
                 return validator;
             }
             catch (WebException we)

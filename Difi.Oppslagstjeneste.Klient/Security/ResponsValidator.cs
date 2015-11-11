@@ -13,20 +13,20 @@ namespace Difi.Oppslagstjeneste.Klient.Security
     {
         protected XmlNamespaceManager Nsmgr;
         
-        public XmlDocument ResponseDocument { get; private set; }
+        public XmlDocument MottattDokument { get; private set; }
 
-        protected XmlDocument SentEnvelope { get; private set; }
+        public XmlDocument SendtDokument { get; private set; }
 
         protected XmlElement HeaderSecurityElement {get; private set;}
         
         protected XmlElement HeaderSignatureElement {get; private set;}
 
-        protected Responsvalidator(XmlDocument responsdokument, SoapVersion version, XmlDocument sentEnvelope, X509Certificate2 xmlDekrypteringsSertifikat = null)
+        protected Responsvalidator(XmlDocument mottattDokument, SoapVersion version, XmlDocument sendtDokument, X509Certificate2 xmlDekrypteringsSertifikat = null)
         {
-            SentEnvelope = sentEnvelope;
-            ResponseDocument = responsdokument;
+            SendtDokument = sendtDokument;
+            MottattDokument = mottattDokument;
 
-            Nsmgr = new XmlNamespaceManager(ResponseDocument.NameTable);
+            Nsmgr = new XmlNamespaceManager(MottattDokument.NameTable);
             Nsmgr.AddNamespace("env", version == SoapVersion.Soap11 ? Navnerom.SoapEnvelope : Navnerom.SoapEnvelopeEnv12);
             Nsmgr.AddNamespace("wsse", Navnerom.WssecuritySecext10);
             Nsmgr.AddNamespace("ds", Navnerom.XmlDsig);            
@@ -34,7 +34,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             Nsmgr.AddNamespace("wsse11", Navnerom.WssecuritySecext11);
             Nsmgr.AddNamespace("wsu", Navnerom.WssecurityUtility10);
 
-            HeaderSecurityElement = ResponseDocument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security", Nsmgr) as XmlElement;
+            HeaderSecurityElement = MottattDokument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security", Nsmgr) as XmlElement;
             HeaderSignatureElement = HeaderSecurityElement.SelectSingleNode("./ds:Signature", Nsmgr) as XmlElement;
 
             if (xmlDekrypteringsSertifikat != null)
@@ -43,16 +43,16 @@ namespace Difi.Oppslagstjeneste.Klient.Security
 
         private void DecryptDocument(X509Certificate2 decryptionSertificate)
         {
-            var encryptedNode = ResponseDocument.SelectSingleNode("/env:Envelope/env:Body/xenc:EncryptedData", Nsmgr) as XmlElement;
+            var encryptedNode = MottattDokument.SelectSingleNode("/env:Envelope/env:Body/xenc:EncryptedData", Nsmgr) as XmlElement;
             if (encryptedNode == null)
                 return;
             
-            var encryptedXml = new EncryptedXml(ResponseDocument);
+            var encryptedXml = new EncryptedXml(MottattDokument);
             var encryptedData = new EncryptedData();
             encryptedData.LoadXml(encryptedNode);
 
             var privateKey = decryptionSertificate.PrivateKey as RSACryptoServiceProvider;
-            var cipher = ResponseDocument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue", Nsmgr).InnerText;
+            var cipher = MottattDokument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue", Nsmgr).InnerText;
 
             AesManaged aes = new AesManaged
             {
@@ -99,7 +99,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
 
         private void IdNodeMatcher(SignedXmlWithAgnosticId signedXml, string elementId, XmlNodeList nodes, string elementXPath)
         {
-            var targetNode = signedXml.GetIdElement(ResponseDocument, elementId);
+            var targetNode = signedXml.GetIdElement(MottattDokument, elementId);
             if (targetNode != nodes[0])
                 throw new Exception(string.Format("Signaturreferansen med id '{0}' må refererer til node med sti '{1}'",
                     elementId, elementXPath));
@@ -125,7 +125,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
 
         private XmlNodeList InneholderNode(string elementXPath)
         {
-            var nodes = ResponseDocument.SelectNodes(elementXPath, Nsmgr);
+            var nodes = MottattDokument.SelectNodes(elementXPath, Nsmgr);
             if (nodes == null || nodes.Count == 0)
             {
                 throw new Exception(string.Format("Kan ikke finne påkrevet element '{0}' i svar fra meldingsformidler.",elementXPath));
@@ -149,7 +149,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             var signatureConfirmation = signatureConfirmationNode.Attributes["Value"].Value;
 
             // Locate sent signature
-            var sentSignatureValueNode = SentEnvelope.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/ds:Signature/ds:SignatureValue", Nsmgr);
+            var sentSignatureValueNode = SendtDokument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/ds:Signature/ds:SignatureValue", Nsmgr);
             var sentSignatureValue = sentSignatureValueNode.InnerText;
 
             // match against sent signature
