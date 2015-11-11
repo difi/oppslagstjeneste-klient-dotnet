@@ -46,8 +46,9 @@
     <Reference Include="ApiClientShared">
       <HintPath>..\packages\api-client-shared.1.0.5578.25965\lib\net45\ApiClientShared.dll</HintPath>
     </Reference>
-    <Reference Include="Difi.Felles.Utility">
-      <HintPath>..\packages\difi-felles-utility-dotnet.0.1.5598.25086\lib\net45\Difi.Felles.Utility.dll</HintPath>
+    <Reference Include="Difi.Felles.Utility, Version=0.1.5793.17090, Culture=neutral, PublicKeyToken=683b8efceae684a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.0.1.5793.17090\lib\net45\Difi.Felles.Utility.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -70,7 +71,6 @@
     <Compile Include="Klientkonfigurasjon.cs" />
     <Compile Include="Security\ResponsValidator.cs" />
     <Compile Include="Security\SecurityTokenReferenceClause.cs" />
-    <Compile Include="Security\SignedXmlWithAgnosticId.cs" />
     <Compile Include="Svar\EndringerSvar.cs" />
     <Compile Include="Svar\PersonerSvar.cs" />
     <Compile Include="Svar\PrintSertifikatSvar.cs" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Security;
 

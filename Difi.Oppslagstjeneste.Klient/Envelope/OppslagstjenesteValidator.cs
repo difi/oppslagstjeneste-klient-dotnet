@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Security;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
