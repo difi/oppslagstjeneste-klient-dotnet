@@ -1,8 +1,9 @@
 ﻿using System;
+using Difi.Felles.Utility.Exceptions;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
 {
-    public class XmlParseException : OppslagstjenesteException
+    public class XmlParseException : DifiException
     {
         private const string Ekstrainfo = " Sjekk inner exception for mer info.";
 

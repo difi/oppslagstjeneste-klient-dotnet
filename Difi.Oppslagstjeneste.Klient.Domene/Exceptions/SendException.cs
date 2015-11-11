@@ -1,11 +1,13 @@
 ﻿using System;
+using Difi.Felles.Utility.Exceptions;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
 {
-    public class SendException : OppslagstjenesteException
+    public class SendException : DifiException
     {
         public SendException()
         {
+             
         }
 
         public SendException(string message)

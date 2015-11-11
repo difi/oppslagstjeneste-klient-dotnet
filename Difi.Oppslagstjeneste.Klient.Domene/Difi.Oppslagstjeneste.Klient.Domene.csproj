@@ -39,6 +39,10 @@
     <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Difi.Felles.Utility, Version=0.1.5793.17698, Culture=neutral, PublicKeyToken=683b8efceae684a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.0.1.5793.17698\lib\net45\Difi.Felles.Utility.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
@@ -46,7 +50,6 @@
   <ItemGroup>
     <Compile Include="Abstract\EndringsInfo.cs" />
     <Compile Include="Epostadresse.cs" />
-    <Compile Include="Exceptions\OppslagstjenesteException.cs" />
     <Compile Include="Exceptions\SendException.cs" />
     <Compile Include="Exceptions\SoapException.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
@@ -66,6 +69,7 @@
     <None Include="..\difi-oppslagstjeneste.pfx">
       <Link>Properties\difi-oppslagstjeneste.pfx</Link>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Xml;
+using Difi.Felles.Utility.Exceptions;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
 {
-    public class SoapException : OppslagstjenesteException
+    public class SoapException : DifiException
     {
         public SoapException(string outerXml)
             : this(outerXml, null)
