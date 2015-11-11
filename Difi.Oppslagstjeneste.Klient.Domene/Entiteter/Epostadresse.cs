@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Xml;
-using Difi.Oppslagstjeneste.Klient.Domene.Abstract;
 
-namespace Difi.Oppslagstjeneste.Klient.Domene
+namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
 {
     [DebuggerDisplay("Epost = {Epost}")]
     public class Epostadresse : EndringsInfo

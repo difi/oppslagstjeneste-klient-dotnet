@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 using Difi.Oppslagstjeneste.Klient.Security;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope

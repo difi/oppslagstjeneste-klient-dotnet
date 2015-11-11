@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Xml;
 
-namespace Difi.Oppslagstjeneste.Klient.Domene
+namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
 {
     /// <summary>
     /// Adresse informasjon om Person sin Sikker DigitalPostKasse.

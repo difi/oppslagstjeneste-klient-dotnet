@@ -2,6 +2,7 @@
 using System.IO;
 using System.Xml;
 using Difi.Felles.Utility;
+using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 using Difi.Oppslagstjeneste.Klient.Security;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
@@ -22,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             signed.LoadXml(HeaderSignatureElement);
 
             // Sørger for at motatt envelope inneholder signature confirmation og body samt at id'ne matcher mot header signatur
-            ValiderSignaturreferanser(HeaderSignatureElement, signed, new string[] { "/env:Envelope/env:Header/wsse:Security/wsse11:SignatureConfirmation", "/env:Envelope/env:Body" });
+            ValiderSignaturreferanser(HeaderSignatureElement, signed, new[] { "/env:Envelope/env:Header/wsse:Security/wsse11:SignatureConfirmation", "/env:Envelope/env:Body" });
 
             // Validerer SignatureConfirmation
             PerformSignatureConfirmation(HeaderSecurityElement);

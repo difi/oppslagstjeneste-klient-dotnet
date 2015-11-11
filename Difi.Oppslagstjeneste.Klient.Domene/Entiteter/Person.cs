@@ -2,8 +2,9 @@
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 
-namespace Difi.Oppslagstjeneste.Klient.Domene
+namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
 {
     [DebuggerDisplay("Personidentifikator = {Personidentifikator} Status = {Status}")]
     public class Person

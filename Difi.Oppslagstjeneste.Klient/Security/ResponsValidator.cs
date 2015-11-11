@@ -5,15 +5,10 @@ using System.Security.Cryptography.Xml;
 using System.Xml;
 using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene;
+using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Security
 {
-    public enum SoapVersion
-    {
-        Soap11,
-        Soap12
-    }
-
     public abstract class Responsvalidator
     {
         protected XmlNamespaceManager Nsmgr;
@@ -164,6 +159,5 @@ namespace Difi.Oppslagstjeneste.Klient.Security
                 throw new Exception(string.Format("Motatt signaturbekreftelse '{0}' er ikke lik sendt signatur '{1}'.", signatureConfirmation, sentSignatureValue));
 
         }
-
     }
 }

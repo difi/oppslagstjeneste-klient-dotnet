@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
 
-namespace Difi.Oppslagstjeneste.Klient.Domene.Abstract
+namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
 {
     public abstract class EndringsInfo
     {
