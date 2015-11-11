@@ -22,11 +22,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope.Tests
                 var mottattDokument = XmlUtility.TilXmlDokument(mottattTekst);
                 var sendtDokument = XmlUtility.TilXmlDokument(sendtTekst);
 
-                Oppslagstjenestevalidator oppslagstjenestevalidator = new Oppslagstjenestevalidator(
-                    mottattDokument: mottattDokument, 
-                    sendtDokument: sendtDokument, 
-                    oppslagstjenesteInstillinger: oppslagstjenesteInstillinger
-                    );
+                Oppslagstjenestevalidator oppslagstjenestevalidator = new Oppslagstjenestevalidator(sendtDokument: sendtDokument, 
+                    mottattDokument: mottattDokument, oppslagstjenesteInstillinger: oppslagstjenesteInstillinger);
 
                 //Assert
                 Assert.AreEqual(sendtDokument, oppslagstjenestevalidator.SendtDokument);

@@ -10,8 +10,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
     {
         public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
         
-        public Oppslagstjenestevalidator(XmlDocument mottattDokument, XmlDocument sendtDokument, OppslagstjenesteInstillinger oppslagstjenesteInstillinger)
-            : base(mottattDokument, SoapVersion.Soap11, sendtDokument, oppslagstjenesteInstillinger.Avsendersertifikat)
+        public Oppslagstjenestevalidator(XmlDocument sendtDokument, XmlDocument mottattDokument, OppslagstjenesteInstillinger oppslagstjenesteInstillinger)
+            : base(sendtDokument, mottattDokument, SoapVersion.Soap11, oppslagstjenesteInstillinger.Avsendersertifikat)
         {
             OppslagstjenesteInstillinger = oppslagstjenesteInstillinger;
         }

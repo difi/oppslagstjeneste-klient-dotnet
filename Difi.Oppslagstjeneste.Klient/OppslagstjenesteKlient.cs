@@ -152,7 +152,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 var responsdokument = new XmlDocument();
                 responsdokument.Load(response.GetResponseStream());
 
-                var validator = new Oppslagstjenestevalidator(responsdokument, xml, (OppslagstjenesteInstillinger)envelope.Settings);
+                var validator = new Oppslagstjenestevalidator(xml, responsdokument, (OppslagstjenesteInstillinger)envelope.Settings);
                 return validator;
             }
             catch (WebException we)

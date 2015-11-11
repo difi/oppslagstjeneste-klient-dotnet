@@ -21,7 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
         
         protected XmlElement HeaderSignatureElement {get; private set;}
 
-        protected Responsvalidator(XmlDocument mottattDokument, SoapVersion version, XmlDocument sendtDokument, X509Certificate2 xmlDekrypteringsSertifikat = null)
+        protected Responsvalidator(XmlDocument sendtDokument, XmlDocument mottattDokument, SoapVersion version, X509Certificate2 xmlDekrypteringsSertifikat = null)
         {
             SendtDokument = sendtDokument;
             MottattDokument = mottattDokument;
