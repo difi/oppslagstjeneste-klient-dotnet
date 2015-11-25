@@ -24,6 +24,7 @@ namespace Difi.Oppslagstjeneste.Klient
     /// </summary>
     public class OppslagstjenesteKlient
     {
+        public Miljø Miljø { get; }
         public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
         public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
 
@@ -34,8 +35,9 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
         /// <param name="valideringsSertifikat">Brukes for å validere svar fra Oppslagstjenesten. For informasjon om sertifikat, se online dokumentasjon:
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
-        public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon konfigurasjon = null)
+        public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat, X509Certificate2 valideringsSertifikat, Miljø miljø, OppslagstjenesteKonfigurasjon konfigurasjon = null)
         {
+            Miljø = miljø;
             OppslagstjenesteInstillinger = new OppslagstjenesteInstillinger
             {
                 Avsendersertifikat = avsendersertifikat,
@@ -54,14 +56,13 @@ namespace Difi.Oppslagstjeneste.Klient
         /// svar fra Oppslagstjenesten. For informasjon om hvordan du finner dette, se online dokumentasjon:
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
         /// <param name="konfigurasjon"></param>
-        public OppslagstjenesteKlient(string avsendersertifikatThumbprint, string valideringssertifikatThumbprint, OppslagstjenesteKonfigurasjon konfigurasjon = null)
+        public OppslagstjenesteKlient(string avsendersertifikatThumbprint, string valideringssertifikatThumbprint, Miljø miljø, OppslagstjenesteKonfigurasjon konfigurasjon = null):
+            this(
+                ApiClientShared.CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),
+                ApiClientShared.CertificateUtility.ReceiverCertificate(valideringssertifikatThumbprint, Language.Norwegian),
+                miljø, 
+                konfigurasjon)
         {
-            OppslagstjenesteInstillinger = new OppslagstjenesteInstillinger()
-            {
-                Avsendersertifikat =  ApiClientShared.CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),
-                Valideringssertifikat = ApiClientShared.CertificateUtility.ReceiverCertificate(valideringssertifikatThumbprint, Language.Norwegian)
-            };
-            OppslagstjenesteKonfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
         }
 
         /// <summary>
