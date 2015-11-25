@@ -11,13 +11,12 @@ namespace Difi.Oppslagstjeneste.Klient
             Url = url;
         }
 
-
         public static Miljø FunksjoneltTestmiljø
         {
             get
             {
                 return new Miljø(
-                    new Uri("https://qaoffentlig.meldingsformidler.digipost.no/api/ebms"),
+                    new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v4"),
                     new Sertifikatkjedevalidator(SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater())
                     );
 
@@ -29,30 +28,7 @@ namespace Difi.Oppslagstjeneste.Klient
             get
             {
                 return new Miljø(
-                    new Uri("https://meldingsformidler.digipost.no/api/ebms"),
-                    new Sertifikatkjedevalidator(SertifikatkjedeUtility.ProduksjonsSertifikater())
-                    );
-            }
-        }
-
-        public static Miljø FunksjoneltTestmiljøNorskHelsenett
-        {
-            get
-            {
-                return new Miljø(
-                    new Uri("https://qaoffentlig.meldingsformidler.nhn.digipost.no:4445/api/"),
-                    new Sertifikatkjedevalidator(SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater())
-                    );
-
-            }
-        }
-
-        public static Miljø ProduksjonsmiljøNorskHelsenett
-        {
-            get
-            {
-                return new Miljø(
-                    new Uri("https://meldingsformidler.nhn.digipost.no:4444/api/"),
+                    new Uri("https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v4"),
                     new Sertifikatkjedevalidator(SertifikatkjedeUtility.ProduksjonsSertifikater())
                     );
             }
