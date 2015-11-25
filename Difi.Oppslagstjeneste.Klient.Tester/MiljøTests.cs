@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Difi.Felles.Utility.Utilities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester
 {
@@ -10,7 +11,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
         public void ReturnererInitialisertFunksjoneltTestmiljø()
         {
             //Arrange
-            var url = "https://qaoffentlig.meldingsformidler.digipost.no/api/ebms";
+            var url = "https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v4";
             var miljø = Miljø.FunksjoneltTestmiljø;
             var sertifikater = SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater();
 
@@ -26,7 +27,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
         public void ReturnererInitialisertProduksjonsmiljø()
         {
             //Arrange
-            var url = "https://meldingsformidler.digipost.no/api/ebms";
+            var url = "https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v4";
             var miljø = Miljø.Produksjonsmiljø;
             var sertifikater = SertifikatkjedeUtility.ProduksjonsSertifikater();
 

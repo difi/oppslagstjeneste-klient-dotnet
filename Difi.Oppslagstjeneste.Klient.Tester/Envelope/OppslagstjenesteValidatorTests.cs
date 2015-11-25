@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using Difi.Felles.Utility;
+using Difi.Felles.Utility.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope.Tests

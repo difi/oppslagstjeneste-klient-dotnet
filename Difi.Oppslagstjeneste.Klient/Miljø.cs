@@ -1,5 +1,6 @@
 ﻿using System;
 using Difi.Felles.Utility;
+using Difi.Felles.Utility.Utilities;
 
 namespace Difi.Oppslagstjeneste.Klient
 {

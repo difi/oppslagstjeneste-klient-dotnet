@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using Difi.Felles.Utility;
+using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 using Difi.Oppslagstjeneste.Klient.Security;
 

@@ -10,24 +10,15 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
     {
         static void Main(string[] args)
         {
-            var konfig = new OppslagstjenesteKonfigurasjon
-            {
-                ServiceUri = new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v4") //test
-                //ServiceUri = new Uri("https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v4") //prod
+            var oppslagstjenesteKonfigurasjon = new Konfigurasjon(Miljø.FunksjoneltTestmiljø);
 
-
-            };
-            
-            Logging.Initialize(konfig);
-            Logging.Log(TraceEventType.Information, "> Starter program!");
-
+            AbstraktLogger.Initialize(oppslagstjenesteKonfigurasjon);
+            AbstraktLogger.Log(TraceEventType.Information, "> Starter program!");
             
             var avsendersertifikatThumbprint = CertificateIssuedToPostenNorgeAsIssuedByBuypassClass3Test4Ca3();
-
             var mottakersertifikatValideringThumbprint = CertificateIssuedToDirektoratetForForvaltningOgIktIssuedByBuypassClass3Ca3();
-            
 
-            OppslagstjenesteKlient register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, mottakersertifikatValideringThumbprint, konfig);
+            OppslagstjenesteKlient register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, mottakersertifikatValideringThumbprint, oppslagstjenesteKonfigurasjon);
 
             var endringer = register.HentEndringer(983831, 
                 Informasjonsbehov.Kontaktinfo | 

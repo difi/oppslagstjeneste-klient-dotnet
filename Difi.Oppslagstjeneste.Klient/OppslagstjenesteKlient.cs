@@ -24,9 +24,8 @@ namespace Difi.Oppslagstjeneste.Klient
     /// </summary>
     public class OppslagstjenesteKlient
     {
-        public Miljø Miljø { get; }
         public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
-        public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
+        public Konfigurasjon Konfigurasjon { get; }
 
         /// <summary>
         /// Oppslagstjenesten for kontakt og reservasjonsregisteret.
@@ -35,15 +34,14 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
         /// <param name="valideringsSertifikat">Brukes for å validere svar fra Oppslagstjenesten. For informasjon om sertifikat, se online dokumentasjon:
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
-        public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat, X509Certificate2 valideringsSertifikat, Miljø miljø, OppslagstjenesteKonfigurasjon konfigurasjon = null)
+        public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat, X509Certificate2 valideringsSertifikat, Konfigurasjon konfigurasjon)
         {
-            Miljø = miljø;
             OppslagstjenesteInstillinger = new OppslagstjenesteInstillinger
             {
                 Avsendersertifikat = avsendersertifikat,
                 Valideringssertifikat = valideringsSertifikat 
             };
-            OppslagstjenesteKonfigurasjon = konfigurasjon ?? new OppslagstjenesteKonfigurasjon();
+            Konfigurasjon = konfigurasjon;
         }
         
         /// <summary>
@@ -56,11 +54,10 @@ namespace Difi.Oppslagstjeneste.Klient
         /// svar fra Oppslagstjenesten. For informasjon om hvordan du finner dette, se online dokumentasjon:
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
         /// <param name="konfigurasjon"></param>
-        public OppslagstjenesteKlient(string avsendersertifikatThumbprint, string valideringssertifikatThumbprint, Miljø miljø, OppslagstjenesteKonfigurasjon konfigurasjon = null):
+        public OppslagstjenesteKlient(string avsendersertifikatThumbprint, string valideringssertifikatThumbprint, Konfigurasjon konfigurasjon):
             this(
                 ApiClientShared.CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),
                 ApiClientShared.CertificateUtility.ReceiverCertificate(valideringssertifikatThumbprint, Language.Norwegian),
-                miljø, 
                 konfigurasjon)
         {
         }
@@ -106,13 +103,13 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private Oppslagstjenestevalidator SendEnvelope(AbstractEnvelope envelope)
         {
-            var request = (HttpWebRequest)WebRequest.Create(OppslagstjenesteKonfigurasjon.ServiceUri);
+            var request = (HttpWebRequest)WebRequest.Create(Konfigurasjon.Miljø.Url);
             request.ContentType = "text/xml;charset=UTF-8";
             request.Headers.Add("SOAPAction", "\"\"");
             request.Method = "POST";
             request.KeepAlive = true;
             request.ServicePoint.Expect100Continue = false;
-            request.Timeout = OppslagstjenesteKonfigurasjon.TimeoutIMillisekunder;
+            request.Timeout = Konfigurasjon.TimeoutIMillisekunder;
 
             string netVersion = Assembly
                      .GetExecutingAssembly()
@@ -123,8 +120,8 @@ namespace Difi.Oppslagstjeneste.Klient
 
             request.UserAgent = string.Format("DifiOppslagstjeneste/{1} .NET/{0},", netVersion, assemblyVersion);
 
-            if (OppslagstjenesteKonfigurasjon.BrukProxy)
-                request.Proxy = new WebProxy(new UriBuilder(OppslagstjenesteKonfigurasjon.ProxyScheme, OppslagstjenesteKonfigurasjon.ProxyHost, OppslagstjenesteKonfigurasjon.ProxyPort).Uri);
+            if (Konfigurasjon.BrukProxy)
+                request.Proxy = new WebProxy(new UriBuilder(Konfigurasjon.ProxyScheme, Konfigurasjon.ProxyHost, Konfigurasjon.ProxyPort).Uri);
 
             var xml = envelope.ToXml();
             var bytes = Encoding.UTF8.GetBytes(xml.OuterXml);
@@ -136,7 +133,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 throw new XmlException(xmlValidator.ValideringsVarsler);
             }
 
-            Logging.Log(TraceEventType.Verbose, xml.OuterXml);
+            AbstraktLogger.Log(TraceEventType.Verbose, xml.OuterXml);
 
             try
             {
@@ -164,8 +161,8 @@ namespace Difi.Oppslagstjeneste.Klient
                 {
                     var error = reader.ReadToEnd();
                     var exception = new SoapException(error);
-                    Logging.Log(TraceEventType.Critical, string.Format("> Feil ved sending (Skyldig: {0})", exception.Skyldig));
-                    Logging.Log(TraceEventType.Critical, String.Format("  - {0}", exception.Beskrivelse));
+                    AbstraktLogger.Log(TraceEventType.Critical, string.Format("> Feil ved sending (Skyldig: {0})", exception.Skyldig));
+                    AbstraktLogger.Log(TraceEventType.Critical, String.Format("  - {0}", exception.Beskrivelse));
                     throw exception;
                 }
             }
