@@ -44,11 +44,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApiClientShared, Version=1.0.5637.25994, Culture=neutral, PublicKeyToken=6e0e24e0c7886562, processorArchitecture=MSIL">
-      <HintPath>..\packages\api-client-shared.1.0.5637.25994\lib\net45\ApiClientShared.dll</HintPath>
+      <HintPath>..\packages\difi-felles-utility-dotnet.0.2.5812.25073\lib\net45\ApiClientShared.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Difi.Felles.Utility, Version=0.1.5793.17698, Culture=neutral, PublicKeyToken=683b8efceae684a6, processorArchitecture=MSIL">
-      <HintPath>..\packages\difi-felles-utility-dotnet.0.1.5793.17698\lib\net45\Difi.Felles.Utility.dll</HintPath>
+    <Reference Include="Difi.Felles.Utility, Version=0.2.5812.25073, Culture=neutral, PublicKeyToken=683b8efceae684a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.0.2.5812.25073\lib\net45\Difi.Felles.Utility.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -67,18 +67,17 @@
     <Compile Include="Envelope\PrintSertifikatEnvelope.cs" />
     <Compile Include="Envelope\OppslagstjenesteEnvelope.cs" />
     <Compile Include="Envelope\OppslagstjenesteInstillinger.cs" />
-    <Compile Include="Envelope\OppslagstjenesteValidator.cs" />
+    <Compile Include="Envelope\Oppslagstjenestevalidator.cs" />
     <Compile Include="Envelope\Security.cs" />
     <Compile Include="Extensions\XmlElementExtensions.cs" />
-    <Compile Include="Klientkonfigurasjon.cs" />
-    <Compile Include="Security\ResponsValidator.cs" />
+    <Compile Include="Miljø.cs" />
+    <Compile Include="Security\Responsvalidator.cs" />
     <Compile Include="Security\SecurityTokenReferenceClause.cs" />
     <Compile Include="Svar\EndringerSvar.cs" />
     <Compile Include="Svar\PersonerSvar.cs" />
     <Compile Include="Svar\PrintSertifikatSvar.cs" />
     <Compile Include="Informasjonsbehov.cs" />
     <Compile Include="OppslagstjenesteKonfigurasjon.cs" />
-    <Compile Include="OppslagstjenesteLogger.cs" />
     <Compile Include="OppslagstjenesteKlient.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
@@ -110,6 +109,14 @@
     <EmbeddedResource Include="XmlValidering\Xsd\w3\exc-c14n.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="Ressurser\produksjon\BPClass3CA3.cer" />
+    <None Include="Ressurser\produksjon\BPClass3RootCA.cer" />
+    <None Include="Ressurser\produksjon\cpn enterprise sha256 class 3.crt" />
+    <None Include="Ressurser\produksjon\cpn rootca sha256 class 3.crt" />
+    <None Include="Ressurser\test\Buypass_Class_3_Test4_CA_3.cer" />
+    <None Include="Ressurser\test\Buypass_Class_3_Test4_Root_CA.cer" />
+    <None Include="Ressurser\test\intermediate - commfides cpn enterprise-norwegian sha256 ca - test2.crt" />
+    <None Include="Ressurser\test\root - cpn root sha256 ca - test.crt" />
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
       <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>

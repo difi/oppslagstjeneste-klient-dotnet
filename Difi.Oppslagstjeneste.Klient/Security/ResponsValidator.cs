@@ -3,7 +3,6 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
-using Difi.Felles.Utility;
 using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
@@ -22,6 +21,8 @@ namespace Difi.Oppslagstjeneste.Klient.Security
         
         protected XmlElement HeaderSignatureElement {get; private set;}
 
+        protected XmlElement HeaderSignature { get; private set; }
+
         protected Responsvalidator(XmlDocument sendtDokument, XmlDocument mottattDokument, SoapVersion version, X509Certificate2 xmlDekrypteringsSertifikat = null)
         {
             SendtDokument = sendtDokument;
@@ -37,10 +38,14 @@ namespace Difi.Oppslagstjeneste.Klient.Security
 
             HeaderSecurityElement = MottattDokument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security", Nsmgr) as XmlElement;
             HeaderSignatureElement = HeaderSecurityElement.SelectSingleNode("./ds:Signature", Nsmgr) as XmlElement;
+            HeaderSignature = HeaderSignatureElement.SelectSingleNode("./ds:SignatureValue", Nsmgr) as XmlElement;
 
             if (xmlDekrypteringsSertifikat != null)
                 DecryptDocument(xmlDekrypteringsSertifikat);
         }
+
+        public XmlElement HeaderBinarySecurityToken { get; set; }
+
 
         private void DecryptDocument(X509Certificate2 decryptionSertificate)
         {
@@ -67,7 +72,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
         }
 
 
-        protected void SjekkTimestamp(TimeSpan timeSpan)
+        protected virtual void SjekkTimestamp(TimeSpan timeSpan)
         {
             var timestampElement = HeaderSecurityElement.SelectSingleNode("./wsu:Timestamp", Nsmgr);
 
@@ -75,13 +80,12 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             var expires = DateTimeOffset.Parse(timestampElement["Expires", Navnerom.WssecurityUtility10].InnerText);
 
             if (created > DateTimeOffset.Now.AddMinutes(5))
-                throw new Exception("Motatt melding har opprettelsetidspunkt mer enn fem minutter inn i fremtiden." + created.ToString());
+                throw new Exception("Motatt melding har opprettelsetidspunkt mer enn 5 minutter inn i fremtiden." + created.ToString());
             if (created < DateTimeOffset.Now.Add(timeSpan.Negate()))
                 throw new Exception(string.Format("Motatt melding har opprettelsetidspunkt som er eldre enn {0} minutter.", timeSpan.Minutes));
 
             if (expires < DateTimeOffset.Now)
                 throw new Exception("Motatt melding har utgått på tid.");
-
         }
 
         /// <summary>

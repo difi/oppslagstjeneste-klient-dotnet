@@ -10,15 +10,15 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
     {
         static void Main(string[] args)
         {
-            var oppslagstjenesteKonfigurasjon = new Konfigurasjon(Miljø.FunksjoneltTestmiljø);
+            var klientinnstillinger = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
 
-            AbstraktLogger.Initialize(oppslagstjenesteKonfigurasjon);
-            AbstraktLogger.Log(TraceEventType.Information, "> Starter program!");
-            
+            Logger.Initialize(klientinnstillinger);
+            Logger.Log(TraceEventType.Information, "> Starter program!");
+
             var avsendersertifikatThumbprint = CertificateIssuedToPostenNorgeAsIssuedByBuypassClass3Test4Ca3();
             var mottakersertifikatValideringThumbprint = CertificateIssuedToDirektoratetForForvaltningOgIktIssuedByBuypassClass3Ca3();
 
-            OppslagstjenesteKlient register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, mottakersertifikatValideringThumbprint, oppslagstjenesteKonfigurasjon);
+            OppslagstjenesteKlient register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, mottakersertifikatValideringThumbprint, klientinnstillinger);
 
             var endringer = register.HentEndringer(983831, 
                 Informasjonsbehov.Kontaktinfo | 
@@ -34,6 +34,8 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             var cert = ExportToPEM(personer.ElementAt(0).X509Sertifikat);
            
             var printSertifikat = register.HentPrintSertifikat();
+            Console.WriteLine("Ferdig med oppslag ...");
+            
             Console.ReadKey();
         }
 

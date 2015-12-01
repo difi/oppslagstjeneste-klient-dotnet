@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration.Internal;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -10,7 +9,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 using ApiClientShared.Enums;
-using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Envelope;
@@ -25,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient
     public class OppslagstjenesteKlient
     {
         public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
-        public Konfigurasjon Konfigurasjon { get; }
+        public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
 
         /// <summary>
         /// Oppslagstjenesten for kontakt og reservasjonsregisteret.
@@ -34,14 +32,14 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
         /// <param name="valideringsSertifikat">Brukes for å validere svar fra Oppslagstjenesten. For informasjon om sertifikat, se online dokumentasjon:
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
-        public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat, X509Certificate2 valideringsSertifikat, Konfigurasjon konfigurasjon)
+        public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat, X509Certificate2 valideringsSertifikat, OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
         {
             OppslagstjenesteInstillinger = new OppslagstjenesteInstillinger
             {
                 Avsendersertifikat = avsendersertifikat,
                 Valideringssertifikat = valideringsSertifikat 
             };
-            Konfigurasjon = konfigurasjon;
+            OppslagstjenesteKonfigurasjon = oppslagstjenesteKonfigurasjon;
         }
         
         /// <summary>
@@ -53,12 +51,12 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <param name="valideringssertifikatThumbprint">Thumbprint til sertifikat Virksomhet bruker til å validere
         /// svar fra Oppslagstjenesten. For informasjon om hvordan du finner dette, se online dokumentasjon:
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet"/></param>
-        /// <param name="konfigurasjon"></param>
-        public OppslagstjenesteKlient(string avsendersertifikatThumbprint, string valideringssertifikatThumbprint, Konfigurasjon konfigurasjon):
+        /// <param name="oppslagstjenesteKonfigurasjon"></param>
+        public OppslagstjenesteKlient(string avsendersertifikatThumbprint, string valideringssertifikatThumbprint, OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon):
             this(
                 ApiClientShared.CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),
                 ApiClientShared.CertificateUtility.ReceiverCertificate(valideringssertifikatThumbprint, Language.Norwegian),
-                konfigurasjon)
+                oppslagstjenesteKonfigurasjon)
         {
         }
 
@@ -103,13 +101,13 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private Oppslagstjenestevalidator SendEnvelope(AbstractEnvelope envelope)
         {
-            var request = (HttpWebRequest)WebRequest.Create(Konfigurasjon.Miljø.Url);
+            var request = (HttpWebRequest)WebRequest.Create(OppslagstjenesteKonfigurasjon.Miljø.Url);
             request.ContentType = "text/xml;charset=UTF-8";
             request.Headers.Add("SOAPAction", "\"\"");
             request.Method = "POST";
             request.KeepAlive = true;
             request.ServicePoint.Expect100Continue = false;
-            request.Timeout = Konfigurasjon.TimeoutIMillisekunder;
+            request.Timeout = OppslagstjenesteKonfigurasjon.TimeoutIMillisekunder;
 
             string netVersion = Assembly
                      .GetExecutingAssembly()
@@ -120,8 +118,8 @@ namespace Difi.Oppslagstjeneste.Klient
 
             request.UserAgent = string.Format("DifiOppslagstjeneste/{1} .NET/{0},", netVersion, assemblyVersion);
 
-            if (Konfigurasjon.BrukProxy)
-                request.Proxy = new WebProxy(new UriBuilder(Konfigurasjon.ProxyScheme, Konfigurasjon.ProxyHost, Konfigurasjon.ProxyPort).Uri);
+            if (OppslagstjenesteKonfigurasjon.BrukProxy)
+                request.Proxy = new WebProxy(new UriBuilder(OppslagstjenesteKonfigurasjon.ProxyScheme, OppslagstjenesteKonfigurasjon.ProxyHost, OppslagstjenesteKonfigurasjon.ProxyPort).Uri);
 
             var xml = envelope.ToXml();
             var bytes = Encoding.UTF8.GetBytes(xml.OuterXml);
@@ -133,7 +131,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 throw new XmlException(xmlValidator.ValideringsVarsler);
             }
 
-            AbstraktLogger.Log(TraceEventType.Verbose, xml.OuterXml);
+            Logger.Log(TraceEventType.Verbose, xml.OuterXml);
 
             try
             {
@@ -151,7 +149,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 var responsdokument = new XmlDocument();
                 responsdokument.Load(response.GetResponseStream());
 
-                var validator = new Oppslagstjenestevalidator(xml, responsdokument, (OppslagstjenesteInstillinger)envelope.Settings);
+                var validator = new Oppslagstjenestevalidator(xml, responsdokument, (OppslagstjenesteInstillinger)envelope.Settings, (Miljø)OppslagstjenesteKonfigurasjon.Miljø);
                 return validator;
             }
             catch (WebException we)
@@ -161,8 +159,8 @@ namespace Difi.Oppslagstjeneste.Klient
                 {
                     var error = reader.ReadToEnd();
                     var exception = new SoapException(error);
-                    AbstraktLogger.Log(TraceEventType.Critical, string.Format("> Feil ved sending (Skyldig: {0})", exception.Skyldig));
-                    AbstraktLogger.Log(TraceEventType.Critical, String.Format("  - {0}", exception.Beskrivelse));
+                    Logger.Log(TraceEventType.Critical, string.Format("> Feil ved sending (Skyldig: {0})", exception.Skyldig));
+                    Logger.Log(TraceEventType.Critical, String.Format("  - {0}", exception.Beskrivelse));
                     throw exception;
                 }
             }

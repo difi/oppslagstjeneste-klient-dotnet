@@ -13,12 +13,12 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             {
                 //Arrange
                 Miljø miljø = Miljø.FunksjoneltTestmiljø;
-                Konfigurasjon konfigurasjon = new Konfigurasjon(miljø);
+                OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø);
 
                 //Act
 
                 //Assert
-                konfigurasjon.Miljø = miljø;
+                oppslagstjenesteKonfigurasjon.Miljø = miljø;
             }
         }
     }

@@ -13,7 +13,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 //Arrange
                 var avsenderEnhetstesterSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
                 var mottakerEnhetstesterSertifikat = DomeneUtility.GetMottakerEnhetstesterSertifikat();
-                var oppslagstjenesteKonfigurasjon = new Konfigurasjon(Miljø.FunksjoneltTestmiljø);
+                var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
 
                 //Act
                 var oppslagstjenesteKlient = new OppslagstjenesteKlient(
@@ -25,7 +25,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 //Assert
                 Assert.AreEqual(avsenderEnhetstesterSertifikat, oppslagstjenesteKlient.OppslagstjenesteInstillinger.Avsendersertifikat);
                 Assert.AreEqual(mottakerEnhetstesterSertifikat, oppslagstjenesteKlient.OppslagstjenesteInstillinger.Valideringssertifikat);
-                Assert.AreEqual(oppslagstjenesteKonfigurasjon, oppslagstjenesteKlient.Konfigurasjon);
+                Assert.AreEqual(oppslagstjenesteKonfigurasjon, oppslagstjenesteKlient.OppslagstjenesteKonfigurasjon);
             }
         }
     }

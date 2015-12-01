@@ -15,7 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 var miljø = Miljø.FunksjoneltTestmiljø;
                 string proxyScheme = "https";
                 int timeout = 30000;
-                Klientkonfigurasjon klientkonfigurasjon = new Konfigurasjon(miljø);
+                Klientkonfigurasjon klientkonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø);
 
                 //Act
 
