@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Difi.Felles.Utility;
 
 namespace Difi.Oppslagstjeneste.Klient.Testklient
 {
@@ -10,15 +11,14 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
     {
         static void Main(string[] args)
         {
-            var klientinnstillinger = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
-
-            Logger.Initialize(klientinnstillinger);
+            var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
+            Logger.Initialize(konfigurasjon);
             Logger.Log(TraceEventType.Information, "> Starter program!");
 
             var avsendersertifikatThumbprint = CertificateIssuedToPostenNorgeAsIssuedByBuypassClass3Test4Ca3();
             var mottakersertifikatValideringThumbprint = CertificateIssuedToDirektoratetForForvaltningOgIktIssuedByBuypassClass3Ca3();
 
-            OppslagstjenesteKlient register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, mottakersertifikatValideringThumbprint, klientinnstillinger);
+            OppslagstjenesteKlient register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, mottakersertifikatValideringThumbprint, konfigurasjon);
 
             var endringer = register.HentEndringer(983831, 
                 Informasjonsbehov.Kontaktinfo | 
@@ -26,7 +26,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
                 Informasjonsbehov.SikkerDigitalPost |
                 Informasjonsbehov.Person);
             
-            var personer = register.HentPersoner(new string[] { "08077000292" }, 
+            var personer = register.HentPersoner(new string[] { "07078942716" }, 
                 Informasjonsbehov.Sertifikat | 
                 Informasjonsbehov.Kontaktinfo | 
                 Informasjonsbehov.SikkerDigitalPost);

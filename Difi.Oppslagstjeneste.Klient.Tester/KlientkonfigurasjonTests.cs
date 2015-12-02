@@ -1,5 +1,4 @@
-﻿using Difi.SikkerDigitalPost.Klient;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester
 {
@@ -15,7 +14,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 var miljø = Miljø.FunksjoneltTestmiljø;
                 string proxyScheme = "https";
                 int timeout = 30000;
-                Klientkonfigurasjon klientkonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø);
+                OppslagstjenesteKonfigurasjon klientkonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø);
 
                 //Act
 
