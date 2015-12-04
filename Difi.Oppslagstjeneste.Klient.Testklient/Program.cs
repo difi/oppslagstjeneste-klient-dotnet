@@ -26,7 +26,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
                 Informasjonsbehov.SikkerDigitalPost |
                 Informasjonsbehov.Person);
             
-            var personer = register.HentPersoner(new string[] { "07078942716" }, 
+            var personer = register.HentPersoner(new string[] { "08077000292" }, 
                 Informasjonsbehov.Sertifikat | 
                 Informasjonsbehov.Kontaktinfo | 
                 Informasjonsbehov.SikkerDigitalPost);
