@@ -100,7 +100,7 @@ namespace Difi.Oppslagstjeneste.Klient
         private Oppslagstjenestevalidator SendEnvelope(AbstractEnvelope envelope)
         {
             var request = (HttpWebRequest)WebRequest.Create(OppslagstjenesteKonfigurasjon.Miljø.Url);
-            request.ContentType = "text/xml;charset=UTF-8";
+            request.ContentType = "application/soap+xml";
             request.Headers.Add("SOAPAction", "\"\"");
             request.Method = "POST";
             request.KeepAlive = true;

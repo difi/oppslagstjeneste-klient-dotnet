@@ -25,6 +25,12 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
             var header = base.CreateHeader();
             Security = new Security(this.Settings, this.Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
+
+            Settings.BinarySecurityId = "X509-"+Guid.NewGuid().ToString();
+            var securityToken = new SecurityTokenReferenceClause(Instillinger.Avsendersertifikat,Settings.BinarySecurityId);
+            var binaryToken = securityToken.GetTokenXml();
+            Security.AppendChild(Document.ImportNode(binaryToken, true));
+            
             header.AppendChild(Security);
             return header;
         }
@@ -57,7 +63,11 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             bodyReference.AddTransform(new XmlDsigExcC14NTransform(""));
             signed.AddReference(bodyReference);
 
-            signed.KeyInfo.AddClause(new SecurityTokenReferenceClause(Instillinger.Avsendersertifikat));
+            
+            var securityToken = new SecurityTokenReferenceClause(Settings.BinarySecurityId);
+            
+
+            signed.KeyInfo.AddClause(securityToken);
             signed.KeyInfo.Id = String.Format("KS-{0}", Guid.NewGuid());
 
             signed.ComputeSignature();

@@ -19,12 +19,9 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             
 
             OppslagstjenesteKlient register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, konfigurasjon);
-
-            var endringer = register.HentEndringer(983831, 
-                Informasjonsbehov.Kontaktinfo | 
-                Informasjonsbehov.Sertifikat | 
-                Informasjonsbehov.SikkerDigitalPost |
-                Informasjonsbehov.Person);
+            
+            var endringer = register.HentEndringer(600, 
+                Informasjonsbehov.Kontaktinfo);
             
             var personer = register.HentPersoner(new string[] { "08077000292" }, 
                 Informasjonsbehov.Sertifikat | 
@@ -41,6 +38,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
 
         private static string CertificateIssuedToPostenNorgeAsIssuedByBuypassClass3Test4Ca3()
         {
+            //return "b0cb922214d11e8ce993838db4c6d04c0c0970b8";
             return "8702F5E55217EC88CF2CCBADAC290BB4312594AC";
         }
 

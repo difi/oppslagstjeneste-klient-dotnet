@@ -117,6 +117,12 @@
     <None Include="Ressurser\test\Buypass_Class_3_Test4_Root_CA.cer" />
     <None Include="Ressurser\test\intermediate - commfides cpn enterprise-norwegian sha256 ca - test2.crt" />
     <None Include="Ressurser\test\root - cpn root sha256 ca - test.crt" />
+    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-metadata-16-02.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-ws-16-02.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
       <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>

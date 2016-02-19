@@ -19,11 +19,13 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             var securityElement = Context.CreateElement("wsse", "Security", Navnerom.WssecuritySecext10);
             securityElement.SetAttribute("xmlns:wsu", Navnerom.WssecurityUtility10);
             
+            
             if (_timespan.HasValue)
                 securityElement.AppendChild(TimestampElement());
             return securityElement;
 
         }
+
         
         private XmlElement TimestampElement()
         {

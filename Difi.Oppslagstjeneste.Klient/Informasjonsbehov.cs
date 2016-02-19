@@ -23,6 +23,10 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <summary>
         /// SikkerDigitalPost gir informasjon om Person, postkasse og postkasseleverandøren.
         /// </summary>
-        SikkerDigitalPost = 8
+        SikkerDigitalPost = 8,
+        /// <summary>
+        /// Varslingsstatus gir en tekstlig beskrivelse av om bruker har utgått kontaktinformasjon eller ikke, ihht eForvaltningsforskriftens §32 andre ledd.
+        /// </summary>
+        VarslingsStatus = 16
     }
 }

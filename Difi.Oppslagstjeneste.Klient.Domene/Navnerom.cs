@@ -15,7 +15,7 @@
         /// <summary>
         /// http://kontaktinfo.difi.no/xsd/oppslagstjeneste/14-05
         /// </summary>
-        public const string OppslagstjenesteDefinisjon = "http://kontaktinfo.difi.no/xsd/oppslagstjeneste/14-05";
+        public const string OppslagstjenesteDefinisjon = "http://kontaktinfo.difi.no/xsd/oppslagstjeneste/16-02";
 
         /// <summary>
         /// http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
@@ -38,6 +38,11 @@
         public const string XmlDsig = "http://www.w3.org/2000/09/xmldsig#";
 
         /// <summary>
+        /// http://www.w3.org/2001/04/xmlenc#
+        /// </summary>
+        public const string XmlEnc = "http://www.w3.org/2001/04/xmlenc#";
+
+        /// <summary>
         /// http://begrep.difi.no
         /// </summary>
         public const string OppslagstjenesteMetadata = "http://begrep.difi.no";
@@ -48,9 +53,9 @@
         public const string xenc = "http://www.w3.org/2001/04/xmlenc#";
 
         /// <summary>
-        /// http://schemas.xmlsoap.org/soap/envelope/
+        /// http://www.w3.org/2003/05/soap-envelope
         /// </summary>
-        public const string SoapEnvelope = "http://schemas.xmlsoap.org/soap/envelope/";
+        public const string SoapEnvelope = "http://www.w3.org/2003/05/soap-envelope";
 
         /// <summary>
         /// http://www.w3.org/2001/10/xml-exc-c14n#

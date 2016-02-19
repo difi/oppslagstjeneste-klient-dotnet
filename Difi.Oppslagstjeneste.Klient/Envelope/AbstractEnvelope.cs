@@ -18,7 +18,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             Document = new XmlDocument();
             Document.PreserveWhitespace = true;
 
-            var baseNode = Document.CreateElement("soapenv", "Envelope", Settings.SoapNamespace);
+            var baseNode = Document.CreateElement("soap", "Envelope", Settings.SoapNamespace);
             Document.AppendChild(baseNode);
 
             var xmlDeclaration = Document.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -28,12 +28,12 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         protected virtual XmlElement CreateHeader()
         {
-            return Document.CreateElement("soapenv", "Header", Settings.SoapNamespace);
+            return Document.CreateElement("soap", "Header", Settings.SoapNamespace);
         }
 
         protected virtual XmlElement CreateBody()
         {
-            return Document.CreateElement("soapenv", "Body", Settings.SoapNamespace);
+            return Document.CreateElement("soap", "Body", Settings.SoapNamespace);
         }
 
         /// <summary>

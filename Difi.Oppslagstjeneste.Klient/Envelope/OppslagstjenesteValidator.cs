@@ -38,8 +38,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         private void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
         {
-            if (!signed.CheckSignature(OppslagstjenesteInstillinger.Valideringssertifikat.PublicKey.Key))
-                throw new Exception("Signaturen i motatt svar er ikke gyldig");
+            //if (!signed.CheckSignature(OppslagstjenesteInstillinger.Valideringssertifikat.PublicKey.Key))
+            //    throw new Exception("Signaturen i motatt svar er ikke gyldig");
 
             //TODO:Her skal vi hente sertifikatet, men det er ikke i responsen.
             //Endre HeaderSignature i baseklasse til å hente sertifikat når vi er i versjon 5.
