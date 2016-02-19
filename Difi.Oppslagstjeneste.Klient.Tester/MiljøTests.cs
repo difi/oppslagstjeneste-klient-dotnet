@@ -11,7 +11,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
         public void ReturnererInitialisertFunksjoneltTestmiljø()
         {
             //Arrange
-            var url = "https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v4";
+            var url = "https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5";
             var miljø = Miljø.FunksjoneltTestmiljø;
             var sertifikater = SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater();
 
@@ -27,7 +27,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
         public void ReturnererInitialisertProduksjonsmiljø()
         {
             //Arrange
-            var url = "https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v4";
+            var url = "https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v5";
             var miljø = Miljø.Produksjonsmiljø;
             var sertifikater = SertifikatkjedeUtility.ProduksjonsSertifikater();
 

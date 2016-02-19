@@ -29,7 +29,7 @@ namespace Difi.Oppslagstjeneste.Klient
             get
             {
                 return new Miljø(
-                    new Uri("https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v4"),
+                    new Uri("https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v5"),
                     new Sertifikatkjedevalidator(SertifikatkjedeUtility.ProduksjonsSertifikater())
                     );
             }
