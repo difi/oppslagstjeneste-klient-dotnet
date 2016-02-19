@@ -87,13 +87,7 @@
     <Compile Include="XmlValidering\OppslagstjenesteXmlvalidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-ws-14-05.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <None Include="packages.config" />
-    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-metadata-14-05.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="XmlValidering\Xsd\wssecurity\oasis-200401-wss-wssecurity-secext-1.0.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
