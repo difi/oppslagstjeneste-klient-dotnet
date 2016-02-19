@@ -38,11 +38,6 @@
         public const string XmlDsig = "http://www.w3.org/2000/09/xmldsig#";
 
         /// <summary>
-        /// http://www.w3.org/2001/04/xmlenc#
-        /// </summary>
-        public const string XmlEnc = "http://www.w3.org/2001/04/xmlenc#";
-
-        /// <summary>
         /// http://begrep.difi.no
         /// </summary>
         public const string OppslagstjenesteMetadata = "http://begrep.difi.no";
