@@ -35,14 +35,16 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             Nsmgr.AddNamespace("xenc", Navnerom.xenc); 
             Nsmgr.AddNamespace("wsse11", Navnerom.WssecuritySecext11);
             Nsmgr.AddNamespace("wsu", Navnerom.WssecurityUtility10);
-
+            
             HeaderSecurityElement = MottattDokument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security", Nsmgr) as XmlElement;
             HeaderSignatureElement = HeaderSecurityElement.SelectSingleNode("./ds:Signature", Nsmgr) as XmlElement;
             HeaderSignature = HeaderSignatureElement.SelectSingleNode("./ds:SignatureValue", Nsmgr) as XmlElement;
-
+            BinaryTokenElement = HeaderSecurityElement.SelectSingleNode("./wsse:BinarySecurityToken", Nsmgr) as XmlElement;
             if (xmlDekrypteringsSertifikat != null)
                 DecryptDocument(xmlDekrypteringsSertifikat);
         }
+
+        public XmlElement BinaryTokenElement { get; set; }
 
         public XmlElement HeaderBinarySecurityToken { get; set; }
 
@@ -57,8 +59,18 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             var encryptedData = new EncryptedData();
             encryptedData.LoadXml(encryptedNode);
 
+            var aes = AesManaged(decryptionSertificate);
+
+            encryptedXml.ReplaceData(encryptedNode, encryptedXml.DecryptData(encryptedData, aes));
+        }
+
+        private AesManaged AesManaged(X509Certificate2 decryptionSertificate)
+        {
             var privateKey = decryptionSertificate.PrivateKey as RSACryptoServiceProvider;
-            var cipher = MottattDokument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue", Nsmgr).InnerText;
+            var cipher =
+                MottattDokument.SelectSingleNode(
+                    "/env:Envelope/env:Header/wsse:Security/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue", Nsmgr)
+                    .InnerText;
 
             AesManaged aes = new AesManaged
             {
@@ -67,8 +79,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
                 Padding = PaddingMode.None,
                 Key = privateKey.Decrypt(Convert.FromBase64String(cipher), true)
             };
-
-            encryptedXml.ReplaceData(encryptedNode, encryptedXml.DecryptData(encryptedData, aes));
+            return aes;
         }
 
 

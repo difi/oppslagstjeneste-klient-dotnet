@@ -146,7 +146,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
                 var responsdokument = new XmlDocument();
                 responsdokument.Load(response.GetResponseStream());
-
+                
                 var validator = new Oppslagstjenestevalidator(xml, responsdokument, (OppslagstjenesteInstillinger)envelope.Settings, (Miljø)OppslagstjenesteKonfigurasjon.Miljø);
                 return validator;
             }

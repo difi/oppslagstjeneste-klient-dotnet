@@ -14,7 +14,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         public Miljø Miljø { get; set; }
 
         public Oppslagstjenestevalidator(XmlDocument sendtDokument, XmlDocument mottattDokument, OppslagstjenesteInstillinger oppslagstjenesteInstillinger, Miljø miljø)
-            : base(sendtDokument, mottattDokument, SoapVersion.Soap11, oppslagstjenesteInstillinger.Avsendersertifikat)
+            : base(sendtDokument, mottattDokument, SoapVersion.Soap12, oppslagstjenesteInstillinger.Avsendersertifikat)
         {
             OppslagstjenesteInstillinger = oppslagstjenesteInstillinger;
             Miljø = miljø;
@@ -38,23 +38,19 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         private void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
         {
-            //if (!signed.CheckSignature(OppslagstjenesteInstillinger.Valideringssertifikat.PublicKey.Key))
-            //    throw new Exception("Signaturen i motatt svar er ikke gyldig");
+            var signatur = BinaryTokenElement.InnerText;
+            var value = Convert.FromBase64String(signatur);
+            var sertifikat = new X509Certificate2(value);
 
-            //TODO:Her skal vi hente sertifikatet, men det er ikke i responsen.
-            //Endre HeaderSignature i baseklasse til å hente sertifikat når vi er i versjon 5.
-            //Testklasse er lagd som kaller VALIDER. Den må aktiveres!
+            var erGyldigSertifikat = Miljø.Sertifikatkjedevalidator.ErGyldigResponssertifikat(sertifikat);
 
-
-            //var signatur = HeaderSignature.InnerText;
-            //var sertifikat = new X509Certificate2(Convert.FromBase64String(signatur));
-
-            //var erGyldigSertifikat = Miljø.Sertifikatkjedevalidator.ErGyldigResponssertifikat(sertifikat);
-
-            //if (!erGyldigSertifikat)
-            //{
-            //    throw new SecurityException("Sertifikatet som er angitt i signaturen er ikke en del av en gyldig sertifikatkjede.");
-            //}
+            if (!erGyldigSertifikat)
+            {
+                throw new SecurityException("Sertifikatet som er angitt i signaturen er ikke en del av en gyldig sertifikatkjede.");
+            }
+            var key = sertifikat.PublicKey.Key;
+            if (!signed.CheckSignature(key))
+               throw new Exception("Signaturen i motatt svar er ikke gyldig");
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             // Timestamp
             var tsReference = new Reference("#" + Settings.TimestampId);
-            tsReference.AddTransform(new XmlDsigExcC14NTransform("wsse soapenv"));
+            //tsReference.AddTransform(new XmlDsigExcC14NTransform("wsse soapenv"));
             signed.AddReference(tsReference);
 
             // Body
