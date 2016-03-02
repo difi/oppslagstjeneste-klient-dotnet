@@ -1,4 +1,4 @@
-﻿
+﻿using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
@@ -9,10 +9,11 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
         }
 
-        protected override System.Xml.XmlElement CreateBody()
+        protected override XmlElement CreateBody()
         {
             var body = base.CreateBody();
-            var element = Document.CreateElement("ns", "HentPrintSertifikatForespoersel", Navnerom.OppslagstjenesteDefinisjon);
+            var element = Document.CreateElement("ns", "HentPrintSertifikatForespoersel",
+                Navnerom.OppslagstjenesteDefinisjon);
             body.AppendChild(element);
             return body;
         }

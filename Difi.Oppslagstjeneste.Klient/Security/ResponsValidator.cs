@@ -3,76 +3,91 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Domene;
+using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Security
 {
-    public enum SoapVersion
-    {
-        Soap11,
-        Soap12
-    }
-
     public abstract class Responsvalidator
     {
         protected XmlNamespaceManager Nsmgr;
-        
-        public XmlDocument ResponseDocument { get; private set; }
 
-        protected XmlDocument SentEnvelope { get; private set; }
-
-        protected XmlElement HeaderSecurityElement {get; private set;}
-        
-        protected XmlElement HeaderSignatureElement {get; private set;}
-               
-        public Responsvalidator(System.IO.Stream stream, SoapVersion version, XmlDocument sentEnvelope, X509Certificate2 xmlDekrypteringsSertifikat = null)
+        protected Responsvalidator(XmlDocument sendtDokument, XmlDocument mottattDokument, SoapVersion version,
+            X509Certificate2 xmlDekrypteringsSertifikat = null)
         {
-            SentEnvelope = sentEnvelope;
+            SendtDokument = sendtDokument;
+            MottattDokument = mottattDokument;
 
-            ResponseDocument = new XmlDocument();
-            ResponseDocument.Load(stream);
-
-            Nsmgr = new XmlNamespaceManager(ResponseDocument.NameTable);
-            Nsmgr.AddNamespace("env", version == SoapVersion.Soap11 ? Navnerom.SoapEnvelope : Navnerom.SoapEnvelopeEnv12);
+            Nsmgr = new XmlNamespaceManager(MottattDokument.NameTable);
+            Nsmgr.AddNamespace("env", Navnerom.SoapEnvelope12);
             Nsmgr.AddNamespace("wsse", Navnerom.WssecuritySecext10);
-            Nsmgr.AddNamespace("ds", Navnerom.XmlDsig);            
-            Nsmgr.AddNamespace("xenc", Navnerom.xenc); 
+            Nsmgr.AddNamespace("ds", Navnerom.XmlDsig);
+            Nsmgr.AddNamespace("xenc", Navnerom.xenc);
             Nsmgr.AddNamespace("wsse11", Navnerom.WssecuritySecext11);
             Nsmgr.AddNamespace("wsu", Navnerom.WssecurityUtility10);
 
-            HeaderSecurityElement = ResponseDocument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security", Nsmgr) as XmlElement;
+            HeaderSecurityElement =
+                MottattDokument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security", Nsmgr) as XmlElement;
             HeaderSignatureElement = HeaderSecurityElement.SelectSingleNode("./ds:Signature", Nsmgr) as XmlElement;
-
+            HeaderSignature = HeaderSignatureElement.SelectSingleNode("./ds:SignatureValue", Nsmgr) as XmlElement;
+            BinaryTokenElement =
+                HeaderSecurityElement.SelectSingleNode("./wsse:BinarySecurityToken", Nsmgr) as XmlElement;
             if (xmlDekrypteringsSertifikat != null)
                 DecryptDocument(xmlDekrypteringsSertifikat);
         }
 
+        public XmlDocument MottattDokument { get; }
+
+        public XmlDocument SendtDokument { get; }
+
+        protected XmlElement HeaderSecurityElement { get; }
+
+        protected XmlElement HeaderSignatureElement { get; }
+
+        protected XmlElement HeaderSignature { get; private set; }
+
+        public XmlElement BinaryTokenElement { get; set; }
+
+        public XmlElement HeaderBinarySecurityToken { get; set; }
+
+
         private void DecryptDocument(X509Certificate2 decryptionSertificate)
         {
-            var encryptedNode = ResponseDocument.SelectSingleNode("/env:Envelope/env:Body/xenc:EncryptedData", Nsmgr) as XmlElement;
+            var encryptedNode =
+                MottattDokument.SelectSingleNode("/env:Envelope/env:Body/xenc:EncryptedData", Nsmgr) as XmlElement;
             if (encryptedNode == null)
                 return;
-            
-            var encryptedXml = new EncryptedXml(ResponseDocument);
+
+            var encryptedXml = new EncryptedXml(MottattDokument);
             var encryptedData = new EncryptedData();
             encryptedData.LoadXml(encryptedNode);
 
-            var privateKey = decryptionSertificate.PrivateKey as RSACryptoServiceProvider;
-            var cipher = ResponseDocument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue", Nsmgr).InnerText;
+            var aes = AesManaged(decryptionSertificate);
 
-            AesManaged aes = new AesManaged
+            encryptedXml.ReplaceData(encryptedNode, encryptedXml.DecryptData(encryptedData, aes));
+        }
+
+        private AesManaged AesManaged(X509Certificate2 decryptionSertificate)
+        {
+            var privateKey = decryptionSertificate.PrivateKey as RSACryptoServiceProvider;
+            var cipher =
+                MottattDokument.SelectSingleNode(
+                    "/env:Envelope/env:Header/wsse:Security/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue", Nsmgr)
+                    .InnerText;
+
+            var aes = new AesManaged
             {
                 Mode = CipherMode.CBC,
                 KeySize = 256,
                 Padding = PaddingMode.None,
                 Key = privateKey.Decrypt(Convert.FromBase64String(cipher), true)
             };
-
-            encryptedXml.ReplaceData(encryptedNode, encryptedXml.DecryptData(encryptedData, aes));
+            return aes;
         }
 
 
-        protected void SjekkTimestamp(TimeSpan timeSpan)
+        protected virtual void SjekkTimestamp(TimeSpan timeSpan)
         {
             var timestampElement = HeaderSecurityElement.SelectSingleNode("./wsu:Timestamp", Nsmgr);
 
@@ -80,19 +95,23 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             var expires = DateTimeOffset.Parse(timestampElement["Expires", Navnerom.WssecurityUtility10].InnerText);
 
             if (created > DateTimeOffset.Now.AddMinutes(5))
-                throw new Exception("Motatt melding har opprettelsetidspunkt mer enn fem minutter inn i fremtiden." + created.ToString());
+                throw new Exception("Motatt melding har opprettelsetidspunkt mer enn 5 minutter inn i fremtiden." +
+                                    created);
             if (created < DateTimeOffset.Now.Add(timeSpan.Negate()))
-                throw new Exception(string.Format("Motatt melding har opprettelsetidspunkt som er eldre enn {0} minutter.", timeSpan.Minutes));
+                throw new Exception(
+                    string.Format("Motatt melding har opprettelsetidspunkt som er eldre enn {0} minutter.",
+                        timeSpan.Minutes));
 
             if (expires < DateTimeOffset.Now)
                 throw new Exception("Motatt melding har utgått på tid.");
-
         }
 
         /// <summary>
-        /// Sjekker at soap envelopen inneholder timestamp, body og messaging element med korrekt id og referanser i security signaturen.
+        ///     Sjekker at soap envelopen inneholder timestamp, body og messaging element med korrekt id og referanser i security
+        ///     signaturen.
         /// </summary>
-        protected void ValiderSignaturreferanser(XmlElement signature, SignedXmlWithAgnosticId signedXml, string[] påkrevdeReferanser)
+        protected void ValiderSignaturreferanser(XmlElement signature, SignedXmlWithAgnosticId signedXml,
+            string[] påkrevdeReferanser)
         {
             foreach (var påkrevdReferanse in påkrevdeReferanser)
             {
@@ -103,9 +122,10 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             }
         }
 
-        private void IdNodeMatcher(SignedXmlWithAgnosticId signedXml, string elementId, XmlNodeList nodes, string elementXPath)
+        private void IdNodeMatcher(SignedXmlWithAgnosticId signedXml, string elementId, XmlNodeList nodes,
+            string elementXPath)
         {
-            var targetNode = signedXml.GetIdElement(ResponseDocument, elementId);
+            var targetNode = signedXml.GetIdElement(MottattDokument, elementId);
             if (targetNode != nodes[0])
                 throw new Exception(string.Format("Signaturreferansen med id '{0}' må refererer til node med sti '{1}'",
                     elementId, elementXPath));
@@ -115,35 +135,43 @@ namespace Difi.Oppslagstjeneste.Klient.Security
         {
             var elementId = nodes[0].Attributes["wsu:Id"].Value;
 
-            var references = signature.SelectNodes(string.Format("./ds:SignedInfo/ds:Reference[@URI='#{0}']", elementId), Nsmgr);
+            var references = signature.SelectNodes(
+                string.Format("./ds:SignedInfo/ds:Reference[@URI='#{0}']", elementId), Nsmgr);
             if (references == null || references.Count == 0)
-            { 
+            {
                 throw new Exception(
-                    string.Format("Kan ikke finne påkrevet refereanse til element '{0}' i signatur fra meldingsformidler.",elementXPath)
+                    string.Format(
+                        "Kan ikke finne påkrevet refereanse til element '{0}' i signatur fra meldingsformidler.",
+                        elementXPath)
                     );
             }
             if (references.Count > 1)
                 throw new Exception(
-                    string.Format("Påkrevet refereanse til element '{0}' kan kun forekomme én gang i signatur fra meldingsformidler. Ble funnet {1} ganger.",elementXPath, references.Count)
+                    string.Format(
+                        "Påkrevet refereanse til element '{0}' kan kun forekomme én gang i signatur fra meldingsformidler. Ble funnet {1} ganger.",
+                        elementXPath, references.Count)
                     );
             return elementId;
         }
 
         private XmlNodeList InneholderNode(string elementXPath)
         {
-            var nodes = ResponseDocument.SelectNodes(elementXPath, Nsmgr);
+            var nodes = MottattDokument.SelectNodes(elementXPath, Nsmgr);
             if (nodes == null || nodes.Count == 0)
             {
-                throw new Exception(string.Format("Kan ikke finne påkrevet element '{0}' i svar fra meldingsformidler.",elementXPath));
+                throw new Exception(string.Format(
+                    "Kan ikke finne påkrevet element '{0}' i svar fra meldingsformidler.", elementXPath));
             }
 
             if (nodes.Count > 1)
             {
                 throw new Exception(
-                    string.Format("Påkrevet element '{0}' kan kun forekomme én gang i svar fra meldingsformidler. Ble funnet {1} ganger.", elementXPath, nodes.Count)
+                    string.Format(
+                        "Påkrevet element '{0}' kan kun forekomme én gang i svar fra meldingsformidler. Ble funnet {1} ganger.",
+                        elementXPath, nodes.Count)
                     );
             }
-                
+
             return nodes;
         }
 
@@ -155,14 +183,15 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             var signatureConfirmation = signatureConfirmationNode.Attributes["Value"].Value;
 
             // Locate sent signature
-            var sentSignatureValueNode = SentEnvelope.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/ds:Signature/ds:SignatureValue", Nsmgr);
+            var sentSignatureValueNode =
+                SendtDokument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/ds:Signature/ds:SignatureValue",
+                    Nsmgr);
             var sentSignatureValue = sentSignatureValueNode.InnerText;
 
             // match against sent signature
             if (signatureConfirmation != sentSignatureValue)
-                throw new Exception(string.Format("Motatt signaturbekreftelse '{0}' er ikke lik sendt signatur '{1}'.", signatureConfirmation, sentSignatureValue));
-
+                throw new Exception(string.Format("Motatt signaturbekreftelse '{0}' er ikke lik sendt signatur '{1}'.",
+                    signatureConfirmation, sentSignatureValue));
         }
-
     }
 }

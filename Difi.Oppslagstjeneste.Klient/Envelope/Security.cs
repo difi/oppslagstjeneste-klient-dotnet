@@ -18,20 +18,23 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
             var securityElement = Context.CreateElement("wsse", "Security", Navnerom.WssecuritySecext10);
             securityElement.SetAttribute("xmlns:wsu", Navnerom.WssecurityUtility10);
-            
+
+
             if (_timespan.HasValue)
                 securityElement.AppendChild(TimestampElement());
             return securityElement;
-
         }
-        
+
+
         private XmlElement TimestampElement()
         {
-            XmlElement timestamp = Context.CreateElement("wsu", "Timestamp", Navnerom.WssecurityUtility10);
+            var timestamp = Context.CreateElement("wsu", "Timestamp", Navnerom.WssecurityUtility10);
             {
                 var utcNow = DateTime.UtcNow;
-                timestamp.AppendChildElement("Created", "wsu", Navnerom.WssecurityUtility10, utcNow.ToString(DateUtility.DateFormat));
-                timestamp.AppendChildElement("Expires", "wsu", Navnerom.WssecurityUtility10, utcNow.Add(_timespan.Value).ToString(DateUtility.DateFormat));
+                timestamp.AppendChildElement("Created", "wsu", Navnerom.WssecurityUtility10,
+                    utcNow.ToString(DateUtility.DateFormat));
+                timestamp.AppendChildElement("Expires", "wsu", Navnerom.WssecurityUtility10,
+                    utcNow.Add(_timespan.Value).ToString(DateUtility.DateFormat));
             }
 
             timestamp.SetAttribute("Id", Navnerom.WssecurityUtility10, Settings.TimestampId);

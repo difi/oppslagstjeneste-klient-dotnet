@@ -39,35 +39,42 @@
     <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApiClientShared, Version=1.0.5637.25994, Culture=neutral, PublicKeyToken=6e0e24e0c7886562, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.0.3.5905.27808\lib\net45\ApiClientShared.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Difi.Felles.Utility, Version=0.3.5905.27808, Culture=neutral, PublicKeyToken=683b8efceae684a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.0.3.5905.27808\lib\net45\Difi.Felles.Utility.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\EndringsInfo.cs" />
-    <Compile Include="Epostadresse.cs" />
-    <Compile Include="Exceptions\OppslagstjenesteException.cs" />
+    <Compile Include="Entiteter\EndringsInfo.cs" />
+    <Compile Include="Entiteter\Epostadresse.cs" />
+    <Compile Include="Enums\SoapVersion.cs" />
     <Compile Include="Exceptions\SendException.cs" />
     <Compile Include="Exceptions\SoapException.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
-    <Compile Include="Kontaktinformasjon.cs" />
-    <Compile Include="Mobiltelefonnummer.cs" />
-    <Compile Include="Navnerom.cs" />
-    <Compile Include="Person.cs" />
+    <Compile Include="Entiteter\Kontaktinformasjon.cs" />
+    <Compile Include="Entiteter\Mobiltelefonnummer.cs" />
+    <Compile Include="Entiteter\Person.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Navnerom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sikkerdigitalpostadresse.cs" />
-    <Compile Include="Tilstand.cs" />
-    <Compile Include="XmlElementExtensions.cs" />
+    <Compile Include="Entiteter\Sikkerdigitalpostadresse.cs" />
+    <Compile Include="Enums\Tilstand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\difi-oppslagstjeneste.pfx">
       <Link>Properties\difi-oppslagstjeneste.pfx</Link>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

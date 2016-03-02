@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using Difi.Oppslagstjeneste.Klient.Domene;
+using Difi.Oppslagstjeneste.Klient.Domene.Entiteter;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 
 namespace Difi.Oppslagstjeneste.Klient.Svar
@@ -21,7 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
             {
                 var personElements = XmlDocument.SelectNodes(
                     "/env:Envelope/env:Body/ns:HentPersonerRespons/difi:Person", XmlNamespaceManager);
-                List<Person> result =
+                var result =
                     (from object item in personElements select new Person(item as XmlElement)).ToList();
 
                 Personer = result;

@@ -1,25 +1,15 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using Difi.Felles.Utility;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
-    public class OppslagstjenesteKonfigurasjon : Klientkonfigurasjon
+    public class OppslagstjenesteKonfigurasjon : GeneriskKlientkonfigurasjon
     {
-        protected override string Prefix
+        public OppslagstjenesteKonfigurasjon(Miljø miljø)
+            : base(miljø)
         {
-            get { return "Oppslagstjeneste"; }
+            Felles.Utility.Logger.TraceSource = new TraceSource("Difi.Oppslagstjeneste.Klient");
+            Logger = Felles.Utility.Logger.TraceLogger();
         }
-                
-        public OppslagstjenesteKonfigurasjon()
-        {
-            ServiceUri = SetFromAppConfig<Uri>(Prefix + ":ServiceUri", new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v4"));
-            Logger = Logging.ConsoleLogger();
-        }
-
-        /// <summary>
-        /// Eksponerer et grensesnitt for logging hvor brukere kan integrere sin egen loggefunksjonalitet eller en tredjepartsløsning som f.eks log4net. For bruk, angi en annonym funksjon med 
-        /// følgende parametre: severity, konversasjonsid, metode, melding. Som default benyttes trace logging med navn 'Difi.Oppslagstjeneste.Klient' som kan aktiveres i applikasjonens konfigurasjonsfil. 
-        /// </summary>
-        public Action<TraceEventType, Guid?, string, string> Logger { get; set; }
     }
 }

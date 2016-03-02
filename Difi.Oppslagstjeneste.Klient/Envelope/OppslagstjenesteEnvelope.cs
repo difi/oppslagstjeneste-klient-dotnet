@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Security;
 
@@ -8,22 +9,28 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public abstract class OppslagstjenesteEnvelope : AbstractEnvelope
     {
+        protected OppslagstjenesteEnvelope(OppslagstjenesteInstillinger instillinger) : base(instillinger)
+        {
+        }
+
         protected XmlElement Security { get; private set; }
 
         protected OppslagstjenesteInstillinger Instillinger
         {
-            get
-            {
-                return base.Settings as OppslagstjenesteInstillinger;
-            }
+            get { return Settings as OppslagstjenesteInstillinger; }
         }
-
-        protected OppslagstjenesteEnvelope(OppslagstjenesteInstillinger instillinger) : base(instillinger) { }
 
         protected override XmlElement CreateHeader()
         {
             var header = base.CreateHeader();
-            Security = new Security(this.Settings, this.Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
+            Security = new Security(Settings, Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
+
+            Settings.BinarySecurityId = "X509-" + Guid.NewGuid();
+            var securityToken = new SecurityTokenReferenceClause(Instillinger.Avsendersertifikat,
+                Settings.BinarySecurityId);
+            var binaryToken = securityToken.GetTokenXml();
+            Security.AppendChild(Document.ImportNode(binaryToken, true));
+
             header.AppendChild(Security);
             return header;
         }
@@ -48,7 +55,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             // Timestamp
             var tsReference = new Reference("#" + Settings.TimestampId);
-            tsReference.AddTransform(new XmlDsigExcC14NTransform("wsse soapenv"));
+            //tsReference.AddTransform(new XmlDsigExcC14NTransform("wsse soapenv"));
             signed.AddReference(tsReference);
 
             // Body
@@ -56,8 +63,12 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             bodyReference.AddTransform(new XmlDsigExcC14NTransform(""));
             signed.AddReference(bodyReference);
 
-            signed.KeyInfo.AddClause(new SecurityTokenReferenceClause(Instillinger.Avsendersertifikat));
-            signed.KeyInfo.Id = String.Format("KS-{0}", Guid.NewGuid());
+
+            var securityToken = new SecurityTokenReferenceClause(Settings.BinarySecurityId);
+
+
+            signed.KeyInfo.AddClause(securityToken);
+            signed.KeyInfo.Id = string.Format("KS-{0}", Guid.NewGuid());
 
             signed.ComputeSignature();
 

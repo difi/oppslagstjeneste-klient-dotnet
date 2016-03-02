@@ -36,9 +36,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ApiClientShared">
-      <HintPath>..\packages\api-client-shared.1.0.5578.25965\lib\net45\ApiClientShared.dll</HintPath>
+    <Reference Include="ApiClientShared, Version=1.0.5637.25994, Culture=neutral, PublicKeyToken=6e0e24e0c7886562, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.0.3.5905.27808\lib\net45\ApiClientShared.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Difi.Felles.Utility, Version=0.3.5905.27808, Culture=neutral, PublicKeyToken=683b8efceae684a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.0.3.5905.27808\lib\net45\Difi.Felles.Utility.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -51,11 +66,20 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Utilities\DomeneUtility.cs" />
+    <Compile Include="Envelope\OppslagstjenestevalidatorMedStubbetSjekkTimestamp.cs" />
+    <Compile Include="Envelope\OppslagstjenesteValidatorTests.cs" />
+    <Compile Include="KlientkonfigurasjonTests.cs" />
+    <Compile Include="MiljøTests.cs" />
+    <Compile Include="OppslagstjenesteKlientTests.cs" />
+    <Compile Include="OppslagstjenesteKonfigurasjonTests.cs" />
     <Compile Include="Svar\EndringerSvarTester.cs" />
     <Compile Include="Svar\PersonerSvarTester.cs" />
     <Compile Include="Domene\PersonTester.cs" />
@@ -63,6 +87,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integrasjon\Integrasjonstester.cs" />
     <Compile Include="Domene\SoapExceptionTester.cs" />
+    <Compile Include="Utilities\XmlUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
@@ -76,6 +101,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EmbeddedResource Include="testdata\difi-enhetstester.cer" />
+    <EmbeddedResource Include="testdata\difi-enhetstester.p12" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\HentPersonerRequest.xml" />
+    <EmbeddedResource Include="Ressurser\HentPersonerResponse.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

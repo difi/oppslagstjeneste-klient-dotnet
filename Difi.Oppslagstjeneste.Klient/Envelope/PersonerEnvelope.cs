@@ -6,14 +6,15 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class PersonerEnvelope : OppslagstjenesteEnvelope
     {
-        private string[] personidentifikator;
-        private Informasjonsbehov _informasjonsbehov;
-        
-        public PersonerEnvelope(OppslagstjenesteInstillinger instillinger, string[] personidentifikator, Informasjonsbehov informasjonsbehov)
+        private readonly Informasjonsbehov _informasjonsbehov;
+        private readonly string[] personidentifikator;
+
+        public PersonerEnvelope(OppslagstjenesteInstillinger instillinger, string[] personidentifikator,
+            Informasjonsbehov informasjonsbehov)
             : base(instillinger)
         {
             this.personidentifikator = personidentifikator;
-            this._informasjonsbehov = informasjonsbehov;
+            _informasjonsbehov = informasjonsbehov;
         }
 
         protected override XmlElement CreateBody()
@@ -22,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             var element = Document.CreateElement("ns", "HentPersonerForespoersel", Navnerom.OppslagstjenesteDefinisjon);
 
-            foreach (Informasjonsbehov info in Enum.GetValues(typeof(Informasjonsbehov)))
+            foreach (Informasjonsbehov info in Enum.GetValues(typeof (Informasjonsbehov)))
             {
                 if (_informasjonsbehov.HasFlag(info))
                 {
@@ -36,13 +37,12 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             {
                 var node = Document.CreateElement("ns", "personidentifikator", Navnerom.OppslagstjenesteDefinisjon);
                 node.InnerText = item;
-                element.AppendChild(node);                
+                element.AppendChild(node);
             }
 
             body.AppendChild(element);
 
             return body;
         }
-
     }
 }

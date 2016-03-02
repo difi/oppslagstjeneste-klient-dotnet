@@ -43,11 +43,13 @@
     <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ApiClientShared">
-      <HintPath>..\packages\api-client-shared.1.0.5578.25965\lib\net45\ApiClientShared.dll</HintPath>
+    <Reference Include="ApiClientShared, Version=1.0.5637.25994, Culture=neutral, PublicKeyToken=6e0e24e0c7886562, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.0.3.5905.27808\lib\net45\ApiClientShared.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Difi.Felles.Utility">
-      <HintPath>..\packages\difi-felles-utility-dotnet.0.1.5598.25086\lib\net45\Difi.Felles.Utility.dll</HintPath>
+    <Reference Include="Difi.Felles.Utility, Version=0.3.5905.27808, Culture=neutral, PublicKeyToken=683b8efceae684a6, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.0.3.5905.27808\lib\net45\Difi.Felles.Utility.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -65,18 +67,17 @@
     <Compile Include="Envelope\PrintSertifikatEnvelope.cs" />
     <Compile Include="Envelope\OppslagstjenesteEnvelope.cs" />
     <Compile Include="Envelope\OppslagstjenesteInstillinger.cs" />
-    <Compile Include="Envelope\OppslagstjenesteValidator.cs" />
+    <Compile Include="Envelope\Oppslagstjenestevalidator.cs" />
     <Compile Include="Envelope\Security.cs" />
-    <Compile Include="Klientkonfigurasjon.cs" />
-    <Compile Include="Security\ResponsValidator.cs" />
+    <Compile Include="Extensions\XmlElementExtensions.cs" />
+    <Compile Include="Miljø.cs" />
+    <Compile Include="Security\Responsvalidator.cs" />
     <Compile Include="Security\SecurityTokenReferenceClause.cs" />
-    <Compile Include="Security\SignedXmlWithAgnosticId.cs" />
     <Compile Include="Svar\EndringerSvar.cs" />
     <Compile Include="Svar\PersonerSvar.cs" />
     <Compile Include="Svar\PrintSertifikatSvar.cs" />
     <Compile Include="Informasjonsbehov.cs" />
     <Compile Include="OppslagstjenesteKonfigurasjon.cs" />
-    <Compile Include="OppslagstjenesteLogger.cs" />
     <Compile Include="OppslagstjenesteKlient.cs" />
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
@@ -86,13 +87,7 @@
     <Compile Include="XmlValidering\OppslagstjenesteXmlvalidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-ws-14-05.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <None Include="packages.config" />
-    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-metadata-14-05.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="XmlValidering\Xsd\wssecurity\oasis-200401-wss-wssecurity-secext-1.0.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -106,6 +101,20 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="XmlValidering\Xsd\w3\exc-c14n.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Ressurser\produksjon\BPClass3CA3.cer" />
+    <None Include="Ressurser\produksjon\BPClass3RootCA.cer" />
+    <None Include="Ressurser\produksjon\cpn enterprise sha256 class 3.crt" />
+    <None Include="Ressurser\produksjon\cpn rootca sha256 class 3.crt" />
+    <None Include="Ressurser\test\Buypass_Class_3_Test4_CA_3.cer" />
+    <None Include="Ressurser\test\Buypass_Class_3_Test4_Root_CA.cer" />
+    <None Include="Ressurser\test\intermediate - commfides cpn enterprise-norwegian sha256 ca - test2.crt" />
+    <None Include="Ressurser\test\root - cpn root sha256 ca - test.crt" />
+    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-metadata-16-02.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-ws-16-02.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">

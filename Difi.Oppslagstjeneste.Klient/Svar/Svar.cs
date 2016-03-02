@@ -1,6 +1,5 @@
 ﻿using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
-using Difi.Oppslagstjeneste.Klient.Envelope;
 
 namespace Difi.Oppslagstjeneste.Klient.Svar
 {
@@ -19,7 +18,7 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         private XmlNamespaceManager InitalizeNamespaceManager(XmlDocument xmlDocument)
         {
             var namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
-            namespaceManager.AddNamespace("env", Navnerom.SoapEnvelope);
+            namespaceManager.AddNamespace("env", Navnerom.SoapEnvelope12);
             namespaceManager.AddNamespace("ns", Navnerom.OppslagstjenesteDefinisjon);
             namespaceManager.AddNamespace("difi", Navnerom.OppslagstjenesteMetadata);
             return namespaceManager;
