@@ -103,6 +103,10 @@
     <EmbeddedResource Include="testdata\difi-enhetstester.cer" />
     <EmbeddedResource Include="testdata\difi-enhetstester.p12" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\HentPersonerRequest.xml" />
+    <EmbeddedResource Include="Ressurser\HentPersonerResponse.xml" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

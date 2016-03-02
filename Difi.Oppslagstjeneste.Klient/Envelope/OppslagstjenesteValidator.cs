@@ -36,6 +36,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             ValiderResponssertifikat(signedXmlWithAgnosticId);
         }
 
+        
+
         private void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
         {
             var signatur = BinaryTokenElement.InnerText;
@@ -48,6 +50,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             {
                 throw new SecurityException("Sertifikatet som er angitt i signaturen er ikke en del av en gyldig sertifikatkjede.");
             }
+            
             var key = sertifikat.PublicKey.Key;
             if (!signed.CheckSignature(key))
                throw new Exception("Signaturen i motatt svar er ikke gyldig");
