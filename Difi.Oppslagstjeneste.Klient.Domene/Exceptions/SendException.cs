@@ -7,7 +7,6 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
     {
         public SendException()
         {
-             
         }
 
         public SendException(string message)

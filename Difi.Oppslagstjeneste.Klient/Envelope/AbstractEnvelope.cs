@@ -1,19 +1,17 @@
 ﻿using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
-using Difi.Oppslagstjeneste.Klient.Security;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public abstract class AbstractEnvelope
     {
-        public XmlDocument Document { get; private set; }
-        public EnvelopeSettings Settings { get; set; }
+        private bool _isCreated;
 
         public AbstractEnvelope(EnvelopeSettings settings = null)
         {
             if (settings == null)
                 settings = new EnvelopeSettings(SoapVersion.Soap12);
-            this.Settings = settings;
+            Settings = settings;
 
             Document = new XmlDocument();
             Document.PreserveWhitespace = true;
@@ -24,6 +22,9 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             var xmlDeclaration = Document.CreateXmlDeclaration("1.0", "UTF-8", null);
             Document.InsertBefore(xmlDeclaration, Document.DocumentElement);
         }
+
+        public XmlDocument Document { get; }
+        public EnvelopeSettings Settings { get; set; }
 
 
         protected virtual XmlElement CreateHeader()
@@ -37,12 +38,13 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         }
 
         /// <summary>
-        /// Metoden kalles etter at header og body er generert ferdig.
+        ///     Metoden kalles etter at header og body er generert ferdig.
         /// </summary>
         /// <param name="node">Header elementet.</param>
-        protected virtual void AddSignatureToHeader(XmlNode node) { }
+        protected virtual void AddSignatureToHeader(XmlNode node)
+        {
+        }
 
-        private bool _isCreated = false;
         public XmlDocument ToXml()
         {
             if (!_isCreated)

@@ -20,7 +20,6 @@ namespace Difi.Oppslagstjeneste.Klient
                     new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5"),
                     new Sertifikatkjedevalidator(SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater())
                     );
-
             }
         }
 

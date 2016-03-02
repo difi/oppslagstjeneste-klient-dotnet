@@ -9,9 +9,10 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         private readonly long _fraEndringsNummer;
         private readonly Informasjonsbehov _informasjonsbehov;
 
-        public EndringerEnvelope(OppslagstjenesteInstillinger instillinger, long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
+        public EndringerEnvelope(OppslagstjenesteInstillinger instillinger, long fraEndringsNummer,
+            Informasjonsbehov informasjonsbehov)
             : base(instillinger)
-        {   
+        {
             _fraEndringsNummer = fraEndringsNummer;
             _informasjonsbehov = informasjonsbehov;
         }
@@ -21,11 +22,12 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             var body = base.CreateBody();
 
             // HentEndringerForespoersel
-            var hentEndringer = Document.CreateElement("ns", "HentEndringerForespoersel", Navnerom.OppslagstjenesteDefinisjon);
+            var hentEndringer = Document.CreateElement("ns", "HentEndringerForespoersel",
+                Navnerom.OppslagstjenesteDefinisjon);
             hentEndringer.SetAttribute("fraEndringsNummer", _fraEndringsNummer.ToString());
             body.AppendChild(hentEndringer);
 
-            foreach (Informasjonsbehov info in Enum.GetValues(typeof(Informasjonsbehov)))
+            foreach (Informasjonsbehov info in Enum.GetValues(typeof (Informasjonsbehov)))
             {
                 if (_informasjonsbehov.HasFlag(info))
                 {
@@ -37,6 +39,5 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             return body;
         }
-
     }
 }

@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester
 {
-
     [TestClass]
     public class MiljøTests
     {
@@ -38,7 +37,5 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
             Assert.AreEqual(url, miljø.Url.ToString());
             CollectionAssert.AreEqual(sertifikater, miljø.Sertifikatkjedevalidator.SertifikatLager);
         }
-
-
     }
 }

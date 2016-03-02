@@ -7,13 +7,11 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
     {
         private const string Ekstrainfo = " Sjekk inner exception for mer info.";
 
-        public string Rådata { get; set; }
-
         public XmlParseException()
         {
         }
 
-        public XmlParseException(string message )
+        public XmlParseException(string message)
             : base(message + Ekstrainfo)
         {
         }
@@ -22,5 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
             : base(message + Ekstrainfo, inner)
         {
         }
+
+        public string Rådata { get; set; }
     }
 }

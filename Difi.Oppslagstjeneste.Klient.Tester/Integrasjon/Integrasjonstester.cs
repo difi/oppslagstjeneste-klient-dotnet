@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Linq;
 using ApiClientShared;
 using ApiClientShared.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,8 +14,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
         public static void Init(TestContext context)
         {
             var klientinnstillinger = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
-                
-            var avsenderSertifikat = CertificateUtility.SenderCertificate("B0CB922214D11E8CE993838DB4C6D04C0C0970B8", Language.Norwegian);
+
+            var avsenderSertifikat = CertificateUtility.SenderCertificate("B0CB922214D11E8CE993838DB4C6D04C0C0970B8",
+                Language.Norwegian);
 
             _oppslagstjenesteKlient = new OppslagstjenesteKlient(avsenderSertifikat, klientinnstillinger);
         }
@@ -29,7 +27,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
             //Arrange
 
             //Act
-            var personer = _oppslagstjenesteKlient.HentPersoner(new string[] { "08077000292" },
+            var personer = _oppslagstjenesteKlient.HentPersoner(new[] {"08077000292"},
                 Informasjonsbehov.Sertifikat |
                 Informasjonsbehov.Kontaktinfo |
                 Informasjonsbehov.SikkerDigitalPost);

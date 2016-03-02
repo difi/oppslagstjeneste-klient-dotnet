@@ -11,15 +11,16 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class Oppslagstjenestevalidator : Responsvalidator
     {
-        public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
-        public Miljø Miljø { get; set; }
-
-        public Oppslagstjenestevalidator(XmlDocument sendtDokument, XmlDocument mottattDokument, OppslagstjenesteInstillinger oppslagstjenesteInstillinger, Miljø miljø)
+        public Oppslagstjenestevalidator(XmlDocument sendtDokument, XmlDocument mottattDokument,
+            OppslagstjenesteInstillinger oppslagstjenesteInstillinger, Miljø miljø)
             : base(sendtDokument, mottattDokument, SoapVersion.Soap12, oppslagstjenesteInstillinger.Avsendersertifikat)
         {
             OppslagstjenesteInstillinger = oppslagstjenesteInstillinger;
             Miljø = miljø;
         }
+
+        public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
+        public Miljø Miljø { get; set; }
 
         public void Valider()
         {
@@ -27,7 +28,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             signedXmlWithAgnosticId.LoadXml(HeaderSignatureElement);
 
             // Sørger for at motatt envelope inneholder signature confirmation og body samt at id'ne matcher mot header signatur
-            ValiderSignaturreferanser(HeaderSignatureElement, signedXmlWithAgnosticId, new[] { "/env:Envelope/env:Header/wsse:Security/wsse11:SignatureConfirmation", "/env:Envelope/env:Body" });
+            ValiderSignaturreferanser(HeaderSignatureElement, signedXmlWithAgnosticId,
+                new[] {"/env:Envelope/env:Header/wsse:Security/wsse11:SignatureConfirmation", "/env:Envelope/env:Body"});
 
             // Validerer SignatureConfirmation
             PerformSignatureConfirmation(HeaderSecurityElement);
@@ -37,7 +39,6 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             ValiderResponssertifikat(signedXmlWithAgnosticId);
         }
 
-        
 
         private void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
         {
@@ -53,10 +54,10 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             {
                 throw new SecurityException("Sertifikatet i responsen er ikke gyldig.");
             }
-            
+
             var key = sertifikat.PublicKey.Key;
             if (!signed.CheckSignature(key))
-               throw new Exception("Signaturen i motatt svar er ikke gyldig");
+                throw new Exception("Signaturen i motatt svar er ikke gyldig");
         }
     }
 }

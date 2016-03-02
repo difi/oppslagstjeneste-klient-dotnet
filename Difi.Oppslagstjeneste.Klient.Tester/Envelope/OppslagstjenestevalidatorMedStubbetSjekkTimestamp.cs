@@ -6,7 +6,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
 {
     public class OppslagstjenestevalidatorMedStubbetSjekkTimestamp : Oppslagstjenestevalidator
     {
-        public OppslagstjenestevalidatorMedStubbetSjekkTimestamp(XmlDocument sendtDokument, XmlDocument mottattDokument, OppslagstjenesteInstillinger oppslagstjenesteInstillinger, Miljø miljø) 
+        public OppslagstjenestevalidatorMedStubbetSjekkTimestamp(XmlDocument sendtDokument, XmlDocument mottattDokument,
+            OppslagstjenesteInstillinger oppslagstjenesteInstillinger, Miljø miljø)
             : base(sendtDokument, mottattDokument, oppslagstjenesteInstillinger, miljø)
         {
         }
@@ -15,7 +16,5 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
         {
             //Do nothing.
         }
-
-
     }
 }

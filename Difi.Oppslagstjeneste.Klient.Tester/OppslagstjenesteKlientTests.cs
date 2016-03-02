@@ -8,7 +8,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         [TestClass]
         public class KonstruktørMethod : OppslagstjenesteKlientTests
         {
-            [TestMethod] public void KonstruktørMedSertifikater()
+            [TestMethod]
+            public void KonstruktørMedSertifikater()
             {
                 //Arrange
                 var avsenderEnhetstesterSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
@@ -16,12 +17,13 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
 
                 //Act
                 var oppslagstjenesteKlient = new OppslagstjenesteKlient(
-                    avsenderEnhetstesterSertifikat, 
+                    avsenderEnhetstesterSertifikat,
                     oppslagstjenesteKonfigurasjon
                     );
 
                 //Assert
-                Assert.AreEqual(avsenderEnhetstesterSertifikat, oppslagstjenesteKlient.OppslagstjenesteInstillinger.Avsendersertifikat);
+                Assert.AreEqual(avsenderEnhetstesterSertifikat,
+                    oppslagstjenesteKlient.OppslagstjenesteInstillinger.Avsendersertifikat);
                 Assert.AreEqual(oppslagstjenesteKonfigurasjon, oppslagstjenesteKlient.OppslagstjenesteKonfigurasjon);
             }
         }

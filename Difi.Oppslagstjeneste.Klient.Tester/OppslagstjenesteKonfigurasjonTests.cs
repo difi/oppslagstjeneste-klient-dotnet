@@ -12,8 +12,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             public void EnkelKonstruktør()
             {
                 //Arrange
-                Miljø miljø = Miljø.FunksjoneltTestmiljø;
-                OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø);
+                var miljø = Miljø.FunksjoneltTestmiljø;
+                var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø);
 
                 //Act
 

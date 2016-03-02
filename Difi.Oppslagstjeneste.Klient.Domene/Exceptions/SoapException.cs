@@ -11,7 +11,8 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
         {
         }
 
-        public SoapException(string outerXml, Exception innerException) : base("SoapException: Klarte ikke parse svar fra serveren.", innerException)
+        public SoapException(string outerXml, Exception innerException)
+            : base("SoapException: Klarte ikke parse svar fra serveren.", innerException)
         {
             ParseTilKlassemedlemmer(outerXml);
         }
@@ -28,19 +29,20 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
 
             try
             {
-                XmlDocument xmlDocument = new XmlDocument();
+                var xmlDocument = new XmlDocument();
                 xmlDocument.LoadXml(outerXml);
 
-                XmlNamespaceManager namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
+                var namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
                 namespaceManager.AddNamespace("SOAP-ENV", Navnerom.SoapEnvelope);
 
                 var rot = xmlDocument.DocumentElement;
                 Skyldig = rot.SelectSingleNode("//faultcode", namespaceManager).InnerText;
                 Beskrivelse = rot.SelectSingleNode("//faultstring", namespaceManager).InnerText;
             }
-            catch ( Exception e)
+            catch (Exception e)
             {
-                throw new XmlParseException("Feilmelding mottatt, klarte ikke å parse feilkode og feilmelding. Se Xml for rådata.", e);
+                throw new XmlParseException(
+                    "Feilmelding mottatt, klarte ikke å parse feilkode og feilmelding. Se Xml for rådata.", e);
             }
         }
     }
