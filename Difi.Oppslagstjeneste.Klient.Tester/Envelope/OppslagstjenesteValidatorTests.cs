@@ -1,7 +1,9 @@
 ﻿using ApiClientShared;
 using ApiClientShared.Enums;
 using Difi.Felles.Utility.Utilities;
+using Difi.Oppslagstjeneste.Klient.Tester;
 using Difi.Oppslagstjeneste.Klient.Tester.Envelope;
+using Difi.Oppslagstjeneste.Klient.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope.Tests

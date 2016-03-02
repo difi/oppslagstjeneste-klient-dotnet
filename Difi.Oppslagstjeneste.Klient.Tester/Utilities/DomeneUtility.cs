@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 using ApiClientShared;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests
@@ -16,7 +17,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         {
             return EvigTestSertifikatUtenPrivatnøkkel();
         }
-
+        
         private static X509Certificate2 EvigTestSertifikatUtenPrivatnøkkel()
         {
             return new X509Certificate2(ResourceUtility.ReadAllBytes(true, "difi-enhetstester.cer"), "", X509KeyStorageFlags.Exportable);

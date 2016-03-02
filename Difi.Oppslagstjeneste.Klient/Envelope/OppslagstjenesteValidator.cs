@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using Difi.Felles.Utility;
 using Difi.Felles.Utility.Exceptions;
 using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
@@ -44,11 +45,13 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             var value = Convert.FromBase64String(signatur);
             var sertifikat = new X509Certificate2(value);
 
-            var erGyldigSertifikat = Miljø.Sertifikatkjedevalidator.ErGyldigResponssertifikat(sertifikat);
+            var erGyldigSertifikatkjede = Miljø.Sertifikatkjedevalidator.ErGyldigSertifikatkjede(sertifikat);
+            var erGyldigSertifikat = Sertifikatvalidator.ErGyldigSertifikat(sertifikat, "991825827");
 
-            if (!erGyldigSertifikat)
+            var erGodkjentSertifikat = erGyldigSertifikatkjede && erGyldigSertifikat;
+            if (!erGodkjentSertifikat)
             {
-                throw new SecurityException("Sertifikatet som er angitt i signaturen er ikke en del av en gyldig sertifikatkjede.");
+                throw new SecurityException("Sertifikatet i responsen er ikke gyldig.");
             }
             
             var key = sertifikat.PublicKey.Key;
