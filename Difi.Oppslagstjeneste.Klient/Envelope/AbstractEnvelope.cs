@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
@@ -16,7 +17,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             Document = new XmlDocument();
             Document.PreserveWhitespace = true;
 
-            var baseNode = Document.CreateElement("soap", "Envelope", Settings.SoapNamespace);
+            var baseNode = Document.CreateElement("soap", "Envelope", Navnerom.SoapEnvelope12);
             Document.AppendChild(baseNode);
 
             var xmlDeclaration = Document.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -29,12 +30,12 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         protected virtual XmlElement CreateHeader()
         {
-            return Document.CreateElement("soap", "Header", Settings.SoapNamespace);
+            return Document.CreateElement("soap", "Header", Navnerom.SoapEnvelope12);
         }
 
         protected virtual XmlElement CreateBody()
         {
-            return Document.CreateElement("soap", "Body", Settings.SoapNamespace);
+            return Document.CreateElement("soap", "Body", Navnerom.SoapEnvelope12);
         }
 
         /// <summary>

@@ -5,7 +5,7 @@
         /// <summary>
         ///     http://www.w3.org/2003/05/soap-envelope
         /// </summary>
-        public const string SoapEnvelopeEnv12 = "http://www.w3.org/2003/05/soap-envelope";
+        public const string SoapEnvelope12 = "http://www.w3.org/2003/05/soap-envelope";
 
         /// <summary>
         ///     http://www.w3.org/2001/XMLSchema-instance
@@ -48,12 +48,7 @@
         ///     http://www.w3.org/2001/04/xmlenc#
         /// </summary>
         public const string xenc = "http://www.w3.org/2001/04/xmlenc#";
-
-        /// <summary>
-        ///     http://www.w3.org/2003/05/soap-envelope
-        /// </summary>
-        public const string SoapEnvelope = "http://www.w3.org/2003/05/soap-envelope";
-
+        
         /// <summary>
         ///     http://www.w3.org/2001/10/xml-exc-c14n#
         /// </summary>

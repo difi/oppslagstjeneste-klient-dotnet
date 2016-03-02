@@ -20,7 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             MottattDokument = mottattDokument;
 
             Nsmgr = new XmlNamespaceManager(MottattDokument.NameTable);
-            Nsmgr.AddNamespace("env", version == SoapVersion.Soap11 ? Navnerom.SoapEnvelope : Navnerom.SoapEnvelopeEnv12);
+            Nsmgr.AddNamespace("env", Navnerom.SoapEnvelope12);
             Nsmgr.AddNamespace("wsse", Navnerom.WssecuritySecext10);
             Nsmgr.AddNamespace("ds", Navnerom.XmlDsig);
             Nsmgr.AddNamespace("xenc", Navnerom.xenc);

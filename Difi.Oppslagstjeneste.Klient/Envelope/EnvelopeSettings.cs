@@ -18,9 +18,6 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         public virtual string TimestampId { get; set; }
         public string BinarySecurityId { get; set; }
 
-        public string SoapNamespace
-        {
-            get { return SoapVersion == SoapVersion.Soap11 ? Navnerom.SoapEnvelope : Navnerom.SoapEnvelopeEnv12; }
-        }
+        
     }
 }
