@@ -103,6 +103,7 @@
     <None Include="packages.config" />
     <EmbeddedResource Include="Testdata\difi-enhetstester.cer" />
     <EmbeddedResource Include="Testdata\difi-enhetstester.p12" />
+    <EmbeddedResource Include="Testdata\Sertifikater\DifiTestsertifikatKlient.p12" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Testdata\Ressurser\HentPersonerRequest.xml" />

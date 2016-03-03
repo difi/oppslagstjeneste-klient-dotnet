@@ -34,7 +34,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             header.AppendChild(Security);
             return header;
         }
-
+        
         protected override XmlElement CreateBody()
         {
             var body = base.CreateBody();

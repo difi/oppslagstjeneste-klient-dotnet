@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using ApiClientShared.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,10 +16,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
         {
             var klientinnstillinger = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
 
-            var avsenderSertifikat = CertificateUtility.SenderCertificate("B0CB922214D11E8CE993838DB4C6D04C0C0970B8",
-                Language.Norwegian);
-
-            _oppslagstjenesteKlient = new OppslagstjenesteKlient(avsenderSertifikat, klientinnstillinger);
+            ResourceUtility resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Testdata.Sertifikater");
+            var avsendersertifikat = new X509Certificate2(resourceUtility.ReadAllBytes(true, "DifiTestsertifikatKlient.p12"), "changeit", X509KeyStorageFlags.Exportable);
+            _oppslagstjenesteKlient = new OppslagstjenesteKlient(avsendersertifikat, klientinnstillinger);
         }
 
         [TestMethod]
