@@ -13,8 +13,11 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         }
 
         public SoapVersion SoapVersion { get; set; }
+
         public string BodyId { get; set; }
+
         public virtual string TimestampId { get; set; }
+
         public string BinarySecurityId { get; set; }
     }
 }

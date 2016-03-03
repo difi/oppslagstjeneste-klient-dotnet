@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
-using ApiClientShared.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
@@ -31,7 +30,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
                 Informasjonsbehov.Sertifikat |
                 Informasjonsbehov.Kontaktinfo |
                 Informasjonsbehov.SikkerDigitalPost);
-
 
             //Assert
             Assert.IsTrue(personer.Any());

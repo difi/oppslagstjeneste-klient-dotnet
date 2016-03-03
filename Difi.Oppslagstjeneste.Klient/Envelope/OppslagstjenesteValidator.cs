@@ -20,6 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         }
 
         public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
+
         public Miljø Miljø { get; set; }
 
         public void Valider()
@@ -38,7 +39,6 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             ValiderResponssertifikat(signedXmlWithAgnosticId);
         }
-
 
         private void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
         {

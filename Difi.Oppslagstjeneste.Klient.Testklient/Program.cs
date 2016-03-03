@@ -31,7 +31,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
                 Informasjonsbehov.Kontaktinfo |
                 Informasjonsbehov.Sertifikat |
                 Informasjonsbehov.SikkerDigitalPost |
-                Informasjonsbehov.VarslingsStatus | 
+                Informasjonsbehov.VarslingsStatus |
                 Informasjonsbehov.Person
                 );
 

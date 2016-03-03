@@ -9,7 +9,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public abstract class OppslagstjenesteEnvelope : AbstractEnvelope
     {
-        protected OppslagstjenesteEnvelope(OppslagstjenesteInstillinger instillinger) : base(instillinger)
+        protected OppslagstjenesteEnvelope(OppslagstjenesteInstillinger instillinger)
+            : base(instillinger)
         {
         }
 
@@ -34,7 +35,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             header.AppendChild(Security);
             return header;
         }
-        
+
         protected override XmlElement CreateBody()
         {
             var body = base.CreateBody();
@@ -63,9 +64,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             bodyReference.AddTransform(new XmlDsigExcC14NTransform(""));
             signed.AddReference(bodyReference);
 
-
             var securityToken = new SecurityTokenReferenceClause(Settings.BinarySecurityId);
-
 
             signed.KeyInfo.AddClause(securityToken);
             signed.KeyInfo.Id = string.Format("KS-{0}", Guid.NewGuid());

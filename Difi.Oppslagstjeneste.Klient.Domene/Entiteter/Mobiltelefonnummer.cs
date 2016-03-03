@@ -9,7 +9,8 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
     [DebuggerDisplay("Nummer = {Nummer}")]
     public class Mobiltelefonnummer : EndringsInfo
     {
-        public Mobiltelefonnummer(XmlElement element) : base(element)
+        public Mobiltelefonnummer(XmlElement element)
+            : base(element)
         {
             Nummer = element.InnerText;
         }

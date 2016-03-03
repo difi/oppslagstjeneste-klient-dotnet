@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Xml;
 using ApiClientShared;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -38,6 +37,5 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
         {
             Assert.AreEqual("984661185", _printSertifikatSvar.PostkasseleverandørAdresse);
         }
-        
     }
 }

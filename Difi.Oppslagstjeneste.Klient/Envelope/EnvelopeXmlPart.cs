@@ -11,6 +11,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         }
 
         protected XmlDocument Context { get; private set; }
+
         protected EnvelopeSettings Settings { get; private set; }
 
         public abstract XmlNode Xml();
