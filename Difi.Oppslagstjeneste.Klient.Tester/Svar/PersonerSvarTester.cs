@@ -16,20 +16,10 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            try
-            {
-                var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Testdata.Ressurser");
-                var mottattPersonResponse =
-                    Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentPersonResponseDecryptert.xml"));
-                var xmlDocument = new XmlDocument();
-                xmlDocument.LoadXml(mottattPersonResponse);
-
-                _personerSvar = new PersonerSvar(xmlDocument);
-            }
-            catch
-            {
-                Assert.Fail();
-            }
+            var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler.Respons");
+            var mottattPersonRespons = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentPersonerRespons.xml"));
+            var xmlDocument = XmlUtility.TilXmlDokument(mottattPersonRespons);
+            _personerSvar = new PersonerSvar(xmlDocument);
         }
 
         [TestMethod]

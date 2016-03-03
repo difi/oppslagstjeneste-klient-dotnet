@@ -16,7 +16,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
         {
             var klientinnstillinger = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
 
-            ResourceUtility resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Testdata.Sertifikater");
+            var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Sertifikater");
             var avsendersertifikat = new X509Certificate2(resourceUtility.ReadAllBytes(true, "DifiTestsertifikatKlient.p12"), "changeit", X509KeyStorageFlags.Exportable);
             _oppslagstjenesteKlient = new OppslagstjenesteKlient(avsendersertifikat, klientinnstillinger);
         }

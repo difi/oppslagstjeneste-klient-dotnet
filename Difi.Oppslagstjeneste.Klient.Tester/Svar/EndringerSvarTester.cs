@@ -16,26 +16,16 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            try
-            {
-                var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Testdata.Ressurser");
-                var mottattEndringerResponse =
-                    Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentEndringerResponseDecryptert.xml"));
-                var xmlDocument = new XmlDocument();
-                xmlDocument.LoadXml(mottattEndringerResponse);
-
-                _endringerSvar = new EndringerSvar(xmlDocument);
-            }
-            catch (Exception e)
-            {
-                Assert.Fail(e.Message);
-            }
+            var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler.Respons");
+            var mottattEndringerRespons = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentEndringerRespons.xml"));
+            var xmlDokument = XmlUtility.TilXmlDokument(mottattEndringerRespons);
+            _endringerSvar = new EndringerSvar(xmlDokument);
         }
 
         [TestMethod]
         public void HentTrePersonerEndringerSuksess()
         {
-            Assert.AreEqual(1000, _endringerSvar.Personer.Count());
+            Assert.AreEqual(3, _endringerSvar.Personer.Count());
         }
 
         [TestMethod]
