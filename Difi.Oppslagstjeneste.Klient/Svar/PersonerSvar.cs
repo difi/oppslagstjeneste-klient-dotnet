@@ -9,7 +9,8 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
 {
     public class PersonerSvar : Svar
     {
-        public PersonerSvar(XmlDocument xmlDocument) : base(xmlDocument)
+        public PersonerSvar(XmlDocument xmlDocument)
+            : base(xmlDocument)
         {
         }
 

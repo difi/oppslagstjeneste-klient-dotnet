@@ -51,7 +51,6 @@ namespace Difi.Oppslagstjeneste.Klient.Security
 
         public XmlElement HeaderBinarySecurityToken { get; set; }
 
-
         private void DecryptDocument(X509Certificate2 decryptionSertificate)
         {
             var encryptedNode =
@@ -85,7 +84,6 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             };
             return aes;
         }
-
 
         protected virtual void SjekkTimestamp(TimeSpan timeSpan)
         {
@@ -174,7 +172,6 @@ namespace Difi.Oppslagstjeneste.Klient.Security
 
             return nodes;
         }
-
 
         protected void PerformSignatureConfirmation(XmlElement securityNode)
         {

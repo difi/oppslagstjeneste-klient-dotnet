@@ -101,13 +101,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <EmbeddedResource Include="testdata\difi-enhetstester.cer" />
-    <EmbeddedResource Include="testdata\difi-enhetstester.p12" />
+    <EmbeddedResource Include="Testdata\difi-enhetstester.cer" />
+    <EmbeddedResource Include="Testdata\difi-enhetstester.p12" />
+    <EmbeddedResource Include="Ressurser\Sertifikater\DifiTestsertifikatKlient.p12" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ressurser\HentPersonerRequest.xml" />
-    <EmbeddedResource Include="Ressurser\HentPersonerResponse.xml" />
+    <EmbeddedResource Include="Ressurser\Eksempler\Forespørsel\HentPersonerForespørsel.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPersonerResponsKryptert.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentEndringerRespons.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPersonerRespons.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPrintSertifikatRespons.xml" />
+  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

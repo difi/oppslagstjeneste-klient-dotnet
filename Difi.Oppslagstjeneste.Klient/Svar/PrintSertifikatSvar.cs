@@ -11,7 +11,8 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
     /// </summary>
     public class PrintSertifikatSvar : Svar
     {
-        public PrintSertifikatSvar(XmlDocument xmlDocument) : base(xmlDocument)
+        public PrintSertifikatSvar(XmlDocument xmlDocument)
+            : base(xmlDocument)
         {
         }
 

@@ -21,7 +21,9 @@ namespace Difi.Oppslagstjeneste.Klient.Security
         }
 
         public string Uri { get; set; }
+
         public X509Certificate2 Certificate { get; set; }
+
         public EnvelopeSettings Settings { get; set; }
 
         public override XmlElement GetXml()
@@ -45,7 +47,6 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             binIdAttribute.Value = string.Format("{0}", Uri);
             xmlElement.SetAttributeNode(binIdAttribute);
             xmlElement.InnerText = Convert.ToBase64String(Certificate.RawData);
-
 
             return xmlElement;
         }

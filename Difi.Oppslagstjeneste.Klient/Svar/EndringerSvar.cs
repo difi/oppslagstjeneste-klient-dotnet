@@ -12,7 +12,8 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
     /// </summary>
     public class EndringerSvar : Svar
     {
-        public EndringerSvar(XmlDocument xmlDocument) : base(xmlDocument)
+        public EndringerSvar(XmlDocument xmlDocument)
+            : base(xmlDocument)
         {
         }
 
