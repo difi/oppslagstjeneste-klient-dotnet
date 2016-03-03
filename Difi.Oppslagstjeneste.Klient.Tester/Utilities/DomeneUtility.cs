@@ -6,7 +6,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
     internal class DomeneUtility
     {
         internal static readonly ResourceUtility ResourceUtility =
-            new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.testdata");
+            new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Testdata");
 
         internal static X509Certificate2 GetAvsenderEnhetstesterSertifikat()
         {

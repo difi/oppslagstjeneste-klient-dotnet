@@ -1,5 +1,4 @@
 ﻿using System;
-using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
@@ -17,7 +16,5 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         public string BodyId { get; set; }
         public virtual string TimestampId { get; set; }
         public string BinarySecurityId { get; set; }
-
-        
     }
 }
