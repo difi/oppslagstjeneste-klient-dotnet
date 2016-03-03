@@ -5,6 +5,7 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
 {
     public abstract class Svar
     {
+        protected Svar() { }
         protected readonly XmlDocument XmlDocument;
         protected readonly XmlNamespaceManager XmlNamespaceManager;
 

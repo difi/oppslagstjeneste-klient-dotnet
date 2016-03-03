@@ -6,6 +6,10 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
     [DebuggerDisplay("Epost = {Epost}")]
     public class Epostadresse : EndringsInfo
     {
+        public Epostadresse()
+        {
+        }
+
         public Epostadresse(XmlElement element)
             : base(element)
         {

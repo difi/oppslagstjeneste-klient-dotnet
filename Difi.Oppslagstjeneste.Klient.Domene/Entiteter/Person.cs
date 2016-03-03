@@ -26,7 +26,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
 
             var status = item["status", Navnerom.OppslagstjenesteMetadata];
             if (status != null)
-                Status = (Tilstand) Enum.Parse(typeof (Tilstand), status.InnerText);
+                Status = (Status) Enum.Parse(typeof (Status), status.InnerText);
 
             var kontaktinformasjon = item["Kontaktinformasjon", Navnerom.OppslagstjenesteMetadata];
             if (kontaktinformasjon != null)
@@ -62,7 +62,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
         /// <summary>
         ///     Status gir en tekstlig beskrivelse av tilstand.
         /// </summary>
-        public Tilstand Status { get; set; }
+        public Status Status { get; set; }
 
         /// <summary>
         ///     Kontaktinformasjon er Adresse informasjon knyttet til en Person for å kommunisere med person.

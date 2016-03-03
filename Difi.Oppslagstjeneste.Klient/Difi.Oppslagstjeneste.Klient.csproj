@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DtoKonverterer.cs" />
     <Compile Include="Envelope\AbstractEnvelope.cs" />
     <Compile Include="Envelope\DateUtility.cs" />
     <Compile Include="Envelope\EndringerEnvelope.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Miljø.cs" />
     <Compile Include="Security\Responsvalidator.cs" />
     <Compile Include="Security\SecurityTokenReferenceClause.cs" />
+    <Compile Include="SerializeUtil.cs" />
     <Compile Include="Svar\EndringerSvar.cs" />
     <Compile Include="Svar\PersonerSvar.cs" />
     <Compile Include="Svar\PrintSertifikatSvar.cs" />
@@ -120,6 +122,10 @@
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
       <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Scripts\Difi.Oppslagstjeneste.Klient.Scripts.csproj">
+      <Project>{2dd9a89b-e1b4-4dc4-ba46-1d58ab0b0200}</Project>
+      <Name>Difi.Oppslagstjeneste.Klient.Scripts</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

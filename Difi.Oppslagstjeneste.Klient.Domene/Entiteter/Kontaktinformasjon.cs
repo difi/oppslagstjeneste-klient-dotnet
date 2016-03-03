@@ -18,6 +18,10 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
                 Mobiltelefonnummer = new Mobiltelefonnummer(mobiltelefonnummer);
         }
 
+        public Kontaktinformasjon()
+        {
+        }
+
         /// <summary>
         ///     Informasjon om en Person sitt Mobiltelefonnummer registrert i kontakt og reservasjonsregisteret.
         /// </summary>

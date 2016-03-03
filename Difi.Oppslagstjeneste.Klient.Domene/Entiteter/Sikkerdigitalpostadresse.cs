@@ -9,6 +9,10 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
     [DebuggerDisplay("Postkasseadresse = {Postkasseadresse} PostkasseleverandørAdresse = {PostkasseleverandørAdresse}")]
     public class SikkerDigitalPostAdresse
     {
+        public SikkerDigitalPostAdresse()
+        {
+        }
+
         public SikkerDigitalPostAdresse(XmlElement element)
         {
             Postkasseadresse = element["postkasseadresse", Navnerom.OppslagstjenesteMetadata].InnerText;

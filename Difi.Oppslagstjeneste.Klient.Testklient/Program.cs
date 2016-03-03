@@ -27,13 +27,14 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
                 Informasjonsbehov.VarslingsStatus
                 );*/
             
+            
             var personer = register.HentPersoner(new string[] { "08077000292" }, 
                 Informasjonsbehov.Kontaktinfo| 
                 Informasjonsbehov.Sertifikat | 
                 Informasjonsbehov.SikkerDigitalPost |
                 Informasjonsbehov.VarslingsStatus
                 );
-
+            
 /*            var cert = ExportToPEM(personer.ElementAt(0).X509Sertifikat);
            
             var printSertifikat = register.HentPrintSertifikat();*/

@@ -42,7 +42,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         public void HentReservasjonOgStatusSuksess()
         {
             Assert.IsFalse((bool) _person.Reservasjon);
-            Assert.AreEqual(Tilstand.AKTIV, _person.Status);
+            Assert.AreEqual(Status.AKTIV, _person.Status);
         }
 
         [TestMethod]

@@ -4,7 +4,7 @@
     ///     For oppslag av Person(er) er alle statuskoder relevante. For oppslag på endringer er kun status AKTIV og SLETTET
     ///     relevant.
     /// </summary>
-    public enum Tilstand
+    public enum Status
     {
         /// <summary>
         ///     Person finnes i registeret.

@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Difi.Oppslagstjeneste.Klient.Scripts</RootNamespace>
     <AssemblyName>Difi.Oppslagstjeneste.Klient.Scripts</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,6 +30,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -40,9 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XsdToCode\Xsd\kontaktinfo-oppslagstjeneste-16-02.cs" />
+    <Compile Include="XsdToCode\Code\oppslagstjeneste-metadata-16-02.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="XsdToCode\GenerateClassesFromXsd.ps1" />
@@ -53,7 +59,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="XsdToCode\Xsd\oppslagstjeneste-ws-16-02_1.wsdl" />
-    <None Include="XsdToCode\Xsd\output.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

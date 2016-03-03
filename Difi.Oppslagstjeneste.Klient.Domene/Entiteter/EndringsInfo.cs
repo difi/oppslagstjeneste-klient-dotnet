@@ -5,6 +5,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
 {
     public abstract class EndringsInfo
     {
+        protected EndringsInfo() { }
         protected EndringsInfo(XmlElement element)
         {
             var rotElement = element.FirstChild;
