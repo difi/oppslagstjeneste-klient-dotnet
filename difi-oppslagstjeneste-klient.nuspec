@@ -5,7 +5,7 @@
     <version>0.0.0.0</version>
     <authors>Jan Gylta, Aleksander Sjåfjell</authors>
     <owners>Direktoratet for forvaltning og IKT</owners>    
-    <projectUrl>https://github.com/difi/sikker-digital-post-net-klient/</projectUrl>
+    <projectUrl>https://github.com/difi/oppslagstjeneste-klient-dotnet/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Klientbibliotek for Difi´s oppslagstjeneste </description>    
     <copyright>Copyright 2015</copyright>

@@ -55,6 +55,7 @@
       <HintPath>..\packages\CompareNETObjects.3.04.0.0\lib\net45\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
@@ -68,13 +69,7 @@
         <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
       </ItemGroup>
     </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-          <Private>False</Private>
-        </Reference>
-      </ItemGroup>
-    </Otherwise>
+    <Otherwise />
   </Choose>
   <ItemGroup>
     <Compile Include="DtoKonvertererTester.cs" />
@@ -114,13 +109,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <EmbeddedResource Include="testdata\difi-enhetstester.cer" />
-    <EmbeddedResource Include="testdata\difi-enhetstester.p12" />
+    <EmbeddedResource Include="Testdata\difi-enhetstester.cer" />
+    <EmbeddedResource Include="Testdata\difi-enhetstester.p12" />
+    <EmbeddedResource Include="Ressurser\Sertifikater\DifiTestsertifikatKlient.p12" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ressurser\HentPersonerRequest.xml" />
-    <EmbeddedResource Include="Ressurser\HentPersonerResponse.xml" />
+    <EmbeddedResource Include="Ressurser\Eksempler\Forespørsel\HentPersonerForespørsel.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPersonerResponsKryptert.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentEndringerRespons.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPersonerRespons.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPrintSertifikatRespons.xml" />
+  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -25,8 +25,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         }
 
         public XmlDocument Document { get; }
-        public EnvelopeSettings Settings { get; set; }
 
+        public EnvelopeSettings Settings { get; set; }
 
         protected virtual XmlElement CreateHeader()
         {

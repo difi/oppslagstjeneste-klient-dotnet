@@ -63,7 +63,8 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         /// <param name="oppslagstjenesteKonfigurasjon"></param>
         public OppslagstjenesteKlient(string avsendersertifikatThumbprint,
-            OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon) :
+            OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
+            :
                 this(
                 CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),
                 oppslagstjenesteKonfigurasjon)
@@ -71,6 +72,7 @@ namespace Difi.Oppslagstjeneste.Klient
         }
 
         public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
+
         public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
 
         /// <summary>
@@ -91,7 +93,6 @@ namespace Difi.Oppslagstjeneste.Klient
             validator.Valider();
             return new EndringerSvar(validator.MottattDokument);
         }
-
 
         /// <summary>
         ///     Forespørsel sendt fra Virksomhet for å hente Personer fra Oppslagstjenesten.

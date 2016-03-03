@@ -19,13 +19,13 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             
             var register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, konfigurasjon);
             
-            /*var endringer = register.HentEndringer(600,
+            var endringer = register.HentEndringer(600,
                 Informasjonsbehov.Person|
                 Informasjonsbehov.Kontaktinfo |
                 Informasjonsbehov.Sertifikat |
                 Informasjonsbehov.SikkerDigitalPost |
                 Informasjonsbehov.VarslingsStatus
-                );*/
+                );
             
             
             var personer = register.HentPersoner(new string[] { "08077000292" }, 
@@ -35,9 +35,9 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
                 Informasjonsbehov.VarslingsStatus
                 );
             
-/*            var cert = ExportToPEM(personer.ElementAt(0).X509Sertifikat);
+            var cert = ExportToPEM(personer.ElementAt(0).X509Sertifikat);
            
-            var printSertifikat = register.HentPrintSertifikat();*/
+            var printSertifikat = register.HentPrintSertifikat();
             Console.WriteLine("Ferdig med oppslag ...");
             
             Console.ReadKey();

@@ -48,7 +48,7 @@
         ///     http://www.w3.org/2001/04/xmlenc#
         /// </summary>
         public const string xenc = "http://www.w3.org/2001/04/xmlenc#";
-        
+
         /// <summary>
         ///     http://www.w3.org/2001/10/xml-exc-c14n#
         /// </summary>

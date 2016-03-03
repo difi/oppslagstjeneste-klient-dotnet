@@ -5,7 +5,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class OppslagstjenesteInstillinger : EnvelopeSettings
     {
-        public OppslagstjenesteInstillinger() : base(SoapVersion.Soap11)
+        public OppslagstjenesteInstillinger()
+            : base(SoapVersion.Soap11)
         {
         }
 
