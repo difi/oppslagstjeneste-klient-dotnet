@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient.Scripts", "Difi.Oppslagstjeneste.Klient.Scripts\Difi.Oppslagstjeneste.Klient.Scripts.csproj", "{2DD9A89B-E1B4-4DC4-BA46-1D58AB0B0200}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E895DDE0-3B5C-4832-83A5-B545A59570F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E895DDE0-3B5C-4832-83A5-B545A59570F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E895DDE0-3B5C-4832-83A5-B545A59570F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DD9A89B-E1B4-4DC4-BA46-1D58AB0B0200}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DD9A89B-E1B4-4DC4-BA46-1D58AB0B0200}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DD9A89B-E1B4-4DC4-BA46-1D58AB0B0200}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DD9A89B-E1B4-4DC4-BA46-1D58AB0B0200}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
