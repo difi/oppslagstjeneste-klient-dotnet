@@ -19,17 +19,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         [ClassInitialize]
         public static void OpprettPersonFraXmlSuksess(TestContext context)
         {
-            var doc = new XmlDocument();
-            doc.LoadXml(PersonXml());
-
-            try
-            {
-                _person = new Person(doc.DocumentElement);
-            }
-            catch
-            {
-                Assert.Fail();
-            }
+            var xmlDocument = XmlUtility.TilXmlDokument(PersonXml());
+            _person = new Person(xmlDocument.DocumentElement);
         }
 
         [TestMethod]
