@@ -61,7 +61,6 @@
     <None Include="XsdToCode\Xsd\oppslagstjeneste-ws-16-02.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="XsdToCode\Xsd\oppslagstjeneste-ws-16-02_1.wsdl" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
