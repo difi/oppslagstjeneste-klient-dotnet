@@ -4,7 +4,6 @@ using System.Xml;
 using Difi.Felles.Utility;
 using Difi.Felles.Utility.Exceptions;
 using Difi.Felles.Utility.Security;
-using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 using Difi.Oppslagstjeneste.Klient.Security;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
@@ -13,15 +12,28 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
     {
         public Oppslagstjenestevalidator(XmlDocument sendtDokument, XmlDocument mottattDokument,
             OppslagstjenesteInstillinger oppslagstjenesteInstillinger, Miljø miljø)
-            : base(sendtDokument, mottattDokument, SoapVersion.Soap12, oppslagstjenesteInstillinger.Avsendersertifikat)
+            : base(sendtDokument, mottattDokument, oppslagstjenesteInstillinger.Avsendersertifikat)
         {
             OppslagstjenesteInstillinger = oppslagstjenesteInstillinger;
             Miljø = miljø;
+            
         }
 
         public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
 
         public Miljø Miljø { get; set; }
+
+        public string Body
+        {
+            get
+            {
+                var responseElement =
+                MottattDokument.SelectSingleNode("/env:Envelope/env:Body", Nsmgr)
+                    as XmlElement;
+                return responseElement.InnerXml;
+            }
+        }
+       
 
         public void Valider()
         {

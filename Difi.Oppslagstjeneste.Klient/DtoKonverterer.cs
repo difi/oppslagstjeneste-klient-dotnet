@@ -140,5 +140,17 @@ namespace Difi.Oppslagstjeneste.Klient
 
             return personerSvar;
         }
+
+        internal static PrintSertifikatSvar TilDomeneObjekt(DTO.HentPrintSertifikatRespons result)
+        {
+            var printSertifikatSvar = new PrintSertifikatSvar
+            {
+                Printsertifikat = TilDomeneObjekt(result.X509Sertifikat),
+                PostkasseleverandørAdresse = result.postkasseleverandoerAdresse
+            };
+
+            return printSertifikatSvar;
+        }
+
     }
 }

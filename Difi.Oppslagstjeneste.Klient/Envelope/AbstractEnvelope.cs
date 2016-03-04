@@ -8,7 +8,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
     {
         private bool _isCreated;
 
-        public AbstractEnvelope(EnvelopeSettings settings = null)
+        protected AbstractEnvelope(EnvelopeSettings settings = null)
         {
             if (settings == null)
                 settings = new EnvelopeSettings(SoapVersion.Soap12);

@@ -15,6 +15,10 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         {
         }
 
+        public PrintSertifikatSvar()
+        {
+        }
+
         /// <summary>
         ///     <summary>
         ///         Et X509 Sertifikat.

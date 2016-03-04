@@ -13,7 +13,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
     {
         protected XmlNamespaceManager Nsmgr;
 
-        protected Responsvalidator(XmlDocument sendtDokument, XmlDocument mottattDokument, SoapVersion version,
+        protected Responsvalidator(XmlDocument sendtDokument, XmlDocument mottattDokument,
             X509Certificate2 xmlDekrypteringsSertifikat = null)
         {
             SendtDokument = sendtDokument;
