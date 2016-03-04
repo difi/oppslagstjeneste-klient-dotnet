@@ -20,7 +20,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         public static void OpprettPersonFraXmlSuksess(TestContext context)
         {
             var xmlDocument = XmlUtility.TilXmlDokument(PersonXml());
-            _person = new Person(xmlDocument.DocumentElement);
+            var deserialisertPerson = SerializeUtil.Deserialize<DTO.Person>(xmlDocument.InnerXml);
+            _person = DtoKonverterer.TilDomeneObjekt(deserialisertPerson);
         }
 
         [TestMethod]

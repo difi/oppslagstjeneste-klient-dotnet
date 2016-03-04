@@ -1,4 +1,7 @@
-﻿using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
+﻿using System;
+using System.Text;
+using ApiClientShared;
+using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
@@ -13,9 +16,11 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         {
             try
             {
-                _exception = new SoapException(Feilmelding());
+                var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler");
+                var feilmelding = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "Respons", "Feilmelding.xml"));
+                _exception = new SoapException(feilmelding);
             }
-            catch
+            catch(Exception e)
             {
                 Assert.Fail();
             }
@@ -24,29 +29,15 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         [TestMethod]
         public void HentSkyldigSuksess()
         {
-            Assert.AreEqual("SOAP-ENV:Client", _exception.Skyldig.Trim());
+            Assert.AreEqual("env:Sender", _exception.Skyldig.Trim());
         }
 
         [TestMethod]
         public void HentFeilmeldingSuksess()
         {
-            var expected =
-                "[4001] Input xml er ikke i henhold til xsd Feilinstanse:1e113062-dbef-499b-af58-7ce735d69882";
+            const string expected = "Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN";
 
             Assert.AreEqual(expected, _exception.Beskrivelse.Trim());
-        }
-
-        private static string Feilmelding()
-        {
-            return "<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
-                   "   <SOAP-ENV:Header/>" +
-                   "       <SOAP-ENV:Body>" +
-                   "           <SOAP-ENV:Fault>" +
-                   "               <faultcode>SOAP-ENV:Client</faultcode>" +
-                   "               <faultstring xml:lang=\"no\">" +
-                   "                   [4001] Input xml er ikke i henhold til xsd Feilinstanse:1e113062-dbef-499b-af58-7ce735d69882</faultstring>" +
-                   "           </SOAP-ENV:Fault>" +
-                   "</SOAP-ENV:Body></SOAP-ENV:Envelope>";
         }
     }
 }

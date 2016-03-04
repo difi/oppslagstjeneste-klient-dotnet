@@ -128,7 +128,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPrintSertifikatRespons.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\Eksempler\Respons\Feilmelding.xml" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

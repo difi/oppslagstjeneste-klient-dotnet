@@ -18,20 +18,23 @@ namespace Difi.Oppslagstjeneste.Klient
 
         public static Person TilDomeneObjekt(DTO.Person _person)
         {
-            var person = new Person
-            {
-                Kontaktinformasjon = TilDomeneObjekt(_person.Kontaktinformasjon),
-                Personidentifikator = _person.personidentifikator,
-                Reservasjon = TilDomeneObjekt(_person.reservasjon),
-                SikkerDigitalPostAdresse = TilDomeneObjekt(_person.SikkerDigitalPostAdresse),
-                Status = TilDomeneObjekt(_person.status),
-                X509Sertifikat = TilDomeneObjekt(_person.X509Sertifikat)
-            };
+            var person = new Person();
+            
+            person.Kontaktinformasjon = TilDomeneObjekt(_person.Kontaktinformasjon);
+            person.Personidentifikator = _person.personidentifikator;
+            if(_person.reservasjonSpecified)
+                person.Reservasjon = TilDomeneObjekt(_person.reservasjon);
+            person.SikkerDigitalPostAdresse = TilDomeneObjekt(_person.SikkerDigitalPostAdresse);
+            if (_person.statusSpecified)
+                person.Status = TilDomeneObjekt(_person.status);
+            person.X509Sertifikat = TilDomeneObjekt(_person.X509Sertifikat);
+            if (_person.varslingsstatusSpecified)
+                person.Varslingsstatus = (Varslingsstatus) Enum.Parse(typeof(Varslingsstatus),_person.varslingsstatus.ToString());
 
             return person;
         }
 
-        private static X509Certificate2 TilDomeneObjekt(byte[] x509Sertifikat)
+        public static X509Certificate2 TilDomeneObjekt(byte[] x509Sertifikat)
         {
             return x509Sertifikat == null ? null : new X509Certificate2(x509Sertifikat);
         }
@@ -44,6 +47,11 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private static SikkerDigitalPostAdresse TilDomeneObjekt(DTO.SikkerDigitalPostAdresse _sikkerDigitalPostAdresse)
         {
+            if (_sikkerDigitalPostAdresse == null)
+            {
+                return null;
+            }
+
             var sikkerDigitalPostAdresse = new SikkerDigitalPostAdresse
             {
                 Postkasseadresse = _sikkerDigitalPostAdresse.postkasseadresse,
@@ -59,22 +67,33 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private static Kontaktinformasjon TilDomeneObjekt(DTO.Kontaktinformasjon _kontaktinformasjon)
         {
-            var kontaktinformasjon = new Kontaktinformasjon();
-            kontaktinformasjon.Epostadresse = TilDomeneObjekt(_kontaktinformasjon.Epostadresse);
-            kontaktinformasjon.Mobiltelefonnummer = TilDomeneObjekt(_kontaktinformasjon.Mobiltelefonnummer);
+            if (_kontaktinformasjon == null)
+                return null;
+
+            var kontaktinformasjon = new Kontaktinformasjon
+            {
+                Epostadresse = TilDomeneObjekt(_kontaktinformasjon.Epostadresse),
+                Mobiltelefonnummer = TilDomeneObjekt(_kontaktinformasjon.Mobiltelefonnummer)
+            };
 
             return kontaktinformasjon;
         }
 
         private static Mobiltelefonnummer TilDomeneObjekt(DTO.Mobiltelefonnummer _mobiltelefonnummer)
         {
-            var mobiltelefonnummer = new Mobiltelefonnummer
-            {
-                Nummer = _mobiltelefonnummer.Value,
-                SistOppdatert = _mobiltelefonnummer.sistOppdatert,
-                SistVerifisert = _mobiltelefonnummer.sistVerifisert
-            };
+            if (_mobiltelefonnummer == null)
+                return null;
 
+            var mobiltelefonnummer = new Mobiltelefonnummer {Nummer = _mobiltelefonnummer.Value};
+            if (_mobiltelefonnummer.sistOppdatertSpecified)
+            {
+                mobiltelefonnummer.SistOppdatert = _mobiltelefonnummer.sistOppdatert;
+            }
+            if (_mobiltelefonnummer.sistVerifisertSpecified)
+            {
+                mobiltelefonnummer.SistVerifisert = _mobiltelefonnummer.sistVerifisert;
+            }
+            
             return mobiltelefonnummer;
         }
 
@@ -93,12 +112,18 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private static Epostadresse TilDomeneObjekt(DTO.Epostadresse _epostadresse)
         {
-            var epostadresse = new Epostadresse
+            if (_epostadresse == null)
+                return null;
+
+            var epostadresse = new Epostadresse {Epost = _epostadresse.Value};
+            if (_epostadresse.sistOppdatertSpecified)
+            { 
+                epostadresse.SistOppdatert = _epostadresse.sistOppdatert;
+            }
+            if (_epostadresse.sistVerifisertSpecified)
             {
-                Epost = _epostadresse.Value,
-                SistOppdatert = _epostadresse.sistOppdatert,
-                SistVerifisert = _epostadresse.sistVerifisert
-            };
+                epostadresse.SistVerifisert = _epostadresse.sistVerifisert;
+            }
 
             return epostadresse;
         }

@@ -53,7 +53,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 Assert.IsTrue(erLike, "Objektene er ikke like! antall forskjeller:" + differences.Count());
             }
 
-            private EndringerSvar DomeneEndringerSvar(HentEndringerRespons hentEndringerRespons)
+            private static EndringerSvar DomeneEndringerSvar(HentEndringerRespons hentEndringerRespons)
             {
                 var endringerSvar = new EndringerSvar
                 {
@@ -152,14 +152,19 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                         Epostadresse = new Epostadresse
                         {
                             sistOppdatert = sistOppdatert,
+                            sistOppdatertSpecified = sistOppdatert != null,
                             Value = "epost",
-                            sistVerifisert = sistVerifisert
+                            sistVerifisert = sistVerifisert,
+                            sistVerifisertSpecified = sistVerifisert != null
+                            
                         },
                         Mobiltelefonnummer = new Mobiltelefonnummer
                         {
                             sistOppdatert = sistOppdatert,
+                            sistOppdatertSpecified = sistOppdatert != null,
                             Value = "mobil",
-                            sistVerifisert = sistVerifisert
+                            sistVerifisert = sistVerifisert,
+                            sistVerifisertSpecified = sistVerifisert != null
                         }
                     },
                     personidentifikator = "personIdentifikator",

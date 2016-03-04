@@ -64,6 +64,9 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
                     as XmlElement;
             
             var deserializedResponse = SerializeUtil.Deserialize<HentEndringerRespons>(responseElement.InnerXml);
+            SenesteEndringsNummer = deserializedResponse.senesteEndringsNummer;
+            TilEndringsNummer = deserializedResponse.tilEndringsNummer;
+            FraEndringsNummer = deserializedResponse.fraEndringsNummer;
             Personer = DtoKonverterer.TilDomeneObjekt(deserializedResponse).Personer;
         }
     }

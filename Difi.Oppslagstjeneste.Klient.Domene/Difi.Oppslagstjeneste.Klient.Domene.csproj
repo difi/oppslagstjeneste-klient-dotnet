@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Entiteter\EndringsInfo.cs" />
     <Compile Include="Entiteter\Epostadresse.cs" />
+    <Compile Include="Enums\Varslingsstatus.cs" />
     <Compile Include="Enums\SoapVersion.cs" />
     <Compile Include="Exceptions\SendException.cs" />
     <Compile Include="Exceptions\SoapException.cs" />

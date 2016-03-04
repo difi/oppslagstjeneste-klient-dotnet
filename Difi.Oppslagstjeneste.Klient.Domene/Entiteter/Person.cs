@@ -9,39 +9,16 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
     [DebuggerDisplay("Personidentifikator = {Personidentifikator} Status = {Status}")]
     public class Person
     {
+        
+        
         public Person()
         {
             Reservasjon = false;
         }
-
-        public Person(XmlElement item)
-        {
-            Personidentifikator = item["personidentifikator", Navnerom.OppslagstjenesteMetadata].InnerText;
-
-            var reservasjon = item["reservasjon", Navnerom.OppslagstjenesteMetadata];
-            if (reservasjon != null)
-            {
-                Reservasjon = reservasjon.InnerText != "NEI";
-            }
-
-            var status = item["status", Navnerom.OppslagstjenesteMetadata];
-            if (status != null)
-                Status = (Status) Enum.Parse(typeof (Status), status.InnerText);
-
-            var kontaktinformasjon = item["Kontaktinformasjon", Navnerom.OppslagstjenesteMetadata];
-            if (kontaktinformasjon != null)
-                Kontaktinformasjon = new Kontaktinformasjon(kontaktinformasjon);
-
-            var sikkerDigitalPostAdresse = item["SikkerDigitalPostAdresse", Navnerom.OppslagstjenesteMetadata];
-            if (sikkerDigitalPostAdresse != null)
-                SikkerDigitalPostAdresse = new SikkerDigitalPostAdresse(sikkerDigitalPostAdresse);
-
-            var x509Certificate = item["X509Sertifikat", Navnerom.OppslagstjenesteMetadata];
-            if (x509Certificate != null)
-            {
-                X509Sertifikat = new X509Certificate2(Convert.FromBase64String(x509Certificate.InnerText));
-            }
-        }
+        /// <summary>
+        /// Varslingsstatus gir en tekstlig beskrivelse av om bruker har utgått kontaktinformasjon eller ikke, ihht eForvaltningsforskriftens §32 andre ledd.
+        /// </summary>
+        public Varslingsstatus Varslingsstatus { get; set; }
 
         /// <summary>
         ///     Identifikasjon av en person.

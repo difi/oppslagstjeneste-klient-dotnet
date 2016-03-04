@@ -2,6 +2,7 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
+using Difi.Oppslagstjeneste.Klient.DTO;
 
 namespace Difi.Oppslagstjeneste.Klient.Svar
 {
@@ -29,21 +30,13 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
 
         protected override void ParseTilKlassemedlemmer()
         {
-            try
-            {
-                var personElements = XmlDocument.SelectSingleNode(
-                    "/env:Envelope/env:Body/ns:HentPrintSertifikatRespons", XmlNamespaceManager);
+            var responseElement =
+           XmlDocument.SelectSingleNode("/env:Envelope/env:Body", XmlNamespaceManager)
+               as XmlElement;
+            var deserializedResponse = SerializeUtil.Deserialize<HentPrintSertifikatRespons>(responseElement.InnerXml);
+            PostkasseleverandørAdresse = deserializedResponse.postkasseleverandoerAdresse;
+            Printsertifikat = DtoKonverterer.TilDomeneObjekt(deserializedResponse.X509Sertifikat);
 
-                PostkasseleverandørAdresse =
-                    personElements.SelectSingleNode("./ns:postkasseleverandoerAdresse", XmlNamespaceManager).InnerText;
-                Printsertifikat = new X509Certificate2(
-                    Convert.FromBase64String(
-                        personElements.SelectSingleNode("./ns:X509Sertifikat", XmlNamespaceManager).InnerText));
-            }
-            catch (Exception e)
-            {
-                throw new XmlParseException("Klarte ikke å parse svar fra Oppslagstjenesten.", e);
-            }
         }
     }
 }
