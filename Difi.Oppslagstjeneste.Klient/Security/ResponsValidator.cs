@@ -23,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             Nsmgr.AddNamespace("env", Navnerom.SoapEnvelope12);
             Nsmgr.AddNamespace("wsse", Navnerom.WssecuritySecext10);
             Nsmgr.AddNamespace("ds", Navnerom.XmlDsig);
-            Nsmgr.AddNamespace("xenc", Navnerom.xenc);
+            Nsmgr.AddNamespace("xenc", Navnerom.Xenc);
             Nsmgr.AddNamespace("wsse11", Navnerom.WssecuritySecext11);
             Nsmgr.AddNamespace("wsu", Navnerom.WssecurityUtility10);
 

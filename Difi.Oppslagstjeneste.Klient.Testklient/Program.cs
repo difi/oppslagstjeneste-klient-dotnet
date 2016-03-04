@@ -31,8 +31,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
                 Informasjonsbehov.Kontaktinfo |
                 Informasjonsbehov.Sertifikat |
                 Informasjonsbehov.SikkerDigitalPost |
-                Informasjonsbehov.VarslingsStatus |
-                Informasjonsbehov.Person
+                Informasjonsbehov.VarslingsStatus
                 );
 
             var cert = ExportToPEM(personer.ElementAt(0).X509Sertifikat);
@@ -53,8 +52,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             var builder = new StringBuilder();
 
             builder.AppendLine("-----BEGIN CERTIFICATE-----");
-            builder.AppendLine(Convert.ToBase64String(cert.Export(X509ContentType.Cert),
-                Base64FormattingOptions.InsertLineBreaks));
+            builder.AppendLine(Convert.ToBase64String(cert.Export(X509ContentType.Cert), Base64FormattingOptions.InsertLineBreaks));
             builder.AppendLine("-----END CERTIFICATE-----");
 
             return builder.ToString();

@@ -109,6 +109,7 @@ namespace Difi.Oppslagstjeneste.Klient
             var envelope = new PersonerEnvelope(OppslagstjenesteInstillinger, personidentifikator, informasjonsbehov);
             var validator = SendEnvelope(envelope);
             validator.Valider();
+
             return new PersonerSvar(validator.MottattDokument).Personer;
         }
 

@@ -51,6 +51,10 @@
       <HintPath>..\packages\difi-felles-utility-dotnet.0.3.5905.27808\lib\net45\Difi.Felles.Utility.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=3.4.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
+      <HintPath>..\packages\CompareNETObjects.3.04.0.0\lib\net45\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
@@ -68,6 +72,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="DtoKonvertererTester.cs" />
+    <Compile Include="Utilities\CompareObjects\Comparator.cs" />
+    <Compile Include="Utilities\CompareObjects\Difference.cs" />
+    <Compile Include="Utilities\CompareObjects\IComparator.cs" />
+    <Compile Include="Utilities\CompareObjects\IDifference.cs" />
     <Compile Include="Utilities\DomeneUtility.cs" />
     <Compile Include="Envelope\OppslagstjenestevalidatorMedStubbetSjekkTimestamp.cs" />
     <Compile Include="Envelope\OppslagstjenesteValidatorTests.cs" />
@@ -88,6 +97,10 @@
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
       <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Scripts\Difi.Oppslagstjeneste.Klient.Scripts.csproj">
+      <Project>{2dd9a89b-e1b4-4dc4-ba46-1d58ab0b0200}</Project>
+      <Name>Difi.Oppslagstjeneste.Klient.Scripts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient\Difi.Oppslagstjeneste.Klient.csproj">
       <Project>{13B840F4-199B-4482-B4A8-CB71AC1B0C99}</Project>
@@ -115,7 +128,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPrintSertifikatRespons.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Ressurser\Eksempler\Respons\Feilmelding.xml" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

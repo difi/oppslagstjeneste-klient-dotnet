@@ -8,6 +8,10 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         protected readonly XmlDocument XmlDocument;
         protected readonly XmlNamespaceManager XmlNamespaceManager;
 
+        protected Svar()
+        {
+        }
+
         protected Svar(XmlDocument xmlDocument)
         {
             XmlDocument = xmlDocument;

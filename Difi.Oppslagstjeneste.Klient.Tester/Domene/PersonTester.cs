@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,7 +19,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         public static void OpprettPersonFraXmlSuksess(TestContext context)
         {
             var xmlDocument = XmlUtility.TilXmlDokument(PersonXml());
-            _person = new Person(xmlDocument.DocumentElement);
+            var deserialisertPerson = SerializeUtil.Deserialize<DTO.Person>(xmlDocument.InnerXml);
+            _person = DtoKonverterer.TilDomeneObjekt(deserialisertPerson);
         }
 
         [TestMethod]
@@ -32,8 +32,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         [TestMethod]
         public void HentReservasjonOgStatusSuksess()
         {
-            Assert.IsFalse((bool) _person.Reservasjon);
-            Assert.AreEqual(Tilstand.AKTIV, _person.Status);
+            Assert.IsFalse(_person.Reservasjon);
+            Assert.AreEqual(Status.AKTIV, _person.Status);
         }
 
         [TestMethod]

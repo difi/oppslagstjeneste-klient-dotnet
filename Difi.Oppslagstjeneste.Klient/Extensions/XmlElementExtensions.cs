@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace Difi.Oppslagstjeneste.Klient.Domene
+namespace Difi.Oppslagstjeneste.Klient.Extensions
 {
     public static class XmlElementExtensions
     {

@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Xml;
-using Difi.Oppslagstjeneste.Klient.Domene.Entiteter;
-using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
+using Difi.Oppslagstjeneste.Klient.DTO;
+using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 
 namespace Difi.Oppslagstjeneste.Klient.Svar
 {
     public class PersonerSvar : Svar
     {
+        public PersonerSvar()
+        {
+        }
+
         public PersonerSvar(XmlDocument xmlDocument)
             : base(xmlDocument)
         {
@@ -18,19 +20,9 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
 
         protected override void ParseTilKlassemedlemmer()
         {
-            try
-            {
-                var personElements = XmlDocument.SelectNodes(
-                    "/env:Envelope/env:Body/ns:HentPersonerRespons/difi:Person", XmlNamespaceManager);
-                var result =
-                    (from object item in personElements select new Person(item as XmlElement)).ToList();
-
-                Personer = result;
-            }
-            catch (Exception e)
-            {
-                throw new XmlParseException("Klarte ikke å parse svar fra Oppslagstjenesten.", e);
-            }
+            var bodyElement = XmlDocument.SelectSingleNode("/env:Envelope/env:Body", XmlNamespaceManager);
+            var deserialisetPersonSvar = SerializeUtil.Deserialize<HentPersonerRespons>(bodyElement.InnerXml);
+            Personer = DtoKonverterer.TilDomeneObjekt(deserialisetPersonSvar).Personer;
         }
     }
 }

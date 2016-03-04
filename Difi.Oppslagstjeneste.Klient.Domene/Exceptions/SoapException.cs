@@ -33,11 +33,11 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
                 xmlDocument.LoadXml(outerXml);
 
                 var namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
-                namespaceManager.AddNamespace("SOAP-ENV", Navnerom.SoapEnvelope12);
+                namespaceManager.AddNamespace("env", Navnerom.SoapEnvelope12);
 
                 var rot = xmlDocument.DocumentElement;
-                Skyldig = rot.SelectSingleNode("//faultcode", namespaceManager).InnerText;
-                Beskrivelse = rot.SelectSingleNode("//faultstring", namespaceManager).InnerText;
+                Skyldig = rot.SelectSingleNode("./env:Body/env:Fault/env:Code/env:Value", namespaceManager).InnerText;
+                Beskrivelse = rot.SelectSingleNode("./env:Body/env:Fault/env:Reason/env:Text", namespaceManager).InnerText;
             }
             catch (Exception e)
             {
