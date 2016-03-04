@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using Difi.Oppslagstjeneste.Klient.Domene.Entiteter;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
+using Difi.Oppslagstjeneste.Klient.DTO;
+using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 
 namespace Difi.Oppslagstjeneste.Klient.Svar
 {
@@ -14,6 +15,10 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
     {
         public EndringerSvar(XmlDocument xmlDocument)
             : base(xmlDocument)
+        {
+        }
+
+        public EndringerSvar()
         {
         }
 
@@ -54,24 +59,12 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
 
         protected override void ParseTilKlassemedlemmer()
         {
-            try
-            {
-                var responseElement =
-                    XmlDocument.SelectSingleNode("/env:Envelope/env:Body/ns:HentEndringerRespons", XmlNamespaceManager)
-                        as XmlElement;
-
-                FraEndringsNummer = long.Parse(responseElement.Attributes["fraEndringsNummer"].Value);
-                TilEndringsNummer = long.Parse(responseElement.Attributes["tilEndringsNummer"].Value);
-                SenesteEndringsNummer = long.Parse(responseElement.Attributes["senesteEndringsNummer"].Value);
-
-                var xmlNoderPersoner = responseElement.SelectNodes("./difi:Person", XmlNamespaceManager);
-
-                Personer = from XmlElement item in xmlNoderPersoner select new Person(item);
-            }
-            catch (Exception e)
-            {
-                throw new XmlParseException("Klarte ikke å parse svar fra Oppslagstjenesten.", e);
-            }
+            var responseElement =
+                XmlDocument.SelectSingleNode("/env:Envelope/env:Body", XmlNamespaceManager)
+                    as XmlElement;
+            
+            var deserializedResponse = SerializeUtil.Deserialize<HentEndringerRespons>(responseElement.InnerXml);
+            Personer = DtoKonverterer.TilDomeneObjekt(deserializedResponse).Personer;
         }
     }
 }

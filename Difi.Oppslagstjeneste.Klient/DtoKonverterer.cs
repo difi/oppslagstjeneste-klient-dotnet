@@ -4,8 +4,8 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
-using Difi.Oppslagstjeneste.Klient.Svar;
 
+using Difi.Oppslagstjeneste.Klient.Svar;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
@@ -33,7 +33,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private static X509Certificate2 TilDomeneObjekt(byte[] x509Sertifikat)
         {
-            return new X509Certificate2(x509Sertifikat);
+            return x509Sertifikat == null ? null : new X509Certificate2(x509Sertifikat);
         }
 
         private static Status TilDomeneObjekt(DTO.status status)
@@ -76,6 +76,19 @@ namespace Difi.Oppslagstjeneste.Klient
             };
 
             return mobiltelefonnummer;
+        }
+
+        internal static EndringerSvar TilDomeneObjekt(DTO.HentEndringerRespons hentEndringerRespons)
+        {
+            var endringerSvar = new EndringerSvar
+            {
+                Personer = TilDomeneObjekt(hentEndringerRespons.Person),
+                FraEndringsNummer = hentEndringerRespons.fraEndringsNummer,
+                TilEndringsNummer = hentEndringerRespons.tilEndringsNummer,
+                SenesteEndringsNummer = hentEndringerRespons.senesteEndringsNummer
+            };
+
+            return endringerSvar;
         }
 
         private static Epostadresse TilDomeneObjekt(DTO.Epostadresse _epostadresse)
