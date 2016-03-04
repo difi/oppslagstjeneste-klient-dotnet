@@ -31,9 +31,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 var resultat = DtoKonverterer.TilDomeneObjekt(kilde);
 
                 //Assert
-                var comperator = new Comparator();
+                var comparator = new Comparator();
                 IEnumerable<IDifference> differences;
-                var erLike = comperator.AreEqual(forventet, resultat, out differences);
+                var erLike = comparator.AreEqual(forventet, resultat, out differences);
 
                 Assert.IsTrue(erLike, "Objektene er ikke like! antall forskjeller:" + differences.Count());
             }
@@ -50,9 +50,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 var resultat = DtoKonverterer.TilDomeneObjekt(hentEndringerRespons);
 
                 //Assert
-                var comperator = new Comparator();
+                var comparator = new Comparator();
                 IEnumerable<IDifference> differences;
-                var erLike = comperator.AreEqual(forventet, resultat, out differences);
+                var erLike = comparator.AreEqual(forventet, resultat, out differences);
 
                 Assert.IsTrue(erLike, "Objektene er ikke like! antall forskjeller:" + differences.Count());
             }
