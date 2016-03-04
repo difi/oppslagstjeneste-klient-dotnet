@@ -6,15 +6,8 @@ using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
 {
-    [DebuggerDisplay("Personidentifikator = {Personidentifikator} Status = {Status}")]
     public class Person
     {
-        
-        
-        public Person()
-        {
-            Reservasjon = false;
-        }
         /// <summary>
         /// Varslingsstatus gir en tekstlig beskrivelse av om bruker har utgått kontaktinformasjon eller ikke, ihht eForvaltningsforskriftens §32 andre ledd.
         /// </summary>
@@ -34,7 +27,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
         /// <remarks>
         ///     Reservasjon avgitt av Innbygger, brukt i henhold til eForvaltningsforskriften § 15 a.
         /// </remarks>
-        public bool? Reservasjon { get; set; }
+        public bool Reservasjon { get; set; } = false;
 
         /// <summary>
         ///     Status gir en tekstlig beskrivelse av tilstand.

@@ -7,21 +7,6 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
     /// </summary>
     public class Kontaktinformasjon
     {
-        public Kontaktinformasjon(XmlElement element)
-        {
-            var epost = element["Epostadresse", Navnerom.OppslagstjenesteMetadata];
-            if (epost != null)
-                Epostadresse = new Epostadresse(epost);
-
-            var mobiltelefonnummer = element["Mobiltelefonnummer", Navnerom.OppslagstjenesteMetadata];
-            if (mobiltelefonnummer != null)
-                Mobiltelefonnummer = new Mobiltelefonnummer(mobiltelefonnummer);
-        }
-
-        public Kontaktinformasjon()
-        {
-        }
-
         /// <summary>
         ///     Informasjon om en Person sitt Mobiltelefonnummer registrert i kontakt og reservasjonsregisteret.
         /// </summary>

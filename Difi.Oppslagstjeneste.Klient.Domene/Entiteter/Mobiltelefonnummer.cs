@@ -6,18 +6,8 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
     /// <summary>
     ///     Informasjon om en Person sitt Mobiltelefonnummer registrert i kontakt og reservasjonsregisteret
     /// </summary>
-    [DebuggerDisplay("Nummer = {Nummer}")]
     public class Mobiltelefonnummer : EndringsInfo
     {
-        public Mobiltelefonnummer()
-        {
-        }
-
-        public Mobiltelefonnummer(XmlElement element) : base(element)
-        {
-            Nummer = element.InnerText;
-        }
-
         /// <summary>
         ///     Et internasjonalt mobiltelefonnummer.
         /// </summary>

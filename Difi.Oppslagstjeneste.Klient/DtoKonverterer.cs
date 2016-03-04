@@ -18,12 +18,14 @@ namespace Difi.Oppslagstjeneste.Klient
 
         public static Person TilDomeneObjekt(DTO.Person _person)
         {
-            var person = new Person();
-            
-            person.Kontaktinformasjon = TilDomeneObjekt(_person.Kontaktinformasjon);
-            person.Personidentifikator = _person.personidentifikator;
+            var person = new Person
+            {
+                Kontaktinformasjon = TilDomeneObjekt(_person.Kontaktinformasjon),
+                Personidentifikator = _person.personidentifikator
+            };
+
             if(_person.reservasjonSpecified)
-                person.Reservasjon = TilDomeneObjekt(_person.reservasjon);
+                person.Reservasjon = TilDomeneObjekt(_person.reservasjon).Value;
             person.SikkerDigitalPostAdresse = TilDomeneObjekt(_person.SikkerDigitalPostAdresse);
             if (_person.statusSpecified)
                 person.Status = TilDomeneObjekt(_person.status);

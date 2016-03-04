@@ -3,19 +3,8 @@ using System.Xml;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
 {
-    [DebuggerDisplay("Epost = {Epost}")]
     public class Epostadresse : EndringsInfo
     {
-        public Epostadresse()
-        {
-        }
-
-        public Epostadresse(XmlElement element)
-            : base(element)
-        {
-            Epost = element.InnerText;
-        }
-
         /// <summary>
         ///     Adresse til en elektronisk postkasse på Internett
         /// </summary>

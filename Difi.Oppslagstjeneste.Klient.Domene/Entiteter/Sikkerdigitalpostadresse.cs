@@ -6,20 +6,8 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
     /// <summary>
     ///     Adresse informasjon om Person sin Sikker DigitalPostKasse.
     /// </summary>
-    [DebuggerDisplay("Postkasseadresse = {Postkasseadresse} PostkasseleverandørAdresse = {PostkasseleverandørAdresse}")]
     public class SikkerDigitalPostAdresse
     {
-        public SikkerDigitalPostAdresse()
-        {
-        }
-
-        public SikkerDigitalPostAdresse(XmlElement element)
-        {
-            Postkasseadresse = element["postkasseadresse", Navnerom.OppslagstjenesteMetadata].InnerText;
-            PostkasseleverandørAdresse =
-                element["postkasseleverandoerAdresse", Navnerom.OppslagstjenesteMetadata].InnerText;
-        }
-
         /// <summary>
         ///     Adresse til en Innbygger sin Postkasse hos en Postkasseleverandør
         /// </summary>
