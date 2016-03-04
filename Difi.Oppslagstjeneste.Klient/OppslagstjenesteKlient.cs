@@ -11,12 +11,11 @@ using System.Xml;
 using ApiClientShared;
 using ApiClientShared.Enums;
 using Difi.Felles.Utility;
+using Difi.Oppslagstjeneste.Klient.Domene.Entiteter;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
-using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.XmlValidering;
-using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
@@ -110,7 +109,7 @@ namespace Difi.Oppslagstjeneste.Klient
             var envelope = new PersonerEnvelope(OppslagstjenesteInstillinger, personidentifikator, informasjonsbehov);
             var validator = SendEnvelope(envelope);
             validator.Valider();
-            
+
             return new PersonerSvar(validator.MottattDokument).Personer;
         }
 

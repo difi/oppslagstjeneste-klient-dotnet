@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Xml;
-using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.DTO;
 using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 
@@ -62,7 +59,7 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
             var responseElement =
                 XmlDocument.SelectSingleNode("/env:Envelope/env:Body", XmlNamespaceManager)
                     as XmlElement;
-            
+
             var deserializedResponse = SerializeUtil.Deserialize<HentEndringerRespons>(responseElement.InnerXml);
             SenesteEndringsNummer = deserializedResponse.senesteEndringsNummer;
             TilEndringsNummer = deserializedResponse.tilEndringsNummer;

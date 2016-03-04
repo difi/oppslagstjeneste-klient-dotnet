@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using Difi.Oppslagstjeneste.Klient.Domene.Entiteter;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
-
+using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Svar;
+using Epostadresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Epostadresse;
+using Kontaktinformasjon = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Kontaktinformasjon;
+using Mobiltelefonnummer = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Mobiltelefonnummer;
+using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
+using SikkerDigitalPostAdresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.SikkerDigitalPostAdresse;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
@@ -24,14 +28,14 @@ namespace Difi.Oppslagstjeneste.Klient
                 Personidentifikator = _person.personidentifikator
             };
 
-            if(_person.reservasjonSpecified)
+            if (_person.reservasjonSpecified)
                 person.Reservasjon = TilDomeneObjekt(_person.reservasjon).Value;
             person.SikkerDigitalPostAdresse = TilDomeneObjekt(_person.SikkerDigitalPostAdresse);
             if (_person.statusSpecified)
                 person.Status = TilDomeneObjekt(_person.status);
             person.X509Sertifikat = TilDomeneObjekt(_person.X509Sertifikat);
             if (_person.varslingsstatusSpecified)
-                person.Varslingsstatus = (Varslingsstatus) Enum.Parse(typeof(Varslingsstatus),_person.varslingsstatus.ToString());
+                person.Varslingsstatus = (Varslingsstatus) Enum.Parse(typeof (Varslingsstatus), _person.varslingsstatus.ToString());
 
             return person;
         }
@@ -41,9 +45,9 @@ namespace Difi.Oppslagstjeneste.Klient
             return x509Sertifikat == null ? null : new X509Certificate2(x509Sertifikat);
         }
 
-        private static Status TilDomeneObjekt(DTO.status status)
+        private static Status TilDomeneObjekt(status status)
         {
-            var tilstand = Enum.Parse(typeof(Status),status.ToString());
+            var tilstand = Enum.Parse(typeof (Status), status.ToString());
             return (Status) tilstand;
         }
 
@@ -62,9 +66,9 @@ namespace Difi.Oppslagstjeneste.Klient
             return sikkerDigitalPostAdresse;
         }
 
-        private static bool? TilDomeneObjekt(DTO.reservasjon reservasjon)
+        private static bool? TilDomeneObjekt(reservasjon reservasjon)
         {
-            return reservasjon == DTO.reservasjon.JA;
+            return reservasjon == reservasjon.JA;
         }
 
         private static Kontaktinformasjon TilDomeneObjekt(DTO.Kontaktinformasjon _kontaktinformasjon)
@@ -95,11 +99,11 @@ namespace Difi.Oppslagstjeneste.Klient
             {
                 mobiltelefonnummer.SistVerifisert = _mobiltelefonnummer.sistVerifisert;
             }
-            
+
             return mobiltelefonnummer;
         }
 
-        internal static EndringerSvar TilDomeneObjekt(DTO.HentEndringerRespons hentEndringerRespons)
+        internal static EndringerSvar TilDomeneObjekt(HentEndringerRespons hentEndringerRespons)
         {
             var endringerSvar = new EndringerSvar
             {
@@ -119,7 +123,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
             var epostadresse = new Epostadresse {Epost = _epostadresse.Value};
             if (_epostadresse.sistOppdatertSpecified)
-            { 
+            {
                 epostadresse.SistOppdatert = _epostadresse.sistOppdatert;
             }
             if (_epostadresse.sistVerifisertSpecified)
@@ -130,12 +134,11 @@ namespace Difi.Oppslagstjeneste.Klient
             return epostadresse;
         }
 
-        internal static PersonerSvar TilDomeneObjekt(DTO.HentPersonerRespons _hentPersonerRespons)
+        internal static PersonerSvar TilDomeneObjekt(HentPersonerRespons _hentPersonerRespons)
         {
             var personerSvar = new PersonerSvar {Personer = TilDomeneObjekt(_hentPersonerRespons.Person)};
 
             return personerSvar;
         }
-
     }
 }

@@ -7,6 +7,11 @@ using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Tester.Utilities.CompareObjects;
 using Digipost.Signature.Api.Client.Core.Tests.Utilities.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Epostadresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Epostadresse;
+using Kontaktinformasjon = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Kontaktinformasjon;
+using Mobiltelefonnummer = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Mobiltelefonnummer;
+using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
+using SikkerDigitalPostAdresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.SikkerDigitalPostAdresse;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests
 {
@@ -22,10 +27,10 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 //Arrange
                 var kilde = HentPersonerResponsTestdata();
                 var forventet = DomenePersonSvar(kilde);
-                
+
                 //Act
                 var resultat = DtoKonverterer.TilDomeneObjekt(kilde);
-                
+
                 //Assert
                 var comperator = new Comparator();
                 IEnumerable<IDifference> differences;
@@ -67,7 +72,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
 
             private static HentPersonerRespons HentPersonerResponsTestdata()
             {
-                var kilde = new HentPersonerRespons {Person = new Person[1]};
+                var kilde = new HentPersonerRespons {Person = new DTO.Person[1]};
                 kilde.Person[0] = Person(DateTime.Now, DateTime.Now);
                 return kilde;
             }
@@ -75,7 +80,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             private static HentEndringerRespons HentEndringerResponsTestdata(int antallPersoner)
             {
                 var kilde = new HentEndringerRespons();
-                var personer = new List<Person>();
+                var personer = new List<DTO.Person>();
                 for (var i = 0; i < antallPersoner; i++)
                 {
                     personer.Add(Person(DateTime.Now, DateTime.Now));
@@ -95,24 +100,24 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 var personer = hentPersonerRespons.Person.Select(DomenePerson).ToList();
 
                 personsvar.Personer = personer;
-                
+
                 return personsvar;
             }
 
-            private static Domene.Entiteter.Person DomenePerson(Person kilde)
+            private static Person DomenePerson(DTO.Person kilde)
             {
-                var forventet = new Domene.Entiteter.Person
+                var forventet = new Person
                 {
-                    Kontaktinformasjon = new Domene.Entiteter.Kontaktinformasjon
+                    Kontaktinformasjon = new Kontaktinformasjon
                     {
                         Epostadresse =
-                            new Domene.Entiteter.Epostadresse
+                            new Epostadresse
                             {
                                 Epost = kilde.Kontaktinformasjon.Epostadresse.Value,
                                 SistOppdatert = kilde.Kontaktinformasjon.Epostadresse.sistOppdatert,
                                 SistVerifisert = kilde.Kontaktinformasjon.Epostadresse.sistVerifisert
                             },
-                        Mobiltelefonnummer = new Domene.Entiteter.Mobiltelefonnummer
+                        Mobiltelefonnummer = new Mobiltelefonnummer
                         {
                             SistVerifisert = kilde.Kontaktinformasjon.Mobiltelefonnummer.sistVerifisert,
                             SistOppdatert = kilde.Kontaktinformasjon.Mobiltelefonnummer.sistOppdatert,
@@ -121,7 +126,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                     },
                     Personidentifikator = kilde.personidentifikator,
                     Reservasjon = false,
-                    SikkerDigitalPostAdresse = new Domene.Entiteter.SikkerDigitalPostAdresse
+                    SikkerDigitalPostAdresse = new SikkerDigitalPostAdresse
                     {
                         PostkasseleverandørAdresse = kilde.SikkerDigitalPostAdresse.postkasseleverandoerAdresse,
                         Postkasseadresse = kilde.SikkerDigitalPostAdresse.postkasseadresse
@@ -132,33 +137,32 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 return forventet;
             }
 
-            private static IEnumerable<Person> Personer(int antall, DateTime sistOppdatert, DateTime sistVerifisert)
+            private static IEnumerable<DTO.Person> Personer(int antall, DateTime sistOppdatert, DateTime sistVerifisert)
             {
-                var personer = new List<Person>();
+                var personer = new List<DTO.Person>();
                 for (var i = 0; i < antall; i++)
                 {
-                    personer.Add(Person(sistOppdatert,sistVerifisert));
+                    personer.Add(Person(sistOppdatert, sistVerifisert));
                 }
                 return personer;
             }
 
-            private static Person Person(DateTime sistOppdatert, DateTime sistVerifisert)
+            private static DTO.Person Person(DateTime sistOppdatert, DateTime sistVerifisert)
             {
-                var kilde = new Person
+                var kilde = new DTO.Person
                 {
                     status = status.AKTIV,
-                    Kontaktinformasjon = new Kontaktinformasjon
+                    Kontaktinformasjon = new DTO.Kontaktinformasjon
                     {
-                        Epostadresse = new Epostadresse
+                        Epostadresse = new DTO.Epostadresse
                         {
                             sistOppdatert = sistOppdatert,
                             sistOppdatertSpecified = sistOppdatert != null,
                             Value = "epost",
                             sistVerifisert = sistVerifisert,
                             sistVerifisertSpecified = sistVerifisert != null
-                            
                         },
-                        Mobiltelefonnummer = new Mobiltelefonnummer
+                        Mobiltelefonnummer = new DTO.Mobiltelefonnummer
                         {
                             sistOppdatert = sistOppdatert,
                             sistOppdatertSpecified = sistOppdatert != null,
@@ -169,7 +173,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                     },
                     personidentifikator = "personIdentifikator",
                     reservasjon = reservasjon.NEI,
-                    SikkerDigitalPostAdresse = new SikkerDigitalPostAdresse
+                    SikkerDigitalPostAdresse = new DTO.SikkerDigitalPostAdresse
                     {
                         postkasseadresse = "postkasseadresse",
                         postkasseleverandoerAdresse = "postkasseleverandoerAdresse"
@@ -179,8 +183,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 };
                 return kilde;
             }
-
-            
         }
     }
 }

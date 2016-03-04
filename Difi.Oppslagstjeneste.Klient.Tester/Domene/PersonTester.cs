@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -33,7 +32,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         [TestMethod]
         public void HentReservasjonOgStatusSuksess()
         {
-            Assert.IsFalse((bool) _person.Reservasjon);
+            Assert.IsFalse(_person.Reservasjon);
             Assert.AreEqual(Status.AKTIV, _person.Status);
         }
 

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -18,7 +14,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 return null;
             }
 
-            var serializer = new XmlSerializer(typeof(T));
+            var serializer = new XmlSerializer(typeof (T));
 
             var settings = new XmlWriterSettings
             {
@@ -45,7 +41,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 return default(T);
             }
 
-            var serializer = new XmlSerializer(typeof(T));
+            var serializer = new XmlSerializer(typeof (T));
 
             var settings = new XmlReaderSettings();
 
@@ -53,27 +49,14 @@ namespace Difi.Oppslagstjeneste.Klient
             {
                 using (var xmlReader = XmlReader.Create(textReader, settings))
                 {
-                    return (T)serializer.Deserialize(xmlReader);
+                    return (T) serializer.Deserialize(xmlReader);
                 }
             }
         }
-
-        public static T Deserialize<T>(XmlDocument xml)
-        {
-            var serializer = new XmlSerializer(typeof(T));
-            using (var xmlReader = new XmlNodeReader(xml))
-            {
-                return (T)serializer.Deserialize(xmlReader);
-            }
-
-        }
-
+        
         private sealed class Utf8StringWriter : StringWriter
         {
-            public override Encoding Encoding
-            {
-                get { return Encoding.UTF8; }
-            }
+            public override Encoding Encoding => Encoding.UTF8;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Xml;
-
-namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
+﻿namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
 {
     /// <summary>
     ///     Kontaktinformasjon er Adresse informasjon knyttet til en Person for å kommunisere med person

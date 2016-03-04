@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
-using System.Xml;
+﻿using System.Security.Cryptography.X509Certificates;
 using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
@@ -9,7 +6,8 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
     public class Person
     {
         /// <summary>
-        /// Varslingsstatus gir en tekstlig beskrivelse av om bruker har utgått kontaktinformasjon eller ikke, ihht eForvaltningsforskriftens §32 andre ledd.
+        ///     Varslingsstatus gir en tekstlig beskrivelse av om bruker har utgått kontaktinformasjon eller ikke, ihht
+        ///     eForvaltningsforskriftens §32 andre ledd.
         /// </summary>
         public Varslingsstatus Varslingsstatus { get; set; }
 

@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Xml;
-
-namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
+﻿namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
 {
     public class Epostadresse : EndringsInfo
     {

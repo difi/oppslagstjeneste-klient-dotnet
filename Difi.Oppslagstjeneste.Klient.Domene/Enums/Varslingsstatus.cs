@@ -1,7 +1,8 @@
 ﻿namespace Difi.Oppslagstjeneste.Klient.Domene.Enums
 {
     /// <summary>
-    /// Varslingsstatus gir en tekstlig beskrivelse av om bruker har utgått kontaktinformasjon eller ikke, ihht eForvaltningsforskriftens §32 andre ledd.
+    ///     Varslingsstatus gir en tekstlig beskrivelse av om bruker har utgått kontaktinformasjon eller ikke, ihht
+    ///     eForvaltningsforskriftens §32 andre ledd.
     /// </summary>
     public enum Varslingsstatus
     {
@@ -9,6 +10,6 @@
         KAN_IKKE_VARSLES,
 
         /// <remarks>Person har ikke utgått kontaktinformasjon</remarks>
-        KAN_VARSLES,
+        KAN_VARSLES
     }
 }

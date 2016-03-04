@@ -20,7 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
                 var feilmelding = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "Respons", "Feilmelding.xml"));
                 _exception = new SoapException(feilmelding);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Assert.Fail();
             }

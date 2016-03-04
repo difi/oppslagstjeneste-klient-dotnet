@@ -1,7 +1,5 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.DTO;
 
 namespace Difi.Oppslagstjeneste.Klient.Svar
@@ -31,12 +29,11 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         protected override void ParseTilKlassemedlemmer()
         {
             var responseElement =
-           XmlDocument.SelectSingleNode("/env:Envelope/env:Body", XmlNamespaceManager)
-               as XmlElement;
+                XmlDocument.SelectSingleNode("/env:Envelope/env:Body", XmlNamespaceManager)
+                    as XmlElement;
             var deserializedResponse = SerializeUtil.Deserialize<HentPrintSertifikatRespons>(responseElement.InnerXml);
             PostkasseleverandørAdresse = deserializedResponse.postkasseleverandoerAdresse;
             Printsertifikat = DtoKonverterer.TilDomeneObjekt(deserializedResponse.X509Sertifikat);
-
         }
     }
 }
