@@ -13,7 +13,7 @@ using Mobiltelefonnummer = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Mobilte
 using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 using SikkerDigitalPostAdresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.SikkerDigitalPostAdresse;
 
-namespace Difi.Oppslagstjeneste.Klient.Tests
+namespace Difi.Oppslagstjeneste.Klient.Tester
 {
     [TestClass]
     public class DtoKonvertererTester

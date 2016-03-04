@@ -21,7 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
                 HentRessurs("wssecurity.oasis-200401-wss-wssecurity-utility-1.0.xsd"));
             LeggTilXsdRessurs(Navnerom.SoapEnvelope12, HentRessurs("soap.soap.xsd"));
             LeggTilXsdRessurs(Navnerom.XmlDsig, HentRessurs("w3.xmldsig-core-schema.xsd"));
-            LeggTilXsdRessurs(Navnerom.XmlExcC14n, HentRessurs("w3.exc-c14n.xsd"));
+            LeggTilXsdRessurs(Navnerom.XmlExcC14N, HentRessurs("w3.exc-c14n.xsd"));
         }
 
         private XmlReader HentRessurs(string path)

@@ -7,13 +7,13 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
     public class PersonerEnvelope : OppslagstjenesteEnvelope
     {
         private readonly Informasjonsbehov _informasjonsbehov;
-        private readonly string[] personidentifikator;
+        private readonly string[] _personidentifikator;
 
         public PersonerEnvelope(OppslagstjenesteInstillinger instillinger, string[] personidentifikator,
             Informasjonsbehov informasjonsbehov)
             : base(instillinger)
         {
-            this.personidentifikator = personidentifikator;
+            _personidentifikator = personidentifikator;
             _informasjonsbehov = informasjonsbehov;
         }
 
@@ -33,7 +33,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
                 }
             }
 
-            foreach (var item in personidentifikator)
+            foreach (var item in _personidentifikator)
             {
                 var node = Document.CreateElement("ns", "personidentifikator", Navnerom.OppslagstjenesteDefinisjon);
                 node.InnerText = item;

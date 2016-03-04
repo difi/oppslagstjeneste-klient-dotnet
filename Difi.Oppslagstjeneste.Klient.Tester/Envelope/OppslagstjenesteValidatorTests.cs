@@ -1,10 +1,9 @@
 ﻿using System.Text;
 using ApiClientShared;
-using Difi.Oppslagstjeneste.Klient.Tester;
-using Difi.Oppslagstjeneste.Klient.Tester.Envelope;
+using Difi.Oppslagstjeneste.Klient.Envelope;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Envelope.Tests
+namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
 {
     [TestClass]
     public class OppslagstjenesteValidatorTests
