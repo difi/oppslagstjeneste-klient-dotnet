@@ -5,7 +5,6 @@ using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Tester.Utilities.CompareObjects;
-using Digipost.Signature.Api.Client.Core.Tests.Utilities.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Epostadresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Epostadresse;
 using Kontaktinformasjon = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Kontaktinformasjon;

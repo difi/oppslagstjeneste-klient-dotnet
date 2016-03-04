@@ -14,16 +14,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         [ClassInitialize]
         public static void ParseSoapExceptionSuksess(TestContext context)
         {
-            try
-            {
-                var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler");
-                var feilmelding = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "Respons", "Feilmelding.xml"));
-                _exception = new SoapException(feilmelding);
-            }
-            catch (Exception e)
-            {
-                Assert.Fail();
-            }
+            var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler");
+            var feilmelding = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "Respons", "Feilmelding.xml"));
+            _exception = new SoapException(feilmelding);
         }
 
         [TestMethod]

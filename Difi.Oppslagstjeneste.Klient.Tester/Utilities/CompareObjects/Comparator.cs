@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Digipost.Signature.Api.Client.Core.Tests.Utilities.CompareObjects;
 using KellermanSoftware.CompareNetObjects;
-using Difference = Digipost.Signature.Api.Client.Core.Tests.Utilities.CompareObjects.Difference;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Utilities.CompareObjects
 {

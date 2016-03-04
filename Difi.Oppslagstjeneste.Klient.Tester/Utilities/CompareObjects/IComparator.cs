@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Digipost.Signature.Api.Client.Core.Tests.Utilities.CompareObjects
+namespace Difi.Oppslagstjeneste.Klient.Tester.Utilities.CompareObjects
 {
     public interface IComparator
     {
