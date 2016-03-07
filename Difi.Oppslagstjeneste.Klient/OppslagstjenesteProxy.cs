@@ -57,7 +57,7 @@ namespace Difi.Oppslagstjeneste.Klient
                     Proxy = Proxy()
                 };
             }
-            
+
             using (var client = new HttpClient(httpClientHandler))
             {
                 SetDefaultRequestHeaders(client);

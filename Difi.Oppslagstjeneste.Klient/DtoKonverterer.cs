@@ -141,7 +141,7 @@ namespace Difi.Oppslagstjeneste.Klient
             return personerSvar;
         }
 
-        internal static PrintSertifikatSvar TilDomeneObjekt(DTO.HentPrintSertifikatRespons result)
+        internal static PrintSertifikatSvar TilDomeneObjekt(HentPrintSertifikatRespons result)
         {
             var printSertifikatSvar = new PrintSertifikatSvar
             {
@@ -151,6 +151,5 @@ namespace Difi.Oppslagstjeneste.Klient
 
             return printSertifikatSvar;
         }
-
     }
 }

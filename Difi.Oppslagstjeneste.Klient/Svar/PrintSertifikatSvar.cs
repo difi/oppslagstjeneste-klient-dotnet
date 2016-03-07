@@ -10,15 +10,6 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
     /// </summary>
     public class PrintSertifikatSvar : Svar
     {
-        public PrintSertifikatSvar(XmlDocument xmlDocument)
-            : base(xmlDocument)
-        {
-        }
-
-        public PrintSertifikatSvar()
-        {
-        }
-
         /// <summary>
         ///     <summary>
         ///         Et X509 Sertifikat.

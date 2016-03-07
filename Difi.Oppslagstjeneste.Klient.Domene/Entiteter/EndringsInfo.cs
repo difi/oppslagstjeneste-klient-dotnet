@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Xml;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter
 {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using ApiClientShared;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

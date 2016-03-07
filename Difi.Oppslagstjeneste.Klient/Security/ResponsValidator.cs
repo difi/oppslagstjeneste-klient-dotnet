@@ -5,7 +5,6 @@ using System.Security.Cryptography.Xml;
 using System.Xml;
 using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Domene;
-using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Security
 {

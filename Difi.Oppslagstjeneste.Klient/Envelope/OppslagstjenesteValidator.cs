@@ -16,7 +16,6 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
             OppslagstjenesteInstillinger = oppslagstjenesteInstillinger;
             Miljø = miljø;
-            
         }
 
         public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
@@ -28,12 +27,11 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             get
             {
                 var responseElement =
-                MottattDokument.SelectSingleNode("/env:Envelope/env:Body", Nsmgr)
-                    as XmlElement;
+                    MottattDokument.SelectSingleNode("/env:Envelope/env:Body", Nsmgr)
+                        as XmlElement;
                 return responseElement.InnerXml;
             }
         }
-       
 
         public void Valider()
         {

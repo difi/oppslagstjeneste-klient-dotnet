@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 using ApiClientShared;
 using ApiClientShared.Enums;
-using Difi.Felles.Utility;
-using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
-using Difi.Oppslagstjeneste.Klient.XmlValidering;
 using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 
 namespace Difi.Oppslagstjeneste.Klient
@@ -28,7 +17,8 @@ namespace Difi.Oppslagstjeneste.Klient
     /// </summary>
     public class OppslagstjenesteKlient
     {
-        private OppslagstjenesteProxy oppslagstjenesteProxy;
+        private readonly OppslagstjenesteProxy _oppslagstjenesteProxy;
+
         /// <summary>
         ///     Oppslagstjenesten for kontakt og reservasjonsregisteret.
         /// </summary>
@@ -36,9 +26,8 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     Brukes for å signere forespørselen mot Oppslagstjenesten. For informasjon om sertifikat, se online dokumentasjon:
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet" />
         /// </param>
-        /// <param name="valideringsSertifikat">
-        ///     Brukes for å validere svar fra Oppslagstjenesten. For informasjon om sertifikat, se online dokumentasjon:
-        ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet" />
+        /// <param name="oppslagstjenesteKonfigurasjon">
+        ///     Konfigurasjon for oppslagstjeneste
         /// </param>
         public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat,
             OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
@@ -48,7 +37,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 Avsendersertifikat = avsendersertifikat
             };
             OppslagstjenesteKonfigurasjon = oppslagstjenesteKonfigurasjon;
-            oppslagstjenesteProxy = new OppslagstjenesteProxy(oppslagstjenesteKonfigurasjon,OppslagstjenesteInstillinger);
+            _oppslagstjenesteProxy = new OppslagstjenesteProxy(oppslagstjenesteKonfigurasjon, OppslagstjenesteInstillinger);
         }
 
         /// <summary>
@@ -59,12 +48,9 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     forespørselen. For informasjon om hvordan du finner dette, se online dokumentasjon:
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet" />.
         /// </param>
-        /// <param name="valideringssertifikatThumbprint">
-        ///     Thumbprint til sertifikat Virksomhet bruker til å validere
-        ///     svar fra Oppslagstjenesten. For informasjon om hvordan du finner dette, se online dokumentasjon:
-        ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet" />
+        /// <param name="oppslagstjenesteKonfigurasjon">
+        ///     Konfigurasjon for oppslagstjeneste
         /// </param>
-        /// <param name="oppslagstjenesteKonfigurasjon"></param>
         public OppslagstjenesteKlient(string avsendersertifikatThumbprint,
             OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
             :
@@ -108,7 +94,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<EndringerSvar> HentEndringerAsynkront(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
         {
             var envelope = new EndringerEnvelope(OppslagstjenesteInstillinger, fraEndringsNummer, informasjonsbehov);
-            var result = await oppslagstjenesteProxy.SendAsync<HentEndringerRespons>(envelope);
+            var result = await _oppslagstjenesteProxy.SendAsync<HentEndringerRespons>(envelope);
             return DtoKonverterer.TilDomeneObjekt(result);
         }
 
@@ -142,7 +128,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikator, Informasjonsbehov informasjonsbehov)
         {
             var envelope = new PersonerEnvelope(OppslagstjenesteInstillinger, personidentifikator, informasjonsbehov);
-            var result = await oppslagstjenesteProxy.SendAsync<HentPersonerRespons>(envelope);
+            var result = await _oppslagstjenesteProxy.SendAsync<HentPersonerRespons>(envelope);
             return DtoKonverterer.TilDomeneObjekt(result).Personer;
         }
 
@@ -162,9 +148,8 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<PrintSertifikatSvar> HentPrintSertifikatAsynkront()
         {
             var envelope = new PrintSertifikatEnvelope(OppslagstjenesteInstillinger);
-            var result = await oppslagstjenesteProxy.SendAsync<HentPrintSertifikatRespons>(envelope);
+            var result = await _oppslagstjenesteProxy.SendAsync<HentPrintSertifikatRespons>(envelope);
             return DtoKonverterer.TilDomeneObjekt(result);
         }
-        
     }
 }
