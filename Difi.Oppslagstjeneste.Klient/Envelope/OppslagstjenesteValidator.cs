@@ -5,14 +5,15 @@ using Difi.Felles.Utility;
 using Difi.Felles.Utility.Exceptions;
 using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Security;
+using Difi.Oppslagstjeneste.Klient.Svar;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class Oppslagstjenestevalidator : Responsvalidator
     {
-        public Oppslagstjenestevalidator(XmlDocument sendtDokument, XmlDocument mottattDokument,
+        public Oppslagstjenestevalidator(XmlDocument sendtDokument, ResponseDokument responseDokument,
             OppslagstjenesteInstillinger oppslagstjenesteInstillinger, Miljø miljø)
-            : base(sendtDokument, mottattDokument, oppslagstjenesteInstillinger.Avsendersertifikat)
+            : base(sendtDokument, responseDokument, oppslagstjenesteInstillinger.Avsendersertifikat)
         {
             OppslagstjenesteInstillinger = oppslagstjenesteInstillinger;
             Miljø = miljø;
@@ -22,28 +23,17 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         public Miljø Miljø { get; set; }
 
-        public string Body
-        {
-            get
-            {
-                var responseElement =
-                    MottattDokument.SelectSingleNode("/env:Envelope/env:Body", Nsmgr)
-                        as XmlElement;
-                return responseElement.InnerXml;
-            }
-        }
-
         public void Valider()
         {
-            var signedXmlWithAgnosticId = new SignedXmlWithAgnosticId(MottattDokument);
-            signedXmlWithAgnosticId.LoadXml(HeaderSignatureElement);
+            var signedXmlWithAgnosticId = new SignedXmlWithAgnosticId(ResponseDokument.Envelope);
+            signedXmlWithAgnosticId.LoadXml(ResponseDokument.HeaderSignatureElement);
 
             // Sørger for at motatt envelope inneholder signature confirmation og body samt at id'ne matcher mot header signatur
-            ValiderSignaturreferanser(HeaderSignatureElement, signedXmlWithAgnosticId,
+            ValiderSignaturreferanser(ResponseDokument.HeaderSignatureElement, signedXmlWithAgnosticId,
                 new[] {"/env:Envelope/env:Header/wsse:Security/wsse11:SignatureConfirmation", "/env:Envelope/env:Body"});
 
             // Validerer SignatureConfirmation
-            PerformSignatureConfirmation(HeaderSecurityElement);
+            PerformSignatureConfirmation(ResponseDokument.HeaderSecurityElement);
 
             SjekkTimestamp(TimeSpan.FromSeconds(2000));
 
@@ -52,7 +42,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         private void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
         {
-            var signatur = BinaryTokenElement.InnerText;
+            var signatur = ResponseDokument.BinaryTokenElement.InnerText;
             var value = Convert.FromBase64String(signatur);
             var sertifikat = new X509Certificate2(value);
 

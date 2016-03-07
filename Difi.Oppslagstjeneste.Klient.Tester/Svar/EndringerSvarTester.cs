@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Text;
 using ApiClientShared;
+using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
+using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,7 +19,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
             var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler.Respons");
             var mottattEndringerRespons = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentEndringerRespons.xml"));
             var xmlDokument = XmlUtility.TilXmlDokument(mottattEndringerRespons);
-            _endringerSvar = new EndringerSvar(xmlDokument);
+            var responseDokument = new ResponseDokument(xmlDokument);
+            _endringerSvar = DtoKonverterer.TilDomeneObjekt(responseDokument.TilDtoObjekt<HentEndringerRespons>());
         }
 
         [TestMethod]

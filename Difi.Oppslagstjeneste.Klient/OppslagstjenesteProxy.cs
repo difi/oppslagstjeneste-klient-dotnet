@@ -11,6 +11,7 @@ using System.Xml;
 using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Envelope;
+using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.XmlValidering;
 
 namespace Difi.Oppslagstjeneste.Klient
@@ -70,9 +71,10 @@ namespace Difi.Oppslagstjeneste.Klient
                     using (var response = await client.PostAsync(OppslagstjenesteKonfigurasjon.Miljø.Url, stringContent))
                     {
                         var soapResponse = await response.Content.ReadAsStreamAsync();
-                        var responsvalidator = ValiderRespons(envelope, soapResponse);
-                        Logger.Log(TraceEventType.Verbose, responsvalidator.MottattDokument.InnerXml);
-                        return SerializeUtil.Deserialize<T>(responsvalidator.Body);
+                        var responseDokument = new ResponseDokument(soapResponse);
+                        ValiderRespons(envelope, responseDokument);
+                        Logger.Log(TraceEventType.Verbose, responseDokument.Envelope.InnerXml);
+                        return responseDokument.TilDtoObjekt<T>();
                     }
                 }
                 catch (WebException we)
@@ -104,13 +106,10 @@ namespace Difi.Oppslagstjeneste.Klient
             client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", string.Format("DifiOppslagstjeneste/{1} (.NET/{0})", NetVersion, AssemblyVersion));
         }
 
-        private Oppslagstjenestevalidator ValiderRespons(AbstractEnvelope envelope, Stream soapResponse)
+        private void ValiderRespons(AbstractEnvelope envelope, ResponseDokument responseDokument)
         {
-            var xmlDocument = new XmlDocument();
-            xmlDocument.Load(soapResponse);
-            var responsvalidator = new Oppslagstjenestevalidator(envelope.ToXml(), xmlDocument, _oppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.Miljø as Miljø);
+            var responsvalidator = new Oppslagstjenestevalidator(envelope.ToXml(), responseDokument, _oppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.Miljø as Miljø);
             responsvalidator.Valider();
-            return responsvalidator;
         }
 
         private static void ValiderForespørsel(AbstractEnvelope envelope)

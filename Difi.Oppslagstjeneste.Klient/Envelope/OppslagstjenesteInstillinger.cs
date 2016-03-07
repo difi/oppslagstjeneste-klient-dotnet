@@ -1,5 +1,4 @@
 ﻿using System.Security.Cryptography.X509Certificates;
-using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {

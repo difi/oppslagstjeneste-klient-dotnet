@@ -1,4 +1,4 @@
-﻿namespace Difi.Oppslagstjeneste.Klient.Domene.Enums
+﻿namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums
 {
     /// <summary>
     ///     For oppslag av Person(er) er alle statuskoder relevante. For oppslag på endringer er kun status AKTIV og SLETTET

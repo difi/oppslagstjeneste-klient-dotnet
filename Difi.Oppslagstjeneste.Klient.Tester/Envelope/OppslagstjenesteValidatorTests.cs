@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using ApiClientShared;
 using Difi.Oppslagstjeneste.Klient.Envelope;
+using Difi.Oppslagstjeneste.Klient.Svar;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
@@ -22,13 +23,14 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
                 var mottattDokument = XmlUtility.TilXmlDokument(mottattTekst);
                 var oppslagstjenesteInstillinger = new OppslagstjenesteInstillinger();
                 var miljø = Miljø.FunksjoneltTestmiljø;
+                var responseDokument = new ResponseDokument(mottattDokument);
 
                 //Act
-                var oppslagstjenestevalidator = new Oppslagstjenestevalidator(sendtDokument, mottattDokument, oppslagstjenesteInstillinger, miljø);
+                var oppslagstjenestevalidator = new Oppslagstjenestevalidator(sendtDokument, responseDokument, oppslagstjenesteInstillinger, miljø);
 
                 //Assert
                 Assert.AreEqual(sendtDokument, oppslagstjenestevalidator.SendtDokument);
-                Assert.AreEqual(mottattDokument, oppslagstjenestevalidator.MottattDokument);
+                Assert.AreEqual(mottattDokument, responseDokument.Envelope);
                 Assert.AreEqual(oppslagstjenesteInstillinger, oppslagstjenestevalidator.OppslagstjenesteInstillinger);
                 Assert.AreEqual(miljø, oppslagstjenestevalidator.Miljø);
             }
@@ -49,9 +51,10 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
                 var mottattDokument = XmlUtility.TilXmlDokument(mottattTekst);
                 var oppslagstjenesteInstillinger = new OppslagstjenesteInstillinger();
                 var miljø = Miljø.FunksjoneltTestmiljø;
+                var responseDokument = new ResponseDokument(mottattDokument);
 
                 var oppslagstjenestevalidator = new OppslagstjenestevalidatorMedStubbetSjekkTimestamp(sendtDokument,
-                    mottattDokument, oppslagstjenesteInstillinger, miljø);
+                    responseDokument, oppslagstjenesteInstillinger, miljø);
 
                 //Act
                 oppslagstjenestevalidator.Valider();

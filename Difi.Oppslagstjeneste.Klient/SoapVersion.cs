@@ -1,4 +1,4 @@
-﻿namespace Difi.Oppslagstjeneste.Klient.Domene.Enums
+﻿namespace Difi.Oppslagstjeneste.Klient
 {
     public enum SoapVersion
     {

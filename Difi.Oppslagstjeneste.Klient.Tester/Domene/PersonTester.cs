@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter;
-using Difi.Oppslagstjeneste.Klient.Domene.Enums;
+using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Domene

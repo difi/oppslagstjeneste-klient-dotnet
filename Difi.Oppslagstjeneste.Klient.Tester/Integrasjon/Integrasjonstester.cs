@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
+using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon

@@ -3,9 +3,10 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ApiClientShared;
 using ApiClientShared.Enums;
+using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
+using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Envelope;
-using Difi.Oppslagstjeneste.Klient.Svar;
 using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 
 namespace Difi.Oppslagstjeneste.Klient
