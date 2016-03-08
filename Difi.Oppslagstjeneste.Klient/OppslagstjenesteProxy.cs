@@ -50,6 +50,43 @@ namespace Difi.Oppslagstjeneste.Klient
 
         public async Task<T> SendAsync<T>(AbstractEnvelope envelope)
         {
+            using (var client = Client())
+            {
+                SetDefaultRequestHeaders(client);
+                ValiderForespørsel(envelope);
+                var requestXml = envelope.ToXml();
+                Logger.Log(TraceEventType.Verbose, requestXml.OuterXml);
+                var stringContent = new StringContent(requestXml.InnerXml, Encoding.UTF8, "application/soap+xml");
+                using (var response = await client.PostAsync(OppslagstjenesteKonfigurasjon.Miljø.Url, stringContent))
+                {
+                    var soapResponse = await response.Content.ReadAsStreamAsync();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        CheckResponseForErrors(soapResponse);
+                    }
+                    var responseDokument = new ResponseDokument(soapResponse);
+                    ValiderRespons(envelope, responseDokument);
+                    Logger.Log(TraceEventType.Verbose, responseDokument.Envelope.InnerXml);
+                    return responseDokument.TilDtoObjekt<T>();
+                }
+            }
+        }
+
+        internal virtual HttpClient Client()
+        {
+            var httpClientHandler = HttpClientHandler();
+            var client = HttpClient(httpClientHandler);
+            return client;
+        }
+
+        private static HttpClient HttpClient(HttpMessageHandler httpClientHandler)
+        {
+            var client = new HttpClient(httpClientHandler);
+            return client;
+        }
+
+        private HttpClientHandler HttpClientHandler()
+        {
             var httpClientHandler = new HttpClientHandler();
             if (OppslagstjenesteKonfigurasjon.BrukProxy)
             {
@@ -58,39 +95,18 @@ namespace Difi.Oppslagstjeneste.Klient
                     Proxy = Proxy()
                 };
             }
+            return httpClientHandler;
+        }
 
-            using (var client = new HttpClient(httpClientHandler))
-            {
-                SetDefaultRequestHeaders(client);
-                ValiderForespørsel(envelope);
-                try
-                {
-                    var requestXml = envelope.ToXml();
-                    Logger.Log(TraceEventType.Verbose, requestXml.OuterXml);
-                    var stringContent = new StringContent(requestXml.InnerXml, Encoding.UTF8, "application/soap+xml");
-                    using (var response = await client.PostAsync(OppslagstjenesteKonfigurasjon.Miljø.Url, stringContent))
-                    {
-                        var soapResponse = await response.Content.ReadAsStreamAsync();
-                        var responseDokument = new ResponseDokument(soapResponse);
-                        ValiderRespons(envelope, responseDokument);
-                        Logger.Log(TraceEventType.Verbose, responseDokument.Envelope.InnerXml);
-                        return responseDokument.TilDtoObjekt<T>();
-                    }
-                }
-                catch (WebException we)
-                {
-                    using (var stream = we.Response.GetResponseStream())
-                    using (var reader = new StreamReader(stream))
-                    {
-                        var error = reader.ReadToEnd();
-                        var exception = new SoapException(error);
-                        Logger.Log(TraceEventType.Critical,
-                            $"> Feil ved sending (Skyldig: {exception.Skyldig})");
-                        Logger.Log(TraceEventType.Critical, $"  - {exception.Beskrivelse}");
-                        throw exception;
-                    }
-                }
-            }
+        private static void CheckResponseForErrors(Stream soapResponse)
+        {
+            var reader = new StreamReader(soapResponse);
+            var text = reader.ReadToEnd();
+            var exception = new SoapException(text);
+            Logger.Log(TraceEventType.Critical,
+                $"> Feil ved sending (Skyldig: {exception.Skyldig})");
+            Logger.Log(TraceEventType.Critical, $"  - {exception.Beskrivelse}");
+            throw exception;
         }
 
         private WebProxy Proxy()

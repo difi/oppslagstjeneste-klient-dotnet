@@ -42,7 +42,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         private void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
         {
-            var signatur = ResponseDokument.BinaryTokenElement.InnerText;
+            var signatur = ResponseDokument.HeaderBinarySecurityToken.InnerText;
             var value = Convert.FromBase64String(signatur);
             var sertifikat = new X509Certificate2(value);
 

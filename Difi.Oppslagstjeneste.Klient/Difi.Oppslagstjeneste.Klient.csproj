@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoapVersion.cs" />
+    <Compile Include="Svar\NamespaceManager.cs" />
     <Compile Include="Svar\ResponseDokument.cs" />
     <Compile Include="XmlValidering\OppslagstjenesteXmlvalidator.cs" />
   </ItemGroup>

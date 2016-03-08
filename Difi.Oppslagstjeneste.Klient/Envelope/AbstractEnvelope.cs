@@ -13,8 +13,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
                 settings = new EnvelopeSettings(SoapVersion.Soap12);
             Settings = settings;
 
-            Document = new XmlDocument();
-            Document.PreserveWhitespace = true;
+            Document = new XmlDocument {PreserveWhitespace = true};
 
             var baseNode = Document.CreateElement("soap", "Envelope", Navnerom.SoapEnvelope12);
             Document.AppendChild(baseNode);

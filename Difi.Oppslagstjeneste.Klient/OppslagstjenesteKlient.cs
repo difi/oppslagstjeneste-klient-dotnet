@@ -18,7 +18,7 @@ namespace Difi.Oppslagstjeneste.Klient
     /// </summary>
     public class OppslagstjenesteKlient
     {
-        private readonly OppslagstjenesteProxy _oppslagstjenesteProxy;
+        private OppslagstjenesteProxy _oppslagstjenesteProxy = null;
 
         /// <summary>
         ///     Oppslagstjenesten for kontakt og reservasjonsregisteret.
@@ -38,6 +38,19 @@ namespace Difi.Oppslagstjeneste.Klient
                 Avsendersertifikat = avsendersertifikat
             };
             OppslagstjenesteKonfigurasjon = oppslagstjenesteKonfigurasjon;
+        }
+
+        internal virtual OppslagstjenesteProxy GetClient()
+        {
+            if (_oppslagstjenesteProxy == null)
+            {
+                SetOppslagstjenesteProxy(OppslagstjenesteKonfigurasjon);
+            }
+            return _oppslagstjenesteProxy;
+        }
+
+        internal void SetOppslagstjenesteProxy(OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
+        {
             _oppslagstjenesteProxy = new OppslagstjenesteProxy(oppslagstjenesteKonfigurasjon, OppslagstjenesteInstillinger);
         }
 
@@ -95,7 +108,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<EndringerSvar> HentEndringerAsynkront(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
         {
             var envelope = new EndringerEnvelope(OppslagstjenesteInstillinger, fraEndringsNummer, informasjonsbehov);
-            var result = await _oppslagstjenesteProxy.SendAsync<HentEndringerRespons>(envelope);
+            var result = await GetClient().SendAsync<HentEndringerRespons>(envelope);
             return DtoKonverterer.TilDomeneObjekt(result);
         }
 
@@ -129,7 +142,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikator, Informasjonsbehov informasjonsbehov)
         {
             var envelope = new PersonerEnvelope(OppslagstjenesteInstillinger, personidentifikator, informasjonsbehov);
-            var result = await _oppslagstjenesteProxy.SendAsync<HentPersonerRespons>(envelope);
+            var result = await GetClient().SendAsync<HentPersonerRespons>(envelope);
             return DtoKonverterer.TilDomeneObjekt(result).Personer;
         }
 
@@ -149,7 +162,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<PrintSertifikatSvar> HentPrintSertifikatAsynkront()
         {
             var envelope = new PrintSertifikatEnvelope(OppslagstjenesteInstillinger);
-            var result = await _oppslagstjenesteProxy.SendAsync<HentPrintSertifikatRespons>(envelope);
+            var result = await GetClient().SendAsync<HentPrintSertifikatRespons>(envelope);
             return DtoKonverterer.TilDomeneObjekt(result);
         }
     }
