@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ApiClientShared;
 using ApiClientShared.Enums;
+using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Envelope;
+using Difi.Oppslagstjeneste.Klient.Svar;
 using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 
 namespace Difi.Oppslagstjeneste.Klient
@@ -18,7 +22,7 @@ namespace Difi.Oppslagstjeneste.Klient
     /// </summary>
     public class OppslagstjenesteKlient
     {
-        private OppslagstjenesteHelper _oppslagstjenesteHelper = null;
+        private OppslagstjenesteHelper _oppslagstjenesteHelper;
 
         /// <summary>
         ///     Oppslagstjenesten for kontakt og reservasjonsregisteret.
@@ -38,20 +42,6 @@ namespace Difi.Oppslagstjeneste.Klient
                 Avsendersertifikat = avsendersertifikat
             };
             OppslagstjenesteKonfigurasjon = oppslagstjenesteKonfigurasjon;
-        }
-
-        internal virtual OppslagstjenesteHelper GetClient()
-        {
-            if (_oppslagstjenesteHelper == null)
-            {
-                SetOppslagstjenesteProxy(OppslagstjenesteKonfigurasjon);
-            }
-            return _oppslagstjenesteHelper;
-        }
-
-        internal void SetOppslagstjenesteProxy(OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
-        {
-            _oppslagstjenesteHelper = new OppslagstjenesteHelper(oppslagstjenesteKonfigurasjon, OppslagstjenesteInstillinger);
         }
 
         /// <summary>
@@ -77,6 +67,20 @@ namespace Difi.Oppslagstjeneste.Klient
         public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
 
         public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
+
+        internal virtual OppslagstjenesteHelper GetClient()
+        {
+            if (_oppslagstjenesteHelper == null)
+            {
+                InitOppslagstjenesteHelper(OppslagstjenesteKonfigurasjon);
+            }
+            return _oppslagstjenesteHelper;
+        }
+
+        internal void InitOppslagstjenesteHelper(OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
+        {
+            _oppslagstjenesteHelper = new OppslagstjenesteHelper(oppslagstjenesteKonfigurasjon, OppslagstjenesteInstillinger);
+        }
 
         /// <summary>
         ///     Forespørsel sendt fra Virksomhet for å hente endringer fra Oppslagstjenesten.
@@ -107,9 +111,11 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         public async Task<EndringerSvar> HentEndringerAsynkront(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
         {
-            var envelope = new EndringerEnvelope(OppslagstjenesteInstillinger, fraEndringsNummer, informasjonsbehov);
-            var result = await GetClient().SendAsync<HentEndringerRespons>(envelope);
-            return DtoKonverterer.TilDomeneObjekt(result);
+            var requestEnvelope = new EndringerEnvelope(OppslagstjenesteInstillinger, fraEndringsNummer, informasjonsbehov);
+            Logger.Log(TraceEventType.Verbose, requestEnvelope.ToXml().OuterXml);
+            var responseDocument = await GetClient().SendAsync(requestEnvelope);
+            var dtoObject = ValidateAndConvertToDtoObject<HentEndringerRespons>(requestEnvelope, responseDocument);
+            return DtoKonverterer.TilDomeneObjekt(dtoObject);
         }
 
         /// <summary>
@@ -141,9 +147,19 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikator, Informasjonsbehov informasjonsbehov)
         {
-            var envelope = new PersonerEnvelope(OppslagstjenesteInstillinger, personidentifikator, informasjonsbehov);
-            var result = await GetClient().SendAsync<HentPersonerRespons>(envelope);
-            return DtoKonverterer.TilDomeneObjekt(result).Personer;
+            var requestEnvelope = new PersonerEnvelope(OppslagstjenesteInstillinger, personidentifikator, informasjonsbehov);
+            var responseDocument = await GetClient().SendAsync(requestEnvelope);
+            var dtoObject = ValidateAndConvertToDtoObject<HentPersonerRespons>(requestEnvelope, responseDocument);
+            var domainObject = DtoKonverterer.TilDomeneObjekt(dtoObject);
+            return domainObject.Personer;
+        }
+
+        private T ValidateAndConvertToDtoObject<T>(AbstractEnvelope requestEnvelope, ResponseDokument responseDocument)
+        {
+            Logger.Log(TraceEventType.Verbose, requestEnvelope.ToXml().OuterXml);
+            ValidateResponse(requestEnvelope, responseDocument);
+            Logger.Log(TraceEventType.Verbose, responseDocument.Envelope.InnerXml);
+            return SerializeUtil.Deserialize<T>(responseDocument.BodyElement.InnerXml);
         }
 
         /// <summary>
@@ -161,9 +177,16 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public async Task<PrintSertifikatSvar> HentPrintSertifikatAsynkront()
         {
-            var envelope = new PrintSertifikatEnvelope(OppslagstjenesteInstillinger);
-            var result = await GetClient().SendAsync<HentPrintSertifikatRespons>(envelope);
-            return DtoKonverterer.TilDomeneObjekt(result);
+            var requestEnvelope = new PrintSertifikatEnvelope(OppslagstjenesteInstillinger);
+            var responseDocument = await GetClient().SendAsync(requestEnvelope);
+            var dtoObject = ValidateAndConvertToDtoObject<HentPrintSertifikatRespons>(requestEnvelope, responseDocument);
+            return DtoKonverterer.TilDomeneObjekt(dtoObject);
+        }
+
+        private void ValidateResponse(AbstractEnvelope envelope, ResponseDokument responseDokument)
+        {
+            var responsvalidator = new Oppslagstjenestevalidator(envelope.ToXml(), responseDokument, OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.Miljø as Miljø);
+            responsvalidator.Valider();
         }
     }
 }

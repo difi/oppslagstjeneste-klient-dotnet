@@ -20,7 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
             var mottattEndringerRespons = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentEndringerRespons.xml"));
             var xmlDokument = XmlUtility.TilXmlDokument(mottattEndringerRespons);
             var responseDokument = new ResponseDokument(xmlDokument);
-            _endringerSvar = DtoKonverterer.TilDomeneObjekt(responseDokument.ToDtoObject<HentEndringerRespons>());
+            _endringerSvar = DtoKonverterer.TilDomeneObjekt(SerializeUtil.Deserialize<HentEndringerRespons>(responseDokument.BodyElement.InnerXml));
         }
 
         [TestMethod]

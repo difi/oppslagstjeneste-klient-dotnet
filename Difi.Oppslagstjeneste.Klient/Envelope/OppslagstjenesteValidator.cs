@@ -40,7 +40,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             ValiderResponssertifikat(signedXmlWithAgnosticId);
         }
 
-        private void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
+        internal void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
         {
             var signatur = ResponseDokument.HeaderBinarySecurityToken.InnerText;
             var value = Convert.FromBase64String(signatur);

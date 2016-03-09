@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
 

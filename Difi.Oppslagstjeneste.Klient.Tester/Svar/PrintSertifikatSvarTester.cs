@@ -21,7 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
             var mottattPrintSertifikatRespons = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentPrintSertifikatRespons.xml"));
             var xmlDocument = XmlUtility.TilXmlDokument(mottattPrintSertifikatRespons);
             var responseDokument = new ResponseDokument(xmlDocument);
-            _printSertifikatSvar = DtoKonverterer.TilDomeneObjekt(responseDokument.ToDtoObject<HentPrintSertifikatRespons>());
+            _printSertifikatSvar = DtoKonverterer.TilDomeneObjekt(SerializeUtil.Deserialize<HentPrintSertifikatRespons>(responseDokument.BodyElement.InnerXml));
         }
 
         [TestMethod]

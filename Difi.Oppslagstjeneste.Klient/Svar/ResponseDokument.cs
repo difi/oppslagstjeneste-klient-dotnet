@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Xml;
-using Difi.Oppslagstjeneste.Klient.Domene;
 
 namespace Difi.Oppslagstjeneste.Klient.Svar
 {
@@ -12,12 +11,12 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.Load(soapResponse);
-            ByggOppStruktur(xmlDocument);
+            PopulateXmlElements(xmlDocument);
         }
 
         public ResponseDokument(XmlDocument xmlEnvelope)
         {
-            ByggOppStruktur(xmlEnvelope);
+            PopulateXmlElements(xmlEnvelope);
         }
 
         public XmlNode BodyElement { get; set; }
@@ -37,31 +36,31 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
         public XmlElement HeaderSignature { get; private set; }
 
         public XmlElement HeaderBinarySecurityToken { get; set; }
-        
-        private void ByggOppStruktur(XmlDocument xmlEnvelope)
+
+        private void PopulateXmlElements(XmlDocument xmlEnvelope)
         {
             Nsmgr = NamespaceManager.InitalizeNamespaceManager(xmlEnvelope);
             Envelope = xmlEnvelope;
 
-            HeaderSecurityElement =
-                Envelope.SelectSingleNode("/env:Envelope/env:Header/wsse:Security", Nsmgr) as XmlElement;
-            HeaderSignatureElement = HeaderSecurityElement.SelectSingleNode("./ds:Signature", Nsmgr) as XmlElement;
-            HeaderSignature = HeaderSignatureElement.SelectSingleNode("./ds:SignatureValue", Nsmgr) as XmlElement;
-            EncryptedBody = Envelope.SelectSingleNode("/env:Envelope/env:Body/xenc:EncryptedData", Nsmgr) as XmlElement;
-            HeaderBinarySecurityToken =
-                HeaderSecurityElement.SelectSingleNode("./wsse:BinarySecurityToken", Nsmgr) as XmlElement;
-            Cipher = Envelope.SelectSingleNode(
-                "/env:Envelope/env:Header/wsse:Security/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue", Nsmgr)
-                .InnerText;
-            TimestampElement = HeaderSecurityElement.SelectSingleNode("./wsu:Timestamp", Nsmgr);
-            
-            BodyElement = Envelope.SelectSingleNode("/env:Envelope/env:Body", Nsmgr);
-        }
+            const string headerWsseSecurity = "/env:Envelope/env:Header/wsse:Security";
+            const string dsSignature = "./ds:Signature";
+            const string dsSignaturevalue = "./ds:SignatureValue";
+            const string bodyXencEncrypteddata = "/env:Envelope/env:Body/xenc:EncryptedData";
+            const string wsseBinarysecuritytoken = "./wsse:BinarySecurityToken";
+            const string ciphervalue = "/env:Envelope/env:Header/wsse:Security/xenc:EncryptedKey/xenc:CipherData/xenc:CipherValue";
+            const string wsuTimestamp = "./wsu:Timestamp";
+            const string body = "/env:Envelope/env:Body";
 
-        public T ToDtoObject<T>()
-        {
-            var deserializedResponse = SerializeUtil.Deserialize<T>(BodyElement.InnerXml);
-            return deserializedResponse;
+            HeaderSecurityElement = Envelope.SelectSingleNode(headerWsseSecurity, Nsmgr) as XmlElement;
+            HeaderSignatureElement = HeaderSecurityElement.SelectSingleNode(dsSignature, Nsmgr) as XmlElement;
+            HeaderSignature = HeaderSignatureElement.SelectSingleNode(dsSignaturevalue, Nsmgr) as XmlElement;
+            EncryptedBody = Envelope.SelectSingleNode(bodyXencEncrypteddata, Nsmgr) as XmlElement;
+            HeaderBinarySecurityToken =
+                HeaderSecurityElement.SelectSingleNode(wsseBinarysecuritytoken, Nsmgr) as XmlElement;
+            Cipher = Envelope.SelectSingleNode(ciphervalue, Nsmgr).InnerText;
+            TimestampElement = HeaderSecurityElement.SelectSingleNode(wsuTimestamp, Nsmgr);
+
+            BodyElement = Envelope.SelectSingleNode(body, Nsmgr);
         }
     }
 }

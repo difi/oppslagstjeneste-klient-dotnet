@@ -1,8 +1,10 @@
 ﻿using System.Text;
 using ApiClientShared;
+using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
 {
@@ -44,20 +46,26 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
             public void ValidererGyldigXml()
             {
                 //Arrange
-                var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Testdata.Ressurser");
-                var sendtTekst = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentPersonerRequest.xml"));
-                var mottattTekst = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentPersonerResponse.xml"));
+                var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler");
+                var sendtTekst = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "Forespørsel", "HentPersonerForespørsel_x1.xml"));
+                var mottattTekst = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "Respons", "HentPersonerRespons_x1.xml"));
                 var sendtDokument = XmlUtility.TilXmlDokument(sendtTekst);
                 var mottattDokument = XmlUtility.TilXmlDokument(mottattTekst);
                 var oppslagstjenesteInstillinger = new OppslagstjenesteInstillinger();
                 var miljø = Miljø.FunksjoneltTestmiljø;
                 var responseDokument = new ResponseDokument(mottattDokument);
 
-                var oppslagstjenestevalidator = new OppslagstjenestevalidatorMedStubbetSjekkTimestamp(sendtDokument,
+                var mockedOppslagstjenesteValidator = new Mock<Oppslagstjenestevalidator>(sendtDokument,
                     responseDokument, oppslagstjenesteInstillinger, miljø);
+                mockedOppslagstjenesteValidator.Setup(
+                    oppslagstjenestevalidator =>
+                        oppslagstjenestevalidator.ValiderResponssertifikat(It.IsAny<SignedXmlWithAgnosticId>())
+                    ).Returns(true);
+
+                var oppslagstjenesteValidator = mockedOppslagstjenesteValidator.Object;
 
                 //Act
-                oppslagstjenestevalidator.Valider();
+                oppslagstjenesteValidator.Valider();
 
                 //Assert
                 //Feiler om validering feiler.
