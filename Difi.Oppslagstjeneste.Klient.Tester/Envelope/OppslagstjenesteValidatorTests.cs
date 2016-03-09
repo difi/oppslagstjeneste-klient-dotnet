@@ -55,15 +55,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
                 var miljø = Miljø.FunksjoneltTestmiljø;
                 var responseDokument = new ResponseDokument(mottattDokument);
 
-                var mockedOppslagstjenesteValidator = new Mock<Oppslagstjenestevalidator>(sendtDokument,
+                var oppslagstjenesteValidator = new Oppslagstjenestevalidator(sendtDokument,
                     responseDokument, oppslagstjenesteInstillinger, miljø);
-                mockedOppslagstjenesteValidator.Setup(
-                    oppslagstjenestevalidator =>
-                        oppslagstjenestevalidator.ValiderResponssertifikat(It.IsAny<SignedXmlWithAgnosticId>())
-                    ).Returns(true);
-
-                var oppslagstjenesteValidator = mockedOppslagstjenesteValidator.Object;
-
+              
                 //Act
                 oppslagstjenesteValidator.Valider();
 
