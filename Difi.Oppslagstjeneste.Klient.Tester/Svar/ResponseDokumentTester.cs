@@ -30,7 +30,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
 
                 //Assert
                 var cmp = new Comparator();
-                cmp.AreEqual(expectedDeserializedResponse, candidate.TilDtoObjekt<HentPersonerRespons>());
+                cmp.AreEqual(expectedDeserializedResponse, candidate.ToDtoObject<HentPersonerRespons>());
                 Assert.AreEqual(XmlUtility.TilXmlDokument(respons).OuterXml,candidate.Envelope.OuterXml);
                 Assert.IsNotNull(candidate.HeaderBinarySecurityToken);
                 Assert.IsNotNull(candidate.BodyElement);

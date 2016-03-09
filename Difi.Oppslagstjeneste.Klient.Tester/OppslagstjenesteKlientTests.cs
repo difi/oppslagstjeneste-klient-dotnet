@@ -22,7 +22,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
         public class KonstruktørMethod : OppslagstjenesteKlientTests
         {
             [TestMethod]
-            public void OppslagstjenesteKlientHandlesSoapFaultCorrectly()
+            public void OppslagstjenesteKlientHandlesGenericSoapFaultCorrectly()
             {
                 //Arrange
                 var avsenderEnhetstesterSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
@@ -46,7 +46,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                     Assert.AreEqual("Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN", soapException.Beskrivelse);
                 }
             }
-
+            
             private static Mock<OppslagstjenesteKlient> OppslagstjenesteKlientMock(string respons, HttpStatusCode httpStatusCode, X509Certificate2 avsenderEnhetstesterSertifikat)
             {
                 var mockProxy = CreateOppslagstjenesteProxyMock(respons, httpStatusCode);
@@ -55,9 +55,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 return oppslagstjenesteKlientMock;
             }
 
-            private static Mock<OppslagstjenesteProxy> CreateOppslagstjenesteProxyMock(string response, HttpStatusCode httpStatusCode)
+            private static Mock<OppslagstjenesteHelper> CreateOppslagstjenesteProxyMock(string response, HttpStatusCode httpStatusCode)
             {
-                var oppslagstjenesteMock = new Mock<OppslagstjenesteProxy>(new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø), new OppslagstjenesteInstillinger());
+                var oppslagstjenesteMock = new Mock<OppslagstjenesteHelper>(new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø), new OppslagstjenesteInstillinger());
                 var fakeHttpClientResponse = new FakeHttpClientReturningServerErrorResponse(response, httpStatusCode);
                 oppslagstjenesteMock.Setup(
                     f =>

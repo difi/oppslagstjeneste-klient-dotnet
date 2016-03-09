@@ -58,7 +58,7 @@ namespace Difi.Oppslagstjeneste.Klient.Svar
             BodyElement = Envelope.SelectSingleNode("/env:Envelope/env:Body", Nsmgr);
         }
 
-        public T TilDtoObjekt<T>()
+        public T ToDtoObject<T>()
         {
             var deserializedResponse = SerializeUtil.Deserialize<T>(BodyElement.InnerXml);
             return deserializedResponse;

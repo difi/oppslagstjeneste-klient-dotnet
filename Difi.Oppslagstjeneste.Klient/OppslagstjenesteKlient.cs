@@ -18,7 +18,7 @@ namespace Difi.Oppslagstjeneste.Klient
     /// </summary>
     public class OppslagstjenesteKlient
     {
-        private OppslagstjenesteProxy _oppslagstjenesteProxy = null;
+        private OppslagstjenesteHelper _oppslagstjenesteHelper = null;
 
         /// <summary>
         ///     Oppslagstjenesten for kontakt og reservasjonsregisteret.
@@ -40,18 +40,18 @@ namespace Difi.Oppslagstjeneste.Klient
             OppslagstjenesteKonfigurasjon = oppslagstjenesteKonfigurasjon;
         }
 
-        internal virtual OppslagstjenesteProxy GetClient()
+        internal virtual OppslagstjenesteHelper GetClient()
         {
-            if (_oppslagstjenesteProxy == null)
+            if (_oppslagstjenesteHelper == null)
             {
                 SetOppslagstjenesteProxy(OppslagstjenesteKonfigurasjon);
             }
-            return _oppslagstjenesteProxy;
+            return _oppslagstjenesteHelper;
         }
 
         internal void SetOppslagstjenesteProxy(OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
         {
-            _oppslagstjenesteProxy = new OppslagstjenesteProxy(oppslagstjenesteKonfigurasjon, OppslagstjenesteInstillinger);
+            _oppslagstjenesteHelper = new OppslagstjenesteHelper(oppslagstjenesteKonfigurasjon, OppslagstjenesteInstillinger);
         }
 
         /// <summary>

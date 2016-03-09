@@ -17,6 +17,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             Logger.Log(TraceEventType.Information, "> Starter program!");
 
             var avsendersertifikatThumbprint = CertificateIssuedToPostenNorgeAsIssuedByBuypassClass3Test4Ca3();
+            
 
             var register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, konfigurasjon);
 

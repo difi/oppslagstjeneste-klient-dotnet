@@ -73,7 +73,7 @@
     <Compile Include="Envelope\Security.cs" />
     <Compile Include="Extensions\XmlElementExtensions.cs" />
     <Compile Include="Miljø.cs" />
-    <Compile Include="OppslagstjenesteProxy.cs" />
+    <Compile Include="OppslagstjenesteHelper.cs" />
     <Compile Include="Security\Responsvalidator.cs" />
     <Compile Include="Security\SecurityTokenReferenceClause.cs" />
     <Compile Include="SerializeUtil.cs" />

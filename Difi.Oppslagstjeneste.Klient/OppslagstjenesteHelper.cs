@@ -16,11 +16,11 @@ using Difi.Oppslagstjeneste.Klient.XmlValidering;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
-    internal class OppslagstjenesteProxy
+    internal class OppslagstjenesteHelper
     {
         private readonly OppslagstjenesteInstillinger _oppslagstjenesteInstillinger;
 
-        public OppslagstjenesteProxy(OppslagstjenesteKonfigurasjon konfigurasjon, OppslagstjenesteInstillinger oppslagstjenesteInstillinger)
+        public OppslagstjenesteHelper(OppslagstjenesteKonfigurasjon konfigurasjon, OppslagstjenesteInstillinger oppslagstjenesteInstillinger)
         {
             _oppslagstjenesteInstillinger = oppslagstjenesteInstillinger;
             OppslagstjenesteKonfigurasjon = konfigurasjon;
@@ -53,7 +53,7 @@ namespace Difi.Oppslagstjeneste.Klient
             using (var client = Client())
             {
                 SetDefaultRequestHeaders(client);
-                ValiderForespørsel(envelope);
+                ValidateRequest(envelope);
                 var requestXml = envelope.ToXml();
                 Logger.Log(TraceEventType.Verbose, requestXml.OuterXml);
                 var stringContent = new StringContent(requestXml.InnerXml, Encoding.UTF8, "application/soap+xml");
@@ -64,10 +64,10 @@ namespace Difi.Oppslagstjeneste.Klient
                     {
                         CheckResponseForErrors(soapResponse);
                     }
-                    var responseDokument = new ResponseDokument(soapResponse);
-                    ValiderRespons(envelope, responseDokument);
-                    Logger.Log(TraceEventType.Verbose, responseDokument.Envelope.InnerXml);
-                    return responseDokument.TilDtoObjekt<T>();
+                    var responseDocoument = new ResponseDokument(soapResponse);
+                    ValidateResponse(envelope, responseDocoument);
+                    Logger.Log(TraceEventType.Verbose, responseDocoument.Envelope.InnerXml);
+                    return responseDocoument.ToDtoObject<T>();
                 }
             }
         }
@@ -75,14 +75,7 @@ namespace Difi.Oppslagstjeneste.Klient
         internal virtual HttpClient Client()
         {
             var httpClientHandler = HttpClientHandler();
-            var client = HttpClient(httpClientHandler);
-            return client;
-        }
-
-        private static HttpClient HttpClient(HttpMessageHandler httpClientHandler)
-        {
-            var client = new HttpClient(httpClientHandler);
-            return client;
+            return new HttpClient(httpClientHandler);
         }
 
         private HttpClientHandler HttpClientHandler()
@@ -122,13 +115,13 @@ namespace Difi.Oppslagstjeneste.Klient
             client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", string.Format("DifiOppslagstjeneste/{1} (.NET/{0})", NetVersion, AssemblyVersion));
         }
 
-        private void ValiderRespons(AbstractEnvelope envelope, ResponseDokument responseDokument)
+        private void ValidateResponse(AbstractEnvelope envelope, ResponseDokument responseDokument)
         {
             var responsvalidator = new Oppslagstjenestevalidator(envelope.ToXml(), responseDokument, _oppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.Miljø as Miljø);
             responsvalidator.Valider();
         }
 
-        private static void ValiderForespørsel(AbstractEnvelope envelope)
+        private static void ValidateRequest(AbstractEnvelope envelope)
         {
             var xml = envelope.ToXml();
             var xmlValidator = new OppslagstjenesteXmlvalidator();
