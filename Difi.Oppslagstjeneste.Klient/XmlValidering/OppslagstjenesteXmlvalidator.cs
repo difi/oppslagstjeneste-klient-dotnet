@@ -22,11 +22,9 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidering
             LeggTilXsdRessurs(Navnerom.SoapEnvelope12, HentRessurs("soap.soap.xsd"));
             LeggTilXsdRessurs(Navnerom.XmlDsig, HentRessurs("w3.xmldsig-core-schema.xsd"));
             LeggTilXsdRessurs(Navnerom.XmlExcC14N, HentRessurs("w3.exc-c14n.xsd"));
-
-
         }
 
-        private XmlReader HentRessurs(string path)
+        private static XmlReader HentRessurs(string path)
         {
             var bytes = ResourceUtility.ReadAllBytes(true, path);
             return XmlReader.Create(new MemoryStream(bytes));

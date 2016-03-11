@@ -8,11 +8,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
             BodyId = string.Format("id-{0}", Guid.NewGuid());
             TimestampId = string.Format("TS-{0}", Guid.NewGuid());
-            OppslagstjenesteId = string.Format("TS-{0}", Guid.NewGuid());
         }
-
-        public string OppslagstjenesteId { get; set; }
-
+        
         public string BodyId { get; set; }
 
         public virtual string TimestampId { get; set; }

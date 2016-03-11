@@ -20,7 +20,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
                     Avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat(),
                     BinarySecurityId = "BinarySecurityId",
                     BodyId = "BodyId",
-                    OppslagstjenesteId = "OppslagstjenesteId",
                     TimestampId = "TimestampId"
                 };
 
@@ -34,7 +33,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
                 //Assert
                 Assert.AreEqual(envelope.Settings.BinarySecurityId, innstillinger.BinarySecurityId);
                 Assert.AreEqual(envelope.Settings.BodyId, innstillinger.BodyId);
-                Assert.AreEqual(envelope.Settings.OppslagstjenesteId, innstillinger.OppslagstjenesteId);
                 Assert.AreEqual(envelope.Settings.TimestampId, innstillinger.TimestampId);
                 Assert.AreEqual(envelope.FraEndringsNummer, fraEndringer);
                 Assert.AreEqual(envelope.Informasjonsbehov, informasjonsBehov);
