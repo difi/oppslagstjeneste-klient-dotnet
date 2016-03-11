@@ -20,7 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         {
             var xmlDocument = XmlUtility.TilXmlDokument(PersonXml());
             var deserialisertPerson = SerializeUtil.Deserialize<DTO.Person>(xmlDocument.InnerXml);
-            _person = DtoKonverterer.TilDomeneObjekt(deserialisertPerson);
+            _person = DtoConverter.ToDomainObject(deserialisertPerson);
         }
 
         [TestMethod]

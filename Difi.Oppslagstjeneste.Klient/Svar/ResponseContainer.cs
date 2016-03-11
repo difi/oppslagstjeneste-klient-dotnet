@@ -3,18 +3,18 @@ using System.Xml;
 
 namespace Difi.Oppslagstjeneste.Klient.Svar
 {
-    public class ResponseDokument
+    internal class ResponseContainer
     {
         public XmlNamespaceManager Nsmgr;
 
-        public ResponseDokument(Stream soapResponse)
+        public ResponseContainer(Stream soapResponse)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.Load(soapResponse);
             PopulateXmlElements(xmlDocument);
         }
 
-        public ResponseDokument(XmlDocument xmlEnvelope)
+        public ResponseContainer(XmlDocument xmlEnvelope)
         {
             PopulateXmlElements(xmlEnvelope);
         }

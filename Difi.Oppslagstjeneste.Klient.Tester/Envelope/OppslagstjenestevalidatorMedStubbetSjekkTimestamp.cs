@@ -5,11 +5,11 @@ using Difi.Oppslagstjeneste.Klient.Svar;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
 {
-    public class OppslagstjenestevalidatorMedStubbetSjekkTimestamp : Oppslagstjenestevalidator
+    internal class OppslagstjenestevalidatorMedStubbetSjekkTimestamp : Oppslagstjenestevalidator
     {
-        public OppslagstjenestevalidatorMedStubbetSjekkTimestamp(XmlDocument sendtDokument, ResponseDokument responseDokument,
+        public OppslagstjenestevalidatorMedStubbetSjekkTimestamp(XmlDocument sendtDokument, ResponseContainer responseContainer,
             OppslagstjenesteInstillinger oppslagstjenesteInstillinger, Miljø miljø)
-            : base(sendtDokument, responseDokument, oppslagstjenesteInstillinger, miljø)
+            : base(sendtDokument, responseContainer, oppslagstjenesteInstillinger, miljø)
         {
         }
 

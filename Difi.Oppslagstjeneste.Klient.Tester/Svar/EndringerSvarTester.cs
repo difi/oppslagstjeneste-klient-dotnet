@@ -4,6 +4,7 @@ using ApiClientShared;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Svar;
+using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
@@ -16,11 +17,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler.Respons");
-            var mottattEndringerRespons = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentEndringerRespons.xml"));
-            var xmlDokument = XmlUtility.TilXmlDokument(mottattEndringerRespons);
-            var responseDokument = new ResponseDokument(xmlDokument);
-            _endringerSvar = DtoKonverterer.TilDomeneObjekt(SerializeUtil.Deserialize<HentEndringerRespons>(responseDokument.BodyElement.InnerXml));
+            var xmlDokument = TestResourceUtility.Response.EndringerResponse.AsXmlDocument();
+            var responseDokument = new ResponseContainer(xmlDokument);
+            _endringerSvar = DtoConverter.ToDomainObject(SerializeUtil.Deserialize<HentEndringerRespons>(responseDokument.BodyElement.InnerXml));
         }
 
         [TestMethod]
