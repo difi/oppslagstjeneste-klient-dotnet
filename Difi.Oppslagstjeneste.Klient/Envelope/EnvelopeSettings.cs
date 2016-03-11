@@ -4,14 +4,14 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class EnvelopeSettings
     {
-        public EnvelopeSettings(SoapVersion version)
+        public EnvelopeSettings()
         {
-            SoapVersion = version;
             BodyId = string.Format("id-{0}", Guid.NewGuid());
             TimestampId = string.Format("TS-{0}", Guid.NewGuid());
+            OppslagstjenesteId = string.Format("TS-{0}", Guid.NewGuid());
         }
 
-        public SoapVersion SoapVersion { get; set; }
+        public string OppslagstjenesteId { get; set; }
 
         public string BodyId { get; set; }
 

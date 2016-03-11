@@ -13,14 +13,16 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
         private static void Main(string[] args)
         {
             var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
+            
             Logger.Initialize(konfigurasjon);
             Logger.Log(TraceEventType.Information, "> Starter program!");
 
             var avsendersertifikatThumbprint = CertificateIssuedToPostenNorgeAsIssuedByBuypassClass3Test4Ca3();
-            
+
+            //konfigurasjon.SendPåVegneAv = "984661185";
 
             var register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, konfigurasjon);
-
+            
             var endringer = register.HentEndringer(600,
                 Informasjonsbehov.Person |
                 Informasjonsbehov.Kontaktinfo |

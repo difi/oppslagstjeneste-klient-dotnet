@@ -111,7 +111,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         public async Task<EndringerSvar> HentEndringerAsynkront(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
         {
-            var requestEnvelope = new EndringerEnvelope(OppslagstjenesteInstillinger, fraEndringsNummer, informasjonsbehov);
+            var requestEnvelope = new EndringerEnvelope(OppslagstjenesteInstillinger,OppslagstjenesteKonfigurasjon.SendPåVegneAv, fraEndringsNummer, informasjonsbehov);
             Logger.Log(TraceEventType.Verbose, requestEnvelope.ToXml().OuterXml);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
             var dtoObject = ValidateAndConvertToDtoObject<HentEndringerRespons>(requestEnvelope, responseDocument);
@@ -147,7 +147,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikator, Informasjonsbehov informasjonsbehov)
         {
-            var requestEnvelope = new PersonerEnvelope(OppslagstjenesteInstillinger, personidentifikator, informasjonsbehov);
+            var requestEnvelope = new PersonerEnvelope(OppslagstjenesteInstillinger,OppslagstjenesteKonfigurasjon.SendPåVegneAv, personidentifikator, informasjonsbehov);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
             var dtoObject = ValidateAndConvertToDtoObject<HentPersonerRespons>(requestEnvelope, responseDocument);
             var domainObject = DtoKonverterer.TilDomeneObjekt(dtoObject);
@@ -177,7 +177,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public async Task<PrintSertifikatSvar> HentPrintSertifikatAsynkront()
         {
-            var requestEnvelope = new PrintSertifikatEnvelope(OppslagstjenesteInstillinger);
+            var requestEnvelope = new PrintSertifikatEnvelope(OppslagstjenesteInstillinger,OppslagstjenesteKonfigurasjon.SendPåVegneAv);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
             var dtoObject = ValidateAndConvertToDtoObject<HentPrintSertifikatRespons>(requestEnvelope, responseDocument);
             return DtoKonverterer.TilDomeneObjekt(dtoObject);

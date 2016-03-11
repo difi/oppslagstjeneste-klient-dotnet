@@ -75,6 +75,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DtoKonvertererTester.cs" />
+    <Compile Include="Envelope\EndringerEnvelopeTests.cs" />
+    <Compile Include="Envelope\PersonerEnvelopeTests.cs" />
+    <Compile Include="Envelope\PrintSertifikatEnvelopeTests.cs" />
     <Compile Include="Fakes\FakeHttpClientHandler.cs" />
     <Compile Include="Fakes\FakeHttpClientReturningServerErrorResponse.cs" />
     <Compile Include="Svar\ResponseDokumentTester.cs" />

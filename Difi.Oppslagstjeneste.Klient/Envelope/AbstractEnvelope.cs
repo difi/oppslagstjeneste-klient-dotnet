@@ -10,7 +10,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         protected AbstractEnvelope(EnvelopeSettings settings = null)
         {
             if (settings == null)
-                settings = new EnvelopeSettings(SoapVersion.Soap12);
+                settings = new EnvelopeSettings();
             Settings = settings;
 
             Document = new XmlDocument {PreserveWhitespace = true};
@@ -24,7 +24,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         public XmlDocument Document { get; }
 
-        public EnvelopeSettings Settings { get; set; }
+        internal readonly EnvelopeSettings Settings;
 
         protected virtual XmlElement CreateHeader()
         {

@@ -9,17 +9,18 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public abstract class OppslagstjenesteEnvelope : AbstractEnvelope
     {
-        protected OppslagstjenesteEnvelope(OppslagstjenesteInstillinger instillinger)
+        
+        protected OppslagstjenesteEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv)
             : base(instillinger)
         {
+            SendPåVegneAv = sendPåVegneAv;
         }
+
+        internal readonly string SendPåVegneAv;
 
         protected XmlElement Security { get; private set; }
 
-        protected OppslagstjenesteInstillinger Instillinger
-        {
-            get { return Settings as OppslagstjenesteInstillinger; }
-        }
+        internal OppslagstjenesteInstillinger Instillinger => Settings as OppslagstjenesteInstillinger;
 
         protected override XmlElement CreateHeader()
         {
@@ -31,9 +32,22 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
                 Settings.BinarySecurityId);
             var binaryToken = securityToken.GetTokenXml();
             Security.AppendChild(Document.ImportNode(binaryToken, true));
-
             header.AppendChild(Security);
+            if (!string.IsNullOrEmpty(SendPåVegneAv)) { 
+                var oppslagstjenesten = SendPåVegneAvNode();
+                header.AppendChild(oppslagstjenesten);
+            }
             return header;
+        }
+
+        private XmlElement SendPåVegneAvNode()
+        {
+            var oppslagstjenesten = Document.CreateElement("Oppslagstjenesten", Navnerom.OppslagstjenesteDefinisjon);
+            var paavegneav = Document.CreateElement("PaaVegneAv",Navnerom.OppslagstjenesteDefinisjon);
+            paavegneav.InnerXml = SendPåVegneAv;
+            oppslagstjenesten.AppendChild(paavegneav);
+
+            return oppslagstjenesten;
         }
 
         protected override XmlElement CreateBody()
@@ -56,14 +70,13 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             // Timestamp
             var tsReference = new Reference("#" + Settings.TimestampId);
-            //tsReference.AddTransform(new XmlDsigExcC14NTransform("wsse soapenv"));
             signed.AddReference(tsReference);
 
             // Body
             var bodyReference = new Reference("#" + Settings.BodyId);
             bodyReference.AddTransform(new XmlDsigExcC14NTransform(""));
             signed.AddReference(bodyReference);
-
+            
             var securityToken = new SecurityTokenReferenceClause(Settings.BinarySecurityId);
 
             signed.KeyInfo.AddClause(securityToken);

@@ -5,8 +5,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class PrintSertifikatEnvelope : OppslagstjenesteEnvelope
     {
-        public PrintSertifikatEnvelope(OppslagstjenesteInstillinger instillinger)
-            : base(instillinger)
+        public PrintSertifikatEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv)
+            : base(instillinger, sendPåVegneAv)
         {
         }
 

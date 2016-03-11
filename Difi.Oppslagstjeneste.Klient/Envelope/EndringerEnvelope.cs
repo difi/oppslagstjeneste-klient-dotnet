@@ -7,15 +7,14 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public class EndringerEnvelope : OppslagstjenesteEnvelope
     {
-        private readonly long _fraEndringsNummer;
-        private readonly Informasjonsbehov _informasjonsbehov;
+        public readonly long FraEndringsNummer;
+        public readonly Informasjonsbehov Informasjonsbehov;
 
-        public EndringerEnvelope(OppslagstjenesteInstillinger instillinger, long fraEndringsNummer,
-            Informasjonsbehov informasjonsbehov)
-            : base(instillinger)
+        public EndringerEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv, long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
+            : base(instillinger, sendPåVegneAv)
         {
-            _fraEndringsNummer = fraEndringsNummer;
-            _informasjonsbehov = informasjonsbehov;
+            FraEndringsNummer = fraEndringsNummer;
+            Informasjonsbehov = informasjonsbehov;
         }
 
         protected override XmlElement CreateBody()
@@ -23,14 +22,13 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             var body = base.CreateBody();
 
             // HentEndringerForespoersel
-            var hentEndringer = Document.CreateElement("ns", "HentEndringerForespoersel",
-                Navnerom.OppslagstjenesteDefinisjon);
-            hentEndringer.SetAttribute("fraEndringsNummer", _fraEndringsNummer.ToString());
+            var hentEndringer = Document.CreateElement("ns", "HentEndringerForespoersel", Navnerom.OppslagstjenesteDefinisjon);
+            hentEndringer.SetAttribute("fraEndringsNummer", FraEndringsNummer.ToString());
             body.AppendChild(hentEndringer);
 
             foreach (Informasjonsbehov info in Enum.GetValues(typeof (Informasjonsbehov)))
             {
-                if (_informasjonsbehov.HasFlag(info))
+                if (Informasjonsbehov.HasFlag(info))
                 {
                     var node = Document.CreateElement("ns", "informasjonsbehov", Navnerom.OppslagstjenesteDefinisjon);
                     node.InnerText = info.ToString();
