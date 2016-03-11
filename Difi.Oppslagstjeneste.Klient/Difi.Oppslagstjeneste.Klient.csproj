@@ -59,7 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DtoKonverterer.cs" />
+    <Compile Include="DtoConverter.cs" />
     <Compile Include="Envelope\AbstractEnvelope.cs" />
     <Compile Include="Envelope\DateUtility.cs" />
     <Compile Include="Envelope\EndringerEnvelope.cs" />
@@ -72,6 +72,7 @@
     <Compile Include="Envelope\Oppslagstjenestevalidator.cs" />
     <Compile Include="Envelope\Security.cs" />
     <Compile Include="Extensions\XmlElementExtensions.cs" />
+    <Compile Include="Handlers\CustomRequestHeaderHandler.cs" />
     <Compile Include="Miljø.cs" />
     <Compile Include="OppslagstjenesteHelper.cs" />
     <Compile Include="Security\Responsvalidator.cs" />
@@ -85,7 +86,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoapVersion.cs" />
     <Compile Include="Svar\NamespaceManager.cs" />
-    <Compile Include="Svar\ResponseDokument.cs" />
+    <Compile Include="Svar\ResponseContainer.cs" />
     <Compile Include="XmlValidering\OppslagstjenesteXmlvalidator.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -27,26 +27,6 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <summary>
         ///     Oppslagstjenesten for kontakt og reservasjonsregisteret.
         /// </summary>
-        /// <param name="avsendersertifikat">
-        ///     Brukes for å signere forespørselen mot Oppslagstjenesten. For informasjon om sertifikat, se online dokumentasjon:
-        ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet" />
-        /// </param>
-        /// <param name="oppslagstjenesteKonfigurasjon">
-        ///     Konfigurasjon for oppslagstjeneste
-        /// </param>
-        public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat,
-            OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
-        {
-            OppslagstjenesteInstillinger = new OppslagstjenesteInstillinger
-            {
-                Avsendersertifikat = avsendersertifikat
-            };
-            OppslagstjenesteKonfigurasjon = oppslagstjenesteKonfigurasjon;
-        }
-
-        /// <summary>
-        ///     Oppslagstjenesten for kontakt og reservasjonsregisteret.
-        /// </summary>
         /// <param name="avsendersertifikatThumbprint">
         ///     Thumbprint til sertifikat Virksomhet bruker til å signere
         ///     forespørselen. For informasjon om hvordan du finner dette, se online dokumentasjon:
@@ -55,13 +35,29 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <param name="oppslagstjenesteKonfigurasjon">
         ///     Konfigurasjon for oppslagstjeneste
         /// </param>
-        public OppslagstjenesteKlient(string avsendersertifikatThumbprint,
-            OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
-            :
-                this(
-                CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),
-                oppslagstjenesteKonfigurasjon)
+        public OppslagstjenesteKlient(string avsendersertifikatThumbprint, OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
+            :this(CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian),oppslagstjenesteKonfigurasjon)
         {
+        }
+
+        /// <summary>
+        ///     Oppslagstjenesten for kontakt og reservasjonsregisteret.
+        /// </summary>
+        /// <param name="avsendersertifikat">
+        ///     Brukes for å signere forespørselen mot Oppslagstjenesten. For informasjon om sertifikat, se online dokumentasjon:
+        ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet" />
+        /// </param>
+        /// <param name="oppslagstjenesteKonfigurasjon">
+        ///     Konfigurasjon for oppslagstjeneste
+        /// </param>
+        public OppslagstjenesteKlient(X509Certificate2 avsendersertifikat, OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
+        {
+            OppslagstjenesteInstillinger = new OppslagstjenesteInstillinger
+            {
+                Avsendersertifikat = avsendersertifikat
+            };
+            OppslagstjenesteKonfigurasjon = oppslagstjenesteKonfigurasjon;
+            _oppslagstjenesteHelper = new OppslagstjenesteHelper(oppslagstjenesteKonfigurasjon,OppslagstjenesteInstillinger);
         }
 
         public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
@@ -69,17 +65,8 @@ namespace Difi.Oppslagstjeneste.Klient
         public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
 
         internal virtual OppslagstjenesteHelper GetClient()
-        {
-            if (_oppslagstjenesteHelper == null)
-            {
-                InitOppslagstjenesteHelper(OppslagstjenesteKonfigurasjon);
-            }
+        {   
             return _oppslagstjenesteHelper;
-        }
-
-        internal void InitOppslagstjenesteHelper(OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
-        {
-            _oppslagstjenesteHelper = new OppslagstjenesteHelper(oppslagstjenesteKonfigurasjon, OppslagstjenesteInstillinger);
         }
 
         /// <summary>
@@ -115,7 +102,7 @@ namespace Difi.Oppslagstjeneste.Klient
             Logger.Log(TraceEventType.Verbose, requestEnvelope.ToXml().OuterXml);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
             var dtoObject = ValidateAndConvertToDtoObject<HentEndringerRespons>(requestEnvelope, responseDocument);
-            return DtoKonverterer.TilDomeneObjekt(dtoObject);
+            return DtoConverter.ToDomainObject(dtoObject);
         }
 
         /// <summary>
@@ -150,16 +137,16 @@ namespace Difi.Oppslagstjeneste.Klient
             var requestEnvelope = new PersonerEnvelope(OppslagstjenesteInstillinger, personidentifikator, informasjonsbehov);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
             var dtoObject = ValidateAndConvertToDtoObject<HentPersonerRespons>(requestEnvelope, responseDocument);
-            var domainObject = DtoKonverterer.TilDomeneObjekt(dtoObject);
+            var domainObject = DtoConverter.ToDomainObject(dtoObject);
             return domainObject.Personer;
         }
 
-        private T ValidateAndConvertToDtoObject<T>(AbstractEnvelope requestEnvelope, ResponseDokument responseDocument)
+        private T ValidateAndConvertToDtoObject<T>(AbstractEnvelope requestEnvelope, ResponseContainer responseContainer)
         {
             Logger.Log(TraceEventType.Verbose, requestEnvelope.ToXml().OuterXml);
-            ValidateResponse(requestEnvelope, responseDocument);
-            Logger.Log(TraceEventType.Verbose, responseDocument.Envelope.InnerXml);
-            return SerializeUtil.Deserialize<T>(responseDocument.BodyElement.InnerXml);
+            ValidateResponse(requestEnvelope, responseContainer);
+            Logger.Log(TraceEventType.Verbose, responseContainer.Envelope.InnerXml);
+            return SerializeUtil.Deserialize<T>(responseContainer.BodyElement.InnerXml);
         }
 
         /// <summary>
@@ -180,12 +167,12 @@ namespace Difi.Oppslagstjeneste.Klient
             var requestEnvelope = new PrintSertifikatEnvelope(OppslagstjenesteInstillinger);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
             var dtoObject = ValidateAndConvertToDtoObject<HentPrintSertifikatRespons>(requestEnvelope, responseDocument);
-            return DtoKonverterer.TilDomeneObjekt(dtoObject);
+            return DtoConverter.ToDomainObject(dtoObject);
         }
 
-        private void ValidateResponse(AbstractEnvelope envelope, ResponseDokument responseDokument)
+        private void ValidateResponse(AbstractEnvelope envelope, ResponseContainer responseContainer)
         {
-            var responsvalidator = new Oppslagstjenestevalidator(envelope.ToXml(), responseDokument, OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.Miljø as Miljø);
+            var responsvalidator = new Oppslagstjenestevalidator(envelope.ToXml(), responseContainer, OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.Miljø as Miljø);
             responsvalidator.Valider();
         }
     }

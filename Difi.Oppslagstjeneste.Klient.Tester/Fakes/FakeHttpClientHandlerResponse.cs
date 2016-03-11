@@ -10,9 +10,9 @@ using ApiClientShared;
 namespace Difi.Oppslagstjeneste.Klient.Tester.Fakes
 {
 
-    public class FakeHttpClientReturningServerErrorResponse : FakeHttpClientHandler
+    public class FakeHttpClientHandlerResponse : FakeHttpClientHandler
     {
-        public FakeHttpClientReturningServerErrorResponse(string response, HttpStatusCode httpStatusCode)
+        public FakeHttpClientHandlerResponse(string response, HttpStatusCode httpStatusCode)
         {
             ResultCode = httpStatusCode;
             FakeResponse = response;
@@ -22,7 +22,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Fakes
 
         public override HttpContent GetContent()
         {
-            
+            //Hent ressurs fra Eksemper
             return new StringContent(FakeResponse);
         }
     }

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Envelope;
+using Difi.Oppslagstjeneste.Klient.Handlers;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.XmlValidering;
 
@@ -18,64 +17,48 @@ namespace Difi.Oppslagstjeneste.Klient
 {
     internal class OppslagstjenesteHelper
     {
-        private readonly OppslagstjenesteInstillinger _oppslagstjenesteInstillinger;
+        private HttpClient _httpClient;
 
         public OppslagstjenesteHelper(OppslagstjenesteKonfigurasjon konfigurasjon, OppslagstjenesteInstillinger oppslagstjenesteInstillinger)
         {
-            _oppslagstjenesteInstillinger = oppslagstjenesteInstillinger;
+            Instillinger = oppslagstjenesteInstillinger;
             OppslagstjenesteKonfigurasjon = konfigurasjon;
+
+            InitializeHttpClient();
         }
+
+        internal OppslagstjenesteInstillinger Instillinger { get; }
 
         public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
 
-        private static string NetVersion
+        private void InitializeHttpClient()
         {
-            get
-            {
-                var netVersion = Assembly
-                    .GetExecutingAssembly()
-                    .GetReferencedAssemblies().First(x => x.Name == "System.Core").Version.ToString();
-                return netVersion;
-            }
+            _httpClient = new HttpClient(HttpClientHandlerChain());
         }
 
-        private static Version AssemblyVersion
+        public async Task<ResponseContainer> SendAsync(AbstractEnvelope envelope)
         {
-            get
+            ValidateRequest(envelope);
+            var requestXml = envelope.ToXml();
+            var stringContent = new StringContent(requestXml.InnerXml, Encoding.UTF8, "application/soap+xml");
+            using (var response = await Client().PostAsync(OppslagstjenesteKonfigurasjon.Miljø.Url, stringContent))
             {
-                var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
-                return assemblyVersion;
-            }
-        }
+                var soapResponse = await response.Content.ReadAsStreamAsync();
 
-        public async Task<ResponseDokument> SendAsync(AbstractEnvelope envelope)
-        {
-            using (var client = Client())
-            {
-                SetDefaultRequestHeaders(client);
-                ValidateRequest(envelope);
-                var requestXml = envelope.ToXml();
-                var stringContent = new StringContent(requestXml.InnerXml, Encoding.UTF8, "application/soap+xml");
-                using (var response = await client.PostAsync(OppslagstjenesteKonfigurasjon.Miljø.Url, stringContent))
+                if (!response.IsSuccessStatusCode)
                 {
-                    var soapResponse = await response.Content.ReadAsStreamAsync();
-
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        CheckResponseForErrors(soapResponse);
-                    }
-                    return new ResponseDokument(soapResponse);
+                    CheckResponseForErrors(soapResponse);
                 }
+                return new ResponseContainer(soapResponse);
             }
         }
 
         internal virtual HttpClient Client()
         {
-            var httpClientHandler = HttpClientHandler();
-            return new HttpClient(httpClientHandler);
+            return _httpClient;
         }
 
-        private HttpClientHandler HttpClientHandler()
+        private HttpMessageHandler HttpClientHandlerChain()
         {
             var httpClientHandler = new HttpClientHandler();
             if (OppslagstjenesteKonfigurasjon.BrukProxy)
@@ -85,7 +68,8 @@ namespace Difi.Oppslagstjeneste.Klient
                     Proxy = Proxy()
                 };
             }
-            return httpClientHandler;
+
+            return new CustomRequestHeaderHandler(httpClientHandler);
         }
 
         private static void CheckResponseForErrors(Stream soapResponse)
@@ -104,12 +88,6 @@ namespace Difi.Oppslagstjeneste.Klient
             return new WebProxy(
                 new UriBuilder(OppslagstjenesteKonfigurasjon.ProxyScheme,
                     OppslagstjenesteKonfigurasjon.ProxyHost, OppslagstjenesteKonfigurasjon.ProxyPort).Uri);
-        }
-
-        private static void SetDefaultRequestHeaders(HttpClient client)
-        {
-            client.DefaultRequestHeaders.Add("SOAPAction", "\"\"");
-            client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", string.Format("DifiOppslagstjeneste/{1} (.NET/{0})", NetVersion, AssemblyVersion));
         }
 
         private static void ValidateRequest(AbstractEnvelope envelope)

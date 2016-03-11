@@ -62,6 +62,7 @@
     <Compile Include="Entiteter\Svar\PrintSertifikatSvar.cs" />
     <Compile Include="Exceptions\SendException.cs" />
     <Compile Include="Exceptions\SoapException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
     <Compile Include="Entiteter\Kontaktinformasjon.cs" />
     <Compile Include="Entiteter\Mobiltelefonnummer.cs" />

@@ -74,10 +74,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="DtoKonvertererTester.cs" />
+    <Compile Include="DtoConverterTests.cs" />
     <Compile Include="Fakes\FakeHttpClientHandler.cs" />
-    <Compile Include="Fakes\FakeHttpClientReturningServerErrorResponse.cs" />
-    <Compile Include="Svar\ResponseDokumentTester.cs" />
+    <Compile Include="Fakes\FakeHttpClientHandlerResponse.cs" />
+    <Compile Include="Ressurser\Examples\TestResourceUtility.cs" />
+    <Compile Include="Svar\ResponseContainerTests.cs" />
     <Compile Include="Utilities\CompareObjects\Comparator.cs" />
     <Compile Include="Utilities\CompareObjects\Difference.cs" />
     <Compile Include="Utilities\CompareObjects\IComparator.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integrasjon\Integrasjonstester.cs" />
     <Compile Include="Domene\SoapExceptionTester.cs" />
+    <Compile Include="Utilities\MockUtility.cs" />
     <Compile Include="Utilities\XmlUtility.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -117,31 +119,24 @@
     <EmbeddedResource Include="Testdata\difi-enhetstester.cer" />
     <EmbeddedResource Include="Testdata\difi-enhetstester.p12" />
     <EmbeddedResource Include="Ressurser\Sertifikater\DifiTestsertifikatKlient.p12" />
-    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPersonerRespons_x1.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ressurser\Eksempler\Forespørsel\HentPersonerForespørsel.xml" />
+    <EmbeddedResource Include="Ressurser\Examples\Request\HentPersoner.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPersonerResponsKryptert.xml" />
+    <EmbeddedResource Include="Ressurser\Examples\Response\HentPersonerEncrypted.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentEndringerRespons.xml" />
+    <EmbeddedResource Include="Ressurser\Examples\Response\HentEndringer.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPersonerRespons.xml" />
+    <EmbeddedResource Include="Ressurser\Examples\Response\HentPersoner.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPrintSertifikatRespons.xml" />
+    <EmbeddedResource Include="Ressurser\Examples\Response\HentPrintSertifikat.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Ressurser\Eksempler\Respons\Feilmelding.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Ressurser\Eksempler\Respons\HentPersonerResponsMedDifiTestSertifikatKryptert.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Ressurser\Eksempler\Forespørsel\HentPersonerForespørsel_x1.xml" />
+    <EmbeddedResource Include="Ressurser\Examples\Response\SoapFault.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

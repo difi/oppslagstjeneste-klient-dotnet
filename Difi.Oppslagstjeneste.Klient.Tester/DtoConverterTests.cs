@@ -15,20 +15,20 @@ using SikkerDigitalPostAdresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.S
 namespace Difi.Oppslagstjeneste.Klient.Tester
 {
     [TestClass]
-    public class DtoKonvertererTester
+    public class DtoConverterTests
     {
         [TestClass]
-        public class TilDomeneObjektMethod : DtoKonvertererTester
+        public class ToDomainObject : DtoConverterTests
         {
             [TestMethod]
             public void HentPersoner()
             {
                 //Arrange
-                var kilde = HentPersonerResponsTestdata();
-                var forventet = DomenePersonSvar(kilde);
+                var kilde = DtoPersonTestData();
+                var forventet = DomainPersonData(kilde);
 
                 //Act
-                var resultat = DtoKonverterer.TilDomeneObjekt(kilde);
+                var resultat = DtoConverter.ToDomainObject(kilde);
 
                 //Assert
                 var comparator = new Comparator();
@@ -47,7 +47,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 var forventet = DomeneEndringerSvar(hentEndringerRespons);
 
                 //Act
-                var resultat = DtoKonverterer.TilDomeneObjekt(hentEndringerRespons);
+                var resultat = DtoConverter.ToDomainObject(hentEndringerRespons);
 
                 //Assert
                 var comparator = new Comparator();
@@ -69,7 +69,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 return endringerSvar;
             }
 
-            private static HentPersonerRespons HentPersonerResponsTestdata()
+            private static HentPersonerRespons DtoPersonTestData()
             {
                 var kilde = new HentPersonerRespons {Person = new DTO.Person[1]};
                 kilde.Person[0] = Person(DateTime.Now, DateTime.Now);
@@ -93,7 +93,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 return kilde;
             }
 
-            private static PersonerSvar DomenePersonSvar(HentPersonerRespons hentPersonerRespons)
+            private static PersonerSvar DomainPersonData(HentPersonerRespons hentPersonerRespons)
             {
                 var personsvar = new PersonerSvar();
                 var personer = hentPersonerRespons.Person.Select(DomenePerson).ToList();
