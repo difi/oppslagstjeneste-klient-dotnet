@@ -1,10 +1,8 @@
 ﻿using System.Text;
 using ApiClientShared;
-using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
 {
@@ -57,7 +55,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
 
                 var oppslagstjenesteValidator = new Oppslagstjenestevalidator(sendtDokument,
                     responseDokument, oppslagstjenesteInstillinger, miljø);
-              
+
                 //Act
                 oppslagstjenesteValidator.Valider();
 

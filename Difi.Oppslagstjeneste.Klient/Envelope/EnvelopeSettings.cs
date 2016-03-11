@@ -9,7 +9,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             BodyId = string.Format("id-{0}", Guid.NewGuid());
             TimestampId = string.Format("TS-{0}", Guid.NewGuid());
         }
-        
+
         public string BodyId { get; set; }
 
         public virtual string TimestampId { get; set; }

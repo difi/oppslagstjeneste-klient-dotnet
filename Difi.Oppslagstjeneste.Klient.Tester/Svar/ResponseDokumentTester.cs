@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
 {
-    [TestClass()]
+    [TestClass]
     public class ResponseDokumentTester
     {
         [TestClass]
@@ -24,14 +24,13 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
                 var bodyElement = xmlResponse.SelectSingleNode("/env:Envelope/env:Body", NamespaceManager.InitalizeNamespaceManager(xmlResponse));
                 var expectedDeserializedResponse = SerializeUtil.Deserialize<HentPersonerRespons>(bodyElement.InnerXml);
 
-
                 //Act
                 var candidate = new ResponseDokument(GenerateStreamFromString(xmlResponse.OuterXml));
 
                 //Assert
                 var cmp = new Comparator();
                 cmp.AreEqual(expectedDeserializedResponse, SerializeUtil.Deserialize<HentPersonerRespons>(candidate.BodyElement.InnerXml));
-                Assert.AreEqual(XmlUtility.TilXmlDokument(respons).OuterXml,candidate.Envelope.OuterXml);
+                Assert.AreEqual(XmlUtility.TilXmlDokument(respons).OuterXml, candidate.Envelope.OuterXml);
                 Assert.IsNotNull(candidate.HeaderBinarySecurityToken);
                 Assert.IsNotNull(candidate.BodyElement);
                 Assert.IsNotNull(candidate.Cipher);
@@ -50,7 +49,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
                 var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler.Respons");
                 var respons = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentPersonerResponsKryptert.xml"));
                 var xmlResponse = XmlUtility.TilXmlDokument(respons);
-                
 
                 //Act
                 var candidate = new ResponseDokument(GenerateStreamFromString(xmlResponse.OuterXml));
@@ -65,7 +63,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
                 Assert.IsNotNull(candidate.HeaderSignature);
                 Assert.IsNotNull(candidate.HeaderSignatureElement);
                 Assert.IsNotNull(candidate.TimestampElement);
-
             }
 
             public Stream GenerateStreamFromString(string s)
@@ -77,7 +74,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
                 stream.Position = 0;
                 return stream;
             }
-
         }
     }
 }

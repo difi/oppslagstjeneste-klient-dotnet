@@ -151,6 +151,5 @@ namespace Difi.Oppslagstjeneste.Klient
 
             return printSertifikatSvar;
         }
-        
     }
 }

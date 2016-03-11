@@ -8,6 +8,5 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         ///     Sertifikat som bl.a. benyttes for å signere utgående meldinger. Må inneholde en privatnøkkel.
         /// </summary>
         public X509Certificate2 Avsendersertifikat { get; set; }
-
     }
 }

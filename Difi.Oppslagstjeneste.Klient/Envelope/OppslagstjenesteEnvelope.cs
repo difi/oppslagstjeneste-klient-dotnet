@@ -9,14 +9,13 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public abstract class OppslagstjenesteEnvelope : AbstractEnvelope
     {
-        
+        internal readonly string SendPåVegneAv;
+
         protected OppslagstjenesteEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv)
             : base(instillinger)
         {
             SendPåVegneAv = sendPåVegneAv;
         }
-
-        internal readonly string SendPåVegneAv;
 
         protected XmlElement Security { get; private set; }
 
@@ -33,7 +32,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             var binaryToken = securityToken.GetTokenXml();
             Security.AppendChild(Document.ImportNode(binaryToken, true));
             header.AppendChild(Security);
-            if (!string.IsNullOrEmpty(SendPåVegneAv)) { 
+            if (!string.IsNullOrEmpty(SendPåVegneAv))
+            {
                 var oppslagstjenesten = SendPåVegneAvNode();
                 header.AppendChild(oppslagstjenesten);
             }
@@ -43,7 +43,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         private XmlElement SendPåVegneAvNode()
         {
             var oppslagstjenesten = Document.CreateElement("Oppslagstjenesten", Navnerom.OppslagstjenesteDefinisjon);
-            var paavegneav = Document.CreateElement("PaaVegneAv",Navnerom.OppslagstjenesteDefinisjon);
+            var paavegneav = Document.CreateElement("PaaVegneAv", Navnerom.OppslagstjenesteDefinisjon);
             paavegneav.InnerXml = SendPåVegneAv;
             oppslagstjenesten.AppendChild(paavegneav);
 
@@ -76,7 +76,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             var bodyReference = new Reference("#" + Settings.BodyId);
             bodyReference.AddTransform(new XmlDsigExcC14NTransform(""));
             signed.AddReference(bodyReference);
-            
+
             var securityToken = new SecurityTokenReferenceClause(Settings.BinarySecurityId);
 
             signed.KeyInfo.AddClause(securityToken);

@@ -46,7 +46,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                     Assert.AreEqual("Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN", soapException.Beskrivelse);
                 }
             }
-            
+
             private static Mock<OppslagstjenesteKlient> OppslagstjenesteKlientMock(string respons, HttpStatusCode httpStatusCode, X509Certificate2 avsenderEnhetstesterSertifikat)
             {
                 var mockProxy = CreateOppslagstjenesteProxyMock(respons, httpStatusCode);

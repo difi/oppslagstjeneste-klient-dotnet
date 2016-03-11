@@ -5,6 +5,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public abstract class AbstractEnvelope
     {
+        internal readonly EnvelopeSettings Settings;
         private bool _isCreated;
 
         protected AbstractEnvelope(EnvelopeSettings settings = null)
@@ -23,8 +24,6 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         }
 
         public XmlDocument Document { get; }
-
-        internal readonly EnvelopeSettings Settings;
 
         protected virtual XmlElement CreateHeader()
         {
