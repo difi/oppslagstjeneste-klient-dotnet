@@ -79,7 +79,7 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov
         ///     f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.
         /// </param>
-        public EndringerSvar HentEndringer(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
+        public EndringerSvar HentEndringer(long fraEndringsNummer, params Informasjonsbehov[] informasjonsbehov)
         {
             return HentEndringerAsynkront(fraEndringsNummer, informasjonsbehov).Result;
         }
@@ -95,7 +95,7 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov
         ///     f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.
         /// </param>
-        public async Task<EndringerSvar> HentEndringerAsynkront(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
+        public async Task<EndringerSvar> HentEndringerAsynkront(long fraEndringsNummer, params Informasjonsbehov[] informasjonsbehov)
         {
             var requestEnvelope = new EndringerEnvelope(OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.SendPåVegneAv, fraEndringsNummer, informasjonsbehov);
             Logger.Log(TraceEventType.Verbose, requestEnvelope.XmlDocument.OuterXml);
@@ -115,7 +115,7 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov
         ///     f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.
         /// </param>
-        public IEnumerable<Person> HentPersoner(string[] personidentifikator, Informasjonsbehov informasjonsbehov)
+        public IEnumerable<Person> HentPersoner(string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
         {
             return HentPersonerAsynkront(personidentifikator, informasjonsbehov).Result;
         }
@@ -131,7 +131,7 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov
         ///     f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.
         /// </param>
-        public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikator, Informasjonsbehov informasjonsbehov)
+        public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
         {
             var requestEnvelope = new PersonerEnvelope(OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.SendPåVegneAv, personidentifikator, informasjonsbehov);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);

@@ -28,8 +28,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
 
             //Act
             var personer = _oppslagstjenesteKlient.HentPersoner(new[] {"08077000292"},
-                Informasjonsbehov.Sertifikat |
-                Informasjonsbehov.Kontaktinfo |
+                Informasjonsbehov.Sertifikat ,
+                Informasjonsbehov.Kontaktinfo ,
                 Informasjonsbehov.SikkerDigitalPost);
 
             //Assert
@@ -43,9 +43,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
 
             //Act
             var endringer = _oppslagstjenesteKlient.HentEndringer(886730,
-                Informasjonsbehov.Kontaktinfo |
-                Informasjonsbehov.Sertifikat |
-                Informasjonsbehov.SikkerDigitalPost |
+                Informasjonsbehov.Kontaktinfo ,
+                Informasjonsbehov.Sertifikat ,
+                Informasjonsbehov.SikkerDigitalPost ,
                 Informasjonsbehov.Person);
 
             //Assert
