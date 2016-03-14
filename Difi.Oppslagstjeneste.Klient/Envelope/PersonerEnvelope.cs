@@ -7,11 +7,11 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public sealed class PersonerEnvelope : OppslagstjenesteEnvelope
     {
-        internal Informasjonsbehov Informasjonsbehov { get; }
+        internal Informasjonsbehov[] Informasjonsbehov { get; }
 
         internal string[] Personidentifikator { get; }
 
-        public PersonerEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv, string[] personidentifikator, Informasjonsbehov informasjonsbehov)
+        public PersonerEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv, string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
             : base(instillinger, sendPåVegneAv)
         {
             Personidentifikator = personidentifikator;
@@ -22,16 +22,14 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
             var body = base.CreateBody();
             var element = Document.CreateElement("ns", "HentPersonerForespoersel", Navnerom.OppslagstjenesteDefinisjon);
-            foreach (Informasjonsbehov info in Enum.GetValues(typeof (Informasjonsbehov)))
-            {
-                if (Informasjonsbehov.HasFlag(info))
-                {
-                    var node = Document.CreateElement("ns", "informasjonsbehov", Navnerom.OppslagstjenesteDefinisjon);
-                    node.InnerText = info.ToString();
-                    element.AppendChild(node);
-                }
-            }
 
+            foreach (var informasjonsbehov in Informasjonsbehov)
+            {
+                var node = Document.CreateElement("ns", "informasjonsbehov", Navnerom.OppslagstjenesteDefinisjon);
+                node.InnerText = informasjonsbehov.ToString();
+                element.AppendChild(node);
+            }
+         
             foreach (var item in Personidentifikator)
             {
                 var node = Document.CreateElement("ns", "personidentifikator", Navnerom.OppslagstjenesteDefinisjon);

@@ -24,10 +24,10 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             var register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, konfigurasjon);
 
             var endringer = register.HentEndringer(600,
-                Informasjonsbehov.Person |
-                Informasjonsbehov.Kontaktinfo |
-                Informasjonsbehov.Sertifikat |
-                Informasjonsbehov.SikkerDigitalPost |
+                Informasjonsbehov.Person ,
+                Informasjonsbehov.Kontaktinfo ,
+                Informasjonsbehov.Sertifikat ,
+                Informasjonsbehov.SikkerDigitalPost ,
                 Informasjonsbehov.VarslingsStatus
                 );
 

@@ -25,7 +25,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
 
                 const string sendPåVegneAv = "sendPåVegneAv";
                 var personer = new[] {"12312312312", "32132132132"};
-                const Informasjonsbehov informasjonsBehov = Informasjonsbehov.Person | Informasjonsbehov.Kontaktinfo;
+                var informasjonsBehov = new[] { Informasjonsbehov.Person, Informasjonsbehov.Kontaktinfo }; 
 
                 //Act
                 var envelope = new PersonerEnvelope(innstillinger, sendPåVegneAv, personer, informasjonsBehov);

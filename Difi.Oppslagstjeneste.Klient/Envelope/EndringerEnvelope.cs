@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
@@ -9,9 +10,9 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
     {
         internal long FraEndringsNummer { get; }
 
-        internal Informasjonsbehov Informasjonsbehov { get; }
+        internal Informasjonsbehov[] Informasjonsbehov { get; }
 
-        public EndringerEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv, long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
+        public EndringerEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv, long fraEndringsNummer,params Informasjonsbehov[] informasjonsbehov)
             : base(instillinger, sendPåVegneAv)
         {
             FraEndringsNummer = fraEndringsNummer;
@@ -27,15 +28,14 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             hentEndringer.SetAttribute("fraEndringsNummer", FraEndringsNummer.ToString());
             body.AppendChild(hentEndringer);
 
-            foreach (Informasjonsbehov info in Enum.GetValues(typeof (Informasjonsbehov)))
+            foreach (var informasjonsbehov in Informasjonsbehov)
             {
-                if (Informasjonsbehov.HasFlag(info))
-                {
-                    var node = Document.CreateElement("ns", "informasjonsbehov", Navnerom.OppslagstjenesteDefinisjon);
-                    node.InnerText = info.ToString();
-                    hentEndringer.AppendChild(node);
-                }
+                var node = Document.CreateElement("ns", "informasjonsbehov", Navnerom.OppslagstjenesteDefinisjon);
+                node.InnerText = informasjonsbehov.ToString();
+                hentEndringer.AppendChild(node);
             }
+
+            
             return body;
         }
         
