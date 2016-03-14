@@ -72,7 +72,7 @@
     <Compile Include="Envelope\Oppslagstjenestevalidator.cs" />
     <Compile Include="Envelope\Security.cs" />
     <Compile Include="Extensions\XmlElementExtensions.cs" />
-    <Compile Include="Handlers\CustomRequestHeaderHandler.cs" />
+    <Compile Include="Handlers\RequestHeaderHandler.cs" />
     <Compile Include="Miljø.cs" />
     <Compile Include="OppslagstjenesteHelper.cs" />
     <Compile Include="Security\Responsvalidator.cs" />

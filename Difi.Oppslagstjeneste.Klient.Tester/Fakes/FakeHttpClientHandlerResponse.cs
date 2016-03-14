@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using ApiClientShared;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Fakes
 {
-
     public class FakeHttpClientHandlerResponse : FakeHttpClientHandler
     {
         public FakeHttpClientHandlerResponse(string response, HttpStatusCode httpStatusCode)
@@ -18,13 +11,11 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Fakes
             FakeResponse = response;
         }
 
-        private string FakeResponse { get;}
+        private string FakeResponse { get; }
 
         public override HttpContent GetContent()
         {
-            //Hent ressurs fra Eksemper
             return new StringContent(FakeResponse);
         }
     }
-
 }

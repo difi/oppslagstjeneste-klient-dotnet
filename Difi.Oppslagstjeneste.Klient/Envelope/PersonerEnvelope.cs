@@ -5,28 +5,26 @@ using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public class PersonerEnvelope : OppslagstjenesteEnvelope
+    public sealed class PersonerEnvelope : OppslagstjenesteEnvelope
     {
-        private readonly Informasjonsbehov _informasjonsbehov;
-        private readonly string[] _personidentifikator;
+        internal Informasjonsbehov Informasjonsbehov { get; }
 
-        public PersonerEnvelope(OppslagstjenesteInstillinger instillinger, string[] personidentifikator,
-            Informasjonsbehov informasjonsbehov)
-            : base(instillinger)
+        internal string[] Personidentifikator { get; }
+
+        public PersonerEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv, string[] personidentifikator, Informasjonsbehov informasjonsbehov)
+            : base(instillinger, sendPåVegneAv)
         {
-            _personidentifikator = personidentifikator;
-            _informasjonsbehov = informasjonsbehov;
+            Personidentifikator = personidentifikator;
+            Informasjonsbehov = informasjonsbehov;
         }
 
         protected override XmlElement CreateBody()
         {
             var body = base.CreateBody();
-
             var element = Document.CreateElement("ns", "HentPersonerForespoersel", Navnerom.OppslagstjenesteDefinisjon);
-
             foreach (Informasjonsbehov info in Enum.GetValues(typeof (Informasjonsbehov)))
             {
-                if (_informasjonsbehov.HasFlag(info))
+                if (Informasjonsbehov.HasFlag(info))
                 {
                     var node = Document.CreateElement("ns", "informasjonsbehov", Navnerom.OppslagstjenesteDefinisjon);
                     node.InnerText = info.ToString();
@@ -34,7 +32,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
                 }
             }
 
-            foreach (var item in _personidentifikator)
+            foreach (var item in Personidentifikator)
             {
                 var node = Document.CreateElement("ns", "personidentifikator", Navnerom.OppslagstjenesteDefinisjon);
                 node.InnerText = item;

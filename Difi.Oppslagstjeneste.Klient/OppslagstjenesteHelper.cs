@@ -34,7 +34,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<ResponseContainer> SendAsync(AbstractEnvelope envelope)
         {
             ValidateRequest(envelope);
-            var requestXml = envelope.ToXml();
+            var requestXml = envelope.XmlDocument;
             var stringContent = new StringContent(requestXml.InnerXml, Encoding.UTF8, "application/soap+xml");
             using (var response = await Client().PostAsync(OppslagstjenesteKonfigurasjon.Miljø.Url, stringContent))
             {
@@ -87,7 +87,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private static void ValidateRequest(AbstractEnvelope envelope)
         {
-            var xml = envelope.ToXml();
+            var xml = envelope.XmlDocument;
             var xmlValidator = new OppslagstjenesteXmlvalidator();
             var xmlValidert = xmlValidator.ValiderDokumentMotXsd(xml.OuterXml);
             if (!xmlValidert)

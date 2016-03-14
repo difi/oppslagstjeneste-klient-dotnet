@@ -22,15 +22,12 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
                 var xmlResponse = TestResourceUtility.Response.PersonResponse.AsXmlDocument();
                 var bodyElement = xmlResponse.SelectSingleNode("/env:Envelope/env:Body", NamespaceManager.InitalizeNamespaceManager(xmlResponse));
                 var expectedDeserializedResponse = SerializeUtil.Deserialize<HentPersonerRespons>(bodyElement.InnerXml);
-                
-
                 //Act
                 var candidate = new ResponseContainer(GenerateStreamFromString(xmlResponse.OuterXml));
 
                 //Assert
                 var cmp = new Comparator();
                 cmp.AreEqual(expectedDeserializedResponse, SerializeUtil.Deserialize<HentPersonerRespons>(candidate.BodyElement.InnerXml));
-                Assert.AreEqual(xmlResponse.OuterXml,candidate.Envelope.OuterXml);
                 Assert.IsNotNull(candidate.HeaderBinarySecurityToken);
                 Assert.IsNotNull(candidate.BodyElement);
                 Assert.IsNotNull(candidate.Cipher);
@@ -47,8 +44,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
             {
                 //Arrange
                 var xmlResponse = TestResourceUtility.Response.PersonResponseEncrypted.AsXmlDocument();
-                
-                
                 //Act
                 var candidate = new ResponseContainer(GenerateStreamFromString(xmlResponse.OuterXml));
 
@@ -62,7 +57,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
                 Assert.IsNotNull(candidate.HeaderSignature);
                 Assert.IsNotNull(candidate.HeaderSignatureElement);
                 Assert.IsNotNull(candidate.TimestampElement);
-
             }
 
             public Stream GenerateStreamFromString(string s)

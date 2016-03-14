@@ -39,7 +39,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                     Assert.AreEqual("Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN", soapException.Beskrivelse);
                 }
             }
-           
+
             [TestMethod]
             public void KonstruktørMedSertifikater()
             {

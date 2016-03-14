@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ApiClientShared;
@@ -98,8 +97,8 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         public async Task<EndringerSvar> HentEndringerAsynkront(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
         {
-            var requestEnvelope = new EndringerEnvelope(OppslagstjenesteInstillinger, fraEndringsNummer, informasjonsbehov);
-            Logger.Log(TraceEventType.Verbose, requestEnvelope.ToXml().OuterXml);
+            var requestEnvelope = new EndringerEnvelope(OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.SendPåVegneAv, fraEndringsNummer, informasjonsbehov);
+            Logger.Log(TraceEventType.Verbose, requestEnvelope.XmlDocument.OuterXml);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
             var dtoObject = ValidateAndConvertToDtoObject<HentEndringerRespons>(requestEnvelope, responseDocument);
             return DtoConverter.ToDomainObject(dtoObject);
@@ -134,7 +133,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikator, Informasjonsbehov informasjonsbehov)
         {
-            var requestEnvelope = new PersonerEnvelope(OppslagstjenesteInstillinger, personidentifikator, informasjonsbehov);
+            var requestEnvelope = new PersonerEnvelope(OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.SendPåVegneAv, personidentifikator, informasjonsbehov);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
             var dtoObject = ValidateAndConvertToDtoObject<HentPersonerRespons>(requestEnvelope, responseDocument);
             var domainObject = DtoConverter.ToDomainObject(dtoObject);
@@ -143,7 +142,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private T ValidateAndConvertToDtoObject<T>(AbstractEnvelope requestEnvelope, ResponseContainer responseContainer)
         {
-            Logger.Log(TraceEventType.Verbose, requestEnvelope.ToXml().OuterXml);
+            Logger.Log(TraceEventType.Verbose, requestEnvelope.XmlDocument.OuterXml);
             ValidateResponse(requestEnvelope, responseContainer);
             Logger.Log(TraceEventType.Verbose, responseContainer.Envelope.InnerXml);
             return SerializeUtil.Deserialize<T>(responseContainer.BodyElement.InnerXml);
@@ -164,7 +163,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public async Task<PrintSertifikatSvar> HentPrintSertifikatAsynkront()
         {
-            var requestEnvelope = new PrintSertifikatEnvelope(OppslagstjenesteInstillinger);
+            var requestEnvelope = new PrintSertifikatEnvelope(OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.SendPåVegneAv);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
             var dtoObject = ValidateAndConvertToDtoObject<HentPrintSertifikatRespons>(requestEnvelope, responseDocument);
             return DtoConverter.ToDomainObject(dtoObject);
@@ -172,7 +171,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private void ValidateResponse(AbstractEnvelope envelope, ResponseContainer responseContainer)
         {
-            var responsvalidator = new Oppslagstjenestevalidator(envelope.ToXml(), responseContainer, OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.Miljø as Miljø);
+            var responsvalidator = new Oppslagstjenestevalidator(envelope.XmlDocument, responseContainer, OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.Miljø as Miljø);
             responsvalidator.Valider();
         }
     }

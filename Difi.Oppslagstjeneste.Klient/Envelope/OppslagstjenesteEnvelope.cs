@@ -9,37 +9,47 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public abstract class OppslagstjenesteEnvelope : AbstractEnvelope
     {
-        protected OppslagstjenesteEnvelope(OppslagstjenesteInstillinger instillinger)
+        internal string SendPåVegneAv { get; }
+
+        protected OppslagstjenesteEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv)
             : base(instillinger)
         {
+            SendPåVegneAv = sendPåVegneAv;
         }
 
         protected XmlElement Security { get; private set; }
 
-        protected OppslagstjenesteInstillinger Instillinger
-        {
-            get { return Settings as OppslagstjenesteInstillinger; }
-        }
+        internal OppslagstjenesteInstillinger Instillinger => Settings as OppslagstjenesteInstillinger;
 
         protected override XmlElement CreateHeader()
         {
             var header = base.CreateHeader();
+
             Security = new Security(Settings, Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
-
-            Settings.BinarySecurityId = "X509-" + Guid.NewGuid();
-            var securityToken = new SecurityTokenReferenceClause(Instillinger.Avsendersertifikat,
-                Settings.BinarySecurityId);
-            var binaryToken = securityToken.GetTokenXml();
-            Security.AppendChild(Document.ImportNode(binaryToken, true));
-
             header.AppendChild(Security);
+
+            if (!string.IsNullOrEmpty(SendPåVegneAv))
+            {
+                var sendPåVegneAvNode = SendPåVegneAvNode();
+                header.AppendChild(sendPåVegneAvNode);
+            }
+
             return header;
+        }
+
+        private XmlElement SendPåVegneAvNode()
+        {
+            var oppslagstjenesten = Document.CreateElement("Oppslagstjenesten", Navnerom.OppslagstjenesteDefinisjon);
+            var paavegneav = Document.CreateElement("PaaVegneAv", Navnerom.OppslagstjenesteDefinisjon);
+            paavegneav.InnerXml = SendPåVegneAv;
+            oppslagstjenesten.AppendChild(paavegneav);
+
+            return oppslagstjenesten;
         }
 
         protected override XmlElement CreateBody()
         {
             var body = base.CreateBody();
-
             // Legger til Id på body node for å kunne identifisere body element fra header-signaturen.
             var idAttribute = Document.CreateAttribute("wsu", "Id", Navnerom.WssecurityUtility10);
             idAttribute.Value = Settings.BodyId;
@@ -56,7 +66,6 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             // Timestamp
             var tsReference = new Reference("#" + Settings.TimestampId);
-            //tsReference.AddTransform(new XmlDsigExcC14NTransform("wsse soapenv"));
             signed.AddReference(tsReference);
 
             // Body
@@ -65,7 +74,6 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             signed.AddReference(bodyReference);
 
             var securityToken = new SecurityTokenReferenceClause(Settings.BinarySecurityId);
-
             signed.KeyInfo.AddClause(securityToken);
             signed.KeyInfo.Id = string.Format("KS-{0}", Guid.NewGuid());
 

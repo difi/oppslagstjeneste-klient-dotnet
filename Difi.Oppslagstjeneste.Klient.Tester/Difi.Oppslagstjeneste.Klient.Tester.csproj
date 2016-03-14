@@ -74,6 +74,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Envelope\EndringerEnvelopeTests.cs" />
+    <Compile Include="Envelope\PersonerEnvelopeTests.cs" />
+    <Compile Include="Envelope\PrintSertifikatEnvelopeTests.cs" />
     <Compile Include="DtoConverterTests.cs" />
     <Compile Include="Fakes\FakeHttpClientHandler.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerResponse.cs" />

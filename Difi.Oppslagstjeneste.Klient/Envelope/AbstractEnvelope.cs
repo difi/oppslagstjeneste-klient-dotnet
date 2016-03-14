@@ -5,26 +5,28 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public abstract class AbstractEnvelope
     {
-        private bool _isCreated;
+        internal readonly EnvelopeSettings Settings;
+
+        protected XmlDocument Document { get; set; }
 
         protected AbstractEnvelope(EnvelopeSettings settings = null)
         {
             if (settings == null)
-                settings = new EnvelopeSettings(SoapVersion.Soap12);
-            Settings = settings;
-
-            Document = new XmlDocument {PreserveWhitespace = true};
-
-            var baseNode = Document.CreateElement("soap", "Envelope", Navnerom.SoapEnvelope12);
-            Document.AppendChild(baseNode);
-
-            var xmlDeclaration = Document.CreateXmlDeclaration("1.0", "UTF-8", null);
-            Document.InsertBefore(xmlDeclaration, Document.DocumentElement);
+                settings = new EnvelopeSettings();
+            Settings = settings;   
         }
 
-        public XmlDocument Document { get; }
-
-        public EnvelopeSettings Settings { get; set; }
+        public XmlDocument XmlDocument
+        {
+            get
+            {
+                if (Document == null)
+                {
+                    InitializeXmlDocument();
+                }
+                return Document;
+            }
+        }
 
         protected virtual XmlElement CreateHeader()
         {
@@ -44,17 +46,17 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
         }
 
-        public XmlDocument ToXml()
+        private void InitializeXmlDocument()
         {
-            if (!_isCreated)
-            {
-                var header = CreateHeader();
-                Document.DocumentElement.AppendChild(header);
-                Document.DocumentElement.AppendChild(CreateBody());
-                AddSignatureToHeader(header);
-                _isCreated = true;
-            }
-            return Document;
+            Document = new XmlDocument { PreserveWhitespace = true };
+            var baseNode = Document.CreateElement("soap", "Envelope", Navnerom.SoapEnvelope12);
+            Document.AppendChild(baseNode);
+            var xmlDeclaration = Document.CreateXmlDeclaration("1.0", "UTF-8", null);
+            Document.InsertBefore(xmlDeclaration, Document.DocumentElement);
+            var header = CreateHeader();
+            Document.DocumentElement.AppendChild(header);
+            Document.DocumentElement.AppendChild(CreateBody());
+            AddSignatureToHeader(header);
         }
     }
 }

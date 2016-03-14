@@ -1,11 +1,9 @@
 ﻿using System.Text;
 using ApiClientShared;
-using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
 {
