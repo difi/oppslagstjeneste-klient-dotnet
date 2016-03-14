@@ -17,25 +17,20 @@ namespace Difi.Oppslagstjeneste.Klient
 {
     internal class OppslagstjenesteHelper
     {
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
         public OppslagstjenesteHelper(OppslagstjenesteKonfigurasjon konfigurasjon, OppslagstjenesteInstillinger oppslagstjenesteInstillinger)
         {
             Instillinger = oppslagstjenesteInstillinger;
             OppslagstjenesteKonfigurasjon = konfigurasjon;
-
-            InitializeHttpClient();
+            _httpClient  = new HttpClient(HttpClientHandlerChain());
+         
         }
 
         internal OppslagstjenesteInstillinger Instillinger { get; }
 
         public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
-
-        private void InitializeHttpClient()
-        {
-            _httpClient = new HttpClient(HttpClientHandlerChain());
-        }
-
+        
         public async Task<ResponseContainer> SendAsync(AbstractEnvelope envelope)
         {
             ValidateRequest(envelope);
@@ -69,7 +64,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 };
             }
 
-            return new CustomRequestHeaderHandler(httpClientHandler);
+            return new RequestHeaderHandler(httpClientHandler);
         }
 
         private static void CheckResponseForErrors(Stream soapResponse)
