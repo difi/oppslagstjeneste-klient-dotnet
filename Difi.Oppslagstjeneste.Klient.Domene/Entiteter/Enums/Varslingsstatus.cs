@@ -1,4 +1,4 @@
-﻿namespace Difi.Oppslagstjeneste.Klient.Domene.Enums
+﻿namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums
 {
     /// <summary>
     ///     Varslingsstatus gir en tekstlig beskrivelse av om bruker har utgått kontaktinformasjon eller ikke, ihht

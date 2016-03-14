@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using Difi.Oppslagstjeneste.Klient.Domene.Enums;
+using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
+using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.DTO;
-using Difi.Oppslagstjeneste.Klient.Svar;
 using Epostadresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Epostadresse;
 using Kontaktinformasjon = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Kontaktinformasjon;
 using Mobiltelefonnummer = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Mobiltelefonnummer;
@@ -13,45 +13,45 @@ using SikkerDigitalPostAdresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.S
 
 namespace Difi.Oppslagstjeneste.Klient
 {
-    public class DtoKonverterer
+    public class DtoConverter
     {
-        public static IEnumerable<Person> TilDomeneObjekt(DTO.Person[] person)
+        public static IEnumerable<Person> ToDomainObject(DTO.Person[] person)
         {
-            return person.Select(TilDomeneObjekt).ToList();
+            return person.Select(ToDomainObject).ToList();
         }
 
-        public static Person TilDomeneObjekt(DTO.Person dtoPerson)
+        public static Person ToDomainObject(DTO.Person dtoPerson)
         {
             var person = new Person
             {
-                Kontaktinformasjon = TilDomeneObjekt(dtoPerson.Kontaktinformasjon),
+                Kontaktinformasjon = ToDomainObject(dtoPerson.Kontaktinformasjon),
                 Personidentifikator = dtoPerson.personidentifikator
             };
 
             if (dtoPerson.reservasjonSpecified)
-                person.Reservasjon = TilDomeneObjekt(dtoPerson.reservasjon).Value;
-            person.SikkerDigitalPostAdresse = TilDomeneObjekt(dtoPerson.SikkerDigitalPostAdresse);
+                person.Reservasjon = ToDomainObject(dtoPerson.reservasjon).Value;
+            person.SikkerDigitalPostAdresse = ToDomainObject(dtoPerson.SikkerDigitalPostAdresse);
             if (dtoPerson.statusSpecified)
-                person.Status = TilDomeneObjekt(dtoPerson.status);
-            person.X509Sertifikat = TilDomeneObjekt(dtoPerson.X509Sertifikat);
+                person.Status = ToDomainObject(dtoPerson.status);
+            person.X509Sertifikat = ToDomainObject(dtoPerson.X509Sertifikat);
             if (dtoPerson.varslingsstatusSpecified)
                 person.Varslingsstatus = (Varslingsstatus) Enum.Parse(typeof (Varslingsstatus), dtoPerson.varslingsstatus.ToString());
 
             return person;
         }
 
-        public static X509Certificate2 TilDomeneObjekt(byte[] x509Sertifikat)
+        public static X509Certificate2 ToDomainObject(byte[] x509Sertifikat)
         {
             return x509Sertifikat == null ? null : new X509Certificate2(x509Sertifikat);
         }
 
-        private static Status TilDomeneObjekt(status status)
+        private static Status ToDomainObject(status status)
         {
             var tilstand = Enum.Parse(typeof (Status), status.ToString());
             return (Status) tilstand;
         }
 
-        private static SikkerDigitalPostAdresse TilDomeneObjekt(DTO.SikkerDigitalPostAdresse dtoSikkerDigitalPostAdresse)
+        private static SikkerDigitalPostAdresse ToDomainObject(DTO.SikkerDigitalPostAdresse dtoSikkerDigitalPostAdresse)
         {
             if (dtoSikkerDigitalPostAdresse == null)
             {
@@ -66,26 +66,26 @@ namespace Difi.Oppslagstjeneste.Klient
             return sikkerDigitalPostAdresse;
         }
 
-        private static bool? TilDomeneObjekt(reservasjon reservasjon)
+        private static bool? ToDomainObject(reservasjon reservasjon)
         {
             return reservasjon == reservasjon.JA;
         }
 
-        private static Kontaktinformasjon TilDomeneObjekt(DTO.Kontaktinformasjon dtoKontaktinformasjon)
+        private static Kontaktinformasjon ToDomainObject(DTO.Kontaktinformasjon dtoKontaktinformasjon)
         {
             if (dtoKontaktinformasjon == null)
                 return null;
 
             var kontaktinformasjon = new Kontaktinformasjon
             {
-                Epostadresse = TilDomeneObjekt(dtoKontaktinformasjon.Epostadresse),
-                Mobiltelefonnummer = TilDomeneObjekt(dtoKontaktinformasjon.Mobiltelefonnummer)
+                Epostadresse = ToDomainObject(dtoKontaktinformasjon.Epostadresse),
+                Mobiltelefonnummer = ToDomainObject(dtoKontaktinformasjon.Mobiltelefonnummer)
             };
 
             return kontaktinformasjon;
         }
 
-        private static Mobiltelefonnummer TilDomeneObjekt(DTO.Mobiltelefonnummer dtoMobiltelefonnummer)
+        private static Mobiltelefonnummer ToDomainObject(DTO.Mobiltelefonnummer dtoMobiltelefonnummer)
         {
             if (dtoMobiltelefonnummer == null)
                 return null;
@@ -103,11 +103,11 @@ namespace Difi.Oppslagstjeneste.Klient
             return mobiltelefonnummer;
         }
 
-        internal static EndringerSvar TilDomeneObjekt(HentEndringerRespons hentEndringerRespons)
+        internal static EndringerSvar ToDomainObject(HentEndringerRespons hentEndringerRespons)
         {
             var endringerSvar = new EndringerSvar
             {
-                Personer = TilDomeneObjekt(hentEndringerRespons.Person),
+                Personer = ToDomainObject(hentEndringerRespons.Person),
                 FraEndringsNummer = hentEndringerRespons.fraEndringsNummer,
                 TilEndringsNummer = hentEndringerRespons.tilEndringsNummer,
                 SenesteEndringsNummer = hentEndringerRespons.senesteEndringsNummer
@@ -116,7 +116,7 @@ namespace Difi.Oppslagstjeneste.Klient
             return endringerSvar;
         }
 
-        private static Epostadresse TilDomeneObjekt(DTO.Epostadresse dtoEpostadresse)
+        private static Epostadresse ToDomainObject(DTO.Epostadresse dtoEpostadresse)
         {
             if (dtoEpostadresse == null)
                 return null;
@@ -134,11 +134,23 @@ namespace Difi.Oppslagstjeneste.Klient
             return epostadresse;
         }
 
-        internal static PersonerSvar TilDomeneObjekt(HentPersonerRespons dtoHentPersonerRespons)
+        internal static PersonerSvar ToDomainObject(HentPersonerRespons dtoHentPersonerRespons)
         {
-            var personerSvar = new PersonerSvar {Personer = TilDomeneObjekt(dtoHentPersonerRespons.Person)};
+            var personerSvar = new PersonerSvar {Personer = ToDomainObject(dtoHentPersonerRespons.Person)};
 
             return personerSvar;
         }
+
+        internal static PrintSertifikatSvar ToDomainObject(HentPrintSertifikatRespons result)
+        {
+            var printSertifikatSvar = new PrintSertifikatSvar
+            {
+                Printsertifikat = ToDomainObject(result.X509Sertifikat),
+                PostkasseleverandørAdresse = result.postkasseleverandoerAdresse
+            };
+
+            return printSertifikatSvar;
+        }
+        
     }
 }

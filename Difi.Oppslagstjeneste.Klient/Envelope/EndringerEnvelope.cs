@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
+using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
+using Difi.Oppslagstjeneste.Klient.DTO;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
@@ -20,7 +22,6 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         protected override XmlElement CreateBody()
         {
             var body = base.CreateBody();
-
             // HentEndringerForespoersel
             var hentEndringer = Document.CreateElement("ns", "HentEndringerForespoersel",
                 Navnerom.OppslagstjenesteDefinisjon);

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using ApiClientShared;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
+using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
@@ -14,10 +14,10 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         [ClassInitialize]
         public static void ParseSoapExceptionSuksess(TestContext context)
         {
-            var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler");
-            var feilmelding = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "Respons", "Feilmelding.xml"));
+            var feilmelding = TestResourceUtility.Response.SoapFaultResponse.AsText();
             _exception = new SoapException(feilmelding);
         }
+
 
         [TestMethod]
         public void HentSkyldigSuksess()

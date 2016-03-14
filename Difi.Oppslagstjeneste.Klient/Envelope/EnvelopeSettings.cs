@@ -1,5 +1,4 @@
 ﻿using System;
-using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {

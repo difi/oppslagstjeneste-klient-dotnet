@@ -1,6 +1,5 @@
 ﻿using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
-using Difi.Oppslagstjeneste.Klient.Domene.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
@@ -8,14 +7,13 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
     {
         private bool _isCreated;
 
-        public AbstractEnvelope(EnvelopeSettings settings = null)
+        protected AbstractEnvelope(EnvelopeSettings settings = null)
         {
             if (settings == null)
                 settings = new EnvelopeSettings(SoapVersion.Soap12);
             Settings = settings;
 
-            Document = new XmlDocument();
-            Document.PreserveWhitespace = true;
+            Document = new XmlDocument {PreserveWhitespace = true};
 
             var baseNode = Document.CreateElement("soap", "Envelope", Navnerom.SoapEnvelope12);
             Document.AppendChild(baseNode);

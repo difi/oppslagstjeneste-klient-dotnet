@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Xml;
+using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Envelope;
+using Difi.Oppslagstjeneste.Klient.Svar;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
 {
-    public class OppslagstjenestevalidatorMedStubbetSjekkTimestamp : Oppslagstjenestevalidator
+    internal class OppslagstjenestevalidatorMedStubbetSjekkTimestamp : Oppslagstjenestevalidator
     {
-        public OppslagstjenestevalidatorMedStubbetSjekkTimestamp(XmlDocument sendtDokument, XmlDocument mottattDokument,
+        public OppslagstjenestevalidatorMedStubbetSjekkTimestamp(XmlDocument sendtDokument, ResponseContainer responseContainer,
             OppslagstjenesteInstillinger oppslagstjenesteInstillinger, Miljø miljø)
-            : base(sendtDokument, mottattDokument, oppslagstjenesteInstillinger, miljø)
+            : base(sendtDokument, responseContainer, oppslagstjenesteInstillinger, miljø)
         {
         }
 

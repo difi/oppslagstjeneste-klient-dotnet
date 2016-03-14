@@ -1,7 +1,11 @@
 ﻿using System.Text;
 using ApiClientShared;
+using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Envelope;
+using Difi.Oppslagstjeneste.Klient.Svar;
+using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
 {
@@ -15,49 +19,20 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
             public void EnkelKonstruktør()
             {
                 //Arrange
-                var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler");
-                var sendtTekst = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "Forespørsel", "HentPersonerForespørsel.xml"));
-                var mottattTekst = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "Respons", "HentPersonerRespons.xml"));
-                var sendtDokument = XmlUtility.TilXmlDokument(sendtTekst);
-                var mottattDokument = XmlUtility.TilXmlDokument(mottattTekst);
+                var requestXmlDocument = TestResourceUtility.Request.PersonRequest.AsXmlDocument();
+                var responseXmlDocument = TestResourceUtility.Response.PersonResponse.AsXmlDocument();
                 var oppslagstjenesteInstillinger = new OppslagstjenesteInstillinger();
                 var miljø = Miljø.FunksjoneltTestmiljø;
+                var responseContainer = new ResponseContainer(responseXmlDocument);
 
                 //Act
-                var oppslagstjenestevalidator = new Oppslagstjenestevalidator(sendtDokument, mottattDokument, oppslagstjenesteInstillinger, miljø);
+                var oppslagstjenestevalidator = new Oppslagstjenestevalidator(requestXmlDocument, responseContainer, oppslagstjenesteInstillinger, miljø);
 
                 //Assert
-                Assert.AreEqual(sendtDokument, oppslagstjenestevalidator.SendtDokument);
-                Assert.AreEqual(mottattDokument, oppslagstjenestevalidator.MottattDokument);
+                Assert.AreEqual(requestXmlDocument, oppslagstjenestevalidator.SendtDokument);
+                Assert.AreEqual(responseXmlDocument, responseContainer.Envelope);
                 Assert.AreEqual(oppslagstjenesteInstillinger, oppslagstjenestevalidator.OppslagstjenesteInstillinger);
                 Assert.AreEqual(miljø, oppslagstjenestevalidator.Miljø);
-            }
-        }
-
-        [TestClass]
-        public class ValiderMethod : OppslagstjenesteValidatorTests
-        {
-            [Ignore]
-            [TestMethod]
-            public void ValidererGyldigXml()
-            {
-                //Arrange
-                var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Testdata.Ressurser");
-                var sendtTekst = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentPersonerRequest.xml"));
-                var mottattTekst = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentPersonerResponse.xml"));
-                var sendtDokument = XmlUtility.TilXmlDokument(sendtTekst);
-                var mottattDokument = XmlUtility.TilXmlDokument(mottattTekst);
-                var oppslagstjenesteInstillinger = new OppslagstjenesteInstillinger();
-                var miljø = Miljø.FunksjoneltTestmiljø;
-
-                var oppslagstjenestevalidator = new OppslagstjenestevalidatorMedStubbetSjekkTimestamp(sendtDokument,
-                    mottattDokument, oppslagstjenesteInstillinger, miljø);
-
-                //Act
-                oppslagstjenestevalidator.Valider();
-
-                //Assert
-                //Feiler om validering feiler.
             }
         }
     }

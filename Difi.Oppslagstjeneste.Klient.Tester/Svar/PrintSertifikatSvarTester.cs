@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using ApiClientShared;
+using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
+using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Svar;
+using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
@@ -15,10 +16,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Eksempler.Respons");
-            var mottattPrintSertifikatRespons = Encoding.UTF8.GetString(resourceUtility.ReadAllBytes(true, "HentPrintSertifikatRespons.xml"));
-            var xmlDokument = XmlUtility.TilXmlDokument(mottattPrintSertifikatRespons);
-            _printSertifikatSvar = new PrintSertifikatSvar(xmlDokument);
+            var xmlDocument = TestResourceUtility.Response.PrintSertificatResponse.AsXmlDocument();
+            var responseDokument = new ResponseContainer(xmlDocument);
+            _printSertifikatSvar = DtoConverter.ToDomainObject(SerializeUtil.Deserialize<HentPrintSertifikatRespons>(responseDokument.BodyElement.InnerXml));
         }
 
         [TestMethod]
