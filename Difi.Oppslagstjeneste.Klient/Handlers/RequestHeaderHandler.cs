@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Difi.Oppslagstjeneste.Klient.Handlers
 {
-    internal class CustomRequestHeaderHandler : DelegatingHandler
+    internal class RequestHeaderHandler : DelegatingHandler
     {
-        public CustomRequestHeaderHandler()
+        public RequestHeaderHandler()
             : base(new HttpClientHandler())
         {
         }
 
-        public CustomRequestHeaderHandler(HttpMessageHandler innerHandler)
+        public RequestHeaderHandler(HttpMessageHandler innerHandler)
             : base(innerHandler)
         {
         }

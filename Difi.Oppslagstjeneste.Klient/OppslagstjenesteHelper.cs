@@ -69,7 +69,7 @@ namespace Difi.Oppslagstjeneste.Klient
                 };
             }
 
-            return new CustomRequestHeaderHandler(httpClientHandler);
+            return new RequestHeaderHandler(httpClientHandler);
         }
 
         private static void CheckResponseForErrors(Stream soapResponse)

@@ -9,7 +9,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public abstract class OppslagstjenesteEnvelope : AbstractEnvelope
     {
-        internal readonly string SendPåVegneAv;
+        internal string SendPåVegneAv { get; }
 
         protected OppslagstjenesteEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv)
             : base(instillinger)
@@ -24,19 +24,16 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         protected override XmlElement CreateHeader()
         {
             var header = base.CreateHeader();
-            Security = new Security(Settings, Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
 
-            Settings.BinarySecurityId = "X509-" + Guid.NewGuid();
-            var securityToken = new SecurityTokenReferenceClause(Instillinger.Avsendersertifikat,
-                Settings.BinarySecurityId);
-            var binaryToken = securityToken.GetTokenXml();
-            Security.AppendChild(Document.ImportNode(binaryToken, true));
+            Security = new Security(Settings, Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
             header.AppendChild(Security);
+
             if (!string.IsNullOrEmpty(SendPåVegneAv))
             {
-                var oppslagstjenesten = SendPåVegneAvNode();
-                header.AppendChild(oppslagstjenesten);
+                var sendPåVegneAvNode = SendPåVegneAvNode();
+                header.AppendChild(sendPåVegneAvNode);
             }
+
             return header;
         }
 
@@ -77,7 +74,6 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             signed.AddReference(bodyReference);
 
             var securityToken = new SecurityTokenReferenceClause(Settings.BinarySecurityId);
-
             signed.KeyInfo.AddClause(securityToken);
             signed.KeyInfo.Id = string.Format("KS-{0}", Guid.NewGuid());
 

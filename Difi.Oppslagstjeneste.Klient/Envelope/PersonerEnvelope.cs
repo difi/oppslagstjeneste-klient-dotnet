@@ -7,8 +7,9 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public sealed class PersonerEnvelope : OppslagstjenesteEnvelope
     {
-        internal readonly Informasjonsbehov Informasjonsbehov;
-        internal readonly string[] Personidentifikator;
+        internal Informasjonsbehov Informasjonsbehov { get; }
+
+        internal string[] Personidentifikator { get; }
 
         public PersonerEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv, string[] personidentifikator, Informasjonsbehov informasjonsbehov)
             : base(instillinger, sendPåVegneAv)

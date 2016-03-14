@@ -7,8 +7,9 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     public sealed class EndringerEnvelope : OppslagstjenesteEnvelope
     {
-        internal readonly long FraEndringsNummer;
-        internal readonly Informasjonsbehov Informasjonsbehov;
+        internal long FraEndringsNummer { get; }
+
+        internal Informasjonsbehov Informasjonsbehov { get; }
 
         public EndringerEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv, long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
             : base(instillinger, sendPåVegneAv)

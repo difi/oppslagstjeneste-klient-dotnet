@@ -2,6 +2,7 @@
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Extensions;
+using Difi.Oppslagstjeneste.Klient.Security;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
@@ -14,14 +15,19 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
             _timespan = timestampexpirey;
         }
+        internal OppslagstjenesteInstillinger Instillinger => Settings as OppslagstjenesteInstillinger;
 
         public override XmlNode Xml()
         {
             var securityElement = Context.CreateElement("wsse", "Security", Navnerom.WssecuritySecext10);
             securityElement.SetAttribute("xmlns:wsu", Navnerom.WssecurityUtility10);
-
+            
             if (_timespan.HasValue)
                 securityElement.AppendChild(TimestampElement());
+
+            var securityToken = Context.ImportNode(new SecurityTokenReferenceClause(Instillinger.Avsendersertifikat, Settings.BinarySecurityId).GetTokenXml(),true);
+            securityElement.AppendChild(securityToken);
+
             return securityElement;
         }
 
