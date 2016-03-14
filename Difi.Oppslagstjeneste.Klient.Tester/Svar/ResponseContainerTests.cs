@@ -13,10 +13,10 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
     public class ResponseContainerTests
     {
         [TestClass]
-        public class ResponseContainerMethod : ResponseContainerTests
+        public class ResponseContainerConstructor : ResponseContainerTests
         {
             [TestMethod]
-            public void ResponseDokumentMedDekryptertResponse()
+            public void ResponseContainerWithDecryptedResponse()
             {
                 //Arrange
                 var xmlResponse = TestResourceUtility.Response.PersonResponse.AsXmlDocument();
@@ -43,7 +43,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
             }
 
             [TestMethod]
-            public void ResponseDokumentMedKryptertResponse()
+            public void ResponseContainerWithEncryptedResponse()
             {
                 //Arrange
                 var xmlResponse = TestResourceUtility.Response.PersonResponseEncrypted.AsXmlDocument();
