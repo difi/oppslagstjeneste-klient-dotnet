@@ -32,9 +32,9 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
                 );
 
             var personer = register.HentPersoner(new[] {"08077000292"},
-                Informasjonsbehov.Kontaktinfo |
-                Informasjonsbehov.Sertifikat |
-                Informasjonsbehov.SikkerDigitalPost |
+                Informasjonsbehov.Kontaktinfo ,
+                Informasjonsbehov.Sertifikat ,
+                Informasjonsbehov.SikkerDigitalPost ,
                 Informasjonsbehov.VarslingsStatus
                 );
 
