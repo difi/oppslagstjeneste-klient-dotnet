@@ -31,7 +31,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
             Assert.AreEqual(envelope.SendPåVegneAv, sendPåVegneAv);
             Assert.AreEqual(envelope.Instillinger, innstillinger);
 
-            envelope.ToXml();
+            Assert.IsNotNull(envelope.XmlDocument);
         }
     }
 }

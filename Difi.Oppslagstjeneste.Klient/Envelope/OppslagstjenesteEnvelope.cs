@@ -53,7 +53,6 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         protected override XmlElement CreateBody()
         {
             var body = base.CreateBody();
-
             // Legger til Id på body node for å kunne identifisere body element fra header-signaturen.
             var idAttribute = Document.CreateAttribute("wsu", "Id", Navnerom.WssecurityUtility10);
             idAttribute.Value = Settings.BodyId;

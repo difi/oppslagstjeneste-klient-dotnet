@@ -2,11 +2,10 @@
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
-using Difi.Oppslagstjeneste.Klient.DTO;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public class EndringerEnvelope : OppslagstjenesteEnvelope
+    public sealed class EndringerEnvelope : OppslagstjenesteEnvelope
     {
         internal readonly long FraEndringsNummer;
         internal readonly Informasjonsbehov Informasjonsbehov;
@@ -16,6 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
             FraEndringsNummer = fraEndringsNummer;
             Informasjonsbehov = informasjonsbehov;
+            
         }
 
         protected override XmlElement CreateBody()
@@ -35,8 +35,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
                     hentEndringer.AppendChild(node);
                 }
             }
-
             return body;
         }
+        
     }
 }

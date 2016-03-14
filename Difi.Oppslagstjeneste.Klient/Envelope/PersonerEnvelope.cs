@@ -5,7 +5,7 @@ using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public class PersonerEnvelope : OppslagstjenesteEnvelope
+    public sealed class PersonerEnvelope : OppslagstjenesteEnvelope
     {
         internal readonly Informasjonsbehov Informasjonsbehov;
         internal readonly string[] Personidentifikator;
@@ -20,9 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         protected override XmlElement CreateBody()
         {
             var body = base.CreateBody();
-
             var element = Document.CreateElement("ns", "HentPersonerForespoersel", Navnerom.OppslagstjenesteDefinisjon);
-
             foreach (Informasjonsbehov info in Enum.GetValues(typeof (Informasjonsbehov)))
             {
                 if (Informasjonsbehov.HasFlag(info))

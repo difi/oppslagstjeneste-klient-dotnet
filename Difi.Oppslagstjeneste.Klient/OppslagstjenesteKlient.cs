@@ -98,7 +98,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<EndringerSvar> HentEndringerAsynkront(long fraEndringsNummer, Informasjonsbehov informasjonsbehov)
         {
             var requestEnvelope = new EndringerEnvelope(OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.SendPåVegneAv, fraEndringsNummer, informasjonsbehov);
-            Logger.Log(TraceEventType.Verbose, requestEnvelope.ToXml().OuterXml);
+            Logger.Log(TraceEventType.Verbose, requestEnvelope.XmlDocument.OuterXml);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
             var dtoObject = ValidateAndConvertToDtoObject<HentEndringerRespons>(requestEnvelope, responseDocument);
             return DtoConverter.ToDomainObject(dtoObject);
@@ -142,7 +142,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private T ValidateAndConvertToDtoObject<T>(AbstractEnvelope requestEnvelope, ResponseContainer responseContainer)
         {
-            Logger.Log(TraceEventType.Verbose, requestEnvelope.ToXml().OuterXml);
+            Logger.Log(TraceEventType.Verbose, requestEnvelope.XmlDocument.OuterXml);
             ValidateResponse(requestEnvelope, responseContainer);
             Logger.Log(TraceEventType.Verbose, responseContainer.Envelope.InnerXml);
             return SerializeUtil.Deserialize<T>(responseContainer.BodyElement.InnerXml);
@@ -171,7 +171,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private void ValidateResponse(AbstractEnvelope envelope, ResponseContainer responseContainer)
         {
-            var responsvalidator = new Oppslagstjenestevalidator(envelope.ToXml(), responseContainer, OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.Miljø as Miljø);
+            var responsvalidator = new Oppslagstjenestevalidator(envelope.XmlDocument, responseContainer, OppslagstjenesteInstillinger, OppslagstjenesteKonfigurasjon.Miljø as Miljø);
             responsvalidator.Valider();
         }
     }
