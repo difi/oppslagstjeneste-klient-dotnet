@@ -55,13 +55,17 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private HttpMessageHandler HttpClientHandlerChain()
         {
-            var httpClientHandler = new HttpClientHandler();
+            HttpClientHandler httpClientHandler;
             if (OppslagstjenesteKonfigurasjon.BrukProxy)
             {
                 httpClientHandler = new HttpClientHandler
                 {
                     Proxy = Proxy()
                 };
+            }
+            else
+            {
+                httpClientHandler = new HttpClientHandler();
             }
 
             return new RequestHeaderHandler(httpClientHandler);
