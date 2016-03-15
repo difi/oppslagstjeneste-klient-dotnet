@@ -28,7 +28,7 @@ kun én gang, og etter dette kan du bruke sertifikatet i koden uten å eksponere
 <code>OppslagstjenesteKlient</code> har støtte for å ta inn _thumbprint_ direkte:
 
 {% highlight csharp %}
-OppslagstjenesteKlient(avsendersertifikatThumbprint, valideringssertifikatThumbprint)
+OppslagstjenesteKlient(avsendersertifikatThumbprint, konfigurasjon);
 {% endhighlight %}
 
  . For å finne _thumbprint_ så er det lettest å gjøre det vha _Microsoft Management Console_ (mmc.exe). 
@@ -39,7 +39,6 @@ OppslagstjenesteKlient(avsendersertifikatThumbprint, valideringssertifikatThumbp
 4.  Velg _My user account_ og trykk _Finish_
 5.	Åpne mappe for sertifikat
 	1. Avsendersertifikat: Åpne noden _Certificates - Current User - Personal - Certificates_
-	2. Valideringssertifikat: Åpne noden _Certificates - Current User - Trusted People - Certificates_
 6. 	Dobbeltklikk på sertifikatet du installerte
 7.	Velg _Details_, scroll ned til _Thumbprint_ og kopier
 8.	VIKTIG: Hvis du får problemer i kode med at sertifikat ikke finnes, så kan det hende du får med en usynling _BOM_(Byte Order Mark). Slett derfor denne med å sette peker før første tegn i thumbprint i en teksteditor. Hvis det var en BOM der så forsvant ikke det første synlige tegnet i thumbprint. 

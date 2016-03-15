@@ -2,7 +2,7 @@
 title: Eksempel på kall
 id: eksempelforsending
 layout: default
-isHome: true
+isHome: false
 ---
 
 Det er bare tre kall du kan gjøre mot oppslagstjenesten; hente endringer, hente personer og hente printsertifikat. Her er et minimumseksempel på hva du må ha når du har fått hentet sertifikatene som er installert.
