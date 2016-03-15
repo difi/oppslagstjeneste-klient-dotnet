@@ -25,7 +25,7 @@ var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.Fun
 {% endhighlight%}
 <h3 id="sendpaavegneav">På vegne av</h3>
 
-For å gjøre oppslag på vegne av en annen virksomhet settes organisasjonsnummeret til gitt bedrift i `SendPåVegneAv` propertien:
+For å gjøre oppslag på vegne av en annen virksomhet settes organisasjonsnummeret til gitt bedrift i `OppslagstjenesteKonfigurasjon.SendPåVegneAv`:
 {% highlight csharp%}
 
 var testmiljøKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
