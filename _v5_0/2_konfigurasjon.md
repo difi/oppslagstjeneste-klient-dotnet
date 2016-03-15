@@ -2,7 +2,7 @@
 title: Konfigurasjon
 id: konfigurasjon
 layout: default
-isHome: true
+isHome: false
 ---
 
 OppslagstjenesteKonfigurasjon initieres med hvilket miljø man ønsker å kjøre mot. FunksjoneltTestmiljø eller Produksjonsmiljø.
