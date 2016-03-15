@@ -1,5 +1,6 @@
 # name of the software
 name: Oppslagstjeneste .NET
+siteUrlText: http://difi.github.io/oppslagstjeneste-klient-dotnet
 # current version of the software
 version: 0.1
 # url of the download button
@@ -9,10 +10,20 @@ license: Apace Licence 2.0
 licenseUrl: https://www.apache.org/licenses/LICENSE-2.0
 
 #baseurl: "/sikker-digital-post-net-klient" # the subpath of your site, e.g. /blog/
-coreUrl: "/oppslagstjeneste-klient-dotnet"
+baseurl: "/oppslagstjeneste-klient-dotnet"
+
+##Version handling
+currentCollecion: "v5_0"
+currentVersion: "5.0"
+versions: ["5.0"]
+
+# Collection of versions
 collections:
-  doks:
+  v5_0:  
     output: true
+    permalink: /v5.0/
+
+aboutSide: "about.html"
 
 # list of additional links on the right of the top menu
 headerLinks:
@@ -21,10 +32,12 @@ headerLinks:
 
 # list if additional links on the footer
 footerLinks:
+  - title: Om oppslagstjenesten
+    url: /oppslagstjeneste-klient-dotnet/about.html
   - title: GitHub
-    url: https://github.com/difi/sikker-digital-post-oppslagstjeneste-dotnet
+    url: https://github.com/difi/oppslagstjeneste-klient-dotnet
   - title: Issues
-    url: https://github.com/difi/sikker-digital-post-oppslagstjeneste-dotnet/issues
+    url: https://github.com/difi/oppslagstjeneste-klient-dotnet/issues
 
 # header
 header:
@@ -57,4 +70,11 @@ analytics:
 # DON'T MODIFY
 highlight: rouge
 
+gems:
+  - jekyll-redirect-from
+
 exclude: ['README.md', 'Gemfile.lock', 'Gemfile']
+
+kramdown:
+  input: GFM
+  
