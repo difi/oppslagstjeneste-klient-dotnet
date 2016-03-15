@@ -32,6 +32,10 @@ aboutSide: "about.html"
 headerLinks:
   - title: GitHub
     url: https://github.com/difi/sikker-digital-post-oppslagstjeneste-dotnet
+  - title: Om oppslagstjenesten
+    url: /oppslagstjeneste-klient-dotnet/about.html
+  - title: Issues
+    url: https://github.com/difi/oppslagstjeneste-klient-dotnet/issues
 
 # list if additional links on the footer
 footerLinks:
