@@ -3,10 +3,11 @@ layout: default
 title: .NET-klient for integrasjon med Difi's Oppslagstjeneste.
 description: 
 redirect_from: /
+id: index
 ---
 
 {% for dok in site.v5_0 %}
-	{% if dok.id %}
+	{% if dok.id != 'index' %}
 		<h2 id="{{dok.id}}">{{dok.title}}</h2>
 		<div class="body">
 			<p>{{dok.content}}</p>
