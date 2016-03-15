@@ -15,10 +15,13 @@ baseurl: "/oppslagstjeneste-klient-dotnet"
 ##Version handling
 currentCollecion: "v5_0"
 currentVersion: "5.0"
-versions: ["5.0"]
+versions: ["4.5","5.0"]
 
 # Collection of versions
 collections:
+  v4_5:  
+    output: true
+    permalink: /v4.5/
   v5_0:  
     output: true
     permalink: /v5.0/
