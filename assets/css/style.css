@@ -2,6 +2,11 @@ body{
   font-size: 16px;
 }
 
+.err
+{
+  color:#303132;background-color:transparent
+}
+
 .branding.sub-portal { /*Padding under logo i topp*/
   padding-bottom: 25px;
   font-size: 1.3em;
