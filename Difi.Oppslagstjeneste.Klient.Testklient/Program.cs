@@ -13,7 +13,9 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
         private static void Main(string[] args)
         {
             var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
-
+            konfigurasjon.ProxyHost = "sig-web.posten.no";
+            konfigurasjon.ProxyPort = 3128;
+            konfigurasjon.ProxyScheme = "http";
             Logger.Initialize(konfigurasjon);
             Logger.Log(TraceEventType.Information, "> Starter program!");
 

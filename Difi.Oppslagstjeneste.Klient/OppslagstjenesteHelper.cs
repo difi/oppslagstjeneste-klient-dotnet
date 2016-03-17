@@ -23,8 +23,8 @@ namespace Difi.Oppslagstjeneste.Klient
         {
             Instillinger = oppslagstjenesteInstillinger;
             OppslagstjenesteKonfigurasjon = konfigurasjon;
-            _httpClient  = new HttpClient(HttpClientHandlerChain());
-         
+            _httpClient = new HttpClient(HttpClientHandlerChain()) {Timeout = new TimeSpan(konfigurasjon.TimeoutIMillisekunder)};
+
         }
 
         internal OppslagstjenesteInstillinger Instillinger { get; }
@@ -60,12 +60,17 @@ namespace Difi.Oppslagstjeneste.Klient
             {
                 httpClientHandler = new HttpClientHandler
                 {
-                    Proxy = Proxy()
+                    Proxy = Proxy(),
+                    UseProxy = true
+                    
                 };
             }
             else
             {
-                httpClientHandler = new HttpClientHandler();
+                httpClientHandler = new HttpClientHandler
+                {
+                    UseProxy = false
+                };
             }
 
             return new RequestHeaderHandler(httpClientHandler);
