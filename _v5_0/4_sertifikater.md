@@ -31,14 +31,13 @@ kun én gang, og etter dette kan du bruke sertifikatet i koden uten å eksponere
 OppslagstjenesteKlient(avsendersertifikatThumbprint, konfigurasjon);
 {% endhighlight %}
 
- . For å finne _thumbprint_ så er det lettest å gjøre det vha _Microsoft Management Console_ (mmc.exe). 
+For å finne _thumbprint_ så er det lettest å gjøre det vha _Microsoft Management Console_ (mmc.exe). 
 
 1.  Start mmc.exe (Trykk windowstast og skriv _mmc.exe_)
 2.  Velg _File_ -> _Add/Remove Snap-in..._ 
 3.  Merk _Certificates_ og trykk _Add >_
 4.  Velg _My user account_ og trykk _Finish_
-5.	Åpne mappe for sertifikat
-	1. Avsendersertifikat: Åpne noden _Certificates - Current User - Personal - Certificates_
+5.	Åpne mappe for sertifikat og finn avsendersertifikat: Åpne noden _Certificates - Current User - Personal - Certificates_
 6. 	Dobbeltklikk på sertifikatet du installerte
 7.	Velg _Details_, scroll ned til _Thumbprint_ og kopier
 8.	VIKTIG: Hvis du får problemer i kode med at sertifikat ikke finnes, så kan det hende du får med en usynling _BOM_(Byte Order Mark). Slett derfor denne med å sette peker før første tegn i thumbprint i en teksteditor. Hvis det var en BOM der så forsvant ikke det første synlige tegnet i thumbprint. 
