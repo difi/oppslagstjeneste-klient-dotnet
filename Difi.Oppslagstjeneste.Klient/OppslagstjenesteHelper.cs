@@ -23,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient
         {
             Instillinger = oppslagstjenesteInstillinger;
             OppslagstjenesteKonfigurasjon = konfigurasjon;
-            _httpClient = new HttpClient(HttpClientHandlerChain()) {Timeout = new TimeSpan(konfigurasjon.TimeoutIMillisekunder)};
+            _httpClient = new HttpClient(HttpClientHandlerChain()) {Timeout =  TimeSpan.FromMilliseconds(konfigurasjon.TimeoutIMillisekunder)};
 
         }
 
