@@ -120,6 +120,9 @@
     <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-ws-16-02.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="XmlValidering\Xsd\w3\xml.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
       <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
