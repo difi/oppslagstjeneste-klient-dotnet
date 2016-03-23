@@ -16,8 +16,8 @@ This document and the information contained herein is provided on an “AS IS”
             elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all" version="0.2">
   <xsd:import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
               schemaLocation="oasis-200401-wss-wssecurity-utility-1.0.xsd" />
-  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="w3/xml.xsd" />
-  <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="w3/xmldsig-core-schema.xsd" />
+  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../w3/xml.xsd" />
+  <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="../w3/xmldsig-core-schema.xsd" />
   <xsd:complexType name="AttributedString">
     <xsd:annotation>
       <xsd:documentation>

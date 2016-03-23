@@ -13,6 +13,11 @@
         public const string XmlSchemaInstance = "http://www.w3.org/2001/XMLSchema-instance";
 
         /// <summary>
+        ///     http://www.w3.org/XML/1998/namespace
+        /// </summary>
+        public const string XmlNameSpace = "http://www.w3.org/XML/1998/namespace";
+
+        /// <summary>
         ///     http://kontaktinfo.difi.no/xsd/oppslagstjeneste/14-05
         /// </summary>
         public const string OppslagstjenesteDefinisjon = "http://kontaktinfo.difi.no/xsd/oppslagstjeneste/16-02";
