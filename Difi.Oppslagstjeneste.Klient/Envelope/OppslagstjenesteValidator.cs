@@ -12,14 +12,13 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
     internal class Oppslagstjenestevalidator : Responsvalidator
     {
         public Oppslagstjenestevalidator(XmlDocument sendtDokument, ResponseContainer responseContainer,
-            OppslagstjenesteInstillinger oppslagstjenesteInstillinger, Miljø miljø)
-            : base(sendtDokument, responseContainer, oppslagstjenesteInstillinger.Avsendersertifikat)
+            OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
+            : base(sendtDokument, responseContainer, oppslagstjenesteKonfigurasjon.Avsendersertifikat)
         {
-            OppslagstjenesteInstillinger = oppslagstjenesteInstillinger;
-            Miljø = miljø;
+            
+            Miljø = oppslagstjenesteKonfigurasjon.Miljø as Miljø;
         }
 
-        public OppslagstjenesteInstillinger OppslagstjenesteInstillinger { get; }
 
         public Miljø Miljø { get; set; }
 

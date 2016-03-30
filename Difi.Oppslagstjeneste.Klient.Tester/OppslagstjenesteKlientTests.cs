@@ -4,9 +4,9 @@ using System.Net;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
+using Difi.Oppslagstjeneste.Klient.Tester.Utilities;
 using Difi.Oppslagstjeneste.Klient.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Difi.Oppslagstjeneste.Klient.Tester.Utilities;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester
 {
@@ -45,17 +45,16 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
             {
                 //Arrange
                 var avsenderEnhetstesterSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
-                var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
+                var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsenderEnhetstesterSertifikat);
 
                 //Act
                 var oppslagstjenesteKlient = new OppslagstjenesteKlient(
-                    avsenderEnhetstesterSertifikat,
                     oppslagstjenesteKonfigurasjon
                     );
 
                 //Assert
                 Assert.AreEqual(avsenderEnhetstesterSertifikat,
-                    oppslagstjenesteKlient.OppslagstjenesteInstillinger.Avsendersertifikat);
+                    oppslagstjenesteKlient.OppslagstjenesteKonfigurasjon.Avsendersertifikat);
                 Assert.AreEqual(oppslagstjenesteKonfigurasjon, oppslagstjenesteKlient.OppslagstjenesteKonfigurasjon);
             }
         }

@@ -2,7 +2,7 @@
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public abstract class EnvelopeXmlPart
+    internal abstract class EnvelopeXmlPart
     {
         protected EnvelopeXmlPart(EnvelopeSettings settings, XmlDocument context)
         {

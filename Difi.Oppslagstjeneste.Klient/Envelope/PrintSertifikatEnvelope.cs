@@ -1,12 +1,13 @@
-﻿using System.Xml;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public sealed class PrintSertifikatEnvelope : OppslagstjenesteEnvelope
+    internal sealed class PrintSertifikatEnvelope : OppslagstjenesteEnvelope
     {
-        public PrintSertifikatEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv)
-            : base(instillinger, sendPåVegneAv)
+        public PrintSertifikatEnvelope(X509Certificate2 avsenderSertifikat, string sendPåVegneAv)
+            : base(avsenderSertifikat, sendPåVegneAv)
         {
         }
 

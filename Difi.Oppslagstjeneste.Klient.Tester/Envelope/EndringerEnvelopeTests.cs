@@ -15,29 +15,23 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
             public void EnkelKonstruktør()
             {
                 //Arrange
-                var innstillinger = new OppslagstjenesteInstillinger
-                {
-                    Avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat(),
-                    BinarySecurityId = "BinarySecurityId",
-                    BodyId = "BodyId",
-                    TimestampId = "TimestampId"
-                };
+                var avsenderSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
 
                 const string sendPåVegneAv = "sendPåVegneAv";
                 const int fraEndringer = 0;
                 var informasjonsBehov = new[] { Informasjonsbehov.Person , Informasjonsbehov.Kontaktinfo };
 
                 //Act
-                var envelope = new EndringerEnvelope(innstillinger, sendPåVegneAv, fraEndringer, informasjonsBehov);
+                var envelope = new EndringerEnvelope(avsenderSertifikat, sendPåVegneAv, fraEndringer, informasjonsBehov);
 
                 //Assert
-                Assert.AreEqual(envelope.Settings.BinarySecurityId, innstillinger.BinarySecurityId);
-                Assert.AreEqual(envelope.Settings.BodyId, innstillinger.BodyId);
-                Assert.AreEqual(envelope.Settings.TimestampId, innstillinger.TimestampId);
+                Assert.IsNotNull(envelope.Settings.BinarySecurityId);
+                Assert.IsNotNull(envelope.Settings.BodyId);
+                Assert.IsNotNull(envelope.Settings.TimestampId);
                 Assert.AreEqual(envelope.FraEndringsNummer, fraEndringer);
                 Assert.AreEqual(envelope.Informasjonsbehov, informasjonsBehov);
                 Assert.AreEqual(envelope.SendPåVegneAv, sendPåVegneAv);
-                Assert.AreEqual(envelope.Instillinger, innstillinger);
+                Assert.AreEqual(envelope.AvsenderSertifikat, avsenderSertifikat);
 
                 Assert.IsNotNull(envelope.XmlDocument);
             }

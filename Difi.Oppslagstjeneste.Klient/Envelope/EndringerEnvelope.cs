@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public sealed class EndringerEnvelope : OppslagstjenesteEnvelope
+    internal sealed class EndringerEnvelope : OppslagstjenesteEnvelope
     {
         internal long FraEndringsNummer { get; }
 
         internal Informasjonsbehov[] Informasjonsbehov { get; }
 
-        public EndringerEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv, long fraEndringsNummer,params Informasjonsbehov[] informasjonsbehov)
-            : base(instillinger, sendPåVegneAv)
+        public EndringerEnvelope(X509Certificate2 avsenderSertifikat, string sendPåVegneAv, long fraEndringsNummer,params Informasjonsbehov[] informasjonsbehov)
+            : base(avsenderSertifikat,sendPåVegneAv)
         {
             FraEndringsNummer = fraEndringsNummer;
             Informasjonsbehov = informasjonsbehov;

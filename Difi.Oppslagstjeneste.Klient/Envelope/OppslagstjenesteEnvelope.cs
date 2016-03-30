@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
 using Difi.Felles.Utility.Security;
@@ -7,25 +8,26 @@ using Difi.Oppslagstjeneste.Klient.Security;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public abstract class OppslagstjenesteEnvelope : AbstractEnvelope
+    internal abstract class OppslagstjenesteEnvelope : AbstractEnvelope
     {
         internal string SendPåVegneAv { get; }
 
-        protected OppslagstjenesteEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv)
-            : base(instillinger)
+        protected OppslagstjenesteEnvelope(X509Certificate2 avsenderSertifikat,string sendPåVegneAv)
+
         {
+            AvsenderSertifikat = avsenderSertifikat;
             SendPåVegneAv = sendPåVegneAv;
         }
 
         protected XmlElement Security { get; private set; }
 
-        internal OppslagstjenesteInstillinger Instillinger => Settings as OppslagstjenesteInstillinger;
-
+        
+        public X509Certificate2 AvsenderSertifikat { get; set; }
         protected override XmlElement CreateHeader()
         {
             var header = base.CreateHeader();
 
-            Security = new Security(Settings, Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
+            Security = new Security(AvsenderSertifikat,Settings, Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
             header.AppendChild(Security);
 
             if (!string.IsNullOrEmpty(SendPåVegneAv))
@@ -60,7 +62,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         protected override void AddSignatureToHeader(XmlNode node)
         {
-            SignedXml signed = new SignedXmlWithAgnosticId(Document, Instillinger.Avsendersertifikat);
+            SignedXml signed = new SignedXmlWithAgnosticId(Document, AvsenderSertifikat);
 
             signed.SignedInfo.CanonicalizationMethod = "http://www.w3.org/2001/10/xml-exc-c14n#";
 
@@ -81,5 +83,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             Security.AppendChild(Document.ImportNode(signed.GetXml(), true));
         }
+
+        
     }
 }

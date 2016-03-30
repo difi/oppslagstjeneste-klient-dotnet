@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Difi.Oppslagstjeneste.Klient.Tests;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester
 {
@@ -15,13 +16,15 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 var miljø = Miljø.FunksjoneltTestmiljø;
                 var proxyScheme = "https";
                 var timeout = 30000;
-                var klientkonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø);
+                var avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
+                var klientkonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø, avsendersertifikat);
 
                 //Act
 
                 //Assert
                 Assert.AreEqual(proxyScheme, klientkonfigurasjon.ProxyScheme);
                 Assert.AreEqual(timeout, klientkonfigurasjon.TimeoutIMillisekunder);
+                Assert.AreEqual(avsendersertifikat,klientkonfigurasjon.Avsendersertifikat);
             }
         }
     }

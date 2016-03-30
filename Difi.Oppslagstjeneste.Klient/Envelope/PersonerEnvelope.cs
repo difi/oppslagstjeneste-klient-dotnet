@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public sealed class PersonerEnvelope : OppslagstjenesteEnvelope
+    internal sealed class PersonerEnvelope : OppslagstjenesteEnvelope
     {
         internal Informasjonsbehov[] Informasjonsbehov { get; }
 
         internal string[] Personidentifikator { get; }
 
-        public PersonerEnvelope(OppslagstjenesteInstillinger instillinger, string sendPåVegneAv, string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
-            : base(instillinger, sendPåVegneAv)
+        public PersonerEnvelope(X509Certificate2 avsenderSertifikat, string sendPåVegneAv, string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
+            : base(avsenderSertifikat, sendPåVegneAv)
         {
             Personidentifikator = personidentifikator;
             Informasjonsbehov = informasjonsbehov;

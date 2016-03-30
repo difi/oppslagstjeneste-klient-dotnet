@@ -2,6 +2,7 @@
 using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
+using Difi.Oppslagstjeneste.Klient.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
@@ -14,11 +15,11 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            var klientinnstillinger = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
-
             var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Sertifikater");
             var avsendersertifikat = new X509Certificate2(resourceUtility.ReadAllBytes(true, "DifiTestsertifikatKlient.p12"), "changeit", X509KeyStorageFlags.Exportable);
-            _oppslagstjenesteKlient = new OppslagstjenesteKlient(avsendersertifikat, klientinnstillinger);
+            var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø,avsendersertifikat);
+            
+            _oppslagstjenesteKlient = new OppslagstjenesteKlient( oppslagstjenesteKonfigurasjon);
         }
 
         [TestMethod]
