@@ -12,7 +12,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
         }
 
         public SoapException(string outerXml, Exception innerException)
-            : base("SoapException: Klarte ikke parse svar fra serveren.", innerException)
+            : base("Sjekk klassemedlemmer for mer detaljer.", innerException)
         {
             ParseTilKlassemedlemmer(outerXml);
         }
