@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using System.Text;
-using ApiClientShared;
 using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
@@ -9,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
 {
-    [TestClass()]
+    [TestClass]
     public class ResponseContainerTests
     {
         [TestClass]

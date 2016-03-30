@@ -10,24 +10,24 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     internal abstract class OppslagstjenesteEnvelope : AbstractEnvelope
     {
-        internal string SendPåVegneAv { get; }
-
-        protected OppslagstjenesteEnvelope(X509Certificate2 avsenderSertifikat,string sendPåVegneAv)
+        protected OppslagstjenesteEnvelope(X509Certificate2 avsenderSertifikat, string sendPåVegneAv)
 
         {
             AvsenderSertifikat = avsenderSertifikat;
             SendPåVegneAv = sendPåVegneAv;
         }
 
+        internal string SendPåVegneAv { get; }
+
         protected XmlElement Security { get; private set; }
 
-        
         public X509Certificate2 AvsenderSertifikat { get; set; }
+
         protected override XmlElement CreateHeader()
         {
             var header = base.CreateHeader();
 
-            Security = new Security(AvsenderSertifikat,Settings, Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
+            Security = new Security(AvsenderSertifikat, Settings, Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
             header.AppendChild(Security);
 
             if (!string.IsNullOrEmpty(SendPåVegneAv))
@@ -83,7 +83,5 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             Security.AppendChild(Document.ImportNode(signed.GetXml(), true));
         }
-
-        
     }
 }

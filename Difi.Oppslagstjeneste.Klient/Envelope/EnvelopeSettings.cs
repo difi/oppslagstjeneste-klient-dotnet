@@ -16,7 +16,5 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         public string TimestampId { get; set; }
 
         public string BinarySecurityId { get; set; }
-
-        
     }
 }

@@ -24,7 +24,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 //Assert
                 Assert.AreEqual(proxyScheme, klientkonfigurasjon.ProxyScheme);
                 Assert.AreEqual(timeout, klientkonfigurasjon.TimeoutIMillisekunder);
-                Assert.AreEqual(avsendersertifikat,klientkonfigurasjon.Avsendersertifikat);
+                Assert.AreEqual(avsendersertifikat, klientkonfigurasjon.Avsendersertifikat);
             }
         }
     }

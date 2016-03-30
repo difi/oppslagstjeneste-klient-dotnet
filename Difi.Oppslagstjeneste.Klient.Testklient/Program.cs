@@ -18,24 +18,22 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             Logger.Initialize(konfigurasjon);
             Logger.Log(TraceEventType.Information, "> Starter program!");
 
-            
-
             //konfigurasjon.SendPåVegneAv = "984661185";
 
-            var register = new OppslagstjenesteKlient( konfigurasjon);
+            var register = new OppslagstjenesteKlient(konfigurasjon);
 
             var endringer = register.HentEndringer(600,
-                Informasjonsbehov.Person ,
-                Informasjonsbehov.Kontaktinfo ,
-                Informasjonsbehov.Sertifikat ,
-                Informasjonsbehov.SikkerDigitalPost ,
+                Informasjonsbehov.Person,
+                Informasjonsbehov.Kontaktinfo,
+                Informasjonsbehov.Sertifikat,
+                Informasjonsbehov.SikkerDigitalPost,
                 Informasjonsbehov.VarslingsStatus
                 );
 
             var personer = register.HentPersoner(new[] {"08077000292"},
-                Informasjonsbehov.Kontaktinfo ,
-                Informasjonsbehov.Sertifikat ,
-                Informasjonsbehov.SikkerDigitalPost ,
+                Informasjonsbehov.Kontaktinfo,
+                Informasjonsbehov.Sertifikat,
+                Informasjonsbehov.SikkerDigitalPost,
                 Informasjonsbehov.VarslingsStatus
                 );
 

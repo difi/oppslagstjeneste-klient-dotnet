@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
@@ -8,16 +7,16 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     internal sealed class PersonerEnvelope : OppslagstjenesteEnvelope
     {
-        internal Informasjonsbehov[] Informasjonsbehov { get; }
-
-        internal string[] Personidentifikator { get; }
-
         public PersonerEnvelope(X509Certificate2 avsenderSertifikat, string sendPåVegneAv, string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
             : base(avsenderSertifikat, sendPåVegneAv)
         {
             Personidentifikator = personidentifikator;
             Informasjonsbehov = informasjonsbehov;
         }
+
+        internal Informasjonsbehov[] Informasjonsbehov { get; }
+
+        internal string[] Personidentifikator { get; }
 
         protected override XmlElement CreateBody()
         {
@@ -30,7 +29,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
                 node.InnerText = informasjonsbehov.ToString();
                 element.AppendChild(node);
             }
-         
+
             foreach (var item in Personidentifikator)
             {
                 var node = Document.CreateElement("ns", "personidentifikator", Navnerom.OppslagstjenesteDefinisjon);

@@ -5,13 +5,15 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     internal abstract class AbstractEnvelope
     {
-        protected AbstractEnvelope ()
+        protected AbstractEnvelope()
         {
-            Settings =  new EnvelopeSettings();
+            Settings = new EnvelopeSettings();
         }
+
         internal EnvelopeSettings Settings { get; set; }
 
         protected XmlDocument Document { get; set; }
+
         public XmlDocument XmlDocument
         {
             get
@@ -44,7 +46,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         private void InitializeXmlDocument()
         {
-            Document = new XmlDocument { PreserveWhitespace = true };
+            Document = new XmlDocument {PreserveWhitespace = true};
             var baseNode = Document.CreateElement("soap", "Envelope", Navnerom.SoapEnvelope12);
             Document.AppendChild(baseNode);
             var xmlDeclaration = Document.CreateXmlDeclaration("1.0", "UTF-8", null);

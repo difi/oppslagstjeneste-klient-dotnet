@@ -19,7 +19,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
 
                 const string sendPåVegneAv = "sendPåVegneAv";
                 const int fraEndringer = 0;
-                var informasjonsBehov = new[] { Informasjonsbehov.Person , Informasjonsbehov.Kontaktinfo };
+                var informasjonsBehov = new[] {Informasjonsbehov.Person, Informasjonsbehov.Kontaktinfo};
 
                 //Act
                 var envelope = new EndringerEnvelope(avsenderSertifikat, sendPåVegneAv, fraEndringer, informasjonsBehov);

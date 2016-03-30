@@ -1,6 +1,4 @@
-﻿using System.Text;
-using ApiClientShared;
-using Difi.Oppslagstjeneste.Klient.Envelope;
+﻿using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
 using Difi.Oppslagstjeneste.Klient.Tests;
@@ -21,8 +19,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
                 var requestXmlDocument = TestResourceUtility.Request.PersonRequest.AsXmlDocument();
                 var responseXmlDocument = TestResourceUtility.Response.PersonResponse.AsXmlDocument();
                 var avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
-                var oppslagstjenesteKonfigurasjon =  new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikat);
-                
+                var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikat);
+
                 var responseContainer = new ResponseContainer(responseXmlDocument);
 
                 //Act
@@ -32,7 +30,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
                 Assert.AreEqual(requestXmlDocument, oppslagstjenestevalidator.SendtDokument);
                 Assert.AreEqual(responseXmlDocument, responseContainer.Envelope);
                 Assert.AreEqual(oppslagstjenesteKonfigurasjon.Miljø, oppslagstjenestevalidator.Miljø);
-                
             }
         }
     }

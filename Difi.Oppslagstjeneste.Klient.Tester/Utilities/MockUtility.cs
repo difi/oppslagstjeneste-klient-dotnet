@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
-using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Tester.Fakes;
 using Moq;
 
@@ -18,7 +17,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Utilities
             return oppslagstjenesteKlientMock;
         }
 
-        private static Mock<OppslagstjenesteHelper> CreateOppslagstjenesteHelperMock(string response, HttpStatusCode httpStatusCode,OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
+        private static Mock<OppslagstjenesteHelper> CreateOppslagstjenesteHelperMock(string response, HttpStatusCode httpStatusCode, OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
         {
             var oppslagstjenesteMock = new Mock<OppslagstjenesteHelper>(oppslagstjenesteKonfigurasjon);
             var fakeHttpClientResponse = new FakeHttpClientHandlerResponse(response, httpStatusCode);

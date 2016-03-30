@@ -2,7 +2,6 @@
 using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
-using Difi.Oppslagstjeneste.Klient.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
@@ -17,9 +16,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
         {
             var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Sertifikater");
             var avsendersertifikat = new X509Certificate2(resourceUtility.ReadAllBytes(true, "DifiTestsertifikatKlient.p12"), "changeit", X509KeyStorageFlags.Exportable);
-            var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø,avsendersertifikat);
-            
-            _oppslagstjenesteKlient = new OppslagstjenesteKlient( oppslagstjenesteKonfigurasjon);
+            var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikat);
+
+            _oppslagstjenesteKlient = new OppslagstjenesteKlient(oppslagstjenesteKonfigurasjon);
         }
 
         [TestMethod]
@@ -29,8 +28,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
 
             //Act
             var personer = _oppslagstjenesteKlient.HentPersoner(new[] {"08077000292"},
-                Informasjonsbehov.Sertifikat ,
-                Informasjonsbehov.Kontaktinfo ,
+                Informasjonsbehov.Sertifikat,
+                Informasjonsbehov.Kontaktinfo,
                 Informasjonsbehov.SikkerDigitalPost);
 
             //Assert
@@ -44,9 +43,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
 
             //Act
             var endringer = _oppslagstjenesteKlient.HentEndringer(886730,
-                Informasjonsbehov.Kontaktinfo ,
-                Informasjonsbehov.Sertifikat ,
-                Informasjonsbehov.SikkerDigitalPost ,
+                Informasjonsbehov.Kontaktinfo,
+                Informasjonsbehov.Sertifikat,
+                Informasjonsbehov.SikkerDigitalPost,
                 Informasjonsbehov.Person);
 
             //Assert

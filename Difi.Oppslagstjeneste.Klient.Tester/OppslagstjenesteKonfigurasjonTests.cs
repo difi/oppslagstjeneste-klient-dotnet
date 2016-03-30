@@ -14,13 +14,13 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 //Arrange
                 var miljø = Miljø.FunksjoneltTestmiljø;
                 var avsenderEnhetstesterSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
-                var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø,avsenderEnhetstesterSertifikat);
+                var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø, avsenderEnhetstesterSertifikat);
 
                 //Act
 
                 //Assert
-                Assert.AreEqual(miljø,oppslagstjenesteKonfigurasjon.Miljø);
-                Assert.AreEqual(avsenderEnhetstesterSertifikat,oppslagstjenesteKonfigurasjon.Avsendersertifikat);
+                Assert.AreEqual(miljø, oppslagstjenesteKonfigurasjon.Miljø);
+                Assert.AreEqual(avsenderEnhetstesterSertifikat, oppslagstjenesteKonfigurasjon.Avsendersertifikat);
             }
         }
     }

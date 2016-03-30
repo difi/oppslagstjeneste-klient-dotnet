@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using System.Text;
-using ApiClientShared;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Svar;

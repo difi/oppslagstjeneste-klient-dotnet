@@ -22,11 +22,11 @@ namespace Difi.Oppslagstjeneste.Klient
         public OppslagstjenesteHelper(OppslagstjenesteKonfigurasjon konfigurasjon)
         {
             OppslagstjenesteKonfigurasjon = konfigurasjon;
-            _httpClient  = new HttpClient(HttpClientHandlerChain());
-         
+            _httpClient = new HttpClient(HttpClientHandlerChain());
         }
+
         public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
-        
+
         public async Task<ResponseContainer> SendAsync(AbstractEnvelope envelope)
         {
             ValidateRequest(envelope);
