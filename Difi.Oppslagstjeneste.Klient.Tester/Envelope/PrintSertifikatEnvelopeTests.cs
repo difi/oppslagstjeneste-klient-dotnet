@@ -11,25 +11,18 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
         public void EnkelKonstruktør()
         {
             //Arrange
-            var innstillinger = new OppslagstjenesteInstillinger
-            {
-                Avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat(),
-                BinarySecurityId = "BinarySecurityId",
-                BodyId = "BodyId",
-                TimestampId = "TimestampId"
-            };
-
+            var avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
             const string sendPåVegneAv = "sendPåVegneAv";
 
             //Act
-            var envelope = new PrintSertifikatEnvelope(innstillinger, sendPåVegneAv);
+            var envelope = new PrintSertifikatEnvelope(avsendersertifikat, sendPåVegneAv);
 
             //Assert
-            Assert.AreEqual(envelope.Settings.BinarySecurityId, innstillinger.BinarySecurityId);
-            Assert.AreEqual(envelope.Settings.BodyId, innstillinger.BodyId);
-            Assert.AreEqual(envelope.Settings.TimestampId, innstillinger.TimestampId);
+            Assert.IsNotNull(envelope.Settings.BinarySecurityId);
+            Assert.IsNotNull(envelope.Settings.BodyId);
+            Assert.IsNotNull(envelope.Settings.TimestampId);
             Assert.AreEqual(envelope.SendPåVegneAv, sendPåVegneAv);
-            Assert.AreEqual(envelope.Instillinger, innstillinger);
+            Assert.AreEqual(envelope.AvsenderSertifikat, avsendersertifikat);
 
             Assert.IsNotNull(envelope.XmlDocument);
         }

@@ -3,18 +3,16 @@ using Difi.Oppslagstjeneste.Klient.Domene;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public abstract class AbstractEnvelope
+    internal abstract class AbstractEnvelope
     {
-        internal readonly EnvelopeSettings Settings;
+        protected AbstractEnvelope()
+        {
+            Settings = new EnvelopeSettings();
+        }
+
+        internal EnvelopeSettings Settings { get; set; }
 
         protected XmlDocument Document { get; set; }
-
-        protected AbstractEnvelope(EnvelopeSettings settings = null)
-        {
-            if (settings == null)
-                settings = new EnvelopeSettings();
-            Settings = settings;   
-        }
 
         public XmlDocument XmlDocument
         {
@@ -48,7 +46,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         private void InitializeXmlDocument()
         {
-            Document = new XmlDocument { PreserveWhitespace = true };
+            Document = new XmlDocument {PreserveWhitespace = true};
             var baseNode = Document.CreateElement("soap", "Envelope", Navnerom.SoapEnvelope12);
             Document.AppendChild(baseNode);
             var xmlDeclaration = Document.CreateXmlDeclaration("1.0", "UTF-8", null);

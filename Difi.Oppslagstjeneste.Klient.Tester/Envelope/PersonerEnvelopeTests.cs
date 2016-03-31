@@ -15,29 +15,22 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
             public void EnkelKonstruktør()
             {
                 //Arrange
-                var innstillinger = new OppslagstjenesteInstillinger
-                {
-                    Avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat(),
-                    BinarySecurityId = "BinarySecurityId",
-                    BodyId = "BodyId",
-                    TimestampId = "TimestampId"
-                };
-
+                var avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
                 const string sendPåVegneAv = "sendPåVegneAv";
                 var personer = new[] {"12312312312", "32132132132"};
-                var informasjonsBehov = new[] { Informasjonsbehov.Person, Informasjonsbehov.Kontaktinfo }; 
+                var informasjonsBehov = new[] {Informasjonsbehov.Person, Informasjonsbehov.Kontaktinfo};
 
                 //Act
-                var envelope = new PersonerEnvelope(innstillinger, sendPåVegneAv, personer, informasjonsBehov);
+                var envelope = new PersonerEnvelope(avsendersertifikat, sendPåVegneAv, personer, informasjonsBehov);
 
                 //Assert
-                Assert.AreEqual(envelope.Settings.BinarySecurityId, innstillinger.BinarySecurityId);
-                Assert.AreEqual(envelope.Settings.BodyId, innstillinger.BodyId);
-                Assert.AreEqual(envelope.Settings.TimestampId, innstillinger.TimestampId);
+                Assert.IsNotNull(envelope.Settings.BinarySecurityId);
+                Assert.IsNotNull(envelope.Settings.BodyId);
+                Assert.IsNotNull(envelope.Settings.TimestampId);
                 Assert.AreEqual(envelope.Personidentifikator, personer);
                 Assert.AreEqual(envelope.Informasjonsbehov, informasjonsBehov);
                 Assert.AreEqual(envelope.SendPåVegneAv, sendPåVegneAv);
-                Assert.AreEqual(envelope.Instillinger, innstillinger);
+                Assert.AreEqual(envelope.AvsenderSertifikat, avsendersertifikat);
 
                 Assert.IsNotNull(envelope.XmlDocument);
             }
