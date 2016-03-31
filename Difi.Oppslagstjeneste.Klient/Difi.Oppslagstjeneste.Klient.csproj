@@ -68,7 +68,6 @@
     <Compile Include="Envelope\PersonerEnvelope.cs" />
     <Compile Include="Envelope\PrintSertifikatEnvelope.cs" />
     <Compile Include="Envelope\OppslagstjenesteEnvelope.cs" />
-    <Compile Include="Envelope\OppslagstjenesteInstillinger.cs" />
     <Compile Include="Envelope\Oppslagstjenestevalidator.cs" />
     <Compile Include="Envelope\Security.cs" />
     <Compile Include="Extensions\XmlElementExtensions.cs" />

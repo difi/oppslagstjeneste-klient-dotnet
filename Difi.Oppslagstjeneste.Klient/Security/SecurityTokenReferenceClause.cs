@@ -24,7 +24,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
 
         public X509Certificate2 Certificate { get; set; }
 
-        public EnvelopeSettings Settings { get; set; }
+        internal EnvelopeSettings Settings { get; set; }
 
         public override XmlElement GetXml()
         {

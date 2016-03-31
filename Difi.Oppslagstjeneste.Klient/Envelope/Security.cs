@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Extensions;
@@ -6,26 +7,28 @@ using Difi.Oppslagstjeneste.Klient.Security;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    public class Security : EnvelopeXmlPart
+    internal class Security : EnvelopeXmlPart
     {
         private TimeSpan? _timespan;
 
-        public Security(EnvelopeSettings envelopeSettings, XmlDocument xmlDocument, TimeSpan? timestampexpirey)
+        public Security(X509Certificate2 avsenderSertifkat, EnvelopeSettings envelopeSettings, XmlDocument xmlDocument, TimeSpan? timestampexpirey)
             : base(envelopeSettings, xmlDocument)
         {
             _timespan = timestampexpirey;
+            AvsenderSertifkat = avsenderSertifkat;
         }
-        internal OppslagstjenesteInstillinger Instillinger => Settings as OppslagstjenesteInstillinger;
+
+        public X509Certificate2 AvsenderSertifkat { get; set; }
 
         public override XmlNode Xml()
         {
             var securityElement = Context.CreateElement("wsse", "Security", Navnerom.WssecuritySecext10);
             securityElement.SetAttribute("xmlns:wsu", Navnerom.WssecurityUtility10);
-            
+
             if (_timespan.HasValue)
                 securityElement.AppendChild(TimestampElement());
 
-            var securityToken = Context.ImportNode(new SecurityTokenReferenceClause(Instillinger.Avsendersertifikat, Settings.BinarySecurityId).GetTokenXml(),true);
+            var securityToken = Context.ImportNode(new SecurityTokenReferenceClause(AvsenderSertifkat, Settings.BinarySecurityId).GetTokenXml(), true);
             securityElement.AppendChild(securityToken);
 
             return securityElement;

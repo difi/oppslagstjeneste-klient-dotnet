@@ -8,8 +8,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
     internal class OppslagstjenestevalidatorMedStubbetSjekkTimestamp : Oppslagstjenestevalidator
     {
         public OppslagstjenestevalidatorMedStubbetSjekkTimestamp(XmlDocument sendtDokument, ResponseContainer responseContainer,
-            OppslagstjenesteInstillinger oppslagstjenesteInstillinger, Miljø miljø)
-            : base(sendtDokument, responseContainer, oppslagstjenesteInstillinger, miljø)
+            OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
+            : base(sendtDokument, responseContainer, oppslagstjenesteKonfigurasjon)
         {
         }
 

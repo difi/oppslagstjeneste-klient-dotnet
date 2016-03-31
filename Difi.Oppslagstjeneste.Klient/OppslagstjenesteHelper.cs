@@ -19,18 +19,14 @@ namespace Difi.Oppslagstjeneste.Klient
     {
         private readonly HttpClient _httpClient;
 
-        public OppslagstjenesteHelper(OppslagstjenesteKonfigurasjon konfigurasjon, OppslagstjenesteInstillinger oppslagstjenesteInstillinger)
+        public OppslagstjenesteHelper(OppslagstjenesteKonfigurasjon konfigurasjon)
         {
-            Instillinger = oppslagstjenesteInstillinger;
             OppslagstjenesteKonfigurasjon = konfigurasjon;
-            _httpClient  = new HttpClient(HttpClientHandlerChain());
-         
+            _httpClient = new HttpClient(HttpClientHandlerChain());
         }
 
-        internal OppslagstjenesteInstillinger Instillinger { get; }
-
         public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
-        
+
         public async Task<ResponseContainer> SendAsync(AbstractEnvelope envelope)
         {
             ValidateRequest(envelope);

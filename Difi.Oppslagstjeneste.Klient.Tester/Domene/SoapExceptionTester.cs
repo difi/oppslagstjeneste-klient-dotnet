@@ -1,6 +1,4 @@
-﻿using System.Text;
-using ApiClientShared;
-using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
+﻿using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,7 +15,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
             var feilmelding = TestResourceUtility.Response.SoapFaultResponse.AsText();
             _exception = new SoapException(feilmelding);
         }
-
 
         [TestMethod]
         public void HentSkyldigSuksess()

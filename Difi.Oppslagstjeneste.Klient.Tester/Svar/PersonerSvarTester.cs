@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using System.Text;
-using ApiClientShared;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Svar;
@@ -17,7 +15,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-
             var xmlDocument = TestResourceUtility.Response.PersonResponse.AsXmlDocument();
             var responseDokumenter = new ResponseContainer(xmlDocument);
             _personerSvar = DtoConverter.ToDomainObject(SerializeUtil.Deserialize<HentPersonerRespons>(responseDokumenter.BodyElement.InnerXml));

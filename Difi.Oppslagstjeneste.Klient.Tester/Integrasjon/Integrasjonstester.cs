@@ -14,11 +14,11 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            var klientinnstillinger = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø);
-
             var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Sertifikater");
             var avsendersertifikat = new X509Certificate2(resourceUtility.ReadAllBytes(true, "DifiTestsertifikatKlient.p12"), "changeit", X509KeyStorageFlags.Exportable);
-            _oppslagstjenesteKlient = new OppslagstjenesteKlient(avsendersertifikat, klientinnstillinger);
+            var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikat);
+
+            _oppslagstjenesteKlient = new OppslagstjenesteKlient(oppslagstjenesteKonfigurasjon);
         }
 
         [TestMethod]
@@ -28,8 +28,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
 
             //Act
             var personer = _oppslagstjenesteKlient.HentPersoner(new[] {"08077000292"},
-                Informasjonsbehov.Sertifikat ,
-                Informasjonsbehov.Kontaktinfo ,
+                Informasjonsbehov.Sertifikat,
+                Informasjonsbehov.Kontaktinfo,
                 Informasjonsbehov.SikkerDigitalPost);
 
             //Assert
@@ -43,9 +43,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
 
             //Act
             var endringer = _oppslagstjenesteKlient.HentEndringer(886730,
-                Informasjonsbehov.Kontaktinfo ,
-                Informasjonsbehov.Sertifikat ,
-                Informasjonsbehov.SikkerDigitalPost ,
+                Informasjonsbehov.Kontaktinfo,
+                Informasjonsbehov.Sertifikat,
+                Informasjonsbehov.SikkerDigitalPost,
                 Informasjonsbehov.Person);
 
             //Assert
