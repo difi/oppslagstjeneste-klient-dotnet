@@ -1,22 +1,23 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Handlers;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.XmlValidering;
+using log4net;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
     internal class OppslagstjenesteHelper
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly HttpClient _httpClient;
 
         public OppslagstjenesteHelper(OppslagstjenesteKonfigurasjon konfigurasjon)
@@ -38,6 +39,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    Log.Warn($"Response HTTP code was {response.StatusCode}");
                     CheckResponseForErrors(soapResponse);
                 }
                 return new ResponseContainer(soapResponse);
@@ -52,11 +54,11 @@ namespace Difi.Oppslagstjeneste.Klient
         private HttpMessageHandler HttpClientHandlerChain()
         {
             HttpClientHandler httpClientHandler;
-            if (OppslagstjenesteKonfigurasjon.BrukProxy)
+            if (!string.IsNullOrEmpty(OppslagstjenesteKonfigurasjon.ProxyHost))
             {
                 httpClientHandler = new HttpClientHandler
                 {
-                    Proxy = Proxy()
+                    Proxy = CreateProxy()
                 };
             }
             else
@@ -72,13 +74,12 @@ namespace Difi.Oppslagstjeneste.Klient
             var reader = new StreamReader(soapResponse);
             var text = reader.ReadToEnd();
             var exception = new SoapException(text);
-            Logger.Log(TraceEventType.Critical,
-                $"> Feil ved sending (Skyldig: {exception.Skyldig})");
-            Logger.Log(TraceEventType.Critical, $"  - {exception.Beskrivelse}");
+            Log.Error($"> Feil ved sending (Skyldig: {exception.Skyldig})");
+            Log.Error($"  - {exception.Beskrivelse}");
             throw exception;
         }
 
-        private WebProxy Proxy()
+        private WebProxy CreateProxy()
         {
             return new WebProxy(
                 new UriBuilder(OppslagstjenesteKonfigurasjon.ProxyScheme,
@@ -92,6 +93,7 @@ namespace Difi.Oppslagstjeneste.Klient
             var xmlValidert = xmlValidator.ValiderDokumentMotXsd(xml.OuterXml);
             if (!xmlValidert)
             {
+                Log.Warn($"Request did not validate OK. Errors[{xmlValidator.ValideringsVarsler}]");
                 throw new XmlException(xmlValidator.ValideringsVarsler);
             }
         }

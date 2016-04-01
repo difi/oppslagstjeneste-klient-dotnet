@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
-using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
+using log4net;
 using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 
 namespace Difi.Oppslagstjeneste.Klient
@@ -18,6 +19,8 @@ namespace Difi.Oppslagstjeneste.Klient
     /// </summary>
     public class OppslagstjenesteKlient
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog RequestLog = LogManager.GetLogger($"{typeof (OppslagstjenesteKlient).Namespace}.RequestLog");
         private readonly OppslagstjenesteHelper _oppslagstjenesteHelper;
 
         /// <summary>
@@ -28,6 +31,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         public OppslagstjenesteKlient(OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
         {
+            Log.Debug($"OppslagstjenesteKlient(miljø:{oppslagstjenesteKonfigurasjon.Miljø},TimeoutIMillisekunder:{oppslagstjenesteKonfigurasjon.TimeoutIMillisekunder},ProxyHost:{oppslagstjenesteKonfigurasjon.ProxyHost},ProxyPort:{oppslagstjenesteKonfigurasjon.ProxyPort},ProxyScheme:{oppslagstjenesteKonfigurasjon.ProxyScheme})");
             OppslagstjenesteKonfigurasjon = oppslagstjenesteKonfigurasjon;
             _oppslagstjenesteHelper = new OppslagstjenesteHelper(oppslagstjenesteKonfigurasjon);
         }
@@ -52,7 +56,15 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         public EndringerSvar HentEndringer(long fraEndringsNummer, params Informasjonsbehov[] informasjonsbehov)
         {
-            return HentEndringerAsynkront(fraEndringsNummer, informasjonsbehov).Result;
+            try
+            {
+                return HentEndringerAsynkront(fraEndringsNummer, informasjonsbehov).Result;
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception.ToString());
+                throw;
+            }
         }
 
         /// <summary>
@@ -69,8 +81,12 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<EndringerSvar> HentEndringerAsynkront(long fraEndringsNummer, params Informasjonsbehov[] informasjonsbehov)
         {
             var requestEnvelope = new EndringerEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, fraEndringsNummer, informasjonsbehov);
-            Logger.Log(TraceEventType.Verbose, requestEnvelope.XmlDocument.OuterXml);
+
+            Log.Debug($"HentEndringerAsynkront(fraEndringsNummer:{fraEndringsNummer} , informasjonsbehov:{informasjonsbehov})");
+            RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
+
+            RequestLog.Debug(responseDocument.Envelope.InnerXml);
             var dtoObject = ValidateAndConvertToDtoObject<HentEndringerRespons>(requestEnvelope, responseDocument);
             return DtoConverter.ToDomainObject(dtoObject);
         }
@@ -88,7 +104,15 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         public IEnumerable<Person> HentPersoner(string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
         {
-            return HentPersonerAsynkront(personidentifikator, informasjonsbehov).Result;
+            try
+            {
+                return HentPersonerAsynkront(personidentifikator, informasjonsbehov).Result;
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception.ToString());
+                throw;
+            }
         }
 
         /// <summary>
@@ -105,18 +129,13 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
         {
             var requestEnvelope = new PersonerEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, personidentifikator, informasjonsbehov);
+            Log.Debug($"HentPersonerAsynkront(personidentifikator:{personidentifikator} , informasjonsbehov:{informasjonsbehov})");
+            RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
+            RequestLog.Debug(responseDocument.Envelope.InnerXml);
             var dtoObject = ValidateAndConvertToDtoObject<HentPersonerRespons>(requestEnvelope, responseDocument);
             var domainObject = DtoConverter.ToDomainObject(dtoObject);
             return domainObject.Personer;
-        }
-
-        private T ValidateAndConvertToDtoObject<T>(AbstractEnvelope requestEnvelope, ResponseContainer responseContainer)
-        {
-            Logger.Log(TraceEventType.Verbose, requestEnvelope.XmlDocument.OuterXml);
-            ValidateResponse(requestEnvelope, responseContainer);
-            Logger.Log(TraceEventType.Verbose, responseContainer.Envelope.InnerXml);
-            return SerializeUtil.Deserialize<T>(responseContainer.BodyElement.InnerXml);
         }
 
         /// <summary>
@@ -125,7 +144,15 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public PrintSertifikatSvar HentPrintSertifikat()
         {
-            return HentPrintSertifikatAsynkront().Result;
+            try
+            {
+                return HentPrintSertifikatAsynkront().Result;
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception.ToString());
+                throw;
+            }
         }
 
         /// <summary>
@@ -135,9 +162,18 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<PrintSertifikatSvar> HentPrintSertifikatAsynkront()
         {
             var requestEnvelope = new PrintSertifikatEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv);
+            Log.Debug($"HentPrintSertifikatAsynkront()");
+            RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
+            RequestLog.Debug(responseDocument.Envelope.InnerXml);
             var dtoObject = ValidateAndConvertToDtoObject<HentPrintSertifikatRespons>(requestEnvelope, responseDocument);
             return DtoConverter.ToDomainObject(dtoObject);
+        }
+
+        private T ValidateAndConvertToDtoObject<T>(AbstractEnvelope requestEnvelope, ResponseContainer responseContainer)
+        {
+            ValidateResponse(requestEnvelope, responseContainer);
+            return SerializeUtil.Deserialize<T>(responseContainer.BodyElement.InnerXml);
         }
 
         private void ValidateResponse(AbstractEnvelope envelope, ResponseContainer responseContainer)

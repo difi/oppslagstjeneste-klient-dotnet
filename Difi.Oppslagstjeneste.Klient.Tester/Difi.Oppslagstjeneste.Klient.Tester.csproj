@@ -84,6 +84,7 @@
     <Compile Include="DtoConverterTests.cs" />
     <Compile Include="Fakes\FakeHttpClientHandler.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerResponse.cs" />
+    <Compile Include="Properties\AssemblyInfo.log4net.cs" />
     <Compile Include="Ressurser\Examples\TestResourceUtility.cs" />
     <Compile Include="Svar\ResponseContainerTests.cs" />
     <Compile Include="Utilities\CompareObjects\Comparator.cs" />
@@ -122,6 +123,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <EmbeddedResource Include="Testdata\difi-enhetstester.cer" />
     <EmbeddedResource Include="Testdata\difi-enhetstester.p12" />
