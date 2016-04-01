@@ -18,7 +18,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 var timeout = 30000;
                 var avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
                 var klientkonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø, avsendersertifikat);
-                
 
                 //Act
 
