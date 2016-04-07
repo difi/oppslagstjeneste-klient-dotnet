@@ -22,7 +22,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public OppslagstjenesteHelper(OppslagstjenesteKonfigurasjon konfigurasjon)
         {
             OppslagstjenesteKonfigurasjon = konfigurasjon;
-            _httpClient = new HttpClient(HttpClientHandlerChain());
+            _httpClient = new HttpClient(HttpClientHandlerChain()) {Timeout =  TimeSpan.FromMilliseconds(konfigurasjon.TimeoutIMillisekunder)};
         }
 
         public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }
@@ -56,12 +56,17 @@ namespace Difi.Oppslagstjeneste.Klient
             {
                 httpClientHandler = new HttpClientHandler
                 {
-                    Proxy = Proxy()
+                    Proxy = Proxy(),
+                    UseProxy = true
+                    
                 };
             }
             else
             {
-                httpClientHandler = new HttpClientHandler();
+                httpClientHandler = new HttpClientHandler
+                {
+                    UseProxy = false
+                };
             }
 
             return new RequestHeaderHandler(httpClientHandler);
