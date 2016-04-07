@@ -1,7 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 using ApiClientShared.Enums;
-using Difi.Felles.Utility;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
@@ -19,11 +18,8 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     For informasjon om dette, se online dokumentasjon:
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet" />
         /// </param>
-        public OppslagstjenesteKonfigurasjon(AbstraktMiljø miljø, X509Certificate2 avsendersertifikat, string sendPåVegneAv = null)
-
+        public OppslagstjenesteKonfigurasjon(Miljø miljø, X509Certificate2 avsendersertifikat, string sendPåVegneAv = null)
         {
-            TimeoutIMillisekunder = 30000;
-            ProxyScheme = "https";
             Avsendersertifikat = avsendersertifikat;
             SendPåVegneAv = sendPåVegneAv;
             Miljø = miljø;
@@ -42,19 +38,19 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     For informasjon om dette, se online dokumentasjon:
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet" />
         /// </param>
-        public OppslagstjenesteKonfigurasjon(AbstraktMiljø miljø, string avsendersertifikatThumbprint, string sendPåVegneAv = null)
+        public OppslagstjenesteKonfigurasjon(Miljø miljø, string avsendersertifikatThumbprint, string sendPåVegneAv = null)
             : this(miljø, CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian), sendPåVegneAv)
         {
         }
 
-        public AbstraktMiljø Miljø { get; set; }
+        public Miljø Miljø { get; set; }
 
         public string ProxyHost { get; set; }
 
         /// <summary>
         ///     Angir schema ved bruk av proxy. Standardverdien er 'https'.
         /// </summary>
-        public string ProxyScheme { get; set; }
+        public string ProxyScheme { get; set; } = "https";
 
         /// <summary>
         ///     Angir portnummeret som skal benyttes i forbindelse med bruk av proxy. Både ProxyHost og ProxyPort må spesifiseres
@@ -65,7 +61,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <summary>
         ///     Angir timeout for komunikasjonen fra og til meldingsformindleren. Default tid er 30 sekunder.
         /// </summary>
-        public int TimeoutIMillisekunder { get; set; }
+        public int TimeoutIMillisekunder { get; set; } = 30000;
 
         /// <summary>
         ///     Sertifikat som bl.a. benyttes for å signere utgående meldinger. Må inneholde en privatnøkkel.
