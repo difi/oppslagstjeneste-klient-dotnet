@@ -15,7 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
             : base(sendtDokument, responseContainer, oppslagstjenesteKonfigurasjon.Avsendersertifikat)
         {
-            Miljø = oppslagstjenesteKonfigurasjon.Miljø as Miljø;
+            Miljø = oppslagstjenesteKonfigurasjon.Miljø;
         }
 
         public Miljø Miljø { get; set; }
