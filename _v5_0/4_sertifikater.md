@@ -25,10 +25,11 @@ kun én gang, og etter dette kan du bruke sertifikatet i koden uten å eksponere
 
 <h3 id="finneinstallertsertifikat">Finne installert sertifikat</h3>
 
-<code>OppslagstjenesteKlient</code> har støtte for å ta inn _thumbprint_ direkte:
+<code>OppslagstjenesteKlient</code> tar inn <code>OppslagstjenesteKonfigurasjon</code>, som igjen tar inn _thumbprint_ direkte:
 
 {% highlight csharp %}
-OppslagstjenesteKlient(avsendersertifikatThumbprint, konfigurasjon);
+var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikatThumbprint);
+var klient = OppslagstjenesteKlient(konfigurasjon);
 {% endhighlight %}
 
 For å finne _thumbprint_ så er det lettest å gjøre det vha _Microsoft Management Console_ (mmc.exe). 

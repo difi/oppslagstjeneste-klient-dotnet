@@ -8,7 +8,8 @@ isHome: false
 Det er bare tre kall du kan gjøre mot oppslagstjenesten; hente endringer, hente personer og hente printsertifikat. Her er et minimumseksempel på hva du må ha når du har fått hentet sertifikatene som er installert.
 
 {% highlight csharp%}
-var register = new OppslagstjenesteKlient(avsendersertifikatThumbprint, konfigurasjon);
+var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikatThumbprint);
+var register = new OppslagstjenesteKlient(konfigurasjon);
 
 const int fraEndringsNummer = 600;
 var endringer = register.HentEndringer(fraEndringsNummer,
