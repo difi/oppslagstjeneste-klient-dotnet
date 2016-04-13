@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient", "Difi.Oppslagstjeneste.Klient\Difi.Oppslagstjeneste.Klient.csproj", "{13B840F4-199B-4482-B4A8-CB71AC1B0C99}"
 EndProject
@@ -13,8 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klien
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35CACDAF-9027-4799-AB9E-16210A7EF014}"
 	ProjectSection(SolutionItems) = preProject
+		SolutionItems\App.config = SolutionItems\App.config
 		C:\Keys\digipost.pfx = C:\Keys\digipost.pfx
-		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
+		SolutionItems\SharedAssemblyInfo.cs = SolutionItems\SharedAssemblyInfo.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient.Scripts", "Difi.Oppslagstjeneste.Klient.Scripts\Difi.Oppslagstjeneste.Klient.Scripts.csproj", "{2DD9A89B-E1B4-4DC4-BA46-1D58AB0B0200}"

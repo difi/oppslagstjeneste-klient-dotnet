@@ -63,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DtoConverter.cs" />
     <Compile Include="Envelope\AbstractEnvelope.cs" />
     <Compile Include="Envelope\DateUtility.cs" />
@@ -83,9 +86,6 @@
     <Compile Include="SerializeUtil.cs" />
     <Compile Include="OppslagstjenesteKonfigurasjon.cs" />
     <Compile Include="OppslagstjenesteKlient.cs" />
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoapVersion.cs" />
     <Compile Include="Svar\NamespaceManager.cs" />

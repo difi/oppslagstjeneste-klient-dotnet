@@ -21,7 +21,6 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         protected override XmlElement CreateBody()
         {
             var body = base.CreateBody();
-            // HentEndringerForespoersel
             var hentEndringer = Document.CreateElement("ns", "HentEndringerForespoersel", Navnerom.OppslagstjenesteDefinisjon);
             hentEndringer.SetAttribute("fraEndringsNummer", FraEndringsNummer.ToString());
             body.AppendChild(hentEndringer);

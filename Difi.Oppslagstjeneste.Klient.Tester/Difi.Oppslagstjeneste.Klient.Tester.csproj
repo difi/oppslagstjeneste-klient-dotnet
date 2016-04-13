@@ -78,6 +78,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Envelope\EndringerEnvelopeTests.cs" />
     <Compile Include="Envelope\PersonerEnvelopeTests.cs" />
     <Compile Include="Envelope\PrintSertifikatEnvelopeTests.cs" />
@@ -124,7 +127,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="..\SolutionItems\App.config">
+      <Link>App.config</Link>
+    </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Testdata\difi-enhetstester.cer" />
     <EmbeddedResource Include="Testdata\difi-enhetstester.p12" />
