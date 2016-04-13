@@ -39,7 +39,6 @@ namespace Difi.Oppslagstjeneste.Klient
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    Log.Warn($"Response HTTP code was {response.StatusCode}");
                     CheckResponseForErrors(soapResponse);
                 }
                 return new ResponseContainer(soapResponse);
@@ -74,8 +73,7 @@ namespace Difi.Oppslagstjeneste.Klient
             var reader = new StreamReader(soapResponse);
             var text = reader.ReadToEnd();
             var exception = new SoapException(text);
-            Log.Error($"> Feil ved sending (Skyldig: {exception.Skyldig})");
-            Log.Error($"  - {exception.Beskrivelse}");
+            Log.Error($"Uventet feil: {exception}");
             throw exception;
         }
 
@@ -93,7 +91,7 @@ namespace Difi.Oppslagstjeneste.Klient
             var xmlValidert = xmlValidator.ValiderDokumentMotXsd(xml.OuterXml);
             if (!xmlValidert)
             {
-                Log.Warn($"Request did not validate OK. Errors[{xmlValidator.ValideringsVarsler}]");
+                Log.Warn($"Utgående forespørsel validerte ikke: {xmlValidator.ValideringsVarsler}");
                 throw new XmlException(xmlValidator.ValideringsVarsler);
             }
         }

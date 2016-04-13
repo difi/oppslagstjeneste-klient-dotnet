@@ -84,6 +84,8 @@
     <Compile Include="DtoConverterTests.cs" />
     <Compile Include="Fakes\FakeHttpClientHandler.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerResponse.cs" />
+    <Compile Include="Integrasjon\Integrasjonstester.cs" />
+    <Compile Include="OppslagstjenesteHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.log4net.cs" />
     <Compile Include="Ressurser\Examples\TestResourceUtility.cs" />
     <Compile Include="Svar\ResponseContainerTests.cs" />
@@ -103,7 +105,6 @@
     <Compile Include="Domene\PersonTester.cs" />
     <Compile Include="Svar\PrintSertifikatSvarTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Integrasjon\Integrasjonstester.cs" />
     <Compile Include="Domene\SoapExceptionTester.cs" />
     <Compile Include="Utilities\MockUtility.cs" />
     <Compile Include="Utilities\XmlUtility.cs" />
