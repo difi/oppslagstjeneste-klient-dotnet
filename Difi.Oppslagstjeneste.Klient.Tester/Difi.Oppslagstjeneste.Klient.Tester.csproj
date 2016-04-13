@@ -55,6 +55,10 @@
       <HintPath>..\packages\CompareNETObjects.3.04.0.0\lib\net45\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
@@ -74,12 +78,18 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Envelope\EndringerEnvelopeTests.cs" />
     <Compile Include="Envelope\PersonerEnvelopeTests.cs" />
     <Compile Include="Envelope\PrintSertifikatEnvelopeTests.cs" />
     <Compile Include="DtoConverterTests.cs" />
     <Compile Include="Fakes\FakeHttpClientHandler.cs" />
     <Compile Include="Fakes\FakeHttpClientHandlerResponse.cs" />
+    <Compile Include="Integrasjon\Integrasjonstester.cs" />
+    <Compile Include="OppslagstjenesteHelperTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.log4net.cs" />
     <Compile Include="Ressurser\Examples\TestResourceUtility.cs" />
     <Compile Include="Svar\ResponseContainerTests.cs" />
     <Compile Include="Utilities\CompareObjects\Comparator.cs" />
@@ -98,7 +108,6 @@
     <Compile Include="Domene\PersonTester.cs" />
     <Compile Include="Svar\PrintSertifikatSvarTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Integrasjon\Integrasjonstester.cs" />
     <Compile Include="Domene\SoapExceptionTester.cs" />
     <Compile Include="Utilities\MockUtility.cs" />
     <Compile Include="Utilities\XmlUtility.cs" />
@@ -118,6 +127,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\SolutionItems\App.config">
+      <Link>App.config</Link>
+    </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Testdata\difi-enhetstester.cer" />
     <EmbeddedResource Include="Testdata\difi-enhetstester.p12" />

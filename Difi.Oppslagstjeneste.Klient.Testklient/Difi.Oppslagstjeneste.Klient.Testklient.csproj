@@ -47,6 +47,10 @@
       <HintPath>..\packages\CompareObjects.1.0.2\lib\net35\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,14 +60,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
+    <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.log4net.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="..\SolutionItems\App.config">
+      <Link>App.config</Link>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

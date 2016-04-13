@@ -1,23 +1,23 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
+using log4net;
 
 namespace Difi.Oppslagstjeneste.Klient.Testklient
 {
     internal class Program
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private static void Main(string[] args)
         {
-
             var avsendersertifikatThumbprint = CertificateIssuedToPostenNorgeAsIssuedByBuypassClass3Test4Ca3();
             var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikatThumbprint);
-
-            Logger.Initialize(konfigurasjon);
-            Logger.Log(TraceEventType.Information, "> Starter program!");
+            
+            Log.Debug("> Starter program!");
 
             //konfigurasjon.SendPåVegneAv = "984661185";
 
