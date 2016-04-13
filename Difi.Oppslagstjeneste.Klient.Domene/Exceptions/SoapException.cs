@@ -45,5 +45,10 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
                     "Feilmelding mottatt, klarte ikke å parse feilkode og feilmelding. Se Xml for rådata.", e);
             }
         }
+
+        public override string ToString()
+        {
+            return $"Skyldig: {Skyldig}, Beskrivelse: {Beskrivelse}";
+        }
     }
 }

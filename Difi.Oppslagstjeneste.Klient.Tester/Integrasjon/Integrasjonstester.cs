@@ -11,13 +11,12 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Integrasjon
     [TestClass]
     public class Integrasjonstester
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static OppslagstjenesteKlient _oppslagstjenesteKlient;
 
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            Log.Debug("Init Integrasjonster");
+            log4net.Config.XmlConfigurator.Configure();
             var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Sertifikater");
             var avsendersertifikat = new X509Certificate2(resourceUtility.ReadAllBytes(true, "DifiTestsertifikatKlient.p12"), "changeit", X509KeyStorageFlags.Exportable);
             var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikat);

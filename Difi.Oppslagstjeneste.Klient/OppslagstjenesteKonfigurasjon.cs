@@ -74,5 +74,10 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet" />
         /// </summary>
         public string SendPåVegneAv { get; set; }
+
+        public override string ToString()
+        {
+            return $"Miljø: {Miljø}, ProxyHost: {ProxyHost}, ProxyScheme: {ProxyScheme}, ProxyPort: {ProxyPort}, TimeoutIMillisekunder: {TimeoutIMillisekunder}, SendPåVegneAv: {SendPåVegneAv}";
+        }
     }
 }

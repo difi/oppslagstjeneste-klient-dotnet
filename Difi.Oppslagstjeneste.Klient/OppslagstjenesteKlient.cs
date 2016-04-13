@@ -31,7 +31,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         public OppslagstjenesteKlient(OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
         {
-            Log.Debug($"OppslagstjenesteKlient(miljø:{oppslagstjenesteKonfigurasjon.Miljø},TimeoutIMillisekunder:{oppslagstjenesteKonfigurasjon.TimeoutIMillisekunder},ProxyHost:{oppslagstjenesteKonfigurasjon.ProxyHost},ProxyPort:{oppslagstjenesteKonfigurasjon.ProxyPort},ProxyScheme:{oppslagstjenesteKonfigurasjon.ProxyScheme})");
+            Log.Debug(oppslagstjenesteKonfigurasjon.ToString());
             OppslagstjenesteKonfigurasjon = oppslagstjenesteKonfigurasjon;
             _oppslagstjenesteHelper = new OppslagstjenesteHelper(oppslagstjenesteKonfigurasjon);
         }
@@ -162,7 +162,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<PrintSertifikatSvar> HentPrintSertifikatAsynkront()
         {
             var requestEnvelope = new PrintSertifikatEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv);
-            Log.Debug($"HentPrintSertifikatAsynkront()");
+            Log.Debug($"HentPrintSertifikatAsynkront");
             RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
             RequestLog.Debug(responseDocument.Envelope.InnerXml);
