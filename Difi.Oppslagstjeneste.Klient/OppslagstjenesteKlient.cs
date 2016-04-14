@@ -178,7 +178,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
         private void ValidateResponse(AbstractEnvelope envelope, ResponseContainer responseContainer)
         {
-            var responsvalidator = new Oppslagstjenestevalidator(envelope.XmlDocument, responseContainer, OppslagstjenesteKonfigurasjon);
+            var responsvalidator = new OppslagstjenesteValidator(envelope.XmlDocument, responseContainer, OppslagstjenesteKonfigurasjon);
             responsvalidator.Valider();
         }
     }

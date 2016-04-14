@@ -11,18 +11,18 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
         public void EnkelKonstruktør()
         {
             //Arrange
-            var avsendersertifikat = DomainUtility.GetSenderUnitTestCertificate();
-            const string sendPåVegneAv = "sendPåVegneAv";
+            var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
+            const string sendOnBehalfOf = "sendPåVegneAv";
 
             //Act
-            var envelope = new PrintSertifikatEnvelope(avsendersertifikat, sendPåVegneAv);
+            var envelope = new PrintSertifikatEnvelope(senderUnitTestCertificate, sendOnBehalfOf);
 
             //Assert
             Assert.IsNotNull(envelope.Settings.BinarySecurityId);
             Assert.IsNotNull(envelope.Settings.BodyId);
             Assert.IsNotNull(envelope.Settings.TimestampId);
-            Assert.AreEqual(envelope.SendPåVegneAv, sendPåVegneAv);
-            Assert.AreEqual(envelope.AvsenderSertifikat, avsendersertifikat);
+            Assert.AreEqual(envelope.SendPåVegneAv, sendOnBehalfOf);
+            Assert.AreEqual(envelope.AvsenderSertifikat, senderUnitTestCertificate);
 
             Assert.IsNotNull(envelope.XmlDocument);
         }

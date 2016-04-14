@@ -7,24 +7,21 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
     public class OppslagstjenesteKlientTests
     {
         [TestClass]
-        public class KonstruktørMethod : OppslagstjenesteKlientTests
+        public class ConstructorMethod : OppslagstjenesteKlientTests
         {
             [TestMethod]
-            public void KonstruktørMedSertifikater()
+            public void InitializesWithCertificates()
             {
                 //Arrange
-                var avsenderEnhetstesterSertifikat = DomainUtility.GetSenderUnitTestCertificate();
-                var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsenderEnhetstesterSertifikat);
+                var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
+                var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, senderUnitTestCertificate);
 
                 //Act
-                var oppslagstjenesteKlient = new OppslagstjenesteKlient(
-                    oppslagstjenesteKonfigurasjon
-                    );
+                var oppslagstjenesteClient = new OppslagstjenesteKlient(oppslagstjenesteConfiguration);
 
                 //Assert
-                Assert.AreEqual(avsenderEnhetstesterSertifikat,
-                    oppslagstjenesteKlient.OppslagstjenesteKonfigurasjon.Avsendersertifikat);
-                Assert.AreEqual(oppslagstjenesteKonfigurasjon, oppslagstjenesteKlient.OppslagstjenesteKonfigurasjon);
+                Assert.AreEqual(senderUnitTestCertificate, oppslagstjenesteClient.OppslagstjenesteKonfigurasjon.Avsendersertifikat);
+                Assert.AreEqual(oppslagstjenesteConfiguration, oppslagstjenesteClient.OppslagstjenesteKonfigurasjon);
             }
         }
     }

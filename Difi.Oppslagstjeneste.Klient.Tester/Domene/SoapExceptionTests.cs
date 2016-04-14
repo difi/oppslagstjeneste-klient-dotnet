@@ -7,27 +7,19 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
     [TestClass]
     public class SoapExceptionTests
     {
-        private static SoapException _exception;
-
         [ClassInitialize]
         public static void ParseSoapExceptionSuksess(TestContext context)
         {
-            var feilmelding = XmlResource.Response.GetSoapFault();
-            _exception = new SoapException(feilmelding);
-        }
+            //Arrange
+            var expectedGuilty = "env:Sender";
+            const string expectedDescription = "Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN";
 
-        [TestMethod]
-        public void HentSkyldigSuksess()
-        {
-            Assert.AreEqual("env:Sender", _exception.Skyldig.Trim());
-        }
+            //Act
+            var exception = new SoapException(XmlResource.Response.GetSoapFault());
 
-        [TestMethod]
-        public void HentFeilmeldingSuksess()
-        {
-            const string expected = "Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN";
-
-            Assert.AreEqual(expected, _exception.Beskrivelse.Trim());
+            //Assert
+            Assert.AreEqual(expectedGuilty, exception.Skyldig.Trim());
+            Assert.AreEqual(expectedDescription, exception.Beskrivelse.Trim());
         }
     }
 }

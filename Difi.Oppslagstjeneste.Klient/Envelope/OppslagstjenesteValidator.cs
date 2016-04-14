@@ -9,9 +9,9 @@ using Difi.Oppslagstjeneste.Klient.Svar;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    internal class Oppslagstjenestevalidator : Responsvalidator
+    internal class OppslagstjenesteValidator : Responsvalidator
     {
-        public Oppslagstjenestevalidator(XmlDocument sendtDokument, ResponseContainer responseContainer,
+        public OppslagstjenesteValidator(XmlDocument sendtDokument, ResponseContainer responseContainer,
             OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
             : base(sendtDokument, responseContainer, oppslagstjenesteKonfigurasjon.Avsendersertifikat)
         {

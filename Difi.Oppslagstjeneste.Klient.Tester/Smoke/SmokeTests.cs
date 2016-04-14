@@ -16,19 +16,20 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         public static void Init(TestContext context)
         {
             XmlConfigurator.Configure();
-            var avsendersertifikat = CertificateResource.GetDifiTestCertificate();
-            var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikat);
+            var senderCertificate = CertificateResource.GetDifiTestCertificate();
+            var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, senderCertificate);
 
-            _oppslagstjenesteKlient = new OppslagstjenesteKlient(oppslagstjenesteKonfigurasjon);
+            _oppslagstjenesteKlient = new OppslagstjenesteKlient(oppslagstjenesteConfiguration);
         }
 
         [TestMethod]
-        public async Task HentPersonerSuksess()
+        public async Task GetPersonsSuccess()
         {
             //Arrange
+            var pid = "08077000292";
 
             //Act
-            var personer = await _oppslagstjenesteKlient.HentPersonerAsynkront(new[] {"08077000292"},
+            var personer = await _oppslagstjenesteKlient.HentPersonerAsynkront(new[] {pid},
                 Informasjonsbehov.Sertifikat,
                 Informasjonsbehov.Kontaktinfo,
                 Informasjonsbehov.SikkerDigitalPost);
@@ -38,27 +39,27 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         }
 
         [TestMethod]
-        public async Task HentEndringerSuksess()
+        public async Task GetChangesSuccess()
         {
             //Arrange
 
             //Act
-            var endringer = await _oppslagstjenesteKlient.HentEndringerAsynkront(886730,
+            var changes = await _oppslagstjenesteKlient.HentEndringerAsynkront(886730,
                 Informasjonsbehov.Kontaktinfo,
                 Informasjonsbehov.Sertifikat,
                 Informasjonsbehov.SikkerDigitalPost,
                 Informasjonsbehov.Person);
 
             //Assert
-            Assert.IsTrue(endringer.Personer.Any());
+            Assert.IsTrue(changes.Personer.Any());
         }
 
         [TestMethod]
-        public async Task HentPrintsertifikatSuksess()
+        public async Task GetPrintCertificateSuccess()
         {
-            var printSertifikat = await _oppslagstjenesteKlient.HentPrintSertifikatAsynkront();
+            var printCertificate = await _oppslagstjenesteKlient.HentPrintSertifikatAsynkront();
 
-            Assert.IsNotNull(printSertifikat);
+            Assert.IsNotNull(printCertificate);
         }
     }
 }

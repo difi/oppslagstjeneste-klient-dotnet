@@ -12,25 +12,25 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
         public class KonstruktørMethod : PersonerEnvelopeTests
         {
             [TestMethod]
-            public void EnkelKonstruktør()
+            public void InitializesFields()
             {
                 //Arrange
-                var avsendersertifikat = DomainUtility.GetSenderUnitTestCertificate();
-                const string sendPåVegneAv = "sendPåVegneAv";
-                var personer = new[] {"12312312312", "32132132132"};
-                var informasjonsBehov = new[] {Informasjonsbehov.Person, Informasjonsbehov.Kontaktinfo};
+                var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
+                const string sendOnBehalfOf = "sendPåVegneAv";
+                var persons = new[] {"12312312312", "32132132132"};
+                var informationNeed = new[] {Informasjonsbehov.Person, Informasjonsbehov.Kontaktinfo};
 
                 //Act
-                var envelope = new PersonerEnvelope(avsendersertifikat, sendPåVegneAv, personer, informasjonsBehov);
+                var envelope = new PersonerEnvelope(senderUnitTestCertificate, sendOnBehalfOf, persons, informationNeed);
 
                 //Assert
                 Assert.IsNotNull(envelope.Settings.BinarySecurityId);
                 Assert.IsNotNull(envelope.Settings.BodyId);
                 Assert.IsNotNull(envelope.Settings.TimestampId);
-                Assert.AreEqual(envelope.Personidentifikator, personer);
-                Assert.AreEqual(envelope.Informasjonsbehov, informasjonsBehov);
-                Assert.AreEqual(envelope.SendPåVegneAv, sendPåVegneAv);
-                Assert.AreEqual(envelope.AvsenderSertifikat, avsendersertifikat);
+                Assert.AreEqual(envelope.Personidentifikator, persons);
+                Assert.AreEqual(envelope.Informasjonsbehov, informationNeed);
+                Assert.AreEqual(envelope.SendPåVegneAv, sendOnBehalfOf);
+                Assert.AreEqual(envelope.AvsenderSertifikat, senderUnitTestCertificate);
 
                 Assert.IsNotNull(envelope.XmlDocument);
             }

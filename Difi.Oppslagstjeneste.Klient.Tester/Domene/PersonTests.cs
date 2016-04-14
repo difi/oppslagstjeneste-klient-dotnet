@@ -17,28 +17,28 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
         ///     implisitt testet: Epostadresse, Kontaktinformasjon, Mobiltelefonnummer og Sikkerdigitalpostadresse.
         /// </summary>
         [ClassInitialize]
-        public static void OpprettPersonFraXmlSuksess(TestContext context)
+        public static void CreateFromXmlSuccess(TestContext context)
         {
-            var xmlDocument = XmlUtility.TilXmlDokument(PersonXml());
+            var xmlDocument = XmlUtility.ToXmlDocument(PersonXml());
             var deserialisertPerson = SerializeUtil.Deserialize<DTO.Person>(xmlDocument.InnerXml);
             _person = DtoConverter.ToDomainObject(deserialisertPerson);
         }
 
         [TestMethod]
-        public void HentPersonidentifikatorSuksess()
+        public void GetPidSuccess()
         {
             Assert.AreEqual("08077000292", _person.Personidentifikator);
         }
 
         [TestMethod]
-        public void HentReservasjonOgStatusSuksess()
+        public void GetReservationAndStatusSuccess()
         {
             Assert.IsFalse(_person.Reservasjon);
             Assert.AreEqual(Status.AKTIV, _person.Status);
         }
 
         [TestMethod]
-        public void HentMobiltelefonnummerOgMetadataSuksess()
+        public void GetMobileAndMetadataSuccess()
         {
             Assert.AreEqual("+4740485641", _person.Kontaktinformasjon.Mobiltelefonnummer.Nummer);
             Assert.AreEqual(new DateTime(2015, 04, 14, 14, 35, 19),
@@ -48,24 +48,22 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
         }
 
         [TestMethod]
-        public void HentEpostOgMetadataSuksess()
+        public void GetEmailAndMetadataSuccess()
         {
             Assert.AreEqual("extfjo@vegvesen.no", _person.Kontaktinformasjon.Epostadresse.Epost);
-            Assert.AreEqual(new DateTime(2015, 04, 14, 14, 35, 30),
-                _person.Kontaktinformasjon.Epostadresse.SistOppdatert);
-            Assert.AreEqual(new DateTime(2015, 04, 14, 14, 35, 30),
-                _person.Kontaktinformasjon.Epostadresse.SistVerifisert);
+            Assert.AreEqual(new DateTime(2015, 04, 14, 14, 35, 30),_person.Kontaktinformasjon.Epostadresse.SistOppdatert);
+            Assert.AreEqual(new DateTime(2015, 04, 14, 14, 35, 30),_person.Kontaktinformasjon.Epostadresse.SistVerifisert);
         }
 
         [TestMethod]
-        public void HentSikkerDigitalPostAdresseSuksess()
+        public void GetSikkkerDigitalPostAddressSuccess()
         {
             Assert.AreEqual("id.porten.testuser#2346", _person.SikkerDigitalPostAdresse.Postkasseadresse);
             Assert.AreEqual("984661185", _person.SikkerDigitalPostAdresse.PostkasseleverandørAdresse);
         }
 
         [TestMethod]
-        public void HentSertifikatSuksess()
+        public void GetSertificateSuccess()
         {
             var expected =
                 new X509Certificate2(

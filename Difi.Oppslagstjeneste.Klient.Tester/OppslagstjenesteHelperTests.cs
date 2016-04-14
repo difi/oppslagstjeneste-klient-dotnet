@@ -19,21 +19,23 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             public void OppslagstjenesteKlientHandlesGenericSoapFaultCorrectly()
             {
                 //Arrange
-                var avsenderEnhetstesterSertifikat = DomainUtility.GetSenderUnitTestCertificate();
+                var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
                 var response = XmlResource.Response.GetSoapFault();
+                
                 //Act
                 try
                 {
-                    var oppslagstjenesteKlientMock = MockUtility.OppslagstjenesteKlientMock(response.OuterXml, HttpStatusCode.Forbidden, avsenderEnhetstesterSertifikat);
-                    var client = oppslagstjenesteKlientMock.Object;
+                    var oppslagstjenesteClientMock = MockUtility.OppslagstjenesteKlientMock(response.OuterXml, HttpStatusCode.Forbidden, senderUnitTestCertificate);
+                    var client = oppslagstjenesteClientMock.Object;
                     client.HentPersoner(new[] {"31108412345"}, Informasjonsbehov.Person);
                 }
                 catch (AggregateException e)
                 {
-                    var ex = e.InnerExceptions.ElementAt(0);
+                    var exception = e.InnerExceptions.ElementAt(0);
+                    
                     //Assert
-                    Assert.IsTrue(ex.GetType() == typeof (SoapException));
-                    var soapException = ex as SoapException;
+                    Assert.IsTrue(exception.GetType() == typeof (SoapException));
+                    var soapException = exception as SoapException;
                     Assert.AreEqual("env:Sender", soapException.Skyldig);
                     Assert.AreEqual("Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN", soapException.Beskrivelse);
                 }

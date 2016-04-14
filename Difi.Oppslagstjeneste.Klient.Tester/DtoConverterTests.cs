@@ -21,89 +21,68 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         public class ToDomainObject : DtoConverterTests
         {
             [TestMethod]
-            public void HentPersoner()
+            public void ConvertPerson()
             {
                 //Arrange
-                var kilde = DtoPersonTestData();
-                var forventet = DomainPersonData(kilde);
-
+                var source = new HentPersonerRespons { Person = new []
+                {
+                    GetDtoPerson(DateTime.Now, DateTime.Now)
+                }};
+        
+                var expected = new PersonerSvar
+                {
+                    Personer = source.Person.Select(GetDomenePerson).ToList()
+                };
+               
                 //Act
-                var resultat = DtoConverter.ToDomainObject(kilde);
+                var result = DtoConverter.ToDomainObject(source);
 
                 //Assert
                 var comparator = new Comparator();
                 IEnumerable<IDifference> differences;
-                var erLike = comparator.AreEqual(forventet, resultat, out differences);
-
-                Assert.IsTrue(erLike, "Objektene er ikke like! antall forskjeller:" + differences.Count());
+                comparator.AreEqual(expected, result, out differences);
+                Assert.AreEqual(0, differences.Count());
             }
 
             [TestMethod]
-            public void HentEndringer()
+            public void ConvertChanges()
             {
                 //Arrange
-                const int antallPersoner = 10;
-                var hentEndringerRespons = HentEndringerResponsTestdata(antallPersoner);
-                var forventet = DomeneEndringerSvar(hentEndringerRespons);
+                const int personsCount = 10;
 
+                var source = new HentEndringerRespons()
+                {
+                    fraEndringsNummer = 0,
+                    tilEndringsNummer = personsCount,
+                    senesteEndringsNummer = personsCount
+                };
+
+                var persons = new List<DTO.Person>();
+                for (var i = 0; i < personsCount; i++)
+                {
+                    persons.Add(GetDtoPerson(DateTime.Now, DateTime.Now));
+                }
+                source.Person = persons.ToArray();
+
+                var expected = new EndringerSvar
+                {
+                    FraEndringsNummer = source.fraEndringsNummer,
+                    SenesteEndringsNummer = source.senesteEndringsNummer,
+                    TilEndringsNummer = source.tilEndringsNummer,
+                    Personer = source.Person.Select(GetDomenePerson).ToList()
+                };
+                
                 //Act
-                var resultat = DtoConverter.ToDomainObject(hentEndringerRespons);
+                var result = DtoConverter.ToDomainObject(source);
 
                 //Assert
                 var comparator = new Comparator();
                 IEnumerable<IDifference> differences;
-                var erLike = comparator.AreEqual(forventet, resultat, out differences);
-
-                Assert.IsTrue(erLike, "Objektene er ikke like! antall forskjeller:" + differences.Count());
+                comparator.AreEqual(expected, result, out differences);
+                Assert.AreEqual(0, differences.Count());
             }
-
-            private static EndringerSvar DomeneEndringerSvar(HentEndringerRespons hentEndringerRespons)
-            {
-                var endringerSvar = new EndringerSvar
-                {
-                    FraEndringsNummer = hentEndringerRespons.fraEndringsNummer,
-                    SenesteEndringsNummer = hentEndringerRespons.senesteEndringsNummer,
-                    TilEndringsNummer = hentEndringerRespons.tilEndringsNummer,
-                    Personer = hentEndringerRespons.Person.Select(DomenePerson).ToList()
-                };
-                return endringerSvar;
-            }
-
-            private static HentPersonerRespons DtoPersonTestData()
-            {
-                var kilde = new HentPersonerRespons {Person = new DTO.Person[1]};
-                kilde.Person[0] = Person(DateTime.Now, DateTime.Now);
-                return kilde;
-            }
-
-            private static HentEndringerRespons HentEndringerResponsTestdata(int antallPersoner)
-            {
-                var kilde = new HentEndringerRespons();
-                var personer = new List<DTO.Person>();
-                for (var i = 0; i < antallPersoner; i++)
-                {
-                    personer.Add(Person(DateTime.Now, DateTime.Now));
-                }
-                kilde.Person = personer.ToArray();
-
-                kilde.fraEndringsNummer = 0;
-                kilde.tilEndringsNummer = antallPersoner;
-                kilde.senesteEndringsNummer = antallPersoner;
-
-                return kilde;
-            }
-
-            private static PersonerSvar DomainPersonData(HentPersonerRespons hentPersonerRespons)
-            {
-                var personsvar = new PersonerSvar();
-                var personer = hentPersonerRespons.Person.Select(DomenePerson).ToList();
-
-                personsvar.Personer = personer;
-
-                return personsvar;
-            }
-
-            private static Person DomenePerson(DTO.Person kilde)
+            
+            private static Person GetDomenePerson(DTO.Person kilde)
             {
                 var forventet = new Person
                 {
@@ -135,18 +114,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 };
                 return forventet;
             }
-
-            private static IEnumerable<DTO.Person> Personer(int antall, DateTime sistOppdatert, DateTime sistVerifisert)
-            {
-                var personer = new List<DTO.Person>();
-                for (var i = 0; i < antall; i++)
-                {
-                    personer.Add(Person(sistOppdatert, sistVerifisert));
-                }
-                return personer;
-            }
-
-            private static DTO.Person Person(DateTime sistOppdatert, DateTime sistVerifisert)
+            
+            private static DTO.Person GetDtoPerson(DateTime sistOppdatert, DateTime sistVerifisert)
             {
                 var kilde = new DTO.Person
                 {

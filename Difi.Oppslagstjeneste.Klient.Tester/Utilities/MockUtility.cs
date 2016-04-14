@@ -10,19 +10,18 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Utilities
     {
         public static Mock<OppslagstjenesteKlient> OppslagstjenesteKlientMock(string respons, HttpStatusCode httpStatusCode, X509Certificate2 avsenderEnhetstesterSertifikat)
         {
-            var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsenderEnhetstesterSertifikat);
-            var mockProxy = CreateOppslagstjenesteHelperMock(respons, httpStatusCode, oppslagstjenesteKonfigurasjon);
-            var oppslagstjenesteKlientMock = new Mock<OppslagstjenesteKlient>(oppslagstjenesteKonfigurasjon);
-            oppslagstjenesteKlientMock.Setup(f => f.GetClient()).Returns(mockProxy.Object);
-            return oppslagstjenesteKlientMock;
+            var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsenderEnhetstesterSertifikat);
+            var mockProxy = CreateOppslagstjenesteHelperMock(respons, httpStatusCode, oppslagstjenesteConfiguration);
+            var oppslagstjenesteClientMock = new Mock<OppslagstjenesteKlient>(oppslagstjenesteConfiguration);
+            oppslagstjenesteClientMock.Setup(f => f.GetClient()).Returns(mockProxy.Object);
+            return oppslagstjenesteClientMock;
         }
 
         private static Mock<OppslagstjenesteHelper> CreateOppslagstjenesteHelperMock(string response, HttpStatusCode httpStatusCode, OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
         {
             var oppslagstjenesteMock = new Mock<OppslagstjenesteHelper>(oppslagstjenesteKonfigurasjon);
             var fakeHttpClientResponse = new FakeHttpClientHandlerResponse(response, httpStatusCode);
-            oppslagstjenesteMock.Setup(f => f.Client())
-                .Returns(new HttpClient(fakeHttpClientResponse));
+            oppslagstjenesteMock.Setup(f => f.Client()).Returns(new HttpClient(fakeHttpClientResponse));
 
             return oppslagstjenesteMock;
         }

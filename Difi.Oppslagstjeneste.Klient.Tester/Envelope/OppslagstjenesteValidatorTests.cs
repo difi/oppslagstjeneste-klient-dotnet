@@ -10,7 +10,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
     public class OppslagstjenesteValidatorTests
     {
         [TestClass]
-        public class KonstruktørMethod : OppslagstjenesteValidatorTests
+        public class ConstructorMethod : OppslagstjenesteValidatorTests
         {
             [TestMethod]
             public void EnkelKonstruktør()
@@ -18,18 +18,18 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
                 //Arrange
                 var requestXmlDocument = XmlResource.Request.GetPerson();
                 var responseXmlDocument = XmlResource.Response.GetPerson();
-                var avsendersertifikat = DomainUtility.GetSenderUnitTestCertificate();
-                var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikat);
+                var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
+                var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, senderUnitTestCertificate);
 
                 var responseContainer = new ResponseContainer(responseXmlDocument);
 
                 //Act
-                var oppslagstjenestevalidator = new Oppslagstjenestevalidator(requestXmlDocument, responseContainer, oppslagstjenesteKonfigurasjon);
+                var oppslagstjenesteValidator = new OppslagstjenesteValidator(requestXmlDocument, responseContainer, oppslagstjenesteConfiguration);
 
                 //Assert
-                Assert.AreEqual(requestXmlDocument, oppslagstjenestevalidator.SendtDokument);
+                Assert.AreEqual(requestXmlDocument, oppslagstjenesteValidator.SendtDokument);
                 Assert.AreEqual(responseXmlDocument, responseContainer.Envelope);
-                Assert.AreEqual(oppslagstjenesteKonfigurasjon.Miljø, oppslagstjenestevalidator.Miljø);
+                Assert.AreEqual(oppslagstjenesteConfiguration.Miljø, oppslagstjenesteValidator.Miljø);
             }
         }
     }
