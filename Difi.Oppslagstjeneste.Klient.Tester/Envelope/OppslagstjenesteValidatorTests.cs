@@ -1,10 +1,10 @@
 ﻿using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Svar;
-using Difi.Oppslagstjeneste.Klient.Tests;
+using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
 {
     [TestClass]
     public class OppslagstjenesteValidatorTests

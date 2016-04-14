@@ -2,9 +2,10 @@
 using System.Security.Cryptography.X509Certificates;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
+using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
+namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
 {
     [TestClass]
     public class PersonTester

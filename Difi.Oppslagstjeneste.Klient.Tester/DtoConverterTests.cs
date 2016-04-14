@@ -4,7 +4,7 @@ using System.Linq;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.DTO;
-using Difi.Oppslagstjeneste.Klient.Tester.Utilities.CompareObjects;
+using Difi.Oppslagstjeneste.Klient.Tests.Utilities.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Epostadresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Epostadresse;
 using Kontaktinformasjon = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Kontaktinformasjon;
@@ -12,7 +12,7 @@ using Mobiltelefonnummer = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Mobilte
 using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 using SikkerDigitalPostAdresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.SikkerDigitalPostAdresse;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester
+namespace Difi.Oppslagstjeneste.Klient.Tests
 {
     [TestClass]
     public class DtoConverterTests

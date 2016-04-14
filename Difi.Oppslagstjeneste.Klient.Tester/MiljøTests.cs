@@ -1,7 +1,7 @@
 ﻿using Difi.Felles.Utility.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester
+namespace Difi.Oppslagstjeneste.Klient.Tests
 {
     [TestClass]
     public class MiljøTests

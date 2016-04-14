@@ -4,11 +4,10 @@ using System.Net;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Resources.Xml;
-using Difi.Oppslagstjeneste.Klient.Tester.Utilities;
-using Difi.Oppslagstjeneste.Klient.Tests;
+using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester
+namespace Difi.Oppslagstjeneste.Klient.Tests
 {
     [TestClass]
     public class OppslagstjenesteHelperTests

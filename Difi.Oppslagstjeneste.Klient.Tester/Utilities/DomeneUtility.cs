@@ -1,12 +1,12 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 
-namespace Difi.Oppslagstjeneste.Klient.Tests
+namespace Difi.Oppslagstjeneste.Klient.Tests.Utilities
 {
     internal class DomeneUtility
     {
         internal static readonly ResourceUtility ResourceUtility =
-            new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tester.Testdata");
+            new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tests.Testdata");
 
         internal static X509Certificate2 GetAvsenderEnhetstesterSertifikat()
         {

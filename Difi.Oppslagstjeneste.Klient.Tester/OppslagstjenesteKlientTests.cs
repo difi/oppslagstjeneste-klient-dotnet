@@ -1,7 +1,7 @@
-﻿using Difi.Oppslagstjeneste.Klient.Tests;
+﻿using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester
+namespace Difi.Oppslagstjeneste.Klient.Tests
 {
     [TestClass]
     public class OppslagstjenesteKlientTests

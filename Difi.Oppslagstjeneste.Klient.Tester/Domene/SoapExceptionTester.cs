@@ -2,7 +2,7 @@
 using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
+namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
 {
     [TestClass]
     public class SoapExceptionTester

@@ -6,7 +6,7 @@ using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
+namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
 {
     [TestClass]
     public class PrintSertifikatSvarTester

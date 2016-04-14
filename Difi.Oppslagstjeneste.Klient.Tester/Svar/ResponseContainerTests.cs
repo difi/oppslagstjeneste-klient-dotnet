@@ -2,10 +2,10 @@
 using Difi.Oppslagstjeneste.Klient.DTO;
 using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Svar;
-using Difi.Oppslagstjeneste.Klient.Tester.Utilities.CompareObjects;
+using Difi.Oppslagstjeneste.Klient.Tests.Utilities.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
+namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
 {
     [TestClass]
     public class ResponseContainerTests

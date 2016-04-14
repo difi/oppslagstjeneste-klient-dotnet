@@ -3,7 +3,7 @@ using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Svar;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
 {
     internal class OppslagstjenestevalidatorMedStubbetSjekkTimestamp : Oppslagstjenestevalidator
     {

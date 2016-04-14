@@ -1,10 +1,10 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
-using Difi.Oppslagstjeneste.Klient.Tester.Fakes;
+using Difi.Oppslagstjeneste.Klient.Tests.Fakes;
 using Moq;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester.Utilities
+namespace Difi.Oppslagstjeneste.Klient.Tests.Utilities
 {
     internal class MockUtility
     {

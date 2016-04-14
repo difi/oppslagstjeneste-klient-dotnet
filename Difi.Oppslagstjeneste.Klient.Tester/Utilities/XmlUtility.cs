@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester
+namespace Difi.Oppslagstjeneste.Klient.Tests.Utilities
 {
     internal class XmlUtility
     {
