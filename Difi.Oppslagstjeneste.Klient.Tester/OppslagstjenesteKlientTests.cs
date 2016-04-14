@@ -1,37 +1,27 @@
-﻿using System;
-using System.Linq;
-using System.Net;
-using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
-using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
-using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
-using Difi.Oppslagstjeneste.Klient.Tester.Utilities;
-using Difi.Oppslagstjeneste.Klient.Tests;
+﻿using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester
+namespace Difi.Oppslagstjeneste.Klient.Tests
 {
     [TestClass]
     public class OppslagstjenesteKlientTests
     {
         [TestClass]
-        public class KonstruktørMethod : OppslagstjenesteKlientTests
+        public class ConstructorMethod : OppslagstjenesteKlientTests
         {
             [TestMethod]
-            public void KonstruktørMedSertifikater()
+            public void InitializesWithCertificates()
             {
                 //Arrange
-                var avsenderEnhetstesterSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
-                var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsenderEnhetstesterSertifikat);
+                var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
+                var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, senderUnitTestCertificate);
 
                 //Act
-                var oppslagstjenesteKlient = new OppslagstjenesteKlient(
-                    oppslagstjenesteKonfigurasjon
-                    );
+                var oppslagstjenesteClient = new OppslagstjenesteKlient(oppslagstjenesteConfiguration);
 
                 //Assert
-                Assert.AreEqual(avsenderEnhetstesterSertifikat,
-                    oppslagstjenesteKlient.OppslagstjenesteKonfigurasjon.Avsendersertifikat);
-                Assert.AreEqual(oppslagstjenesteKonfigurasjon, oppslagstjenesteKlient.OppslagstjenesteKonfigurasjon);
+                Assert.AreEqual(senderUnitTestCertificate, oppslagstjenesteClient.OppslagstjenesteKonfigurasjon.Avsendersertifikat);
+                Assert.AreEqual(oppslagstjenesteConfiguration, oppslagstjenesteClient.OppslagstjenesteKonfigurasjon);
             }
         }
     }

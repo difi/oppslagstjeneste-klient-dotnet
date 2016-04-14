@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests
 {
@@ -6,21 +7,21 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
     public class OppslagstjenesteKonfigurasjonTests
     {
         [TestClass]
-        public class KonstruktørMethod : OppslagstjenesteKonfigurasjonTests
+        public class ConstructorMethod : OppslagstjenesteKonfigurasjonTests
         {
             [TestMethod]
-            public void EnkelKonstruktør()
+            public void InitializesFields()
             {
                 //Arrange
-                var miljø = Miljø.FunksjoneltTestmiljø;
-                var avsenderEnhetstesterSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
-                var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø, avsenderEnhetstesterSertifikat);
+                var environment = Miljø.FunksjoneltTestmiljø;
+                var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
+                var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(environment, senderUnitTestCertificate);
 
                 //Act
 
                 //Assert
-                Assert.AreEqual(miljø, oppslagstjenesteKonfigurasjon.Miljø);
-                Assert.AreEqual(avsenderEnhetstesterSertifikat, oppslagstjenesteKonfigurasjon.Avsendersertifikat);
+                Assert.AreEqual(environment, oppslagstjenesteConfiguration.Miljø);
+                Assert.AreEqual(senderUnitTestCertificate, oppslagstjenesteConfiguration.Avsendersertifikat);
             }
         }
     }

@@ -1,8 +1,8 @@
 ﻿using Difi.Oppslagstjeneste.Klient.Envelope;
-using Difi.Oppslagstjeneste.Klient.Tests;
+using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
+namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
 {
     [TestClass]
     public class KonstruktørMethod : PersonerEnvelopeTests
@@ -11,18 +11,18 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
         public void EnkelKonstruktør()
         {
             //Arrange
-            var avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
-            const string sendPåVegneAv = "sendPåVegneAv";
+            var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
+            const string sendOnBehalfOf = "sendPåVegneAv";
 
             //Act
-            var envelope = new PrintSertifikatEnvelope(avsendersertifikat, sendPåVegneAv);
+            var envelope = new PrintCertificateEnvelope(senderUnitTestCertificate, sendOnBehalfOf);
 
             //Assert
             Assert.IsNotNull(envelope.Settings.BinarySecurityId);
             Assert.IsNotNull(envelope.Settings.BodyId);
             Assert.IsNotNull(envelope.Settings.TimestampId);
-            Assert.AreEqual(envelope.SendPåVegneAv, sendPåVegneAv);
-            Assert.AreEqual(envelope.AvsenderSertifikat, avsendersertifikat);
+            Assert.AreEqual(envelope.SendOnBehalfOf, sendOnBehalfOf);
+            Assert.AreEqual(envelope.SenderCertificate, senderUnitTestCertificate);
 
             Assert.IsNotNull(envelope.XmlDocument);
         }

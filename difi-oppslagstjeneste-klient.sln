@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient.Domene", "Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj", "{3EC8D196-7BD8-4C88-B989-216801AD0840}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient.Tester", "Difi.Oppslagstjeneste.Klient.Tester\Difi.Oppslagstjeneste.Klient.Tester.csproj", "{E895DDE0-3B5C-4832-83A5-B545A59570F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient.Tests", "Difi.Oppslagstjeneste.Klient.Tester\Difi.Oppslagstjeneste.Klient.Tests.csproj", "{E895DDE0-3B5C-4832-83A5-B545A59570F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35CACDAF-9027-4799-AB9E-16210A7EF014}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient.Scripts", "Difi.Oppslagstjeneste.Klient.Scripts\Difi.Oppslagstjeneste.Klient.Scripts.csproj", "{2DD9A89B-E1B4-4DC4-BA46-1D58AB0B0200}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient.Resources", "Difi.Oppslagstjeneste.Klient.Resources\Difi.Oppslagstjeneste.Klient.Resources.csproj", "{A52AAFCE-14DF-4A33-AF7C-9209FCBA646C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{2DD9A89B-E1B4-4DC4-BA46-1D58AB0B0200}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DD9A89B-E1B4-4DC4-BA46-1D58AB0B0200}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DD9A89B-E1B4-4DC4-BA46-1D58AB0B0200}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A52AAFCE-14DF-4A33-AF7C-9209FCBA646C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A52AAFCE-14DF-4A33-AF7C-9209FCBA646C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A52AAFCE-14DF-4A33-AF7C-9209FCBA646C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A52AAFCE-14DF-4A33-AF7C-9209FCBA646C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

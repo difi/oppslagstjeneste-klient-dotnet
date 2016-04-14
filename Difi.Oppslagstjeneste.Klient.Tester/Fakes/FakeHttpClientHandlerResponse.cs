@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester.Fakes
+namespace Difi.Oppslagstjeneste.Klient.Tests.Fakes
 {
     public class FakeHttpClientHandlerResponse : FakeHttpClientHandler
     {

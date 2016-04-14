@@ -10,27 +10,27 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     internal abstract class OppslagstjenesteEnvelope : AbstractEnvelope
     {
-        protected OppslagstjenesteEnvelope(X509Certificate2 avsenderSertifikat, string sendPåVegneAv)
+        protected OppslagstjenesteEnvelope(X509Certificate2 senderCertificate, string sendOnBehalfOf)
 
         {
-            AvsenderSertifikat = avsenderSertifikat;
-            SendPåVegneAv = sendPåVegneAv;
+            SenderCertificate = senderCertificate;
+            SendOnBehalfOf = sendOnBehalfOf;
         }
 
-        internal string SendPåVegneAv { get; }
+        internal string SendOnBehalfOf { get; }
 
         protected XmlElement Security { get; private set; }
 
-        public X509Certificate2 AvsenderSertifikat { get; set; }
+        public X509Certificate2 SenderCertificate { get; set; }
 
         protected override XmlElement CreateHeader()
         {
             var header = base.CreateHeader();
 
-            Security = new Security(AvsenderSertifikat, Settings, Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
+            Security = new Security(SenderCertificate, Settings, Document, TimeSpan.FromMinutes(30)).Xml() as XmlElement;
             header.AppendChild(Security);
 
-            if (!string.IsNullOrEmpty(SendPåVegneAv))
+            if (!string.IsNullOrEmpty(SendOnBehalfOf))
             {
                 var sendPåVegneAvNode = SendPåVegneAvNode();
                 header.AppendChild(sendPåVegneAvNode);
@@ -43,7 +43,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
             var oppslagstjenesten = Document.CreateElement("Oppslagstjenesten", Navnerom.OppslagstjenesteDefinisjon);
             var paavegneav = Document.CreateElement("PaaVegneAv", Navnerom.OppslagstjenesteDefinisjon);
-            paavegneav.InnerXml = SendPåVegneAv;
+            paavegneav.InnerXml = SendOnBehalfOf;
             oppslagstjenesten.AppendChild(paavegneav);
 
             return oppslagstjenesten;
@@ -62,7 +62,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
         protected override void AddSignatureToHeader(XmlNode node)
         {
-            SignedXml signed = new SignedXmlWithAgnosticId(Document, AvsenderSertifikat);
+            SignedXml signed = new SignedXmlWithAgnosticId(Document, SenderCertificate);
 
             signed.SignedInfo.CanonicalizationMethod = "http://www.w3.org/2001/10/xml-exc-c14n#";
 
@@ -77,7 +77,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 
             var securityToken = new SecurityTokenReferenceClause(Settings.BinarySecurityId);
             signed.KeyInfo.AddClause(securityToken);
-            signed.KeyInfo.Id = string.Format("KS-{0}", Guid.NewGuid());
+            signed.KeyInfo.Id = $"KS-{Guid.NewGuid()}";
 
             signed.ComputeSignature();
 

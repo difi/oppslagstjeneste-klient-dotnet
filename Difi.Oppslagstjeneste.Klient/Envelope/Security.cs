@@ -4,6 +4,7 @@ using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Extensions;
 using Difi.Oppslagstjeneste.Klient.Security;
+using Difi.Oppslagstjeneste.Klient.Utilities;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
@@ -11,14 +12,14 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
     {
         private TimeSpan? _timespan;
 
-        public Security(X509Certificate2 avsenderSertifkat, EnvelopeSettings envelopeSettings, XmlDocument xmlDocument, TimeSpan? timestampexpirey)
+        public Security(X509Certificate2 senderCertificate, EnvelopeSettings envelopeSettings, XmlDocument xmlDocument, TimeSpan? timestampexpirey)
             : base(envelopeSettings, xmlDocument)
         {
             _timespan = timestampexpirey;
-            AvsenderSertifkat = avsenderSertifkat;
+            SenderCertificate = senderCertificate;
         }
 
-        public X509Certificate2 AvsenderSertifkat { get; set; }
+        public X509Certificate2 SenderCertificate { get; set; }
 
         public override XmlNode Xml()
         {
@@ -28,7 +29,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             if (_timespan.HasValue)
                 securityElement.AppendChild(TimestampElement());
 
-            var securityToken = Context.ImportNode(new SecurityTokenReferenceClause(AvsenderSertifkat, Settings.BinarySecurityId).GetTokenXml(), true);
+            var securityToken = Context.ImportNode(new SecurityTokenReferenceClause(SenderCertificate, Settings.BinarySecurityId).GetTokenXml(), true);
             securityElement.AppendChild(securityToken);
 
             return securityElement;

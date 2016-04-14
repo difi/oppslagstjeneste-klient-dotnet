@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Difi.Oppslagstjeneste.Klient.Tester")]
+[assembly: AssemblyTitle("Difi.Oppslagstjeneste.Klient.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Difi.Oppslagstjeneste.Klient.Tester")]
+[assembly: AssemblyProduct("Difi.Oppslagstjeneste.Klient.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

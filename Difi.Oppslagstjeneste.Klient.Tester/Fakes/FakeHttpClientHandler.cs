@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester.Fakes
+namespace Difi.Oppslagstjeneste.Klient.Tests.Fakes
 {
     public abstract class FakeHttpClientHandler : DelegatingHandler
     {

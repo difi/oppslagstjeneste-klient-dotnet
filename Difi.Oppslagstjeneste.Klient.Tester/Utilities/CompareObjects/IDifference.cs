@@ -1,4 +1,4 @@
-﻿namespace Difi.Oppslagstjeneste.Klient.Tester.Utilities.CompareObjects
+﻿namespace Difi.Oppslagstjeneste.Klient.Tests.Utilities.CompareObjects
 {
     public interface IDifference
     {

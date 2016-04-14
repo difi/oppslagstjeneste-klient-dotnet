@@ -1,30 +1,30 @@
-﻿using Difi.Oppslagstjeneste.Klient.Tests;
+﻿using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester
+namespace Difi.Oppslagstjeneste.Klient.Tests
 {
     [TestClass]
     public class KlientkonfigurasjonTests
     {
         [TestClass]
-        public class KonstruktørMethod : KlientkonfigurasjonTests
+        public class ConstructorMethod : KlientkonfigurasjonTests
         {
             [TestMethod]
-            public void EnkelKonstruktør()
+            public void InitializesFields()
             {
                 //Arrange
-                var miljø = Miljø.FunksjoneltTestmiljø;
+                var environment = Miljø.FunksjoneltTestmiljø;
                 var proxyScheme = "https";
                 var timeout = 30000;
-                var avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
-                var klientkonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø, avsendersertifikat);
+                var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
+                var clientConfiguration = new OppslagstjenesteKonfigurasjon(environment, senderUnitTestCertificate);
 
                 //Act
 
                 //Assert
-                Assert.AreEqual(proxyScheme, klientkonfigurasjon.ProxyScheme);
-                Assert.AreEqual(timeout, klientkonfigurasjon.TimeoutIMillisekunder);
-                Assert.AreEqual(avsendersertifikat, klientkonfigurasjon.Avsendersertifikat);
+                Assert.AreEqual(proxyScheme, clientConfiguration.ProxyScheme);
+                Assert.AreEqual(timeout, clientConfiguration.TimeoutIMillisekunder);
+                Assert.AreEqual(senderUnitTestCertificate, clientConfiguration.Avsendersertifikat);
             }
         }
     }

@@ -2,7 +2,7 @@
 using System.Linq;
 using KellermanSoftware.CompareNetObjects;
 
-namespace Difi.Oppslagstjeneste.Klient.Tester.Utilities.CompareObjects
+namespace Difi.Oppslagstjeneste.Klient.Tests.Utilities.CompareObjects
 {
     public class Comparator : IComparator
     {

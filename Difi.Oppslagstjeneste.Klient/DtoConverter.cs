@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
-using Difi.Oppslagstjeneste.Klient.DTO;
+using Difi.Oppslagstjeneste.Klient.Scripts.XsdToCode.Code;
 using Epostadresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Epostadresse;
 using Kontaktinformasjon = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Kontaktinformasjon;
 using Mobiltelefonnummer = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Mobiltelefonnummer;
@@ -15,12 +15,12 @@ namespace Difi.Oppslagstjeneste.Klient
 {
     public class DtoConverter
     {
-        public static IEnumerable<Person> ToDomainObject(DTO.Person[] person)
+        public static IEnumerable<Person> ToDomainObject(Scripts.XsdToCode.Code.Person[] person)
         {
             return person.Select(ToDomainObject).ToList();
         }
 
-        public static Person ToDomainObject(DTO.Person dtoPerson)
+        public static Person ToDomainObject(Scripts.XsdToCode.Code.Person dtoPerson)
         {
             var person = new Person
             {
@@ -40,9 +40,9 @@ namespace Difi.Oppslagstjeneste.Klient
             return person;
         }
 
-        public static X509Certificate2 ToDomainObject(byte[] x509Sertifikat)
+        public static X509Certificate2 ToDomainObject(byte[] x509Certificate)
         {
-            return x509Sertifikat == null ? null : new X509Certificate2(x509Sertifikat);
+            return x509Certificate == null ? null : new X509Certificate2(x509Certificate);
         }
 
         private static Status ToDomainObject(status status)
@@ -51,7 +51,7 @@ namespace Difi.Oppslagstjeneste.Klient
             return (Status) tilstand;
         }
 
-        private static SikkerDigitalPostAdresse ToDomainObject(DTO.SikkerDigitalPostAdresse dtoSikkerDigitalPostAdresse)
+        private static SikkerDigitalPostAdresse ToDomainObject(Scripts.XsdToCode.Code.SikkerDigitalPostAdresse dtoSikkerDigitalPostAdresse)
         {
             if (dtoSikkerDigitalPostAdresse == null)
             {
@@ -71,7 +71,7 @@ namespace Difi.Oppslagstjeneste.Klient
             return reservasjon == reservasjon.JA;
         }
 
-        private static Kontaktinformasjon ToDomainObject(DTO.Kontaktinformasjon dtoKontaktinformasjon)
+        private static Kontaktinformasjon ToDomainObject(Scripts.XsdToCode.Code.Kontaktinformasjon dtoKontaktinformasjon)
         {
             if (dtoKontaktinformasjon == null)
                 return null;
@@ -85,7 +85,7 @@ namespace Difi.Oppslagstjeneste.Klient
             return kontaktinformasjon;
         }
 
-        private static Mobiltelefonnummer ToDomainObject(DTO.Mobiltelefonnummer dtoMobiltelefonnummer)
+        private static Mobiltelefonnummer ToDomainObject(Scripts.XsdToCode.Code.Mobiltelefonnummer dtoMobiltelefonnummer)
         {
             if (dtoMobiltelefonnummer == null)
                 return null;
@@ -116,7 +116,7 @@ namespace Difi.Oppslagstjeneste.Klient
             return endringerSvar;
         }
 
-        private static Epostadresse ToDomainObject(DTO.Epostadresse dtoEpostadresse)
+        private static Epostadresse ToDomainObject(Scripts.XsdToCode.Code.Epostadresse dtoEpostadresse)
         {
             if (dtoEpostadresse == null)
                 return null;

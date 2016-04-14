@@ -12,26 +12,14 @@ namespace Difi.Oppslagstjeneste.Klient
             Url = url;
         }
 
-        public static Miljø FunksjoneltTestmiljø
-        {
-            get
-            {
-                return new Miljø(
-                    new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5"),
-                    new Sertifikatkjedevalidator(SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater())
-                    );
-            }
-        }
+        public static Miljø FunksjoneltTestmiljø => new Miljø(
+            new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5"),
+            new Sertifikatkjedevalidator(SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater())
+            );
 
-        public static Miljø Produksjonsmiljø
-        {
-            get
-            {
-                return new Miljø(
-                    new Uri("https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v5"),
-                    new Sertifikatkjedevalidator(SertifikatkjedeUtility.ProduksjonsSertifikater())
-                    );
-            }
-        }
+        public static Miljø Produksjonsmiljø => new Miljø(
+            new Uri("https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v5"),
+            new Sertifikatkjedevalidator(SertifikatkjedeUtility.ProduksjonsSertifikater())
+            );
     }
 }
