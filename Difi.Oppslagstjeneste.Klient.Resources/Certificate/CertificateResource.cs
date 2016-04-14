@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using ApiClientShared;
 
-namespace Difi.Oppslagstjeneste.Klient.Resources.Certificates
+namespace Difi.Oppslagstjeneste.Klient.Resources.Certificate
 {
     internal class CertificateResource
     {

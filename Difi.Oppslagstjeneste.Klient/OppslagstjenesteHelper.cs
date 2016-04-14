@@ -11,7 +11,7 @@ using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Handlers;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Utilities;
-using Difi.Oppslagstjeneste.Klient.XmlValidering;
+using Difi.Oppslagstjeneste.Klient.XmlValidation;
 using log4net;
 
 namespace Difi.Oppslagstjeneste.Klient

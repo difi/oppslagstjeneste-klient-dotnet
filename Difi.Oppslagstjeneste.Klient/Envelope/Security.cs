@@ -4,6 +4,7 @@ using System.Xml;
 using Difi.Oppslagstjeneste.Klient.Domene;
 using Difi.Oppslagstjeneste.Klient.Extensions;
 using Difi.Oppslagstjeneste.Klient.Security;
+using Difi.Oppslagstjeneste.Klient.Utilities;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {

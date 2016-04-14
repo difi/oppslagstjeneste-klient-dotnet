@@ -4,7 +4,7 @@ using ApiClientShared;
 using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene;
 
-namespace Difi.Oppslagstjeneste.Klient.XmlValidering
+namespace Difi.Oppslagstjeneste.Klient.XmlValidation
 {
     internal class OppslagstjenesteXmlValidator : XmlValidator
     {

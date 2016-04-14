@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
-using Difi.Oppslagstjeneste.Klient.DTO;
+using Difi.Oppslagstjeneste.Klient.Scripts.XsdToCode.Code;
 using Difi.Oppslagstjeneste.Klient.Tests.Utilities.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Epostadresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Epostadresse;
@@ -24,16 +24,19 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             public void ConvertPerson()
             {
                 //Arrange
-                var source = new HentPersonerRespons { Person = new []
+                var source = new HentPersonerRespons
                 {
-                    GetDtoPerson(DateTime.Now, DateTime.Now)
-                }};
-        
+                    Person = new[]
+                    {
+                        GetDtoPerson(DateTime.Now, DateTime.Now)
+                    }
+                };
+
                 var expected = new PersonerSvar
                 {
                     Personer = source.Person.Select(GetDomenePerson).ToList()
                 };
-               
+
                 //Act
                 var result = DtoConverter.ToDomainObject(source);
 
@@ -50,14 +53,14 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 //Arrange
                 const int personsCount = 10;
 
-                var source = new HentEndringerRespons()
+                var source = new HentEndringerRespons
                 {
                     fraEndringsNummer = 0,
                     tilEndringsNummer = personsCount,
                     senesteEndringsNummer = personsCount
                 };
 
-                var persons = new List<DTO.Person>();
+                var persons = new List<Scripts.XsdToCode.Code.Person>();
                 for (var i = 0; i < personsCount; i++)
                 {
                     persons.Add(GetDtoPerson(DateTime.Now, DateTime.Now));
@@ -71,7 +74,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                     TilEndringsNummer = source.tilEndringsNummer,
                     Personer = source.Person.Select(GetDomenePerson).ToList()
                 };
-                
+
                 //Act
                 var result = DtoConverter.ToDomainObject(source);
 
@@ -81,8 +84,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 comparator.AreEqual(expected, result, out differences);
                 Assert.AreEqual(0, differences.Count());
             }
-            
-            private static Person GetDomenePerson(DTO.Person kilde)
+
+            private static Person GetDomenePerson(Scripts.XsdToCode.Code.Person kilde)
             {
                 var forventet = new Person
                 {
@@ -114,15 +117,15 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 };
                 return forventet;
             }
-            
-            private static DTO.Person GetDtoPerson(DateTime sistOppdatert, DateTime sistVerifisert)
+
+            private static Scripts.XsdToCode.Code.Person GetDtoPerson(DateTime sistOppdatert, DateTime sistVerifisert)
             {
-                var kilde = new DTO.Person
+                var kilde = new Scripts.XsdToCode.Code.Person
                 {
                     status = status.AKTIV,
-                    Kontaktinformasjon = new DTO.Kontaktinformasjon
+                    Kontaktinformasjon = new Scripts.XsdToCode.Code.Kontaktinformasjon
                     {
-                        Epostadresse = new DTO.Epostadresse
+                        Epostadresse = new Scripts.XsdToCode.Code.Epostadresse
                         {
                             sistOppdatert = sistOppdatert,
                             sistOppdatertSpecified = sistOppdatert != null,
@@ -130,7 +133,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                             sistVerifisert = sistVerifisert,
                             sistVerifisertSpecified = sistVerifisert != null
                         },
-                        Mobiltelefonnummer = new DTO.Mobiltelefonnummer
+                        Mobiltelefonnummer = new Scripts.XsdToCode.Code.Mobiltelefonnummer
                         {
                             sistOppdatert = sistOppdatert,
                             sistOppdatertSpecified = sistOppdatert != null,
@@ -141,7 +144,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                     },
                     personidentifikator = "personIdentifikator",
                     reservasjon = reservasjon.NEI,
-                    SikkerDigitalPostAdresse = new DTO.SikkerDigitalPostAdresse
+                    SikkerDigitalPostAdresse = new Scripts.XsdToCode.Code.SikkerDigitalPostAdresse
                     {
                         postkasseadresse = "postkasseadresse",
                         postkasseleverandoerAdresse = "postkasseleverandoerAdresse"

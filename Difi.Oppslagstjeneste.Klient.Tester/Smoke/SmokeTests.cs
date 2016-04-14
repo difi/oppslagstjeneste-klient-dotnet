@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
-using Difi.Oppslagstjeneste.Klient.Resources.Certificates;
+using Difi.Oppslagstjeneste.Klient.Resources.Certificate;
 using log4net.Config;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

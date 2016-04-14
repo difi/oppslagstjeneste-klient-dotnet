@@ -21,7 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 //Arrange
                 var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
                 var response = XmlResource.Response.GetSoapFault();
-                
+
                 //Act
                 try
                 {
@@ -32,7 +32,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 catch (AggregateException e)
                 {
                     var exception = e.InnerExceptions.ElementAt(0);
-                    
+
                     //Assert
                     Assert.IsTrue(exception.GetType() == typeof (SoapException));
                     var soapException = exception as SoapException;

@@ -20,7 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
         public static void CreateFromXmlSuccess(TestContext context)
         {
             var xmlDocument = XmlUtility.ToXmlDocument(PersonXml());
-            var deserialisertPerson = SerializeUtil.Deserialize<DTO.Person>(xmlDocument.InnerXml);
+            var deserialisertPerson = SerializeUtil.Deserialize<Scripts.XsdToCode.Code.Person>(xmlDocument.InnerXml);
             _person = DtoConverter.ToDomainObject(deserialisertPerson);
         }
 
@@ -51,8 +51,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
         public void GetEmailAndMetadataSuccess()
         {
             Assert.AreEqual("extfjo@vegvesen.no", _person.Kontaktinformasjon.Epostadresse.Epost);
-            Assert.AreEqual(new DateTime(2015, 04, 14, 14, 35, 30),_person.Kontaktinformasjon.Epostadresse.SistOppdatert);
-            Assert.AreEqual(new DateTime(2015, 04, 14, 14, 35, 30),_person.Kontaktinformasjon.Epostadresse.SistVerifisert);
+            Assert.AreEqual(new DateTime(2015, 04, 14, 14, 35, 30), _person.Kontaktinformasjon.Epostadresse.SistOppdatert);
+            Assert.AreEqual(new DateTime(2015, 04, 14, 14, 35, 30), _person.Kontaktinformasjon.Epostadresse.SistVerifisert);
         }
 
         [TestMethod]
