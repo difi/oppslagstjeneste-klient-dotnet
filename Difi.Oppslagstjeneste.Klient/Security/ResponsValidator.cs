@@ -55,7 +55,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             return aes;
         }
 
-        protected virtual void SjekkTimestamp(TimeSpan timeSpan)
+        protected virtual void CheckTimestamp(TimeSpan timeSpan)
         {
             var timestampElement = ResponseContainer.TimestampElement;
 

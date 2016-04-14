@@ -1,14 +1,13 @@
 ﻿using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using ApiClientShared;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
+using Difi.Oppslagstjeneste.Klient.Resources.Certificates;
 using log4net.Config;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Difi.Oppslagstjeneste.Klient.Tests.Integrasjon
+namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
 {
     [TestClass]
-    public class Integrasjonstester
+    public class SmokeTests
     {
         private static OppslagstjenesteKlient _oppslagstjenesteKlient;
 
@@ -16,8 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Integrasjon
         public static void Init(TestContext context)
         {
             XmlConfigurator.Configure();
-            var resourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Tests.Ressurser.Sertifikater");
-            var avsendersertifikat = new X509Certificate2(resourceUtility.ReadAllBytes(true, "DifiTestsertifikatKlient.p12"), "changeit", X509KeyStorageFlags.Exportable);
+            var avsendersertifikat = CertificateResource.GetDifiTestCertificate();
             var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikat);
 
             _oppslagstjenesteKlient = new OppslagstjenesteKlient(oppslagstjenesteKonfigurasjon);

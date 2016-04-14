@@ -32,7 +32,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             // Validerer SignatureConfirmation
             PerformSignatureConfirmation(ResponseContainer.HeaderSecurityElement);
 
-            SjekkTimestamp(TimeSpan.FromSeconds(2000));
+            CheckTimestamp(TimeSpan.FromSeconds(2000));
 
             ValiderResponssertifikat(signedXmlWithAgnosticId);
         }

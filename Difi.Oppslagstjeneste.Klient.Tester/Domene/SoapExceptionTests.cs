@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
 {
     [TestClass]
-    public class SoapExceptionTester
+    public class SoapExceptionTests
     {
         private static SoapException _exception;
 
