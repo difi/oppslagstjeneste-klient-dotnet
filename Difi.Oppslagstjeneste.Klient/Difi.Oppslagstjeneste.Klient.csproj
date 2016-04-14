@@ -109,14 +109,6 @@
     <EmbeddedResource Include="XmlValidering\Xsd\w3\exc-c14n.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Ressurser\produksjon\BPClass3CA3.cer" />
-    <None Include="Ressurser\produksjon\BPClass3RootCA.cer" />
-    <None Include="Ressurser\produksjon\cpn enterprise sha256 class 3.crt" />
-    <None Include="Ressurser\produksjon\cpn rootca sha256 class 3.crt" />
-    <None Include="Ressurser\test\Buypass_Class_3_Test4_CA_3.cer" />
-    <None Include="Ressurser\test\Buypass_Class_3_Test4_Root_CA.cer" />
-    <None Include="Ressurser\test\intermediate - commfides cpn enterprise-norwegian sha256 ca - test2.crt" />
-    <None Include="Ressurser\test\root - cpn root sha256 ca - test.crt" />
     <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-metadata-16-02.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
