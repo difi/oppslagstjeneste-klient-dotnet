@@ -40,9 +40,9 @@ namespace Difi.Oppslagstjeneste.Klient
             return person;
         }
 
-        public static X509Certificate2 ToDomainObject(byte[] x509Sertifikat)
+        public static X509Certificate2 ToDomainObject(byte[] x509Certificate)
         {
-            return x509Sertifikat == null ? null : new X509Certificate2(x509Sertifikat);
+            return x509Certificate == null ? null : new X509Certificate2(x509Certificate);
         }
 
         private static Status ToDomainObject(status status)

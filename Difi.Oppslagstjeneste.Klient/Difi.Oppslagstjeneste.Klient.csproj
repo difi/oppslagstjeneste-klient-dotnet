@@ -68,12 +68,12 @@
     </Compile>
     <Compile Include="DtoConverter.cs" />
     <Compile Include="Envelope\AbstractEnvelope.cs" />
-    <Compile Include="Envelope\DateUtility.cs" />
+    <Compile Include="Utilities\DateUtility.cs" />
     <Compile Include="Envelope\EndringerEnvelope.cs" />
     <Compile Include="Envelope\EnvelopeSettings.cs" />
     <Compile Include="Envelope\EnvelopeXmlPart.cs" />
-    <Compile Include="Envelope\PersonerEnvelope.cs" />
-    <Compile Include="Envelope\PrintSertifikatEnvelope.cs" />
+    <Compile Include="Envelope\PersonsEnvelope.cs" />
+    <Compile Include="Envelope\PrintCertificateEnvelope.cs" />
     <Compile Include="Envelope\OppslagstjenesteEnvelope.cs" />
     <Compile Include="Envelope\Oppslagstjenestevalidator.cs" />
     <Compile Include="Envelope\Security.cs" />
@@ -81,7 +81,7 @@
     <Compile Include="Handlers\RequestHeaderHandler.cs" />
     <Compile Include="Miljø.cs" />
     <Compile Include="OppslagstjenesteHelper.cs" />
-    <Compile Include="Security\Responsvalidator.cs" />
+    <Compile Include="Security\ResponseValidator.cs" />
     <Compile Include="Security\SecurityTokenReferenceClause.cs" />
     <Compile Include="SerializeUtil.cs" />
     <Compile Include="OppslagstjenesteKonfigurasjon.cs" />
@@ -91,32 +91,32 @@
     <Compile Include="Svar\NamespaceManager.cs" />
     <Compile Include="Svar\ResponseContainer.cs" />
     <Compile Include="Utilities\XmlUtility.cs" />
-    <Compile Include="XmlValidering\OppslagstjenesteXmlvalidator.cs" />
+    <Compile Include="XmlValidation\OppslagstjenesteXmlValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <EmbeddedResource Include="XmlValidering\Xsd\wssecurity\oasis-200401-wss-wssecurity-secext-1.0.xsd">
+    <EmbeddedResource Include="XmlValidation\Xsd\wssecurity\oasis-200401-wss-wssecurity-secext-1.0.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidering\Xsd\wssecurity\oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <EmbeddedResource Include="XmlValidation\Xsd\wssecurity\oasis-200401-wss-wssecurity-utility-1.0.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidering\Xsd\soap\soap.xsd">
+    <EmbeddedResource Include="XmlValidation\Xsd\soap\soap.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidering\Xsd\w3\xmldsig-core-schema.xsd">
+    <EmbeddedResource Include="XmlValidation\Xsd\w3\xmldsig-core-schema.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidering\Xsd\w3\exc-c14n.xsd">
+    <EmbeddedResource Include="XmlValidation\Xsd\w3\exc-c14n.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-metadata-16-02.xsd">
+    <EmbeddedResource Include="XmlValidation\Xsd\oppslagstjeneste-metadata-16-02.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidering\Xsd\oppslagstjeneste-ws-16-02.xsd">
+    <EmbeddedResource Include="XmlValidation\Xsd\oppslagstjeneste-ws-16-02.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidering\Xsd\w3\xml.xsd">
+    <EmbeddedResource Include="XmlValidation\Xsd\w3\xml.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">

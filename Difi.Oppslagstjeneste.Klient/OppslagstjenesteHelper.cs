@@ -88,7 +88,7 @@ namespace Difi.Oppslagstjeneste.Klient
         private static void ValidateRequest(AbstractEnvelope envelope)
         {
             var xml = envelope.XmlDocument;
-            var xmlValidator = new OppslagstjenesteXmlvalidator();
+            var xmlValidator = new OppslagstjenesteXmlValidator();
             var xmlValidert = xmlValidator.ValiderDokumentMotXsd(xml.OuterXml);
             if (!xmlValidert)
             {

@@ -4,18 +4,17 @@ using Difi.Oppslagstjeneste.Klient.Domene;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    internal sealed class PrintSertifikatEnvelope : OppslagstjenesteEnvelope
+    internal sealed class PrintCertificateEnvelope : OppslagstjenesteEnvelope
     {
-        public PrintSertifikatEnvelope(X509Certificate2 avsenderSertifikat, string sendPåVegneAv)
-            : base(avsenderSertifikat, sendPåVegneAv)
+        public PrintCertificateEnvelope(X509Certificate2 senderCertificate, string sendOnBehalfOf)
+            : base(senderCertificate, sendOnBehalfOf)
         {
         }
 
         protected override XmlElement CreateBody()
         {
             var body = base.CreateBody();
-            var element = Document.CreateElement("ns", "HentPrintSertifikatForespoersel",
-                Navnerom.OppslagstjenesteDefinisjon);
+            var element = Document.CreateElement("ns", "HentPrintSertifikatForespoersel", Navnerom.OppslagstjenesteDefinisjon);
             body.AppendChild(element);
             return body;
         }

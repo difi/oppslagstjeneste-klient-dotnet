@@ -10,12 +10,12 @@ using Difi.Oppslagstjeneste.Klient.Svar;
 
 namespace Difi.Oppslagstjeneste.Klient.Security
 {
-    public abstract class Responsvalidator
+    internal abstract class ResponseValidator
     {
-        internal Responsvalidator(XmlDocument sendtDokument, ResponseContainer responseContainer,
+        internal ResponseValidator(XmlDocument sentDocument, ResponseContainer responseContainer,
             X509Certificate2 xmlDekrypteringsSertifikat = null)
         {
-            SendtDokument = sendtDokument;
+            SentDocument = sentDocument;
             ResponseContainer = responseContainer;
             if (xmlDekrypteringsSertifikat != null)
                 DecryptDocument(xmlDekrypteringsSertifikat);
@@ -23,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
 
         internal ResponseContainer ResponseContainer { get; }
 
-        public XmlDocument SendtDokument { get; }
+        public XmlDocument SentDocument { get; }
 
         private void DecryptDocument(X509Certificate2 decryptionSertificate)
         {
@@ -78,7 +78,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
         ///     Sjekker at soap envelopen inneholder timestamp, body og messaging element med korrekt id og referanser i security
         ///     signaturen.
         /// </summary>
-        protected void ValiderSignaturreferanser(XmlElement signature, SignedXmlWithAgnosticId signedXml,
+        protected void ValidateSignatureReferences(XmlElement signature, SignedXmlWithAgnosticId signedXml,
             string[] påkrevdeReferanser)
         {
             foreach (var påkrevdReferanse in påkrevdeReferanser)
@@ -151,7 +151,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
 
             // Locate sent signature
             var sentSignatureValueNode =
-                SendtDokument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/ds:Signature/ds:SignatureValue",
+                SentDocument.SelectSingleNode("/env:Envelope/env:Header/wsse:Security/ds:Signature/ds:SignatureValue",
                     ResponseContainer.Nsmgr);
             var sentSignatureValue = sentSignatureValueNode.InnerText;
 

@@ -27,9 +27,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
                 var oppslagstjenesteValidator = new OppslagstjenesteValidator(requestXmlDocument, responseContainer, oppslagstjenesteConfiguration);
 
                 //Assert
-                Assert.AreEqual(requestXmlDocument, oppslagstjenesteValidator.SendtDokument);
+                Assert.AreEqual(requestXmlDocument, oppslagstjenesteValidator.SentDocument);
                 Assert.AreEqual(responseXmlDocument, responseContainer.Envelope);
-                Assert.AreEqual(oppslagstjenesteConfiguration.Miljø, oppslagstjenesteValidator.Miljø);
+                Assert.AreEqual(oppslagstjenesteConfiguration.Miljø, oppslagstjenesteValidator.Environment);
             }
         }
     }

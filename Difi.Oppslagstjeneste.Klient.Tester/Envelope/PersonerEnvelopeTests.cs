@@ -21,16 +21,16 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
                 var informationNeed = new[] {Informasjonsbehov.Person, Informasjonsbehov.Kontaktinfo};
 
                 //Act
-                var envelope = new PersonerEnvelope(senderUnitTestCertificate, sendOnBehalfOf, persons, informationNeed);
+                var envelope = new PersonsEnvelope(senderUnitTestCertificate, sendOnBehalfOf, persons, informationNeed);
 
                 //Assert
                 Assert.IsNotNull(envelope.Settings.BinarySecurityId);
                 Assert.IsNotNull(envelope.Settings.BodyId);
                 Assert.IsNotNull(envelope.Settings.TimestampId);
-                Assert.AreEqual(envelope.Personidentifikator, persons);
-                Assert.AreEqual(envelope.Informasjonsbehov, informationNeed);
-                Assert.AreEqual(envelope.SendPåVegneAv, sendOnBehalfOf);
-                Assert.AreEqual(envelope.AvsenderSertifikat, senderUnitTestCertificate);
+                Assert.AreEqual(envelope.PersonId, persons);
+                Assert.AreEqual(envelope.InformationNeeds, informationNeed);
+                Assert.AreEqual(envelope.SendOnBehalfOf, sendOnBehalfOf);
+                Assert.AreEqual(envelope.SenderCertificate, senderUnitTestCertificate);
 
                 Assert.IsNotNull(envelope.XmlDocument);
             }

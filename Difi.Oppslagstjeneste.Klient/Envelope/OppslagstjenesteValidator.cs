@@ -9,50 +9,50 @@ using Difi.Oppslagstjeneste.Klient.Svar;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    internal class OppslagstjenesteValidator : Responsvalidator
+    internal class OppslagstjenesteValidator : ResponseValidator
     {
-        public OppslagstjenesteValidator(XmlDocument sendtDokument, ResponseContainer responseContainer,
-            OppslagstjenesteKonfigurasjon oppslagstjenesteKonfigurasjon)
-            : base(sendtDokument, responseContainer, oppslagstjenesteKonfigurasjon.Avsendersertifikat)
+        public OppslagstjenesteValidator(XmlDocument sentDocument, ResponseContainer responseContainer,
+            OppslagstjenesteKonfigurasjon oppslagstjenesteConfiguration)
+            : base(sentDocument, responseContainer, oppslagstjenesteConfiguration.Avsendersertifikat)
         {
-            Miljø = oppslagstjenesteKonfigurasjon.Miljø;
+            Environment = oppslagstjenesteConfiguration.Miljø;
         }
 
-        public Miljø Miljø { get; set; }
+        public Miljø Environment { get; set; }
 
-        public void Valider()
+        public void Validate()
         {
             var signedXmlWithAgnosticId = new SignedXmlWithAgnosticId(ResponseContainer.Envelope);
             signedXmlWithAgnosticId.LoadXml(ResponseContainer.HeaderSignatureElement);
 
-            // Sørger for at motatt envelope inneholder signature confirmation og body samt at id'ne matcher mot header signatur
-            ValiderSignaturreferanser(ResponseContainer.HeaderSignatureElement, signedXmlWithAgnosticId,
+            // Ensures received envelope contains signature confirmation, and that body and ids matches header signature
+            ValidateSignatureReferences(ResponseContainer.HeaderSignatureElement, signedXmlWithAgnosticId,
                 new[] {"/env:Envelope/env:Header/wsse:Security/wsse11:SignatureConfirmation", "/env:Envelope/env:Body"});
 
-            // Validerer SignatureConfirmation
+            // Validating SignatureConfirmation
             PerformSignatureConfirmation(ResponseContainer.HeaderSecurityElement);
 
             CheckTimestamp(TimeSpan.FromSeconds(2000));
 
-            ValiderResponssertifikat(signedXmlWithAgnosticId);
+            ValidateResponseCertificate(signedXmlWithAgnosticId);
         }
 
-        internal void ValiderResponssertifikat(SignedXmlWithAgnosticId signed)
+        internal void ValidateResponseCertificate(SignedXmlWithAgnosticId signed)
         {
-            var signatur = ResponseContainer.HeaderBinarySecurityToken.InnerText;
-            var value = Convert.FromBase64String(signatur);
-            var sertifikat = new X509Certificate2(value);
+            var signature = ResponseContainer.HeaderBinarySecurityToken.InnerText;
+            var value = Convert.FromBase64String(signature);
+            var certificate = new X509Certificate2(value);
 
-            var erGyldigSertifikatkjede = Miljø.Sertifikatkjedevalidator.ErGyldigSertifikatkjede(sertifikat);
-            var erGyldigSertifikat = Sertifikatvalidator.ErGyldigSertifikat(sertifikat, "991825827");
+            var isValidCertificateChain = Environment.Sertifikatkjedevalidator.ErGyldigSertifikatkjede(certificate);
+            var isValidCertificate = Sertifikatvalidator.ErGyldigSertifikat(certificate, "991825827");
 
-            var erGodkjentSertifikat = erGyldigSertifikatkjede && erGyldigSertifikat;
-            if (!erGodkjentSertifikat)
+            var isAcceptedCertificate = isValidCertificateChain && isValidCertificate;
+            if (!isAcceptedCertificate)
             {
                 throw new SecurityException("Sertifikatet i responsen er ikke gyldig.");
             }
 
-            var key = sertifikat.PublicKey.Key;
+            var key = certificate.PublicKey.Key;
             if (!signed.CheckSignature(key))
                 throw new SecurityException("Signaturen i motatt svar er ikke gyldig");
         }

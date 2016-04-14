@@ -7,8 +7,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
     internal sealed class EndringerEnvelope : OppslagstjenesteEnvelope
     {
-        public EndringerEnvelope(X509Certificate2 avsenderSertifikat, string sendPåVegneAv, long fraEndringsNummer, params Informasjonsbehov[] informasjonsbehov)
-            : base(avsenderSertifikat, sendPåVegneAv)
+        public EndringerEnvelope(X509Certificate2 senderCertificate, string sendOnBehalfOf, long fraEndringsNummer, params Informasjonsbehov[] informasjonsbehov)
+            : base(senderCertificate, sendOnBehalfOf)
         {
             FraEndringsNummer = fraEndringsNummer;
             Informasjonsbehov = informasjonsbehov;

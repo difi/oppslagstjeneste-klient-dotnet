@@ -30,8 +30,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
                 Assert.IsNotNull(envelope.Settings.TimestampId);
                 Assert.AreEqual(envelope.FraEndringsNummer, fromChangeNumber);
                 Assert.AreEqual(envelope.Informasjonsbehov, informationNeed);
-                Assert.AreEqual(envelope.SendPåVegneAv, sendOnBehalfOf);
-                Assert.AreEqual(envelope.AvsenderSertifikat, senderUnitTestCertificate);
+                Assert.AreEqual(envelope.SendOnBehalfOf, sendOnBehalfOf);
+                Assert.AreEqual(envelope.SenderCertificate, senderUnitTestCertificate);
 
                 Assert.IsNotNull(envelope.XmlDocument);
             }

@@ -15,14 +15,14 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
             const string sendOnBehalfOf = "sendPåVegneAv";
 
             //Act
-            var envelope = new PrintSertifikatEnvelope(senderUnitTestCertificate, sendOnBehalfOf);
+            var envelope = new PrintCertificateEnvelope(senderUnitTestCertificate, sendOnBehalfOf);
 
             //Assert
             Assert.IsNotNull(envelope.Settings.BinarySecurityId);
             Assert.IsNotNull(envelope.Settings.BodyId);
             Assert.IsNotNull(envelope.Settings.TimestampId);
-            Assert.AreEqual(envelope.SendPåVegneAv, sendOnBehalfOf);
-            Assert.AreEqual(envelope.AvsenderSertifikat, senderUnitTestCertificate);
+            Assert.AreEqual(envelope.SendOnBehalfOf, sendOnBehalfOf);
+            Assert.AreEqual(envelope.SenderCertificate, senderUnitTestCertificate);
 
             Assert.IsNotNull(envelope.XmlDocument);
         }

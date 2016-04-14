@@ -1,6 +1,6 @@
 ﻿namespace Difi.Oppslagstjeneste.Klient.Domene
 {
-    public class Navnerom
+    internal class Navnerom
     {
         /// <summary>
         ///     http://www.w3.org/2003/05/soap-envelope

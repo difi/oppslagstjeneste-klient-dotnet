@@ -128,7 +128,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </param>
         public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
         {
-            var requestEnvelope = new PersonerEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, personidentifikator, informasjonsbehov);
+            var requestEnvelope = new PersonsEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, personidentifikator, informasjonsbehov);
             Log.Debug($"HentPersonerAsynkront(personidentifikator:{personidentifikator} , informasjonsbehov:{informasjonsbehov})");
             RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
@@ -161,7 +161,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public async Task<PrintSertifikatSvar> HentPrintSertifikatAsynkront()
         {
-            var requestEnvelope = new PrintSertifikatEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv);
+            var requestEnvelope = new PrintCertificateEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv);
             Log.Debug($"HentPrintSertifikatAsynkront");
             RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
@@ -179,7 +179,7 @@ namespace Difi.Oppslagstjeneste.Klient
         private void ValidateResponse(AbstractEnvelope envelope, ResponseContainer responseContainer)
         {
             var responsvalidator = new OppslagstjenesteValidator(envelope.XmlDocument, responseContainer, OppslagstjenesteKonfigurasjon);
-            responsvalidator.Valider();
+            responsvalidator.Validate();
         }
     }
 }

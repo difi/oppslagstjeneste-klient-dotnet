@@ -5,32 +5,32 @@ using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
-    internal sealed class PersonerEnvelope : OppslagstjenesteEnvelope
+    internal sealed class PersonsEnvelope : OppslagstjenesteEnvelope
     {
-        public PersonerEnvelope(X509Certificate2 avsenderSertifikat, string sendPåVegneAv, string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
-            : base(avsenderSertifikat, sendPåVegneAv)
+        public PersonsEnvelope(X509Certificate2 senderCertificate, string sendOnBehalfOf, string[] personId, params Informasjonsbehov[] informationNeeds)
+            : base(senderCertificate, sendOnBehalfOf)
         {
-            Personidentifikator = personidentifikator;
-            Informasjonsbehov = informasjonsbehov;
+            PersonId = personId;
+            InformationNeeds = informationNeeds;
         }
 
-        internal Informasjonsbehov[] Informasjonsbehov { get; }
+        internal Informasjonsbehov[] InformationNeeds { get; }
 
-        internal string[] Personidentifikator { get; }
+        internal string[] PersonId { get; }
 
         protected override XmlElement CreateBody()
         {
             var body = base.CreateBody();
             var element = Document.CreateElement("ns", "HentPersonerForespoersel", Navnerom.OppslagstjenesteDefinisjon);
 
-            foreach (var informasjonsbehov in Informasjonsbehov)
+            foreach (var informasjonsbehov in InformationNeeds)
             {
                 var node = Document.CreateElement("ns", "informasjonsbehov", Navnerom.OppslagstjenesteDefinisjon);
                 node.InnerText = informasjonsbehov.ToString();
                 element.AppendChild(node);
             }
 
-            foreach (var item in Personidentifikator)
+            foreach (var item in PersonId)
             {
                 var node = Document.CreateElement("ns", "personidentifikator", Navnerom.OppslagstjenesteDefinisjon);
                 node.InnerText = item;

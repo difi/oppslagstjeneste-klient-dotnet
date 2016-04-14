@@ -14,7 +14,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
         public SoapException(XmlDocument xml, Exception innerException)
             : base("Sjekk klassemedlemmer for mer detaljer.", innerException)
         {
-            ParseTilKlassemedlemmer(xml);
+            ParseToClassMembers(xml);
         }
 
         public XmlDocument Xml { get; set; }
@@ -23,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
 
         public string Beskrivelse { get; set; }
 
-        private void ParseTilKlassemedlemmer(XmlDocument outerXml)
+        private void ParseToClassMembers(XmlDocument outerXml)
         {
             Xml = outerXml;
 
