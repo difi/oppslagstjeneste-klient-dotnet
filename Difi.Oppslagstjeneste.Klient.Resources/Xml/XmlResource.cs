@@ -8,12 +8,18 @@ namespace Difi.Oppslagstjeneste.Klient.Resources.Xml
     {
         private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Resources.Xml.Data");
 
-        internal class Request 
+        private static XmlDocument GetResource(params string[] path)
+        {
+            var bytes = ResourceUtility.ReadAllBytes(true, path);
+            return XmlUtility.ToXmlDocument(Encoding.UTF8.GetString(bytes));
+        }
+
+        internal class Request
         {
             public static XmlDocument GetPerson()
             {
                 return GetResource("Request", "HentPersoner.xml");
-            }    
+            }
         }
 
         internal class Response
@@ -42,12 +48,6 @@ namespace Difi.Oppslagstjeneste.Klient.Resources.Xml
             {
                 return GetResource("Response", "HentEndringer.xml");
             }
-        }
-
-        private static XmlDocument GetResource(params string[] path)
-        {
-            var bytes = ResourceUtility.ReadAllBytes(true, path);
-            return XmlUtility.ToXmlDocument(Encoding.UTF8.GetString(bytes));
         }
     }
 }

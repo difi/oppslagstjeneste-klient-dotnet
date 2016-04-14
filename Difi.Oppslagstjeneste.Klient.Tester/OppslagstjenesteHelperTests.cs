@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester
 {
-    [TestClass()]
+    [TestClass]
     public class OppslagstjenesteHelperTests
     {
         [TestClass]
@@ -27,19 +27,18 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
                 {
                     var oppslagstjenesteKlientMock = MockUtility.OppslagstjenesteKlientMock(response.OuterXml, HttpStatusCode.Forbidden, avsenderEnhetstesterSertifikat);
                     var client = oppslagstjenesteKlientMock.Object;
-                    client.HentPersoner(new[] { "31108412345" }, Informasjonsbehov.Person);
+                    client.HentPersoner(new[] {"31108412345"}, Informasjonsbehov.Person);
                 }
                 catch (AggregateException e)
                 {
                     var ex = e.InnerExceptions.ElementAt(0);
                     //Assert
-                    Assert.IsTrue(ex.GetType() == typeof(SoapException));
+                    Assert.IsTrue(ex.GetType() == typeof (SoapException));
                     var soapException = ex as SoapException;
                     Assert.AreEqual("env:Sender", soapException.Skyldig);
                     Assert.AreEqual("Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN", soapException.Beskrivelse);
                 }
             }
-
         }
     }
 }

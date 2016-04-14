@@ -42,7 +42,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
             {
                 //Arrange
                 var xmlResponse = XmlResource.Response.GetPersonResponseEncrypted();
-                
+
                 //Act
                 var candidate = new ResponseContainer(GenerateStreamFromString(xmlResponse.OuterXml));
 
