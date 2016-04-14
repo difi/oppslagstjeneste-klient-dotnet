@@ -1,6 +1,6 @@
 ﻿using Difi.Oppslagstjeneste.Klient.Envelope;
+using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Svar;
-using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
 using Difi.Oppslagstjeneste.Klient.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,8 +16,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Envelope
             public void EnkelKonstruktør()
             {
                 //Arrange
-                var requestXmlDocument = TestResourceUtility.Request.PersonRequest.AsXmlDocument();
-                var responseXmlDocument = TestResourceUtility.Response.PersonResponse.AsXmlDocument();
+                var requestXmlDocument = XmlResource.Request.GetPerson();
+                var responseXmlDocument = XmlResource.Response.GetPerson();
                 var avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
                 var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikat);
 

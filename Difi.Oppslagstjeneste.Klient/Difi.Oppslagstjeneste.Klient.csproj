@@ -90,6 +90,7 @@
     <Compile Include="SoapVersion.cs" />
     <Compile Include="Svar\NamespaceManager.cs" />
     <Compile Include="Svar\ResponseContainer.cs" />
+    <Compile Include="Utilities\XmlUtility.cs" />
     <Compile Include="XmlValidering\OppslagstjenesteXmlvalidator.cs" />
   </ItemGroup>
   <ItemGroup>

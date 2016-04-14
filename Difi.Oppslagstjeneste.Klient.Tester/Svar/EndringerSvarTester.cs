@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.DTO;
+using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Svar;
-using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
@@ -15,7 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            var xmlDokument = TestResourceUtility.Response.EndringerResponse.AsXmlDocument();
+            var xmlDokument = XmlResource.Response.GetEndringer();
             var responseDokument = new ResponseContainer(xmlDokument);
             _endringerSvar = DtoConverter.ToDomainObject(SerializeUtil.Deserialize<HentEndringerRespons>(responseDokument.BodyElement.InnerXml));
         }

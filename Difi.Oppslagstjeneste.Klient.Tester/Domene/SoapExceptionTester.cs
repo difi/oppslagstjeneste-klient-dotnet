@@ -1,5 +1,5 @@
 ﻿using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
-using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
+using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
@@ -12,7 +12,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Domene
         [ClassInitialize]
         public static void ParseSoapExceptionSuksess(TestContext context)
         {
-            var feilmelding = TestResourceUtility.Response.SoapFaultResponse.AsText();
+            var feilmelding = XmlResource.Response.GetSoapFault();
             _exception = new SoapException(feilmelding);
         }
 

@@ -6,36 +6,33 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
 {
     public class SoapException : DifiException
     {
-        public SoapException(string outerXml)
+        public SoapException(XmlDocument outerXml)
             : this(outerXml, null)
         {
         }
 
-        public SoapException(string outerXml, Exception innerException)
+        public SoapException(XmlDocument xml, Exception innerException)
             : base("Sjekk klassemedlemmer for mer detaljer.", innerException)
         {
-            ParseTilKlassemedlemmer(outerXml);
+            ParseTilKlassemedlemmer(xml);
         }
 
-        public string Xml { get; set; }
+        public XmlDocument Xml { get; set; }
 
         public string Skyldig { get; set; }
 
         public string Beskrivelse { get; set; }
 
-        private void ParseTilKlassemedlemmer(string outerXml)
+        private void ParseTilKlassemedlemmer(XmlDocument outerXml)
         {
             Xml = outerXml;
 
             try
             {
-                var xmlDocument = new XmlDocument();
-                xmlDocument.LoadXml(outerXml);
-
-                var namespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
+                var namespaceManager = new XmlNamespaceManager(outerXml.NameTable);
                 namespaceManager.AddNamespace("env", Navnerom.SoapEnvelope12);
 
-                var rot = xmlDocument.DocumentElement;
+                var rot = outerXml.DocumentElement;
                 Skyldig = rot.SelectSingleNode("./env:Body/env:Fault/env:Code/env:Value", namespaceManager).InnerText;
                 Beskrivelse = rot.SelectSingleNode("./env:Body/env:Fault/env:Reason/env:Text", namespaceManager).InnerText;
             }

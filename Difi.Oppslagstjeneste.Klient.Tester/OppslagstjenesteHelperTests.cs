@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
-using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
+using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Tester.Utilities;
 using Difi.Oppslagstjeneste.Klient.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,11 +21,11 @@ namespace Difi.Oppslagstjeneste.Klient.Tester
             {
                 //Arrange
                 var avsenderEnhetstesterSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
-                var respons = TestResourceUtility.Response.SoapFaultResponse.AsText();
+                var response = XmlResource.Response.GetSoapFault();
                 //Act
                 try
                 {
-                    var oppslagstjenesteKlientMock = MockUtility.OppslagstjenesteKlientMock(respons, HttpStatusCode.Forbidden, avsenderEnhetstesterSertifikat);
+                    var oppslagstjenesteKlientMock = MockUtility.OppslagstjenesteKlientMock(response.OuterXml, HttpStatusCode.Forbidden, avsenderEnhetstesterSertifikat);
                     var client = oppslagstjenesteKlientMock.Object;
                     client.HentPersoner(new[] { "31108412345" }, Informasjonsbehov.Person);
                 }

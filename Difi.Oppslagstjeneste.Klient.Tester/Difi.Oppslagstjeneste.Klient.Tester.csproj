@@ -117,6 +117,10 @@
       <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Resources\Difi.Oppslagstjeneste.Klient.Resources.csproj">
+      <Project>{a52aafce-14df-4a33-af7c-9209fcba646c}</Project>
+      <Name>Difi.Oppslagstjeneste.Klient.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Scripts\Difi.Oppslagstjeneste.Klient.Scripts.csproj">
       <Project>{2dd9a89b-e1b4-4dc4-ba46-1d58ab0b0200}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Scripts</Name>

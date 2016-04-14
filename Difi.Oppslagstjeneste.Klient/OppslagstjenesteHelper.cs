@@ -10,6 +10,7 @@ using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Handlers;
 using Difi.Oppslagstjeneste.Klient.Svar;
+using Difi.Oppslagstjeneste.Klient.Utilities;
 using Difi.Oppslagstjeneste.Klient.XmlValidering;
 using log4net;
 
@@ -71,7 +72,7 @@ namespace Difi.Oppslagstjeneste.Klient
         private static void CheckResponseForErrors(Stream soapResponse)
         {
             var reader = new StreamReader(soapResponse);
-            var text = reader.ReadToEnd();
+            var text = XmlUtility.ToXmlDocument(reader.ReadToEnd());
             var exception = new SoapException(text);
             Log.Error($"Uventet feil: {exception}");
             throw exception;

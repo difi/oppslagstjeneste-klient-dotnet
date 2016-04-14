@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Difi.Oppslagstjeneste.Klient.DTO;
+using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Svar;
-using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
 using Difi.Oppslagstjeneste.Klient.Tester.Utilities.CompareObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,7 +17,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
             public void ResponseContainerWithDecryptedResponse()
             {
                 //Arrange
-                var xmlResponse = TestResourceUtility.Response.PersonResponse.AsXmlDocument();
+                var xmlResponse = XmlResource.Response.GetPerson();
                 var bodyElement = xmlResponse.SelectSingleNode("/env:Envelope/env:Body", NamespaceManager.InitalizeNamespaceManager(xmlResponse));
                 var expectedDeserializedResponse = SerializeUtil.Deserialize<HentPersonerRespons>(bodyElement.InnerXml);
                 //Act
@@ -41,7 +41,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tester.Svar
             public void ResponseContainerWithEncryptedResponse()
             {
                 //Arrange
-                var xmlResponse = TestResourceUtility.Response.PersonResponseEncrypted.AsXmlDocument();
+                var xmlResponse = XmlResource.Response.GetPersonResponseEncrypted();
+                
                 //Act
                 var candidate = new ResponseContainer(GenerateStreamFromString(xmlResponse.OuterXml));
 

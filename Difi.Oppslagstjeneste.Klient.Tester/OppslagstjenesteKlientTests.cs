@@ -1,11 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Net;
-using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
-using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
-using Difi.Oppslagstjeneste.Klient.Tester.Ressurser.Examples;
-using Difi.Oppslagstjeneste.Klient.Tester.Utilities;
-using Difi.Oppslagstjeneste.Klient.Tests;
+﻿using Difi.Oppslagstjeneste.Klient.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tester
