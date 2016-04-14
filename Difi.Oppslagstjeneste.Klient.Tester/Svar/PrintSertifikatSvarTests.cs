@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
 {
     [TestClass]
-    public class PrintSertifikatSvarTester
+    public class PrintSertifikatSvarTests
     {
         private static PrintSertifikatSvar _printSertifikatSvar;
 

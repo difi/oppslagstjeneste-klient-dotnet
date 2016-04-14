@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
 {
     [TestClass]
-    public class EndringerSvarTester
+    public class EndringerSvarTests
     {
         private static EndringerSvar _endringerSvar;
 

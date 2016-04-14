@@ -13,7 +13,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             public void KonstruktørMedSertifikater()
             {
                 //Arrange
-                var avsenderEnhetstesterSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
+                var avsenderEnhetstesterSertifikat = DomainUtility.GetSenderUnitTestCertificate();
                 var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsenderEnhetstesterSertifikat);
 
                 //Act

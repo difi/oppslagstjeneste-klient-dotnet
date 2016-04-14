@@ -14,7 +14,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             {
                 //Arrange
                 var miljø = Miljø.FunksjoneltTestmiljø;
-                var avsenderEnhetstesterSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
+                var avsenderEnhetstesterSertifikat = DomainUtility.GetSenderUnitTestCertificate();
                 var oppslagstjenesteKonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø, avsenderEnhetstesterSertifikat);
 
                 //Act

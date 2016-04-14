@@ -16,7 +16,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 var miljø = Miljø.FunksjoneltTestmiljø;
                 var proxyScheme = "https";
                 var timeout = 30000;
-                var avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
+                var avsendersertifikat = DomainUtility.GetSenderUnitTestCertificate();
                 var klientkonfigurasjon = new OppslagstjenesteKonfigurasjon(miljø, avsendersertifikat);
 
                 //Act

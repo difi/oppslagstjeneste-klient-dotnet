@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
 {
     [TestClass]
-    public class PersonerSvarTester
+    public class PersonerSvarTests
     {
         private static PersonerSvar _personerSvar;
 

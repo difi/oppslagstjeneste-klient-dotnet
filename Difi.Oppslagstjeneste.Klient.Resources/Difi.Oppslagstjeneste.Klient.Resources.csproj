@@ -79,6 +79,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Certificate\Data\DifiTestCertificateClient.p12" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Certificate\Data\difi-enhetstester.cer" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Certificate\Data\difi-enhetstester.p12" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -15,7 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
             public void EnkelKonstruktør()
             {
                 //Arrange
-                var avsendersertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
+                var avsendersertifikat = DomainUtility.GetSenderUnitTestCertificate();
                 const string sendPåVegneAv = "sendPåVegneAv";
                 var personer = new[] {"12312312312", "32132132132"};
                 var informasjonsBehov = new[] {Informasjonsbehov.Person, Informasjonsbehov.Kontaktinfo};

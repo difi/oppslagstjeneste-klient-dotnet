@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Resources.Certificates;
 using log4net.Config;
@@ -22,12 +23,12 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         }
 
         [TestMethod]
-        public void HentPersonerSuksess()
+        public async Task HentPersonerSuksess()
         {
             //Arrange
 
             //Act
-            var personer = _oppslagstjenesteKlient.HentPersoner(new[] {"08077000292"},
+            var personer = await _oppslagstjenesteKlient.HentPersonerAsynkront(new[] {"08077000292"},
                 Informasjonsbehov.Sertifikat,
                 Informasjonsbehov.Kontaktinfo,
                 Informasjonsbehov.SikkerDigitalPost);
@@ -37,12 +38,12 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         }
 
         [TestMethod]
-        public void HentEndringerSuksess()
+        public async Task HentEndringerSuksess()
         {
             //Arrange
 
             //Act
-            var endringer = _oppslagstjenesteKlient.HentEndringer(886730,
+            var endringer = await _oppslagstjenesteKlient.HentEndringerAsynkront(886730,
                 Informasjonsbehov.Kontaktinfo,
                 Informasjonsbehov.Sertifikat,
                 Informasjonsbehov.SikkerDigitalPost,
@@ -53,9 +54,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         }
 
         [TestMethod]
-        public void HentPrintsertifikatSuksess()
+        public async Task HentPrintsertifikatSuksess()
         {
-            var printSertifikat = _oppslagstjenesteKlient.HentPrintSertifikat();
+            var printSertifikat = await _oppslagstjenesteKlient.HentPrintSertifikatAsynkront();
 
             Assert.IsNotNull(printSertifikat);
         }

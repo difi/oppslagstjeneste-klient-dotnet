@@ -19,7 +19,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             public void OppslagstjenesteKlientHandlesGenericSoapFaultCorrectly()
             {
                 //Arrange
-                var avsenderEnhetstesterSertifikat = DomeneUtility.GetAvsenderEnhetstesterSertifikat();
+                var avsenderEnhetstesterSertifikat = DomainUtility.GetSenderUnitTestCertificate();
                 var response = XmlResource.Response.GetSoapFault();
                 //Act
                 try
