@@ -17,7 +17,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         {
             XmlConfigurator.Configure();
             var senderCertificate = CertificateResource.GetDifiTestCertificate();
-            var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVer1, senderCertificate);
+            var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon1, senderCertificate);
 
             _oppslagstjenesteKlient = new OppslagstjenesteKlient(oppslagstjenesteConfiguration);
         }
