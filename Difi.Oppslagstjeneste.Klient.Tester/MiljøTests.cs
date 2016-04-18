@@ -11,7 +11,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         {
             //Arrange
             var url = "https://kontaktinfo-ws-ver1.difi.no/kontaktinfo-external/ws-v5";
-            var environment = Miljø.FunksjoneltTestmiljøVer1;
+            var environment = Miljø.FunksjoneltTestmiljøVerifikasjon1;
             var certificates = SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater();
 
             //Act
@@ -27,7 +27,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         {
             //Arrange
             var url = "https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5";
-            var environment = Miljø.FunksjoneltTestmiljøVer2;
+            var environment = Miljø.FunksjoneltTestmiljøVerifikasjon2;
             var certificates = SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater();
 
             //Act
