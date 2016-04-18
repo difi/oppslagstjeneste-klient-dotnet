@@ -13,7 +13,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             public void InitializesFields()
             {
                 //Arrange
-                var environment = Miljø.FunksjoneltTestmiljø;
+                var environment = Miljø.FunksjoneltTestmiljøVer1;
                 var proxyScheme = "https";
                 var timeout = 30000;
                 var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();

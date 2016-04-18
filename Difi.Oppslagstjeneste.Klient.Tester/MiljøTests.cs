@@ -7,11 +7,27 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
     public class MiljøTests
     {
         [TestMethod]
-        public void ReturnsInitializedFunctionalTestEnvironment()
+        public void ReturnsInitializedFunctionalTestEnvironmentVer1()
+        {
+            //Arrange
+            var url = "https://kontaktinfo-ws-ver1.difi.no/kontaktinfo-external/ws-v5";
+            var environment = Miljø.FunksjoneltTestmiljøVer1;
+            var certificates = SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater();
+
+            //Act
+
+            //Assert
+            Assert.IsNotNull(environment.Sertifikatkjedevalidator);
+            Assert.AreEqual(url, environment.Url.AbsoluteUri);
+            CollectionAssert.AreEqual(certificates, environment.Sertifikatkjedevalidator.SertifikatLager);
+        }
+
+        [TestMethod]
+        public void ReturnsInitializedFunctionalTestEnvironmentVer2()
         {
             //Arrange
             var url = "https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5";
-            var environment = Miljø.FunksjoneltTestmiljø;
+            var environment = Miljø.FunksjoneltTestmiljøVer2;
             var certificates = SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater();
 
             //Act
