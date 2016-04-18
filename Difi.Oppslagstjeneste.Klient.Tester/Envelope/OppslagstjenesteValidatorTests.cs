@@ -19,7 +19,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
                 var requestXmlDocument = XmlResource.Request.GetPerson();
                 var responseXmlDocument = XmlResource.Response.GetPerson();
                 var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
-                var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, senderUnitTestCertificate);
+                var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon1, senderUnitTestCertificate);
 
                 var responseContainer = new ResponseContainer(responseXmlDocument);
 

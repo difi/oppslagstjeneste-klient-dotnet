@@ -14,7 +14,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             {
                 //Arrange
                 var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
-                var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, senderUnitTestCertificate);
+                var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon1, senderUnitTestCertificate);
 
                 //Act
                 var oppslagstjenesteClient = new OppslagstjenesteKlient(oppslagstjenesteConfiguration);
