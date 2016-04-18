@@ -12,7 +12,7 @@ Alle operasjonene/metodene i Oppslagstjenesten har både synkrone og asynkrone m
 Metodene som er asynkrone returnerer en <code>Task<></code> av objektet den synkrone metoden returnerer. Man kan <code>await`e</code> svaret direkte eller ventet på at <code>Task-en</code> skal bli ferdig på annet vis. 
 
 {% highlight csharp%}
-var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikatThumbprint);
+var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon1, avsendersertifikatThumbprint);
 var register = new OppslagstjenesteKlient(konfigurasjon);
 
 var endringer = await register.HentEndringerAsynkront(fraEndringsNummer,
@@ -39,7 +39,7 @@ var printSertifikat = await register.HentPrintSertifikatAsynkront();
 
 <h3 id="Synkrone metoder">Synkrone metoder</h3>
 {% highlight csharp%}
-var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikatThumbprint);
+var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon1, avsendersertifikatThumbprint);
 var register = new OppslagstjenesteKlient(konfigurasjon);
 
 var endringer = register.HentEndringer(fraEndringsNummer,
