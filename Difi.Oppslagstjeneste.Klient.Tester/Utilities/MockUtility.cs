@@ -10,7 +10,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Utilities
     {
         public static Mock<OppslagstjenesteKlient> OppslagstjenesteKlientMock(string respons, HttpStatusCode httpStatusCode, X509Certificate2 avsenderEnhetstesterSertifikat)
         {
-            var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVer1, avsenderEnhetstesterSertifikat);
+            var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon1, avsenderEnhetstesterSertifikat);
             var mockProxy = CreateOppslagstjenesteHelperMock(respons, httpStatusCode, oppslagstjenesteConfiguration);
             var oppslagstjenesteClientMock = new Mock<OppslagstjenesteKlient>(oppslagstjenesteConfiguration);
             oppslagstjenesteClientMock.Setup(f => f.GetClient()).Returns(mockProxy.Object);

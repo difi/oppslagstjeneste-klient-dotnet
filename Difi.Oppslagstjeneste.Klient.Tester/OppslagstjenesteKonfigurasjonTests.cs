@@ -13,7 +13,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             public void InitializesFields()
             {
                 //Arrange
-                var environment = Miljø.FunksjoneltTestmiljøVer1;
+                var environment = Miljø.FunksjoneltTestmiljøVerifikasjon1;
                 var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
                 var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(environment, senderUnitTestCertificate);
 

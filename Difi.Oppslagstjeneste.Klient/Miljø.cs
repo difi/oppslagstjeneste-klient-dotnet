@@ -20,7 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     verifikasjon 1 til nye releaser, vil Difi kunne stenge tilgangen i en kortere periode (1-2 dager). Dette blir
         ///     varslet i forkant på samarbeidsportalen.
         /// </summary>
-        public static Miljø FunksjoneltTestmiljøVer1 => new Miljø(
+        public static Miljø FunksjoneltTestmiljøVerifikasjon1 => new Miljø(
             new Uri("https://kontaktinfo-ws-ver1.difi.no/kontaktinfo-external/ws-v5"),
             new Sertifikatkjedevalidator(SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater())
             );
@@ -32,7 +32,7 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     Når Difis felleskomponenter oppgraderes, kan kunden teste sine eksisterende integrasjoner mot ny versjon i
         ///     verifikasjon 2 før den settes i produksjon.
         /// </summary>
-        public static Miljø FunksjoneltTestmiljøVer2 => new Miljø(
+        public static Miljø FunksjoneltTestmiljøVerifikasjon2 => new Miljø(
             new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5"),
             new Sertifikatkjedevalidator(SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater())
             );
