@@ -13,9 +13,9 @@ licenseUrl: https://www.apache.org/licenses/LICENSE-2.0
 baseurl: "/oppslagstjeneste-klient-dotnet"
 
 ##Version handling
-currentCollecion: "v5_0"
-currentVersion: "5.0"
-versions: ["1.0","5.0"]
+currentCollecion: "v5_1"
+currentVersion: "5.1"
+versions: ["1.0","5.0","5.1"]
 
 # Collection of versions
 collections:
@@ -25,6 +25,9 @@ collections:
   v5_0:  
     output: true
     permalink: /v5.0/
+  v5_1:  
+    output: true
+    permalink: /v5.1/
 
 aboutSide: "about.html"
 
