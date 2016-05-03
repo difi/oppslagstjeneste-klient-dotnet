@@ -43,8 +43,8 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             var value = Convert.FromBase64String(signature);
             var certificate = new X509Certificate2(value);
 
-            var isValidCertificateChain = Environment.Sertifikatkjedevalidator.ErGyldigSertifikatkjede(certificate);
-            var isValidCertificate = Sertifikatvalidator.ErGyldigSertifikat(certificate, "991825827");
+            var isValidCertificateChain = Environment.CertificateChainValidator.ErGyldigSertifikatkjede(certificate);
+            var isValidCertificate = CertificateValidator.IsValidCertificate(certificate, "991825827");
 
             var isAcceptedCertificate = isValidCertificateChain && isValidCertificate;
             if (!isAcceptedCertificate)
