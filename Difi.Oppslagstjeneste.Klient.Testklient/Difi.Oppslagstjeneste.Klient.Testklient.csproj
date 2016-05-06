@@ -35,14 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ApiClientShared, Version=1.0.5968.19413, Culture=neutral, PublicKeyToken=683b8efceae684a6, processorArchitecture=MSIL">
-      <HintPath>..\packages\api-client-shared.1.0.5968.19413\lib\net45\ApiClientShared.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Difi.Felles.Utility, Version=0.5.5955.25016, Culture=neutral, PublicKeyToken=683b8efceae684a6, processorArchitecture=MSIL">
-      <HintPath>..\packages\difi-felles-utility-dotnet.0.5.5955.25016\lib\net45\Difi.Felles.Utility.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=1.7.4.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
       <HintPath>..\packages\CompareObjects.1.0.2\lib\net35\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
       <Private>True</Private>
@@ -70,6 +62,7 @@
   <ItemGroup>
     <None Include="..\SolutionItems\App.config">
       <Link>App.config</Link>
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

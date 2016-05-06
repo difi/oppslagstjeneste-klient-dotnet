@@ -10,9 +10,16 @@
     <description>Klientbibliotek for Difi´s oppslagstjeneste </description>    
     <copyright>Copyright 2015</copyright>
     <tags>Difi Oppslagstjeneste Sikker Digital Post SikkerDigitalPost</tags>
+    <dependencies>
+      <dependency id="api-client-shared" version="1.0.0" />
+      <dependency id="difi-felles-utility-dotnet" version="0.5.0" />
+      <dependency id="log4net" version="2.0.5" />
+    </dependencies>
   </metadata>
   <files>
-    <file src ="Difi.Oppslagstjeneste.Klient\bin\Release\*.dll" target="lib\net45" />   
+    <file src ="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.dll" target="lib\net45" />   
+    <file src ="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.Domene.dll" target="lib\net45" />   
+    <file src ="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.Scripts.dll" target="lib\net45" />   
     <file src ="Difi.Oppslagstjeneste.Klient\bin\Release\*.xml" target="lib\net45" />
   </files>
 </package>
