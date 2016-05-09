@@ -13,14 +13,14 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidation
 
         public OppslagstjenesteXmlValidator()
         {
-            LeggTilXsdRessurs(Navnerom.OppslagstjenesteDefinisjon, HentRessurs("oppslagstjeneste-ws-16-02.xsd"));
-            LeggTilXsdRessurs(Navnerom.OppslagstjenesteMetadata, HentRessurs("oppslagstjeneste-metadata-16-02.xsd"));
-            LeggTilXsdRessurs(Navnerom.WssecuritySecext10, HentRessurs("wssecurity.oasis-200401-wss-wssecurity-secext-1.0.xsd"));
-            LeggTilXsdRessurs(Navnerom.WssecurityUtility10, HentRessurs("wssecurity.oasis-200401-wss-wssecurity-utility-1.0.xsd"));
-            LeggTilXsdRessurs(Navnerom.SoapEnvelope12, HentRessurs("soap.soap.xsd"));
-            LeggTilXsdRessurs(Navnerom.XmlDsig, HentRessurs("w3.xmldsig-core-schema.xsd"));
-            LeggTilXsdRessurs(Navnerom.XmlExcC14N, HentRessurs("w3.exc-c14n.xsd"));
-            LeggTilXsdRessurs(Navnerom.XmlNameSpace, HentRessurs("w3.xml.xsd"));
+            AddXsd(Navnerom.OppslagstjenesteDefinisjon, HentRessurs("oppslagstjeneste-ws-16-02.xsd"));
+            AddXsd(Navnerom.OppslagstjenesteMetadata, HentRessurs("oppslagstjeneste-metadata-16-02.xsd"));
+            AddXsd(Navnerom.WssecuritySecext10, HentRessurs("wssecurity.oasis-200401-wss-wssecurity-secext-1.0.xsd"));
+            AddXsd(Navnerom.WssecurityUtility10, HentRessurs("wssecurity.oasis-200401-wss-wssecurity-utility-1.0.xsd"));
+            AddXsd(Navnerom.SoapEnvelope12, HentRessurs("soap.soap.xsd"));
+            AddXsd(Navnerom.XmlDsig, HentRessurs("w3.xmldsig-core-schema.xsd"));
+            AddXsd(Navnerom.XmlExcC14N, HentRessurs("w3.exc-c14n.xsd"));
+            AddXsd(Navnerom.XmlNameSpace, HentRessurs("w3.xml.xsd"));
         }
 
         private static XmlReader HentRessurs(string path)

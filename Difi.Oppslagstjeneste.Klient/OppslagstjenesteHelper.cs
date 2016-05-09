@@ -89,11 +89,11 @@ namespace Difi.Oppslagstjeneste.Klient
         {
             var xml = envelope.XmlDocument;
             var xmlValidator = new OppslagstjenesteXmlValidator();
-            var xmlValidert = xmlValidator.ValiderDokumentMotXsd(xml.OuterXml);
+            var xmlValidert = xmlValidator.Validate(xml.OuterXml);
             if (!xmlValidert)
             {
-                Log.Warn($"Utgående forespørsel validerte ikke: {xmlValidator.ValideringsVarsler}");
-                throw new XmlException(xmlValidator.ValideringsVarsler);
+                Log.Warn($"Utgående forespørsel validerte ikke: {xmlValidator.ValidationWarnings}");
+                throw new XmlException(xmlValidator.ValidationWarnings);
             }
         }
     }

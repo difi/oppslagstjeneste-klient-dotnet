@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Security.Policy;
 using Difi.Felles.Utility;
 using Difi.Felles.Utility.Utilities;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
-    public class Miljø : AbstraktMiljø
+    public class Miljø 
     {
-        internal Miljø(Uri url, Sertifikatkjedevalidator sertifikatkjedevalidator)
+        public CertificateChainValidator CertificateChainValidator { get; set; }
+        public Uri Url { get; set; }
+
+        internal Miljø(Uri url, CertificateChainValidator certificateChainValidator)
         {
-            Sertifikatkjedevalidator = sertifikatkjedevalidator;
+            CertificateChainValidator = certificateChainValidator;
             Url = url;
         }
 
@@ -22,7 +26,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public static Miljø FunksjoneltTestmiljøVerifikasjon1 => new Miljø(
             new Uri("https://kontaktinfo-ws-ver1.difi.no/kontaktinfo-external/ws-v5"),
-            new Sertifikatkjedevalidator(SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater())
+            new CertificateChainValidator(CertificateChainUtility.FunksjoneltTestmiljøSertifikater())
             );
 
         /// <summary>
@@ -34,12 +38,12 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public static Miljø FunksjoneltTestmiljøVerifikasjon2 => new Miljø(
             new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5"),
-            new Sertifikatkjedevalidator(SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater())
+            new CertificateChainValidator(CertificateChainUtility.FunksjoneltTestmiljøSertifikater())
             );
 
         public static Miljø Produksjonsmiljø => new Miljø(
             new Uri("https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v5"),
-            new Sertifikatkjedevalidator(SertifikatkjedeUtility.ProduksjonsSertifikater())
+            new CertificateChainValidator(CertificateChainUtility.ProduksjonsSertifikater())
             );
     }
 }

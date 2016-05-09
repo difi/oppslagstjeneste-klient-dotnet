@@ -1,18 +1,28 @@
-﻿<?xml version="1.0"?>
-<package >
-  <metadata>
-    <id>difi-oppslagstjeneste-klient</id>
-    <version>0.0.0.0</version>
-    <authors>Jan Gylta, Aleksander Sjåfjell</authors>
-    <owners>Direktoratet for forvaltning og IKT</owners>    
-    <projectUrl>https://github.com/difi/oppslagstjeneste-klient-dotnet/</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Klientbibliotek for Difi´s oppslagstjeneste </description>    
-    <copyright>Copyright 2015</copyright>
-    <tags>Difi Oppslagstjeneste Sikker Digital Post SikkerDigitalPost</tags>
-  </metadata>
-  <files>
-    <file src ="Difi.Oppslagstjeneste.Klient\bin\Release\*.dll" target="lib\net45" />   
-    <file src ="Difi.Oppslagstjeneste.Klient\bin\Release\*.xml" target="lib\net45" />
-  </files>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>difi-oppslagstjeneste-klient</id>
+        <version>0.0.0.0</version>
+        <authors>Jan Gylta,Aleksander Sjåfjell</authors>
+        <owners>Direktoratet for forvaltning og IKT</owners>
+        <projectUrl>https://github.com/difi/oppslagstjeneste-klient-dotnet/</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Klientbibliotek for Difi´s oppslagstjeneste</description>
+        <copyright>Copyright 2015</copyright>
+        <tags>Difi Oppslagstjeneste Sikker Digital Post SikkerDigitalPost</tags>
+        <dependencies>
+            <group targetFramework=".NETFramework4.5">
+                <dependency id="log4net" version="2.0.5" />
+                <dependency id="difi-felles-utility-dotnet" version="0.5.5970.18522" />
+                <dependency id="api-client-shared" version="1.0.5941.27271" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.dll" target="lib\net45\Difi.Oppslagstjeneste.Klient.dll" />
+        <file src="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.XML" target="lib\net45\Difi.Oppslagstjeneste.Klient.XML" />
+        <file src="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.Domene.dll" target="lib\net45\Difi.Oppslagstjeneste.Klient.Domene.dll" />
+        <file src="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.Domene.xml" target="lib\net45\Difi.Oppslagstjeneste.Klient.Domene.xml" />
+        <file src="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.Scripts.dll" target="lib\net45\Difi.Oppslagstjeneste.Klient.Scripts.dll" />
+    </files>
 </package>

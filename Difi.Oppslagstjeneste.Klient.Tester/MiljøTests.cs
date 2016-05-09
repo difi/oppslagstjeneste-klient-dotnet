@@ -12,14 +12,14 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Arrange
             var url = "https://kontaktinfo-ws-ver1.difi.no/kontaktinfo-external/ws-v5";
             var environment = Miljø.FunksjoneltTestmiljøVerifikasjon1;
-            var certificates = SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater();
+            var certificates = CertificateChainUtility.FunksjoneltTestmiljøSertifikater();
 
             //Act
 
             //Assert
-            Assert.IsNotNull(environment.Sertifikatkjedevalidator);
+            Assert.IsNotNull(environment.CertificateChainValidator);
             Assert.AreEqual(url, environment.Url.AbsoluteUri);
-            CollectionAssert.AreEqual(certificates, environment.Sertifikatkjedevalidator.SertifikatLager);
+            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.SertifikatLager);
         }
 
         [TestMethod]
@@ -28,14 +28,14 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Arrange
             var url = "https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5";
             var environment = Miljø.FunksjoneltTestmiljøVerifikasjon2;
-            var certificates = SertifikatkjedeUtility.FunksjoneltTestmiljøSertifikater();
+            var certificates = CertificateChainUtility.FunksjoneltTestmiljøSertifikater();
 
             //Act
 
             //Assert
-            Assert.IsNotNull(environment.Sertifikatkjedevalidator);
+            Assert.IsNotNull(environment.CertificateChainValidator);
             Assert.AreEqual(url, environment.Url.AbsoluteUri);
-            CollectionAssert.AreEqual(certificates, environment.Sertifikatkjedevalidator.SertifikatLager);
+            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.SertifikatLager);
         }
 
         [TestMethod]
@@ -44,14 +44,14 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Arrange
             var url = "https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v5";
             var environment = Miljø.Produksjonsmiljø;
-            var certificates = SertifikatkjedeUtility.ProduksjonsSertifikater();
+            var certificates = CertificateChainUtility.ProduksjonsSertifikater();
 
             //Act
 
             //Assert
-            Assert.IsNotNull(environment.Sertifikatkjedevalidator);
+            Assert.IsNotNull(environment.CertificateChainValidator);
             Assert.AreEqual(url, environment.Url.ToString());
-            CollectionAssert.AreEqual(certificates, environment.Sertifikatkjedevalidator.SertifikatLager);
+            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.SertifikatLager);
         }
     }
 }
