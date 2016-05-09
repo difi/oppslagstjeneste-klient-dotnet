@@ -27,7 +27,7 @@ collections:
     permalink: /v5.0/
   v5_1_2:  
     output: true
-    permalink: /v5.1-v5.2/
+    permalink: /v5.1-5.2/
 
 aboutSide: "about.html"
 
