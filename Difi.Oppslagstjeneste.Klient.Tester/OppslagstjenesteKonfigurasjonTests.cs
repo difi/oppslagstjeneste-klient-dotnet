@@ -13,6 +13,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             public void InitializesFields()
             {
                 //Arrange
+                const bool forventetLoggForespørselOgRespons = false;
                 var environment = Miljø.FunksjoneltTestmiljøVerifikasjon1;
                 var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
                 var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(environment, senderUnitTestCertificate);
@@ -22,6 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 //Assert
                 Assert.AreEqual(environment, oppslagstjenesteConfiguration.Miljø);
                 Assert.AreEqual(senderUnitTestCertificate, oppslagstjenesteConfiguration.Avsendersertifikat);
+                Assert.AreEqual( forventetLoggForespørselOgRespons, oppslagstjenesteConfiguration.LoggForespørselOgRespons);
             }
         }
     }

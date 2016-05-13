@@ -75,9 +75,11 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public string SendPåVegneAv { get; set; }
 
+        public bool LoggForespørselOgRespons { get; set; } = false;
+
         public override string ToString()
         {
-            return $"Miljø: {Miljø}, ProxyHost: {ProxyHost}, ProxyScheme: {ProxyScheme}, ProxyPort: {ProxyPort}, TimeoutIMillisekunder: {TimeoutIMillisekunder}, SendPåVegneAv: {SendPåVegneAv}";
+            return $"Miljø: {Miljø}, ProxyHost: {ProxyHost}, ProxyScheme: {ProxyScheme}, ProxyPort: {ProxyPort}, TimeoutIMillisekunder: {TimeoutIMillisekunder}, Avsendersertifikat: {Avsendersertifikat}, SendPåVegneAv: {SendPåVegneAv}, LoggForespørselOgRespons: {LoggForespørselOgRespons}";
         }
     }
 }
