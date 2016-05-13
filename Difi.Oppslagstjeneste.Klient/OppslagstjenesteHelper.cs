@@ -6,13 +6,14 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Common.Logging;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Handlers;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Utilities;
 using Difi.Oppslagstjeneste.Klient.XmlValidation;
-using log4net;
+
 
 namespace Difi.Oppslagstjeneste.Klient
 {

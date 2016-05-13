@@ -3,8 +3,8 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Common.Logging;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
-using log4net;
 
 namespace Difi.Oppslagstjeneste.Klient.Testklient
 {
