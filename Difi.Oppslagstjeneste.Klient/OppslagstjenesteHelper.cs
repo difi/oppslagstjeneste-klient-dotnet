@@ -75,7 +75,7 @@ namespace Difi.Oppslagstjeneste.Klient
             var reader = new StreamReader(soapResponse);
             var text = XmlUtility.ToXmlDocument(reader.ReadToEnd());
             var exception = new SoapException(text);
-            Log.Error($"Uventet feil: {exception}");
+            Log.Warn($"Uventet feil: {exception}");
             throw exception;
         }
 

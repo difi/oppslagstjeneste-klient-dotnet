@@ -62,7 +62,7 @@ namespace Difi.Oppslagstjeneste.Klient
             }
             catch (Exception exception)
             {
-                Log.Error(exception.ToString());
+                Log.Warn(exception.ToString());
                 throw;
             }
         }
@@ -115,7 +115,7 @@ namespace Difi.Oppslagstjeneste.Klient
             }
             catch (Exception exception)
             {
-                Log.Error(exception.ToString());
+                Log.Warn(exception.ToString());
                 throw;
             }
         }
@@ -162,7 +162,7 @@ namespace Difi.Oppslagstjeneste.Klient
             }
             catch (Exception exception)
             {
-                Log.Error(exception.ToString());
+                Log.Warn(exception.ToString());
                 throw;
             }
         }
