@@ -4,14 +4,14 @@ using Difi.Felles.Utility.Exceptions;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
 {
-    public class SoapException : DifiException
+    public class UventetFeilException : DifiException
     {
-        public SoapException(XmlDocument outerXml)
+        public UventetFeilException(XmlDocument outerXml)
             : this(outerXml, null)
         {
         }
 
-        public SoapException(XmlDocument xml, Exception innerException)
+        public UventetFeilException(XmlDocument xml, Exception innerException)
             : base("Sjekk klassemedlemmer for mer detaljer.", innerException)
         {
             ParseToClassMembers(xml);

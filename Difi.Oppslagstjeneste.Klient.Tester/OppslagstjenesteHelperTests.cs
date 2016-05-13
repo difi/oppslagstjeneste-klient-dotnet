@@ -34,8 +34,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                     var exception = e.InnerExceptions.ElementAt(0);
 
                     //Assert
-                    Assert.IsTrue(exception.GetType() == typeof (SoapException));
-                    var soapException = exception as SoapException;
+                    Assert.IsTrue(exception.GetType() == typeof (UventetFeilException));
+                    var soapException = exception as UventetFeilException;
                     Assert.AreEqual("env:Sender", soapException.Skyldig);
                     Assert.AreEqual("Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN", soapException.Beskrivelse);
                 }
