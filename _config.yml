@@ -9,13 +9,12 @@ downloadUrl: https://www.nuget.org/packages/difi-oppslagstjeneste-klient/
 license: Apace Licence 2.0
 licenseUrl: https://www.apache.org/licenses/LICENSE-2.0
 
-#baseurl: "/sikker-digital-post-net-klient" # the subpath of your site, e.g. /blog/
 baseurl: "/oppslagstjeneste-klient-dotnet"
 
 ##Version handling
-currentCollecion: "v5_1_2"
-currentVersion: "5.2"
-versions: ["5.1-5.2","5.0","1.0"]
+currentCollecion: "v5_3"
+currentVersion: "5.3"
+versions: ["5.3","5.1-5.2","5.0","1.0"]
 
 # Collection of versions
 collections:
@@ -28,13 +27,15 @@ collections:
   v5_1_2:  
     output: true
     permalink: /v5.1-5.2/
-
+  v5_3:  
+    output: true
+    permalink: /v5.3/
 aboutSide: "about.html"
 
 # list of additional links on the right of the top menu
 headerLinks:
   - title: GitHub
-    url: https://github.com/difi/sikker-digital-post-oppslagstjeneste-dotnet
+    url: https://github.com/difi/oppslagstjeneste-klient-dotnet
   - title: Om oppslagstjenesten
     url: /oppslagstjeneste-klient-dotnet/about.html
   - title: Issues
@@ -58,7 +59,7 @@ header:
 # github buttons
 githubButton:
   user: difi
-  repo: difi/difi-sikker-digital-post-klient-dotnet
+  repo: difi/oppslagstjeneste-klient-dotnet
 
 # twitter buttons
 twitter:
