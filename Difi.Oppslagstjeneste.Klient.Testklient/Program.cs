@@ -15,7 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
         private static void Main(string[] args)
         {
             var avsendersertifikatThumbprint = CertificateIssuedToPostenNorgeAsIssuedByBuypassClass3Test4Ca3();
-            var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon2, avsendersertifikatThumbprint) {LoggForespørselOgRespons = false};
+            var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon2, avsendersertifikatThumbprint) {LoggForespørselOgRespons = true};
             Log.Debug("> Starter program!");
 
             //konfigurasjon.SendPåVegneAv = "984661185";
