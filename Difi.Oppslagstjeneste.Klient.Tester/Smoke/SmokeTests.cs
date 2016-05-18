@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Resources.Certificate;
-using log4net.Config;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
@@ -15,7 +14,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            XmlConfigurator.Configure();
+            
             var senderCertificate = CertificateResource.GetDifiTestCertificate();
             var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon1, senderCertificate);
 

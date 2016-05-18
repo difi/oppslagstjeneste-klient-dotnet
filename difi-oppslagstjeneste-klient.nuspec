@@ -12,17 +12,18 @@
         <tags>Difi Oppslagstjeneste Sikker Digital Post SikkerDigitalPost</tags>
         <dependencies>
             <group targetFramework=".NETFramework4.5">
-                <dependency id="log4net" version="2.0.5" />
                 <dependency id="difi-felles-utility-dotnet" version="0.5.5970.18522" />
                 <dependency id="api-client-shared" version="1.0.5941.27271" />
+                <dependency id="Common.Logging" version="3.3.1" />
+                <dependency id="Common.Logging.Core" version="3.3.1" />
             </group>
         </dependencies>
     </metadata>
     <files>
         <file src="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.dll" target="lib\net45\Difi.Oppslagstjeneste.Klient.dll" />
-        <file src="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.XML" target="lib\net45\Difi.Oppslagstjeneste.Klient.XML" />
         <file src="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.Domene.dll" target="lib\net45\Difi.Oppslagstjeneste.Klient.Domene.dll" />
         <file src="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.Domene.xml" target="lib\net45\Difi.Oppslagstjeneste.Klient.Domene.xml" />
         <file src="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.Scripts.dll" target="lib\net45\Difi.Oppslagstjeneste.Klient.Scripts.dll" />
+        <file src="Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.XML" target="lib\net45\Difi.Oppslagstjeneste.Klient.XML" />
     </files>
 </package>

@@ -15,7 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
             const string expectedDescription = "Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN";
 
             //Act
-            var exception = new SoapException(XmlResource.Response.GetSoapFault());
+            var exception = new UventetFeilException(XmlResource.Response.GetSoapFault());
 
             //Assert
             Assert.AreEqual(expectedGuilty, exception.Skyldig.Trim());

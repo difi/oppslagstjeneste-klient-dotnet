@@ -47,10 +47,6 @@
       <HintPath>..\packages\difi-felles-utility-dotnet.0.5.5970.18522\lib\net45\Difi.Felles.Utility.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.4\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
@@ -68,7 +64,7 @@
     <Compile Include="Entiteter\Svar\PersonerSvar.cs" />
     <Compile Include="Entiteter\Svar\PrintSertifikatSvar.cs" />
     <Compile Include="Exceptions\SendException.cs" />
-    <Compile Include="Exceptions\SoapException.cs" />
+    <Compile Include="Exceptions\UventetFeilException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
     <Compile Include="Entiteter\Kontaktinformasjon.cs" />

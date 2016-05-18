@@ -6,13 +6,14 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Common.Logging;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Handlers;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Utilities;
 using Difi.Oppslagstjeneste.Klient.XmlValidation;
-using log4net;
+
 
 namespace Difi.Oppslagstjeneste.Klient
 {
@@ -73,8 +74,8 @@ namespace Difi.Oppslagstjeneste.Klient
         {
             var reader = new StreamReader(soapResponse);
             var text = XmlUtility.ToXmlDocument(reader.ReadToEnd());
-            var exception = new SoapException(text);
-            Log.Error($"Uventet feil: {exception}");
+            var exception = new UventetFeilException(text);
+            Log.Warn($"Uventet feil: {exception}");
             throw exception;
         }
 

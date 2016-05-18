@@ -3,8 +3,8 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Common.Logging;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
-using log4net;
 
 namespace Difi.Oppslagstjeneste.Klient.Testklient
 {
@@ -15,8 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
         private static void Main(string[] args)
         {
             var avsendersertifikatThumbprint = CertificateIssuedToPostenNorgeAsIssuedByBuypassClass3Test4Ca3();
-            var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon2, avsendersertifikatThumbprint);
-
+            var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon2, avsendersertifikatThumbprint) {LoggForespørselOgRespons = false};
             Log.Debug("> Starter program!");
 
             //konfigurasjon.SendPåVegneAv = "984661185";

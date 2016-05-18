@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using Common.Logging;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Scripts.XsdToCode.Code;
 using Difi.Oppslagstjeneste.Klient.Svar;
-using log4net;
 using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 
 namespace Difi.Oppslagstjeneste.Klient
@@ -20,7 +20,6 @@ namespace Difi.Oppslagstjeneste.Klient
     public class OppslagstjenesteKlient
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly ILog RequestLog = LogManager.GetLogger($"{typeof (OppslagstjenesteKlient).Namespace}.RequestLog");
         private readonly OppslagstjenesteHelper _oppslagstjenesteHelper;
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace Difi.Oppslagstjeneste.Klient
             }
             catch (Exception exception)
             {
-                Log.Error(exception.ToString());
+                Log.Warn(exception.ToString());
                 throw;
             }
         }
@@ -83,10 +82,15 @@ namespace Difi.Oppslagstjeneste.Klient
             var requestEnvelope = new EndringerEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, fraEndringsNummer, informasjonsbehov);
 
             Log.Debug($"HentEndringerAsynkront(fraEndringsNummer:{fraEndringsNummer} , informasjonsbehov:{informasjonsbehov})");
-            RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            {
+                Log.Debug(requestEnvelope.XmlDocument.OuterXml);
+            }
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
-
-            RequestLog.Debug(responseDocument.Envelope.InnerXml);
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            {
+                Log.Debug(responseDocument.Envelope.InnerXml);
+            }
             var dtoObject = ValidateAndConvertToDtoObject<HentEndringerRespons>(requestEnvelope, responseDocument);
             return DtoConverter.ToDomainObject(dtoObject);
         }
@@ -110,7 +114,7 @@ namespace Difi.Oppslagstjeneste.Klient
             }
             catch (Exception exception)
             {
-                Log.Error(exception.ToString());
+                Log.Warn(exception.ToString());
                 throw;
             }
         }
@@ -130,9 +134,16 @@ namespace Difi.Oppslagstjeneste.Klient
         {
             var requestEnvelope = new PersonsEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, personidentifikator, informasjonsbehov);
             Log.Debug($"HentPersonerAsynkront(personidentifikator:{personidentifikator} , informasjonsbehov:{informasjonsbehov})");
-            RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            {
+                Log.Debug(requestEnvelope.XmlDocument.OuterXml);
+            }
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
-            RequestLog.Debug(responseDocument.Envelope.InnerXml);
+
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            {
+                Log.Debug(responseDocument.Envelope.InnerXml);
+            }
             var dtoObject = ValidateAndConvertToDtoObject<HentPersonerRespons>(requestEnvelope, responseDocument);
             var domainObject = DtoConverter.ToDomainObject(dtoObject);
             return domainObject.Personer;
@@ -150,7 +161,7 @@ namespace Difi.Oppslagstjeneste.Klient
             }
             catch (Exception exception)
             {
-                Log.Error(exception.ToString());
+                Log.Warn(exception.ToString());
                 throw;
             }
         }
@@ -162,10 +173,16 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<PrintSertifikatSvar> HentPrintSertifikatAsynkront()
         {
             var requestEnvelope = new PrintCertificateEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv);
-            Log.Debug($"HentPrintSertifikatAsynkront");
-            RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
+            Log.Debug("HentPrintSertifikatAsynkront");
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            {
+                Log.Debug(requestEnvelope.XmlDocument.OuterXml);
+            }
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
-            RequestLog.Debug(responseDocument.Envelope.InnerXml);
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            {
+                Log.Debug(responseDocument.Envelope.InnerXml);
+            }
             var dtoObject = ValidateAndConvertToDtoObject<HentPrintSertifikatRespons>(requestEnvelope, responseDocument);
             return DtoConverter.ToDomainObject(dtoObject);
         }
