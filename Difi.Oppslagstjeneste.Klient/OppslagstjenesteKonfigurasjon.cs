@@ -79,7 +79,7 @@ namespace Difi.Oppslagstjeneste.Klient
 
         public override string ToString()
         {
-            return $"Miljø: {Miljø}, ProxyHost: {ProxyHost}, ProxyScheme: {ProxyScheme}, ProxyPort: {ProxyPort}, TimeoutIMillisekunder: {TimeoutIMillisekunder}, Avsendersertifikat: {Avsendersertifikat}, SendPåVegneAv: {SendPåVegneAv}, LoggForespørselOgRespons: {LoggForespørselOgRespons}";
+            return $"Miljø: {Miljø}, ProxyHost: {ProxyHost}, ProxyScheme: {ProxyScheme}, ProxyPort: {ProxyPort}, TimeoutIMillisekunder: {TimeoutIMillisekunder}, SendPåVegneAv: {SendPåVegneAv}, LoggForespørselOgRespons: {LoggForespørselOgRespons}";
         }
     }
 }
