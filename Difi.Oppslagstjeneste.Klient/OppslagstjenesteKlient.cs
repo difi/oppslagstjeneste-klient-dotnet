@@ -20,7 +20,6 @@ namespace Difi.Oppslagstjeneste.Klient
     public class OppslagstjenesteKlient
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly ILog RequestLog = LogManager.GetLogger("Difi.Oppslagstjeneste.RequestLog");
         private readonly OppslagstjenesteHelper _oppslagstjenesteHelper;
 
         /// <summary>
@@ -83,14 +82,14 @@ namespace Difi.Oppslagstjeneste.Klient
             var requestEnvelope = new EndringerEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, fraEndringsNummer, informasjonsbehov);
 
             Log.Debug($"HentEndringerAsynkront(fraEndringsNummer:{fraEndringsNummer} , informasjonsbehov:{informasjonsbehov})");
-            if (RequestLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
-                RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
+                Log.Debug(requestEnvelope.XmlDocument.OuterXml);
             }
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
-            if (RequestLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
-                RequestLog.Debug(responseDocument.Envelope.InnerXml);
+                Log.Debug(responseDocument.Envelope.InnerXml);
             }
             var dtoObject = ValidateAndConvertToDtoObject<HentEndringerRespons>(requestEnvelope, responseDocument);
             return DtoConverter.ToDomainObject(dtoObject);
@@ -135,15 +134,15 @@ namespace Difi.Oppslagstjeneste.Klient
         {
             var requestEnvelope = new PersonsEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, personidentifikator, informasjonsbehov);
             Log.Debug($"HentPersonerAsynkront(personidentifikator:{personidentifikator} , informasjonsbehov:{informasjonsbehov})");
-            if (RequestLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
-                RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
+                Log.Debug(requestEnvelope.XmlDocument.OuterXml);
             }
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
 
-            if (RequestLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
-                RequestLog.Debug(responseDocument.Envelope.InnerXml);
+                Log.Debug(responseDocument.Envelope.InnerXml);
             }
             var dtoObject = ValidateAndConvertToDtoObject<HentPersonerRespons>(requestEnvelope, responseDocument);
             var domainObject = DtoConverter.ToDomainObject(dtoObject);
@@ -174,15 +173,15 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<PrintSertifikatSvar> HentPrintSertifikatAsynkront()
         {
             var requestEnvelope = new PrintCertificateEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv);
-            Log.Debug($"HentPrintSertifikatAsynkront");
-            if (RequestLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            Log.Debug("HentPrintSertifikatAsynkront");
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
-                RequestLog.Debug(requestEnvelope.XmlDocument.OuterXml);
+                Log.Debug(requestEnvelope.XmlDocument.OuterXml);
             }
             var responseDocument = await GetClient().SendAsync(requestEnvelope);
-            if (RequestLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
+            if (Log.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
-                RequestLog.Debug(responseDocument.Envelope.InnerXml);
+                Log.Debug(responseDocument.Envelope.InnerXml);
             }
             var dtoObject = ValidateAndConvertToDtoObject<HentPrintSertifikatRespons>(requestEnvelope, responseDocument);
             return DtoConverter.ToDomainObject(dtoObject);
