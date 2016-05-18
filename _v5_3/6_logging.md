@@ -68,4 +68,57 @@ Det er mulig å logge hele forespørsel/respons som blir sendt/mottatt. For å a
 OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons = true;
 {% endhighlight%}
 
+Det vil da logges til en logger med navn `Difi.Oppslagstjeneste.Klient.RequestResponse`.
+
 <blockquote> Merk at logging av forespørsel og respons kan gi mye dårligere ytelse. Det er ingen grunn til å logge dette i et produksjonsmiljø.</blockquote>
+
+Eksempel på App.config med Log4Net-adapter. I dette eksempelet er det en logger for vanlig debug-logg samt en logger for forespørsel og response:
+
+{% highlight xml %}
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <sectionGroup name="common">
+      <section name="logging" type="Common.Logging.ConfigurationSectionHandler, Common.Logging" />
+    </sectionGroup>
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
+  </configSections>
+  <common>
+    <logging>
+      <factoryAdapter type="Common.Logging.Log4Net.Log4NetLoggerFactoryAdapter, Common.Logging.Log4net1213">
+        <arg key="configType" value="INLINE" />
+      </factoryAdapter>
+    </logging>
+  </common>
+  <log4net>
+    <logger name="Difi.Oppslagstjeneste.Klient">
+      <appender-ref ref="RollingFileAppender" />
+      <level value="DEBUG" />
+    </logger>
+    <logger additivity="false" name="Difi.Oppslagstjeneste.Klient.RequestResponse">
+      <appender-ref ref="RequestRollingAppender" />
+      <level value="DEBUG" />
+    </logger>
+    <appender name="RollingFileAppender" type="log4net.Appender.RollingFileAppender">
+      <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />  
+      <file value="${AppData}\Difi\Log\" />
+      <appendToFile value="true" />
+      <staticLogFileName value="false" />
+      <datePattern value="yyyy.MM.dd' Difi.Oppslagstjeneste-klient-dotnet.log'" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date [%thread] %-5lev - %message%newline" />
+      </layout>
+    </appender>
+    <appender name="RequestRollingAppender" type="log4net.Appender.RollingFileAppender">
+      <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+      <file value="${AppData}\Difi\RequestLog\" />
+      <appendToFile value="true" />
+      <staticLogFileName value="false" />
+      <datePattern value="yyyy.MM.dd' Difi.Oppslagstjeneste-klient-dotnet.log'" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date [%thread] %-5lev - %message%newline" />
+      </layout>
+    </appender>
+  </log4net>
+</configuration>
+{% endhighlight %}
