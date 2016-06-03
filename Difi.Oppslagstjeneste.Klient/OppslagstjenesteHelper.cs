@@ -93,8 +93,8 @@ namespace Difi.Oppslagstjeneste.Klient
             var xmlValidert = xmlValidator.Validate(xml.OuterXml);
             if (!xmlValidert)
             {
-                Log.Warn($"Utgående forespørsel validerte ikke: {xmlValidator.ValidationWarnings}");
-                throw new XmlException(xmlValidator.ValidationWarnings);
+                Log.Warn($"Utgående forespørsel validerte ikke: {xmlValidator.ValidationMessages}");
+                throw new XmlException(xmlValidator.ValidationMessages.ToString());
             }
         }
     }
