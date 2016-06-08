@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -90,11 +91,12 @@ namespace Difi.Oppslagstjeneste.Klient
         {
             var xml = envelope.XmlDocument;
             var xmlValidator = new OppslagstjenesteXmlValidator();
-            var xmlValidert = xmlValidator.Validate(xml.OuterXml);
+            string validationMessages;
+            var xmlValidert = xmlValidator.Validate(xml.OuterXml, out validationMessages);
             if (!xmlValidert)
             {
-                Log.Warn($"Utgående forespørsel validerte ikke: {xmlValidator.ValidationMessages}");
-                throw new XmlException(xmlValidator.ValidationMessages.ToString());
+                Log.Warn($"Utgående forespørsel validerte ikke: {validationMessages}");
+                throw new XmlException(validationMessages);
             }
         }
     }
