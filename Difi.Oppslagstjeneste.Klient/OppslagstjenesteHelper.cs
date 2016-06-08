@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -14,7 +13,6 @@ using Difi.Oppslagstjeneste.Klient.Handlers;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Utilities;
 using Difi.Oppslagstjeneste.Klient.XmlValidation;
-
 
 namespace Difi.Oppslagstjeneste.Klient
 {

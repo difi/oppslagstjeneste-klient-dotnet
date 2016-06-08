@@ -20,7 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient
     public class OppslagstjenesteKlient
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly ILog RequestAndResponseLog = LogManager.GetLogger($"{typeof(OppslagstjenesteKlient).Namespace}.RequestResponse");
+        private static readonly ILog RequestAndResponseLog = LogManager.GetLogger($"{typeof (OppslagstjenesteKlient).Namespace}.RequestResponse");
         private readonly OppslagstjenesteHelper _oppslagstjenesteHelper;
 
         /// <summary>
