@@ -32,8 +32,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <summary>
         ///     Verifikasjon 2 blir brukt til testing av nye releaser av Difis felleskomponenter. Verifikasjon 2 kan benyttes til å
         ///     teste tjenester som er planlagt frem i tid. Ved oppgradering av verifikasjon 2 til nye releaser, vil Difi kunne
-        ///     stenge tilgangen i
-        ///     en kortere periode (1-2 dager). Dette blir varslet i forkant på samarbeidsportalen.
+        ///     stenge tilgangen i en kortere periode (1-2 dager). Dette blir varslet i forkant på samarbeidsportalen.
         ///     Når Difis felleskomponenter oppgraderes, kan kunden teste sine eksisterende integrasjoner mot ny versjon i
         ///     verifikasjon 2 før den settes i produksjon.
         /// </summary>
