@@ -14,7 +14,6 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            
             var senderCertificate = CertificateResource.GetDifiTestCertificate();
             var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon1, senderCertificate);
 

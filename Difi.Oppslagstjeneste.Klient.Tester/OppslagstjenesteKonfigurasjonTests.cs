@@ -23,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 //Assert
                 Assert.AreEqual(environment, oppslagstjenesteConfiguration.Miljø);
                 Assert.AreEqual(senderUnitTestCertificate, oppslagstjenesteConfiguration.Avsendersertifikat);
-                Assert.AreEqual( forventetLoggForespørselOgRespons, oppslagstjenesteConfiguration.LoggForespørselOgRespons);
+                Assert.AreEqual(forventetLoggForespørselOgRespons, oppslagstjenesteConfiguration.LoggForespørselOgRespons);
             }
         }
     }

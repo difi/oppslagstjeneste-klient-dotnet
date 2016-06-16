@@ -14,7 +14,6 @@ using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Utilities;
 using Difi.Oppslagstjeneste.Klient.XmlValidation;
 
-
 namespace Difi.Oppslagstjeneste.Klient
 {
     internal class OppslagstjenesteHelper
@@ -90,11 +89,12 @@ namespace Difi.Oppslagstjeneste.Klient
         {
             var xml = envelope.XmlDocument;
             var xmlValidator = new OppslagstjenesteXmlValidator();
-            var xmlValidert = xmlValidator.Validate(xml.OuterXml);
+            string validationMessages;
+            var xmlValidert = xmlValidator.Validate(xml.OuterXml, out validationMessages);
             if (!xmlValidert)
             {
-                Log.Warn($"Utgående forespørsel validerte ikke: {xmlValidator.ValidationWarnings}");
-                throw new XmlException(xmlValidator.ValidationWarnings);
+                Log.Warn($"Utgående forespørsel validerte ikke: {validationMessages}");
+                throw new XmlException(validationMessages);
             }
         }
     }
