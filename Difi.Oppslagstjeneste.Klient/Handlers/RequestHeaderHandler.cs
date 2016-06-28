@@ -23,7 +23,7 @@ namespace Difi.Oppslagstjeneste.Klient.Handlers
         {
             request.Headers.Add("User-Agent", GetAssemblyVersion());
             request.Headers.Add("SOAPAction", "\"\"");
-            return await base.SendAsync(request, cancellationToken);
+            return await base.SendAsync(request, cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
         }
 
         private static string GetAssemblyVersion()
