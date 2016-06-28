@@ -121,10 +121,10 @@ namespace Difi.Oppslagstjeneste.Klient
             }
         }
 
-        public async Task<HttpResponseMessage> TestConfigureAwait()
+        public async Task<HttpResponseMessage> TestConfigureAwait(bool continueOnCapturedContext)
         {
             var httpClient = new HttpClient();
-            var result = await httpClient.GetAsync(new Uri("http://www.vg.no")).ConfigureAwait(false);
+            var result = await httpClient.GetAsync(new Uri("http://www.vg.no")).ConfigureAwait(continueOnCapturedContext);
 
             return result;
         }
