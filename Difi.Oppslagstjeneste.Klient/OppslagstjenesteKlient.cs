@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Common.Logging;
@@ -121,14 +120,6 @@ namespace Difi.Oppslagstjeneste.Klient
             }
         }
 
-        public async Task<HttpResponseMessage> TestConfigureAwait(bool continueOnCapturedContext)
-        {
-            var httpClient = new HttpClient();
-            var result = await httpClient.GetAsync(new Uri("http://www.vg.no")).ConfigureAwait(continueOnCapturedContext);
-
-            return result;
-        }
-
         /// <summary>
         ///     Forespørsel sendt fra Virksomhet for å hente Personer fra Oppslagstjenesten.
         /// </summary>
@@ -188,7 +179,7 @@ namespace Difi.Oppslagstjeneste.Klient
             {
                 RequestAndResponseLog.Debug(requestEnvelope.XmlDocument.OuterXml);
             }
-            var responseDocument = await GetClient().SendAsync(requestEnvelope);
+            var responseDocument = await GetClient().SendAsync(requestEnvelope).ConfigureAwait(continueOnCapturedContext: false);
             if (RequestAndResponseLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
                 RequestAndResponseLog.Debug(responseDocument.Envelope.InnerXml);
