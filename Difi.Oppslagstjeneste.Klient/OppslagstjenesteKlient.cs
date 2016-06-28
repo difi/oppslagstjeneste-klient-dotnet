@@ -139,7 +139,7 @@ namespace Difi.Oppslagstjeneste.Klient
             {
                 RequestAndResponseLog.Debug(requestEnvelope.XmlDocument.OuterXml);
             }
-            var responseDocument = await GetClient().SendAsync(requestEnvelope);
+            var responseDocument = await GetClient().SendAsync(requestEnvelope).ConfigureAwait(false);
 
             if (RequestAndResponseLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
