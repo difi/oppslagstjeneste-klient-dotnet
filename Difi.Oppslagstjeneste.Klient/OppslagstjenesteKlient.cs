@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Common.Logging;
@@ -118,6 +119,14 @@ namespace Difi.Oppslagstjeneste.Klient
                 Log.Warn(exception.ToString());
                 throw;
             }
+        }
+
+        public async Task<HttpResponseMessage> TestConfigureAwait()
+        {
+            var httpClient = new HttpClient();
+            var result = await httpClient.GetAsync(new Uri("http://www.vg.no")).ConfigureAwait(false);
+
+            return result;
         }
 
         /// <summary>
