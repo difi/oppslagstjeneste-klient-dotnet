@@ -34,9 +34,9 @@ namespace Difi.Oppslagstjeneste.Klient
             ValidateRequest(envelope);
             var requestXml = envelope.XmlDocument;
             var stringContent = new StringContent(requestXml.InnerXml, Encoding.UTF8, "application/soap+xml");
-            using (var response = await Client().PostAsync(OppslagstjenesteKonfigurasjon.Miljø.Url, stringContent))
+            using (var response = await Client().PostAsync(OppslagstjenesteKonfigurasjon.Miljø.Url, stringContent).ConfigureAwait(continueOnCapturedContext:false))
             {
-                var soapResponse = await response.Content.ReadAsStreamAsync();
+                var soapResponse = await response.Content.ReadAsStreamAsync().ConfigureAwait(continueOnCapturedContext:false);
 
                 if (!response.IsSuccessStatusCode)
                 {
