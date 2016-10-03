@@ -6,6 +6,7 @@ using Difi.Felles.Utility.Exceptions;
 using Difi.Felles.Utility.Security;
 using Difi.Oppslagstjeneste.Klient.Security;
 using Difi.Oppslagstjeneste.Klient.Svar;
+using Difi.Oppslagstjeneste.Klient.Domene.Extensions;
 
 namespace Difi.Oppslagstjeneste.Klient.Envelope
 {
@@ -41,20 +42,19 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
         {
             var signature = ResponseContainer.HeaderBinarySecurityToken.InnerText;
             var value = Convert.FromBase64String(signature);
-            var certificate = new X509Certificate2(value);
+            var responseCertificate = new X509Certificate2(value);
+            const string organizationNumberDirektoratetForForvaltningOgIkt = "991825827";
 
-            var isValidCertificateChain = Environment.CertificateChainValidator.ErGyldigSertifikatkjede(certificate);
-            var isValidCertificate = CertificateValidator.IsValidCertificate(certificate, "991825827");
+            var responseCertificateValidationResult = CertificateValidator.ValidateCertificateAndChain(
+                responseCertificate, 
+                organizationNumberDirektoratetForForvaltningOgIkt, 
+                Environment.CertificateChainValidator.CertificateStore
+               );
 
-            var isAcceptedCertificate = isValidCertificateChain && isValidCertificate;
-            if (!isAcceptedCertificate)
+            if (responseCertificateValidationResult.Type != CertificateValidationType.Valid )
             {
-                throw new SecurityException("Sertifikatet i responsen er ikke gyldig.");
+                throw new SecurityException($"Sertifikatet som ble mottatt i responsen er ikke gyldig. Grunnen er '{responseCertificateValidationResult.Type.ToNorwegianString()}', med melding '{responseCertificateValidationResult.Message}'");
             }
-
-            var key = certificate.PublicKey.Key;
-            if (!signed.CheckSignature(key))
-                throw new SecurityException("Signaturen i motatt svar er ikke gyldig");
         }
     }
 }
