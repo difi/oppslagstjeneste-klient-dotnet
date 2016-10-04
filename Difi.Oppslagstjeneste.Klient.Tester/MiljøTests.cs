@@ -7,43 +7,43 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
     public class MiljøTests
     {
         [TestMethod]
-        public void ReturnsInitializedFunctionalTestEnvironmentVer1()
+        public void Returns_initialized_functional_test_environment_ver1()
         {
             //Arrange
-            var url = "https://kontaktinfo-ws-ver1.difi.no/kontaktinfo-external/ws-v5";
             var environment = Miljø.FunksjoneltTestmiljøVerifikasjon1;
-            var certificates = CertificateChainUtility.FunksjoneltTestmiljøSertifikater();
+            const string url = "https://kontaktinfo-ws-ver1.difi.no/kontaktinfo-external/ws-v5";
+            var certificates = CertificateChainUtility.ProduksjonsSertifikater();
 
             //Act
 
             //Assert
             Assert.IsNotNull(environment.CertificateChainValidator);
             Assert.AreEqual(url, environment.Url.AbsoluteUri);
-            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.SertifikatLager);
+            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.CertificateStore);
         }
 
         [TestMethod]
-        public void ReturnsInitializedFunctionalTestEnvironmentVer2()
+        public void Returns_initialized_functional_test_environment_ver2()
         {
             //Arrange
-            var url = "https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5";
             var environment = Miljø.FunksjoneltTestmiljøVerifikasjon2;
-            var certificates = CertificateChainUtility.FunksjoneltTestmiljøSertifikater();
+            const string url = "https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5";
+            var certificates = CertificateChainUtility.ProduksjonsSertifikater();
 
             //Act
 
             //Assert
             Assert.IsNotNull(environment.CertificateChainValidator);
             Assert.AreEqual(url, environment.Url.AbsoluteUri);
-            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.SertifikatLager);
+            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.CertificateStore);
         }
 
         [TestMethod]
-        public void ReturnsInitializedProductionEnvironment()
+        public void Returns_initialized_production_environment()
         {
             //Arrange
-            var url = "https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v5";
             var environment = Miljø.Produksjonsmiljø;
+            const string url = "https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v5";
             var certificates = CertificateChainUtility.ProduksjonsSertifikater();
 
             //Act
@@ -51,7 +51,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Assert
             Assert.IsNotNull(environment.CertificateChainValidator);
             Assert.AreEqual(url, environment.Url.ToString());
-            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.SertifikatLager);
+            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.CertificateStore);
         }
     }
 }

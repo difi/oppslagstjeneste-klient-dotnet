@@ -26,7 +26,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public static Miljø FunksjoneltTestmiljøVerifikasjon1 => new Miljø(
             new Uri("https://kontaktinfo-ws-ver1.difi.no/kontaktinfo-external/ws-v5"),
-            new CertificateChainValidator(CertificateChainUtility.FunksjoneltTestmiljøSertifikater())
+            new CertificateChainValidator(CertificateChainUtility.ProduksjonsSertifikater())
             );
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public static Miljø FunksjoneltTestmiljøVerifikasjon2 => new Miljø(
             new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5"),
-            new CertificateChainValidator(CertificateChainUtility.FunksjoneltTestmiljøSertifikater())
+            new CertificateChainValidator(CertificateChainUtility.ProduksjonsSertifikater())
             );
 
         public static Miljø Produksjonsmiljø => new Miljø(
