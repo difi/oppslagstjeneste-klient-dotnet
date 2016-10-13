@@ -13,7 +13,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
         public class ConstructorMethod : OppslagstjenesteValidatorTests
         {
             [Fact]
-            public void EnkelKonstruktør()
+            public void Initializes_fields()
             {
                 //Arrange
                 var requestXmlDocument = XmlResource.Request.GetPerson();

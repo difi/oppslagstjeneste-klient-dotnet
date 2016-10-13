@@ -9,10 +9,10 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
     public class PersonerEnvelopeTests
     {
         
-        public class KonstruktørMethod : PersonerEnvelopeTests
+        public class ConstructorMethod : PersonerEnvelopeTests
         {
             [Fact]
-            public void InitializesFields()
+            public void Initializes_fields()
             {
                 //Arrange
                 var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();

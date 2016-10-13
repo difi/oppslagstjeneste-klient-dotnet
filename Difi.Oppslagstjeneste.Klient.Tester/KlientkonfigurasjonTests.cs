@@ -10,7 +10,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         public class ConstructorMethod : KlientkonfigurasjonTests
         {
             [Fact]
-            public void InitializesFields()
+            public void Initializes_fields()
             {
                 //Arrange
                 var environment = Miljø.FunksjoneltTestmiljøVerifikasjon1;

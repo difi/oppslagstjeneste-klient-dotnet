@@ -7,7 +7,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
     
     public class SoapExceptionTests
     {
-        public static void ParseSoapExceptionSuksess()
+        public static void Parse_soap_exception_suksess()
         {
             //Arrange
             var expectedGuilty = "env:Sender";

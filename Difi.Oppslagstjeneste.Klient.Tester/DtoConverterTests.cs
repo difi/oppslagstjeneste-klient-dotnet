@@ -21,7 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         public class ToDomainObject : DtoConverterTests
         {
             [Fact]
-            public void ConvertPerson()
+            public void Convert_person()
             {
                 //Arrange
                 var source = new HentPersonerRespons
@@ -48,7 +48,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             }
 
             [Fact]
-            public void ConvertChanges()
+            public void Convert_changes()
             {
                 //Arrange
                 const int personsCount = 10;

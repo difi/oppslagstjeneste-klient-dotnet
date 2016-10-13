@@ -10,7 +10,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         public class ConstructorMethod : OppslagstjenesteKlientTests
         {
             [Fact]
-            public void InitializesWithCertificates()
+            public void Initializes_with_certificates()
             {
                 //Arrange
                 var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();

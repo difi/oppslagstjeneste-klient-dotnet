@@ -10,7 +10,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         public class ConstructorMethod : OppslagstjenesteKonfigurasjonTests
         {
             [Fact]
-            public void InitializesFields()
+            public void Initializes_fields()
             {
                 //Arrange
                 const bool forventetLoggForespørselOgRespons = false;

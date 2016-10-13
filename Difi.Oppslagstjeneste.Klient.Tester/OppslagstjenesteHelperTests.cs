@@ -16,7 +16,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         public class SendAsyncMethod : OppslagstjenesteHelperTests
         {
             [Fact]
-            public void OppslagstjenesteKlientHandlesGenericSoapFaultCorrectly()
+            public void Handles_generic_soap_fault_correctly()
             {
                 //Arrange
                 var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();

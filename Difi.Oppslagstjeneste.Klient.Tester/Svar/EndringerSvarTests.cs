@@ -22,7 +22,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
 
     public class EndringerSvarTests : IClassFixture<EndringerSvarFixture>
     {
-        private EndringerSvarFixture _fixture;
+        private readonly EndringerSvarFixture _fixture;
 
         public EndringerSvarTests(EndringerSvarFixture fixture)
         {
@@ -30,25 +30,25 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
         }
 
         [Fact]
-        public void HentTrePersonerEndringerSuksess()
+        public void Hent_tre_personer_endringer_suksess()
         {
             Assert.Equal(3, _fixture.EndringerSvar.Personer.Count());
         }
 
         [Fact]
-        public void HentFraEndringsnummerSuksess()
+        public void Hent_fra_endringsnummer_suksess()
         {
             Assert.Equal(600, _fixture.EndringerSvar.FraEndringsNummer);
         }
 
         [Fact]
-        public void HentTilEndringsnummerSuksess()
+        public void Hent_til_endringsnummer_suksess()
         {
             Assert.Equal(5791, _fixture.EndringerSvar.TilEndringsNummer);
         }
 
         [Fact]
-        public void HentSenesteEndringsnummerSuksess()
+        public void Hent_seneste_endringsnummer_suksess()
         {
             Assert.Equal(2925086, _fixture.EndringerSvar.SenesteEndringsNummer);
         }

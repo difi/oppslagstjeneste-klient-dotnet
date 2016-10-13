@@ -24,14 +24,14 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
 
     public class PrintSertifikatSvarTests : IClassFixture<PrintSertifikatSvarFixture>
     {
-        private PrintSertifikatSvarFixture _fixture;
+        private readonly PrintSertifikatSvarFixture _fixture;
 
         public PrintSertifikatSvarTests(PrintSertifikatSvarFixture fixture)
         {
             _fixture = fixture;
         }
         [Fact]
-        public void HentSertifikatSuksess()
+        public void Hent_sertifikat_suksess()
         {
             var expectedThumb =
                 new X509Certificate2(
@@ -42,7 +42,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
         }
 
         [Fact]
-        public void HentPostkasseleverandørAdresseSuksess()
+        public void Hent_postkasseleverandør_adresse_suksess()
         {
             Assert.Equal("984661185", _fixture.PrintSertifikatSvar.PostkasseleverandørAdresse);
         }

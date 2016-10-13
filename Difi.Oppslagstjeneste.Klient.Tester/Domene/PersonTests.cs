@@ -48,20 +48,20 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
         }
 
         [Fact]
-        public void GetPidSuccess()
+        public void Pid_success()
         {
             Assert.Equal("08077000292", _fixture.Person.Personidentifikator);
         }
 
         [Fact]
-        public void GetReservationAndStatusSuccess()
+        public void Reservation_and_status_success()
         {
             Assert.False(_fixture.Person.Reservasjon);
             Assert.Equal(Status.AKTIV, _fixture.Person.Status);
         }
 
         [Fact]
-        public void GetMobileAndMetadataSuccess()
+        public void Mobile_and_metadata_success()
         {
             Assert.Equal("+4740485641", _fixture.Person.Kontaktinformasjon.Mobiltelefonnummer.Nummer);
             Assert.Equal(new DateTime(2015, 04, 14, 14, 35, 19), _fixture.Person.Kontaktinformasjon.Mobiltelefonnummer.SistOppdatert);
@@ -69,7 +69,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
         }
 
         [Fact]
-        public void GetEmailAndMetadataSuccess()
+        public void Email_and_metadata_success()
         {
             Assert.Equal("extfjo@vegvesen.no", _fixture.Person.Kontaktinformasjon.Epostadresse.Epost);
             Assert.Equal(new DateTime(2015, 04, 14, 14, 35, 30), _fixture.Person.Kontaktinformasjon.Epostadresse.SistOppdatert);
@@ -77,14 +77,14 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
         }
 
         [Fact]
-        public void GetSikkkerDigitalPostAddressSuccess()
+        public void Sikker_digital_post_address_success()
         {
             Assert.Equal("id.porten.testuser#2346", _fixture.Person.SikkerDigitalPostAdresse.Postkasseadresse);
             Assert.Equal("984661185", _fixture.Person.SikkerDigitalPostAdresse.PostkasseleverandørAdresse);
         }
 
-        [Fact]
-        public void GetSertificateSuccess()
+        [Fact]  
+        public void Certificate_success()
         {
             var expected =
                 new X509Certificate2(

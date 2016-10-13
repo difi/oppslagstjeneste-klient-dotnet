@@ -21,7 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         }
 
         [Fact]
-        public async Task GetPersonsSuccess()
+        public async Task Get_persons_success()
         {
             //Arrange
             var pid = "08077000292";
@@ -37,7 +37,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         }
 
         [Fact]
-        public async Task GetChangesSuccess()
+        public async Task Get_changes_success()
         {
             //Arrange
 
@@ -53,7 +53,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         }
 
         [Fact]
-        public async Task GetPrintCertificateSuccess()
+        public async Task Get_print_certificate_success()
         {
             var printCertificate = await _oppslagstjenesteKlient.HentPrintSertifikatAsynkront();
 

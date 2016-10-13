@@ -20,7 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
         }
 
         [Fact]
-        public void HentEnPersonSuksess()
+        public void Hent_en_person_suksess()
         {
             Assert.Equal(1, _personerSvar.Personer.Count());
         }

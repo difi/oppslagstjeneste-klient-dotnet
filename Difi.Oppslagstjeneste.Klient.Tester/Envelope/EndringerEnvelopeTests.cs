@@ -12,7 +12,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
         public class ConstructorMethod : EndringerEnvelopeTests
         {
             [Fact]
-            public void EnkelKonstruktør()
+            public void Initializes_fields()
             {
                 //Arrange
                 var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();

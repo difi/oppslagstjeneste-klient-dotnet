@@ -5,10 +5,10 @@ using Xunit;
 namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
 {
     
-    public class KonstruktørMethod : PersonerEnvelopeTests
+    public class ConstructorMethod : PersonerEnvelopeTests
     {
         [Fact]
-        public void EnkelKonstruktør()
+        public void Initializes_fields()
         {
             //Arrange
             var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
