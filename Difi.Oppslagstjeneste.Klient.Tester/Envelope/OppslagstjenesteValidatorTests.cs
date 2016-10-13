@@ -2,17 +2,17 @@
 using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
 {
-    [TestClass]
+    
     public class OppslagstjenesteValidatorTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : OppslagstjenesteValidatorTests
         {
-            [TestMethod]
+            [Fact]
             public void EnkelKonstruktør()
             {
                 //Arrange
@@ -27,9 +27,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
                 var oppslagstjenesteValidator = new OppslagstjenesteValidator(requestXmlDocument, responseContainer, oppslagstjenesteConfiguration);
 
                 //Assert
-                Assert.AreEqual(requestXmlDocument, oppslagstjenesteValidator.SentDocument);
-                Assert.AreEqual(responseXmlDocument, responseContainer.Envelope);
-                Assert.AreEqual(oppslagstjenesteConfiguration.Miljø, oppslagstjenesteValidator.Environment);
+                Assert.Equal(requestXmlDocument, oppslagstjenesteValidator.SentDocument);
+                Assert.Equal(responseXmlDocument, responseContainer.Envelope);
+                Assert.Equal(oppslagstjenesteConfiguration.Miljø, oppslagstjenesteValidator.Environment);
             }
         }
     }

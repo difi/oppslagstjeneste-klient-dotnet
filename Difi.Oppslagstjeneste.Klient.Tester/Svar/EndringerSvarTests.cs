@@ -3,45 +3,54 @@ using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Scripts.XsdToCode.Code;
 using Difi.Oppslagstjeneste.Klient.Svar;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
 {
-    [TestClass]
-    public class EndringerSvarTests
+    public class EndringerSvarFixture
     {
-        private static EndringerSvar _endringerSvar;
+        public EndringerSvar EndringerSvar { get; }
 
-        [ClassInitialize]
-        public static void Init(TestContext context)
+        public EndringerSvarFixture()
         {
             var xmlDokument = XmlResource.Response.GetEndringer();
             var responseDokument = new ResponseContainer(xmlDokument);
-            _endringerSvar = DtoConverter.ToDomainObject(SerializeUtil.Deserialize<HentEndringerRespons>(responseDokument.BodyElement.InnerXml));
+            EndringerSvar = DtoConverter.ToDomainObject(SerializeUtil.Deserialize<HentEndringerRespons>(responseDokument.BodyElement.InnerXml));
+        }
+    }
+
+
+    public class EndringerSvarTests : IClassFixture<EndringerSvarFixture>
+    {
+        private EndringerSvarFixture _fixture;
+
+        public EndringerSvarTests(EndringerSvarFixture fixture)
+        {
+            _fixture = fixture;
         }
 
-        [TestMethod]
+        [Fact]
         public void HentTrePersonerEndringerSuksess()
         {
-            Assert.AreEqual(3, _endringerSvar.Personer.Count());
+            Assert.Equal(3, _fixture.EndringerSvar.Personer.Count());
         }
 
-        [TestMethod]
+        [Fact]
         public void HentFraEndringsnummerSuksess()
         {
-            Assert.AreEqual(600, _endringerSvar.FraEndringsNummer);
+            Assert.Equal(600, _fixture.EndringerSvar.FraEndringsNummer);
         }
 
-        [TestMethod]
+        [Fact]
         public void HentTilEndringsnummerSuksess()
         {
-            Assert.AreEqual(5791, _endringerSvar.TilEndringsNummer);
+            Assert.Equal(5791, _fixture.EndringerSvar.TilEndringsNummer);
         }
 
-        [TestMethod]
+        [Fact]
         public void HentSenesteEndringsnummerSuksess()
         {
-            Assert.AreEqual(2925086, _endringerSvar.SenesteEndringsNummer);
+            Assert.Equal(2925086, _fixture.EndringerSvar.SenesteEndringsNummer);
         }
     }
 }

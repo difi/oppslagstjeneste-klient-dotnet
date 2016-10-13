@@ -2,17 +2,17 @@
 using System.Threading.Tasks;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Resources.Certificate;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using Assert = Xunit.Assert;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
 {
-    [TestClass]
+    
     public class SmokeTests
     {
         private static OppslagstjenesteKlient _oppslagstjenesteKlient;
 
-        [ClassInitialize]
-        public static void Init(TestContext context)
+        public SmokeTests()
         {
             var senderCertificate = CertificateResource.GetDifiTestCertificate();
             var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon1, senderCertificate);
@@ -20,7 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
             _oppslagstjenesteKlient = new OppslagstjenesteKlient(oppslagstjenesteConfiguration);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetPersonsSuccess()
         {
             //Arrange
@@ -33,10 +33,10 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
                 Informasjonsbehov.SikkerDigitalPost);
 
             //Assert
-            Assert.IsTrue(personer.Any());
+            Assert.True(personer.Any());
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetChangesSuccess()
         {
             //Arrange
@@ -49,15 +49,15 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
                 Informasjonsbehov.Person);
 
             //Assert
-            Assert.IsTrue(changes.Personer.Any());
+            Assert.True(changes.Personer.Any());
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetPrintCertificateSuccess()
         {
             var printCertificate = await _oppslagstjenesteKlient.HentPrintSertifikatAsynkront();
 
-            Assert.IsNotNull(printCertificate);
+            Assert.NotNull(printCertificate);
         }
     }
 }

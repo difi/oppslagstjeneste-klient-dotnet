@@ -1,15 +1,15 @@
 ﻿using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests
 {
-    [TestClass]
+    
     public class OppslagstjenesteKlientTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : OppslagstjenesteKlientTests
         {
-            [TestMethod]
+            [Fact]
             public void InitializesWithCertificates()
             {
                 //Arrange
@@ -20,8 +20,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 var oppslagstjenesteClient = new OppslagstjenesteKlient(oppslagstjenesteConfiguration);
 
                 //Assert
-                Assert.AreEqual(senderUnitTestCertificate, oppslagstjenesteClient.OppslagstjenesteKonfigurasjon.Avsendersertifikat);
-                Assert.AreEqual(oppslagstjenesteConfiguration, oppslagstjenesteClient.OppslagstjenesteKonfigurasjon);
+                Assert.Equal(senderUnitTestCertificate, oppslagstjenesteClient.OppslagstjenesteKonfigurasjon.Avsendersertifikat);
+                Assert.Equal(oppslagstjenesteConfiguration, oppslagstjenesteClient.OppslagstjenesteKonfigurasjon);
             }
         }
     }

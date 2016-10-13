@@ -5,17 +5,17 @@ using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests
 {
-    [TestClass]
+    
     public class OppslagstjenesteHelperTests
     {
-        [TestClass]
+        
         public class SendAsyncMethod : OppslagstjenesteHelperTests
         {
-            [TestMethod]
+            [Fact]
             public void OppslagstjenesteKlientHandlesGenericSoapFaultCorrectly()
             {
                 //Arrange
@@ -34,10 +34,10 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                     var exception = e.InnerExceptions.ElementAt(0);
 
                     //Assert
-                    Assert.IsTrue(exception.GetType() == typeof (UventetFeilException));
+                    Assert.True(exception.GetType() == typeof (UventetFeilException));
                     var soapException = exception as UventetFeilException;
-                    Assert.AreEqual("env:Sender", soapException.Skyldig);
-                    Assert.AreEqual("Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN", soapException.Beskrivelse);
+                    Assert.Equal("env:Sender", soapException.Skyldig);
+                    Assert.Equal("Invalid service usage: Service owner 988015814 does not have access to ENDRINGSTJENESTEN", soapException.Beskrivelse);
                 }
             }
         }

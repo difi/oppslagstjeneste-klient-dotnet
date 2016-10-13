@@ -1,15 +1,15 @@
 ﻿using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests
 {
-    [TestClass]
+    
     public class OppslagstjenesteKonfigurasjonTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : OppslagstjenesteKonfigurasjonTests
         {
-            [TestMethod]
+            [Fact]
             public void InitializesFields()
             {
                 //Arrange
@@ -21,9 +21,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 //Act
 
                 //Assert
-                Assert.AreEqual(environment, oppslagstjenesteConfiguration.Miljø);
-                Assert.AreEqual(senderUnitTestCertificate, oppslagstjenesteConfiguration.Avsendersertifikat);
-                Assert.AreEqual(forventetLoggForespørselOgRespons, oppslagstjenesteConfiguration.LoggForespørselOgRespons);
+                Assert.Equal(environment, oppslagstjenesteConfiguration.Miljø);
+                Assert.Equal(senderUnitTestCertificate, oppslagstjenesteConfiguration.Avsendersertifikat);
+                Assert.Equal(forventetLoggForespørselOgRespons, oppslagstjenesteConfiguration.LoggForespørselOgRespons);
             }
         }
     }

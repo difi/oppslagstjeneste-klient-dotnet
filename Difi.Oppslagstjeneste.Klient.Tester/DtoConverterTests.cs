@@ -5,7 +5,7 @@ using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.Scripts.XsdToCode.Code;
 using Difi.Oppslagstjeneste.Klient.Tests.Utilities.CompareObjects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using Epostadresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Epostadresse;
 using Kontaktinformasjon = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Kontaktinformasjon;
 using Mobiltelefonnummer = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Mobiltelefonnummer;
@@ -14,13 +14,13 @@ using SikkerDigitalPostAdresse = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.S
 
 namespace Difi.Oppslagstjeneste.Klient.Tests
 {
-    [TestClass]
+    
     public class DtoConverterTests
     {
-        [TestClass]
+        
         public class ToDomainObject : DtoConverterTests
         {
-            [TestMethod]
+            [Fact]
             public void ConvertPerson()
             {
                 //Arrange
@@ -44,10 +44,10 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 var comparator = new Comparator();
                 IEnumerable<IDifference> differences;
                 comparator.AreEqual(expected, result, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
-            [TestMethod]
+            [Fact]
             public void ConvertChanges()
             {
                 //Arrange
@@ -82,7 +82,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 var comparator = new Comparator();
                 IEnumerable<IDifference> differences;
                 comparator.AreEqual(expected, result, out differences);
-                Assert.AreEqual(0, differences.Count());
+                Assert.Equal(0, differences.Count());
             }
 
             private static Person GetDomenePerson(Scripts.XsdToCode.Code.Person kilde)

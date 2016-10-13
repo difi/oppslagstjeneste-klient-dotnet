@@ -1,15 +1,15 @@
 ﻿using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests
 {
-    [TestClass]
+    
     public class KlientkonfigurasjonTests
     {
-        [TestClass]
+        
         public class ConstructorMethod : KlientkonfigurasjonTests
         {
-            [TestMethod]
+            [Fact]
             public void InitializesFields()
             {
                 //Arrange
@@ -22,9 +22,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 //Act
 
                 //Assert
-                Assert.AreEqual(proxyScheme, clientConfiguration.ProxyScheme);
-                Assert.AreEqual(timeout, clientConfiguration.TimeoutIMillisekunder);
-                Assert.AreEqual(senderUnitTestCertificate, clientConfiguration.Avsendersertifikat);
+                Assert.Equal(proxyScheme, clientConfiguration.ProxyScheme);
+                Assert.Equal(timeout, clientConfiguration.TimeoutIMillisekunder);
+                Assert.Equal(senderUnitTestCertificate, clientConfiguration.Avsendersertifikat);
             }
         }
     }

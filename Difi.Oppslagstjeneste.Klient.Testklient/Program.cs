@@ -15,20 +15,20 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
         private static void Main(string[] args)
         {
             var avsendersertifikatThumbprint = CertificateIssuedToPostenNorgeAsIssuedByBuypassClass3Test4Ca3();
-            var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon2, avsendersertifikatThumbprint) {LoggForespørselOgRespons = true};
+            var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljøVerifikasjon1, avsendersertifikatThumbprint) {LoggForespørselOgRespons = true};
             Log.Debug("> Starter program!");
 
             //konfigurasjon.SendPåVegneAv = "984661185";
 
             var register = new OppslagstjenesteKlient(konfigurasjon);
 
-            var endringer = register.HentEndringer(600,
-                Informasjonsbehov.Person,
-                Informasjonsbehov.Kontaktinfo,
-                Informasjonsbehov.Sertifikat,
-                Informasjonsbehov.SikkerDigitalPost,
-                Informasjonsbehov.VarslingsStatus
-                );
+            //var endringer = register.HentEndringer(600,
+            //    Informasjonsbehov.Person,
+            //    Informasjonsbehov.Kontaktinfo,
+            //    Informasjonsbehov.Sertifikat,
+            //    Informasjonsbehov.SikkerDigitalPost,
+            //    Informasjonsbehov.VarslingsStatus
+            //    );
 
             var personer = register.HentPersoner(new[] {"08077000292"},
                 Informasjonsbehov.Kontaktinfo,
@@ -49,6 +49,12 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
         {
             return "8702F5E55217EC88CF2CCBADAC290BB4312594AC";
         }
+
+        private static string CertificateIssuedToBringAsIssuedByBuypassClass3Test4Ca3()
+        {
+            return "2d 7f 30 dd 05 d3 b7 fc 7a e5 97 3a 73 f8 49 08 3b 20 40 ed";
+        }
+
 
         public static string ExportToPEM(X509Certificate cert)
         {

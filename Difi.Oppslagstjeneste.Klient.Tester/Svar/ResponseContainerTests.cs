@@ -3,17 +3,17 @@ using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Scripts.XsdToCode.Code;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Difi.Oppslagstjeneste.Klient.Tests.Utilities.CompareObjects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
 {
-    [TestClass]
+    
     public class ResponseContainerTests
     {
-        [TestClass]
+        
         public class ResponseContainerConstructor : ResponseContainerTests
         {
-            [TestMethod]
+            [Fact]
             public void ResponseContainerWithDecryptedResponse()
             {
                 //Arrange
@@ -26,18 +26,18 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
                 //Assert
                 var cmp = new Comparator();
                 cmp.AreEqual(expectedDeserializedResponse, SerializeUtil.Deserialize<HentPersonerRespons>(candidate.BodyElement.InnerXml));
-                Assert.IsNotNull(candidate.HeaderBinarySecurityToken);
-                Assert.IsNotNull(candidate.BodyElement);
-                Assert.IsNotNull(candidate.Cipher);
-                Assert.IsNotNull(candidate.HeaderSecurityElement);
-                Assert.IsNotNull(candidate.HeaderSignature);
-                Assert.IsNotNull(candidate.HeaderSignatureElement);
-                Assert.IsNotNull(candidate.TimestampElement);
+                Assert.NotNull(candidate.HeaderBinarySecurityToken);
+                Assert.NotNull(candidate.BodyElement);
+                Assert.NotNull(candidate.Cipher);
+                Assert.NotNull(candidate.HeaderSecurityElement);
+                Assert.NotNull(candidate.HeaderSignature);
+                Assert.NotNull(candidate.HeaderSignatureElement);
+                Assert.NotNull(candidate.TimestampElement);
 
-                Assert.IsNull(candidate.EncryptedBody);
+                Assert.Null(candidate.EncryptedBody);
             }
 
-            [TestMethod]
+            [Fact]
             public void ResponseContainerWithEncryptedResponse()
             {
                 //Arrange
@@ -47,15 +47,15 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
                 var candidate = new ResponseContainer(GenerateStreamFromString(xmlResponse.OuterXml));
 
                 //Assert
-                Assert.AreEqual(xmlResponse.OuterXml, candidate.Envelope.OuterXml);
-                Assert.IsNotNull(candidate.HeaderBinarySecurityToken);
-                Assert.IsNotNull(candidate.BodyElement);
-                Assert.IsNotNull(candidate.Cipher);
-                Assert.IsNotNull(candidate.EncryptedBody);
-                Assert.IsNotNull(candidate.HeaderSecurityElement);
-                Assert.IsNotNull(candidate.HeaderSignature);
-                Assert.IsNotNull(candidate.HeaderSignatureElement);
-                Assert.IsNotNull(candidate.TimestampElement);
+                Assert.Equal(xmlResponse.OuterXml, candidate.Envelope.OuterXml);
+                Assert.NotNull(candidate.HeaderBinarySecurityToken);
+                Assert.NotNull(candidate.BodyElement);
+                Assert.NotNull(candidate.Cipher);
+                Assert.NotNull(candidate.EncryptedBody);
+                Assert.NotNull(candidate.HeaderSecurityElement);
+                Assert.NotNull(candidate.HeaderSignature);
+                Assert.NotNull(candidate.HeaderSignatureElement);
+                Assert.NotNull(candidate.TimestampElement);
             }
 
             public Stream GenerateStreamFromString(string s)

@@ -1,12 +1,14 @@
 ﻿using Difi.Felles.Utility.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using Xunit;
+using Assert = Xunit.Assert;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests
 {
-    [TestClass]
+    
     public class MiljøTests
     {
-        [TestMethod]
+        [Fact]
         public void Returns_initialized_functional_test_environment_ver1()
         {
             //Arrange
@@ -17,12 +19,12 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Act
 
             //Assert
-            Assert.IsNotNull(environment.CertificateChainValidator);
-            Assert.AreEqual(url, environment.Url.AbsoluteUri);
-            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.CertificateStore);
+            Assert.NotNull(environment.CertificateChainValidator);
+            Assert.Equal(url, environment.Url.AbsoluteUri);
+           Assert.Equal(certificates, environment.CertificateChainValidator.CertificateStore);
         }
 
-        [TestMethod]
+        [Fact]
         public void Returns_initialized_functional_test_environment_ver2()
         {
             //Arrange
@@ -33,12 +35,12 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Act
 
             //Assert
-            Assert.IsNotNull(environment.CertificateChainValidator);
-            Assert.AreEqual(url, environment.Url.AbsoluteUri);
-            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.CertificateStore);
+            Assert.NotNull(environment.CertificateChainValidator);
+            Assert.Equal(url, environment.Url.AbsoluteUri);
+            Assert.Equal(certificates, environment.CertificateChainValidator.CertificateStore);
         }
 
-        [TestMethod]
+        [Fact]
         public void Returns_initialized_production_environment()
         {
             //Arrange
@@ -49,9 +51,9 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Act
 
             //Assert
-            Assert.IsNotNull(environment.CertificateChainValidator);
-            Assert.AreEqual(url, environment.Url.ToString());
-            CollectionAssert.AreEqual(certificates, environment.CertificateChainValidator.CertificateStore);
+            Assert.NotNull(environment.CertificateChainValidator);
+            Assert.Equal(url, environment.Url.ToString());
+            Assert.Equal(certificates, environment.CertificateChainValidator.CertificateStore);
         }
     }
 }

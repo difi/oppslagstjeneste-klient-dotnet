@@ -1,14 +1,13 @@
 ﻿using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Resources.Xml;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
 {
-    [TestClass]
+    
     public class SoapExceptionTests
     {
-        [ClassInitialize]
-        public static void ParseSoapExceptionSuksess(TestContext context)
+        public static void ParseSoapExceptionSuksess()
         {
             //Arrange
             var expectedGuilty = "env:Sender";
@@ -18,8 +17,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
             var exception = new UventetFeilException(XmlResource.Response.GetSoapFault());
 
             //Assert
-            Assert.AreEqual(expectedGuilty, exception.Skyldig.Trim());
-            Assert.AreEqual(expectedDescription, exception.Beskrivelse.Trim());
+            Assert.Equal(expectedGuilty, exception.Skyldig.Trim());
+            Assert.Equal(expectedDescription, exception.Beskrivelse.Trim());
         }
     }
 }
