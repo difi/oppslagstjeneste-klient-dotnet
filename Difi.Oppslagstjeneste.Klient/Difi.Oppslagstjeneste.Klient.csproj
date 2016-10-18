@@ -12,6 +12,7 @@
     <AssemblyName>Difi.Oppslagstjeneste.Klient</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TEAMCITY_BUILD_PROPERTIES_FILE)' != ''">
     <TeamCityBuild>true</TeamCityBuild>
@@ -98,8 +99,8 @@
     <Compile Include="XmlValidation\OppslagstjenesteXmlValidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
+    <None Include="..\SolutionItems\App.config">
+      <Link>App.config</Link>
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
