@@ -64,16 +64,16 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Domene
         public void Mobile_and_metadata_success()
         {
             Assert.Equal("+4740485641", _fixture.Person.Kontaktinformasjon.Mobiltelefonnummer.Nummer);
-            Assert.Equal(new DateTime(2015, 04, 14, 14, 35, 19), _fixture.Person.Kontaktinformasjon.Mobiltelefonnummer.SistOppdatert);
-            Assert.Equal(new DateTime(2015, 04, 14, 14, 35, 19), _fixture.Person.Kontaktinformasjon.Mobiltelefonnummer.SistVerifisert);
+            Assert.Equal(new DateTime(2015, 04, 14, 12, 35, 19, DateTimeKind.Utc), _fixture.Person.Kontaktinformasjon.Mobiltelefonnummer.SistOppdatert.Value.DateTime.ToUniversalTime());
+            Assert.Equal(new DateTime(2015, 04, 14, 12, 35, 19, DateTimeKind.Utc), _fixture.Person.Kontaktinformasjon.Mobiltelefonnummer.SistVerifisert.Value.DateTime.ToUniversalTime());
         }
 
         [Fact]
         public void Email_and_metadata_success()
         {
             Assert.Equal("extfjo@vegvesen.no", _fixture.Person.Kontaktinformasjon.Epostadresse.Epost);
-            Assert.Equal(new DateTime(2015, 04, 14, 14, 35, 30), _fixture.Person.Kontaktinformasjon.Epostadresse.SistOppdatert);
-            Assert.Equal(new DateTime(2015, 04, 14, 14, 35, 30), _fixture.Person.Kontaktinformasjon.Epostadresse.SistVerifisert);
+            Assert.Equal(new DateTime(2015, 04, 14, 12, 35, 30, DateTimeKind.Utc), _fixture.Person.Kontaktinformasjon.Epostadresse.SistOppdatert.Value.DateTime.ToUniversalTime());
+            Assert.Equal(new DateTime(2015, 04, 14, 12, 35, 30, DateTimeKind.Utc), _fixture.Person.Kontaktinformasjon.Epostadresse.SistVerifisert.Value.DateTime.ToUniversalTime());
         }
 
         [Fact]

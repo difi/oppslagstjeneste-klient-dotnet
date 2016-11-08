@@ -4,7 +4,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <TeamCityBuild>false</TeamCityBuild>
     <ProjectGuid>{13B840F4-199B-4482-B4A8-CB71AC1B0C99}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -13,9 +12,6 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(TEAMCITY_BUILD_PROPERTIES_FILE)' != ''">
-    <TeamCityBuild>true</TeamCityBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,7 +37,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>C:\Keys\signingkey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApiClientShared, Version=1.1.0.24133, Culture=neutral, PublicKeyToken=683b8efceae684a6, processorArchitecture=MSIL">
@@ -102,6 +98,9 @@
     <None Include="..\SolutionItems\App.config">
       <Link>App.config</Link>
     </None>
+    <None Include="C:\Keys\signingkey.snk">
+      <Link>signingkey.snk</Link>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -140,17 +139,4 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <Target Name="TeamCity" AfterTargets="Build" Condition=" '$(TeamCityBuild)'=='true'">
-    <GetAssemblyIdentity AssemblyFiles="bin\$(ConfigurationName)\$(TargetFileName)">
-      <Output TaskParameter="Assemblies" ItemName="AssemblyIdentity" />
-    </GetAssemblyIdentity>
-    <Message Text="##teamcity[buildNumber '%(AssemblyIdentity.Version)']" />
-  </Target>
 </Project>

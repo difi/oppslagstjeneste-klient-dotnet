@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>difi-oppslagstjeneste-klient</id>
-        <version>0.0.0.0</version>
+        <version>$version$</version>
         <authors>Direktoratet for forvaltning og IKT</authors>
         <owners>Direktoratet for forvaltning og IKT</owners>
         <projectUrl>https://github.com/difi/oppslagstjeneste-klient-dotnet/</projectUrl>

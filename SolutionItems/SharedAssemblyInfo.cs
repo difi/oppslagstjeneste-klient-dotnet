@@ -4,9 +4,8 @@ using System.Reflection;
 [assembly: AssemblyTrademark("Direktoratet for forvaltning og IKT (Difi)")]
 [assembly: AssemblyProduct("Difi Opppslagstjeneste Klient")]
 [assembly: AssemblyDescription("Klientbibliotek for integrasjon mot Oppslagstjenesten for kontakt og reservasjonregisteret")]
-[assembly: AssemblyVersion("5.5.0.*")]
-#pragma warning disable CS7035 // The specified version string does not conform to the recommended format - major.minor.build.revision
-[assembly: AssemblyFileVersion("5.5.0.*")]
-#pragma warning restore CS7035 // The specified version string does not conform to the recommended format - major.minor.build.revision
+[assembly: AssemblyVersion("5.6.0")]
+[assembly: AssemblyFileVersion("5.6.0")]
+[assembly: AssemblyInformationalVersion("5.6.0")]
 [assembly: AssemblyCopyright("© 2015-2016 Direktoratet for forvaltning og IKT (Difi)")]
 [assembly: AssemblyCulture("")]
