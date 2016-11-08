@@ -1,7 +1,81 @@
-configuration: Release
+########################################################
+##               MASTER and BETA BUILD                ##
+########################################################
+- 
+  branches:
+    only:
+      - master
+      - beta
+  version: version-placeholder-{build}-{branch}
+  cache:
+    - packages -> **\packages.config
+  configuration: Release 
+  environment:
+    strong_name_key_encryption_key:
+      secure: klTrmUGElJ32M1IvA5ecksVOZoUhA22ZAEVhpi5qaZY=
+    virksomhetssertifikat_pass:
+      secure: ***REMOVED***
+    virksomhetssertifikat_encryption_key:
+      secure: ***REMOVED***
+  install:
+    - git submodule update --init --recursive
+    - nuget install secure-file -ExcludeVersion
+    - secure-file\tools\secure-file -decrypt signingkey.snk.enc -secret %strong_name_key_encryption_key%
+  before_build:
+  - ps: >-
+      .\appveyor-deploy\MoveSigningKey.ps1 -signingKeyPath "$env:APPVEYOR_BUILD_FOLDER\signingkey.snk" -signingKeyDestination "C:\Keys\signingkey.snk";
+      .\appveyor-deploy\NugetRestore.ps1;
+      .\appveyor-deploy\AssemblyInfoVersionPatcher.ps1 -assemblyInfoPath  ".\SolutionItems\SharedAssemblyInfo.cs"; 
+      .\appveyor-deploy\BuildPreamble.ps1   
+  build:
+    verbosity: minimal  
+  after_build:
+  - ps: >-
+      .\appveyor-deploy\NuspecVersionPatcher.ps1 -assembly "Difi.Oppslagstjeneste.Klient\bin\Release\Difi.Oppslagstjeneste.Klient.dll" -nuspec "difi-oppslagstjeneste-klient.nuspec";
+      nuget pack;
+  artifacts:
+    - path: '*.nupkg'
+  before_test:
+  - ps: >-
+      .\appveyor-deploy\TestPreamble.ps1
+  before_deploy:
+  - ps: >-
+      .\appveyor-deploy\DeployPreamble.ps1
+  deploy:
+    provider: NuGet
+    api_key:
+      secure: ShY/hyVGNf4W+jmwNVZDhWjqxh2jx9r5wSR6Cuq1AsVPcsxv+cYlSCwoIl0I6kpZ
+    skip_symbols: true
+    artifact: /.*\.nupkg/
 
-before_build:
-  - nuget restore
-  
-build:
-  verbosity: minimal
+
+########################################################
+##                    OTHER BRANCHES                  ##
+########################################################
+
+-
+  version: version-placeholder-{build}-{branch}
+  cache:
+    - packages -> **\packages.config
+  configuration: Release 
+  environment:
+    strong_name_key_encryption_key:
+      secure: klTrmUGElJ32M1IvA5ecksVOZoUhA22ZAEVhpi5qaZY=
+    virksomhetssertifikat_pass:
+      secure: ***REMOVED***
+    virksomhetssertifikat_encryption_key:
+      secure: ***REMOVED***
+  install:
+    - git submodule update --init --recursive
+    - nuget install secure-file -ExcludeVersion
+    - secure-file\tools\secure-file -decrypt signingkey.snk.enc -secret %strong_name_key_encryption_key%    
+  before_build:
+  - ps: >-
+      .\appveyor-deploy\MoveSigningKey.ps1 -signingKeyPath "$env:APPVEYOR_BUILD_FOLDER\signingkey.snk" -signingKeyDestination "C:\Keys\signingkey.snk";
+      .\appveyor-deploy\NugetRestore.ps1;
+      .\appveyor-deploy\BuildPreamble.ps1          
+  build:
+    verbosity: minimal  
+  before_test:
+  - ps: >-
+      .\appveyor-deploy\TestPreamble.ps1
