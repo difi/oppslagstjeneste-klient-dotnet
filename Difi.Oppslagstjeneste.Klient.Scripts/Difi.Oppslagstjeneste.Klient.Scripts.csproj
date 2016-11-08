@@ -34,7 +34,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>C:\Keys\digipost.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>C:\Keys\signingkey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -54,6 +54,9 @@
     <Compile Include="XsdToCode\Code\oppslagstjeneste-metadata-16-02.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="C:\Keys\signingkey.snk">
+      <Link>signingkey.snk</Link>
+    </None>
     <None Include="XsdToCode\GenerateClassesFromXsd.ps1" />
     <None Include="XsdToCode\Xsd\oppslagstjeneste-metadata-16-02.xsd">
       <SubType>Designer</SubType>
