@@ -4,40 +4,40 @@ title: Installere sertifikater
 layout: default
 ---
 
-For å sende forespørsler til Oppslagstjenesten trenger du å installere sertifikater på maskinen. Grunnen til at de skal installeres
-er i hovedsak sikkerhet. Når du installerer ditt private avsendersertifikat på datamaskinen så blir du spurt om passord. Dette skjer 
-kun én gang, og etter dette kan du bruke sertifikatet i koden uten å eksponere passordet. 
+For å kunne bruke dette biblioteket så trenger du et sertifikat for å kunne autentisere deg mot Oppslagstjenesten. Dette bør installeres på maskinen som skal bruke klientbiblioteket. Grunnen til at vi ønsker å installere det er for å ikke ha passord i klartekst i koden.
 
-<h3 id="databehandlersertifikat">Installere avsendersertifikat/virksomhetssertifikat</h3>
+Alle sertifikater har en unik identifikator som kalles thumbprint. Hvis du ikke ønsker å håndtere selv i koden hvordan sertifikatene skal lastes, så kan du følge guiden under, steg for steg. Til slutt gjennomgås det hvordan du kan finne thumbprint til det installerte sertifikatet.
 
-<blockquote> Avsendersertifikatet brukes av Virksomhet for å signere forespørsler som går til Oppslagstjenesten.  </blockquote>
+### Installere virksomhetssertifikat
 
-1.  Dobbeltklikk på sertifikatet (Sertifikatnavn.p12)
-2.  Velg at sertifikatet skal lagres i _Current User_ og trykk _Next_
-3.  Filnavn skal nå være utfylt. Trykk _Next_
-4.  Skriv inn passord for privatekey og velg _Mark this key as exportable ..._, trykk _Next_
-5.  Velg _Automatically select the certificate store based on the type of certificate_
-6.  _Next_ og _Finish_
-7.  Får du spørsmål om å godta sertifikatet så gjør det.
-8.  Du skal da få en dialog som sier at importeringen var vellykket. Trykk _Ok_.
+> Virksomhetssertifikatet brukes av virksomheten for å signere forespørsler som går til Oppslagstjenesten.
 
-<h3 id="finneinstallertsertifikat">Finne installert sertifikat</h3>
+1. Dobbeltklikk på sertifikatet (Sertifikatnavn.p12)
+1. Velg at sertifikatet skal lagres i _Current User_ eller _Local Machine_ og trykk _Next_
+1. Filnavn skal nå være utfylt. Trykk _Next_
+1. Skriv inn passord for privatnøkkel og velg _Mark this key as exportable ..._, trykk _Next_
+1. Velg _Automatically select the certificate store based on the type of certificate_
+1. Klikk _Next_ og _Finish_
+1. Får du spørsmål om å godta sertifikatkjeden så du gjør det.
+1. Du skal da få en dialog som sier at importeringen var vellykket. Trykk _OK_.
 
-<code>OppslagstjenesteKlient</code> tar inn <code>OppslagstjenesteKonfigurasjon</code>, som igjen tar inn _thumbprint_ direkte:
+### Finne thumbprint til installert sertifikat
+
+`OppslagstjenesteKlient` tar inn `OppslagstjenesteKonfigurasjon`, som igjen tar inn `thumbprint` direkte:
 
 {% highlight csharp %}
 var konfigurasjon = new OppslagstjenesteKonfigurasjon(Miljø.FunksjoneltTestmiljø, avsendersertifikatThumbprint);
 var klient = OppslagstjenesteKlient(konfigurasjon);
 {% endhighlight %}
 
-For å finne _thumbprint_ så er det lettest å gjøre det vha _Microsoft Management Console_ (mmc.exe). 
+Det er enklest å finne thumbprint gjennom _Microsoft Management Console_ (mmc.exe).
 
-1.  Start mmc.exe (Trykk windowstast og skriv _mmc.exe_)
-2.  Velg _File_ -> _Add/Remove Snap-in..._ 
-3.  Merk _Certificates_ og trykk _Add >_
-4.  Velg _My user account_ og trykk _Finish_
-5.	Åpne mappe for sertifikat og finn avsendersertifikat: Åpne noden _Certificates - Current User - Personal - Certificates_
-6. 	Dobbeltklikk på sertifikatet du installerte
-7.	Velg _Details_, scroll ned til _Thumbprint_ og kopier
+1. Velg _File_ -> _Add/Remove Snap-in..._ 
+1. Merk _Certificates_ og trykk _Add >_
+1. Hvis sertifikatet ble installert i _Current User_ velges _My user account_, hvis det er installert på _Local Machine_ velges _Computer Account_. Klikk _Finish_ og _OK_
+1. Ekspander _Certificates_-noden, velg _Personal_ og åpne _Certificates_
+1. Dobbeltklikk på sertifikatet du installerte
+1. Velg _Details_, scroll ned til _Thumbprint_ og kopier
 
-Ønsker du å sende inn sertifikater du har allerede har initialisert, kan du kalle konstruktøren som tar inn <code> X509Certificate2</code>.
+
+Ønsker du å sende inn sertifikater du har allerede har initialisert, kan du bruke konstruktøren `OppslagstjenesteKonfigurasjon(Miljø, X509Certificate2)`.
