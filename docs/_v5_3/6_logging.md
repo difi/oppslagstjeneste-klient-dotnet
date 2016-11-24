@@ -65,7 +65,7 @@ Det er mulig å logge hele forespørsel/respons som blir sendt/mottatt. For å a
 
 {% highlight csharp %}
 OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons = true;
-{% endhighlight%}
+{% endhighlight %}
 
 Det vil da logges til en logger med navn `Difi.Oppslagstjeneste.Klient.RequestResponse`.
 
