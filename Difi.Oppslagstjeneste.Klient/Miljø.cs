@@ -1,20 +1,20 @@
 ﻿using System;
-using Difi.Felles.Utility;
+using System.Security.Cryptography.X509Certificates;
 using Difi.Felles.Utility.Utilities;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
     public class Miljø
     {
-        internal Miljø(Uri url, CertificateChainValidator certificateChainValidator)
+        internal Miljø(Uri url, X509Certificate2Collection godkjenteKjedeSertifikater)
         {
-            CertificateChainValidator = certificateChainValidator;
             Url = url;
+            GodkjenteKjedeSertifikater = godkjenteKjedeSertifikater;
         }
 
-        public CertificateChainValidator CertificateChainValidator { get; set; }
-
         public Uri Url { get; set; }
+
+        public X509Certificate2Collection GodkjenteKjedeSertifikater { get; set; }
 
         /// <summary>
         ///     Verifikasjon 1 skal benyttes av kunder som skal integrere seg mot Difis felleskomponenter og kan også benyttes til
@@ -26,7 +26,7 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public static Miljø FunksjoneltTestmiljøVerifikasjon1 => new Miljø(
             new Uri("https://kontaktinfo-ws-ver1.difi.no/kontaktinfo-external/ws-v5"),
-            new CertificateChainValidator(CertificateChainUtility.ProduksjonsSertifikater())
+            CertificateChainUtility.ProduksjonsSertifikater()
             );
 
         /// <summary>
@@ -38,12 +38,13 @@ namespace Difi.Oppslagstjeneste.Klient
         /// </summary>
         public static Miljø FunksjoneltTestmiljøVerifikasjon2 => new Miljø(
             new Uri("https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5"),
-            new CertificateChainValidator(CertificateChainUtility.ProduksjonsSertifikater())
+            CertificateChainUtility.ProduksjonsSertifikater()
             );
+
 
         public static Miljø Produksjonsmiljø => new Miljø(
             new Uri("https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v5"),
-            new CertificateChainValidator(CertificateChainUtility.ProduksjonsSertifikater())
+            CertificateChainUtility.ProduksjonsSertifikater()
             );
     }
 }

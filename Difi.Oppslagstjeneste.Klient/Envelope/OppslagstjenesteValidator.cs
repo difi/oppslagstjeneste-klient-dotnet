@@ -48,7 +48,7 @@ namespace Difi.Oppslagstjeneste.Klient.Envelope
             var responseCertificateValidationResult = CertificateValidator.ValidateCertificateAndChain(
                 responseCertificate, 
                 organizationNumberDirektoratetForForvaltningOgIkt, 
-                Environment.CertificateChainValidator.CertificateStore
+                Environment.GodkjenteKjedeSertifikater
                );
 
             if (responseCertificateValidationResult.Type != CertificateValidationType.Valid )
