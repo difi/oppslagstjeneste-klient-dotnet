@@ -19,9 +19,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Act
 
             //Assert
-            Assert.NotNull(environment.CertificateChainValidator);
             Assert.Equal(url, environment.Url.AbsoluteUri);
-           Assert.Equal(certificates, environment.CertificateChainValidator.CertificateStore);
+            Assert.Equal(certificates, environment.GodkjenteKjedeSertifikater);
         }
 
         [Fact]
@@ -35,9 +34,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Act
 
             //Assert
-            Assert.NotNull(environment.CertificateChainValidator);
             Assert.Equal(url, environment.Url.AbsoluteUri);
-            Assert.Equal(certificates, environment.CertificateChainValidator.CertificateStore);
+            Assert.Equal(certificates, environment.GodkjenteKjedeSertifikater);
         }
 
         [Fact]
@@ -51,9 +49,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Act
 
             //Assert
-            Assert.NotNull(environment.CertificateChainValidator);
             Assert.Equal(url, environment.Url.ToString());
-            Assert.Equal(certificates, environment.CertificateChainValidator.CertificateStore);
+            Assert.Equal(certificates, environment.GodkjenteKjedeSertifikater);
         }
     }
 }
