@@ -19,7 +19,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             public void Handles_generic_soap_fault_correctly()
             {
                 //Arrange
-                var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
+                var senderUnitTestCertificate = DomainUtility.GetAvsenderTestCertificate();
                 var response = XmlResource.Response.GetSoapFault();
 
                 //Act

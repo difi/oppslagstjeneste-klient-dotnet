@@ -24,5 +24,17 @@ namespace Difi.Oppslagstjeneste.Klient.Resources.Certificate
             var bytes = ResourceUtility.ReadAllBytes(true, "difi-enhetstester.p12");
             return new X509Certificate2(bytes, "", X509KeyStorageFlags.Exportable);
         }
+
+        internal static X509Certificate2 GetTestMottakerCertificateFromOppslagstjenesten()
+        {
+            var bytes = ResourceUtility.ReadAllBytes(true, "testmottakersertifikatFraOppslagstjenesten.pem");
+            return new X509Certificate2(bytes);
+        }
+
+        internal static X509Certificate2 GetProductionMottakerCertificateFromOppslagstjenesten()
+        {
+            var bytes = ResourceUtility.ReadAllBytes(true, "produksjonsmottakersertifikatFraOppslagstjenesten.pem");
+            return new X509Certificate2(bytes);
+        }
     }
 }

@@ -90,6 +90,8 @@
     <None Include="C:\Keys\signingkey.snk">
       <Link>signingkey.snk</Link>
     </None>
+    <None Include="Certificate\Data\produksjonsmottakersertifikatFraOppslagstjenesten.pem" />
+    <None Include="Certificate\Data\testmottakersertifikatFraOppslagstjenesten.pem" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

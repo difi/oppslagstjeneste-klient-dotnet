@@ -1,11 +1,8 @@
 ﻿using Difi.Felles.Utility.Utilities;
-
 using Xunit;
-using Assert = Xunit.Assert;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests
 {
-    
     public class MiljøTests
     {
         [Fact]
@@ -14,13 +11,15 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Arrange
             var environment = Miljø.FunksjoneltTestmiljøVerifikasjon1;
             const string url = "https://kontaktinfo-ws-ver1.difi.no/kontaktinfo-external/ws-v5";
-            var certificates = CertificateChainUtility.ProduksjonsSertifikater();
+            var requestCertificates = CertificateChainUtility.FunksjoneltTestmiljøSertifikater();
+            var responseCertificates = CertificateChainUtility.ProduksjonsSertifikater();
 
             //Act
 
             //Assert
             Assert.Equal(url, environment.Url.AbsoluteUri);
-            Assert.Equal(certificates, environment.GodkjenteKjedeSertifikater);
+            Assert.Equal(requestCertificates, environment.GodkjenteKjedeSertifikaterForRequest);
+            Assert.Equal(responseCertificates, environment.GodkjenteKjedeSertifikaterForRespons);
         }
 
         [Fact]
@@ -29,13 +28,15 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Arrange
             var environment = Miljø.FunksjoneltTestmiljøVerifikasjon2;
             const string url = "https://kontaktinfo-ws-ver2.difi.no/kontaktinfo-external/ws-v5";
-            var certificates = CertificateChainUtility.ProduksjonsSertifikater();
+            var requestCertificates = CertificateChainUtility.FunksjoneltTestmiljøSertifikater();
+            var responseCertificates = CertificateChainUtility.ProduksjonsSertifikater();
 
             //Act
 
             //Assert
             Assert.Equal(url, environment.Url.AbsoluteUri);
-            Assert.Equal(certificates, environment.GodkjenteKjedeSertifikater);
+            Assert.Equal(requestCertificates, environment.GodkjenteKjedeSertifikaterForRequest);
+            Assert.Equal(responseCertificates, environment.GodkjenteKjedeSertifikaterForRespons);
         }
 
         [Fact]
@@ -44,13 +45,15 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             //Arrange
             var environment = Miljø.Produksjonsmiljø;
             const string url = "https://kontaktinfo-ws.difi.no/kontaktinfo-external/ws-v5";
-            var certificates = CertificateChainUtility.ProduksjonsSertifikater();
+            var requestCertificates = CertificateChainUtility.ProduksjonsSertifikater();
+            var responseCertificates = CertificateChainUtility.ProduksjonsSertifikater();
 
             //Act
 
             //Assert
             Assert.Equal(url, environment.Url.ToString());
-            Assert.Equal(certificates, environment.GodkjenteKjedeSertifikater);
+            Assert.Equal(requestCertificates, environment.GodkjenteKjedeSertifikaterForRequest);
+            Assert.Equal(responseCertificates, environment.GodkjenteKjedeSertifikaterForRespons);
         }
     }
 }
