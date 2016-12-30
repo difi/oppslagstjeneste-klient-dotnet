@@ -15,7 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 //Arrange
                 const bool forventetLoggForespørselOgRespons = false;
                 var environment = Miljø.FunksjoneltTestmiljøVerifikasjon1;
-                var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
+                var senderUnitTestCertificate = DomainUtility.GetSenderSelfSignedCertificate();
                 var oppslagstjenesteConfiguration = new OppslagstjenesteKonfigurasjon(environment, senderUnitTestCertificate);
 
                 //Act

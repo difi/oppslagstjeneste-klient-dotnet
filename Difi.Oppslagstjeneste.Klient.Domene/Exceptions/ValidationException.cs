@@ -1,12 +1,11 @@
 ﻿using System;
-using Difi.Felles.Utility.Exceptions;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
 {
-    public class ValidationException : DifiException
+    public class ValidationException : OppslagstjenesteException
     {
         public ValidationException(string message)
-            : base(message)
+            : base(message, null)
         {
         }
 

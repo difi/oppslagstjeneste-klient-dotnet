@@ -44,8 +44,8 @@
       <HintPath>..\packages\api-client-shared.2.0.0\lib\net45\ApiClientShared.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Difi.Felles.Utility, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6e6972f540d5419a, processorArchitecture=MSIL">
-      <HintPath>..\packages\difi-felles-utility-dotnet.1.0.0\lib\net45\Difi.Felles.Utility.dll</HintPath>
+    <Reference Include="Difi.Felles.Utility, Version=1.2.0.34, Culture=neutral, PublicKeyToken=6e6972f540d5419a, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.1.2.0.34-beta\lib\net45\Difi.Felles.Utility.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -64,7 +64,10 @@
     <Compile Include="Entiteter\Svar\EndringerSvar.cs" />
     <Compile Include="Entiteter\Svar\PersonerSvar.cs" />
     <Compile Include="Entiteter\Svar\PrintSertifikatSvar.cs" />
+    <Compile Include="Exceptions\OppslagstjenesteException.cs" />
+    <Compile Include="Exceptions\SikkerhetsException.cs" />
     <Compile Include="Exceptions\SendException.cs" />
+    <Compile Include="Exceptions\SertifikatException.cs" />
     <Compile Include="Exceptions\UventetFeilException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
