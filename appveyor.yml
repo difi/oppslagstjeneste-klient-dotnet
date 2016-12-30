@@ -71,6 +71,7 @@
     - git submodule update --init --recursive
     - nuget install secure-file -ExcludeVersion
     - secure-file\tools\secure-file -decrypt signingkey.snk.enc -secret %strong_name_signingkey_secret%    
+    - secure-file\tools\secure-file -decrypt bring.p12.enc -secret %virksomhetssertifikat_secret%
   before_build:
   - ps: >-
       .\appveyor-deploy\InstallVirksomhetssertifikat.ps1 -virksomhetssertifikat bring.p12;
