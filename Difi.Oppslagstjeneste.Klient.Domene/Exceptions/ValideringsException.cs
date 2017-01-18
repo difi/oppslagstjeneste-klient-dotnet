@@ -5,7 +5,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
     public class ValideringsException : SendException
     {
         public ValideringsException(string message)
-            : base(message, null)
+            : base(message)
         {
         }
 
