@@ -63,15 +63,14 @@ namespace Difi.Oppslagstjeneste.Klient.Security
             var expires = DateTimeOffset.Parse(timestampElement["Expires", Navnerom.WssecurityUtility10].InnerText);
 
             if (created > DateTimeOffset.Now.AddMinutes(5))
-                throw new ValidationException("Motatt melding har opprettelsetidspunkt mer enn 5 minutter inn i fremtiden." +
-                                              created);
+                throw new ValideringsException("Motatt melding har opprettelsetidspunkt mer enn 5 minutter inn i fremtiden." +
+                                               created);
             if (created < DateTimeOffset.Now.Add(timeSpan.Negate()))
-                throw new ValidationException(
-                    string.Format("Motatt melding har opprettelsetidspunkt som er eldre enn {0} minutter.",
-                        timeSpan.Minutes));
+                throw new ValideringsException(
+                    $"Motatt melding har opprettelsetidspunkt som er eldre enn {timeSpan.Minutes} minutter.");
 
             if (expires < DateTimeOffset.Now)
-                throw new ValidationException("Motatt melding har utgått på tid.");
+                throw new ValideringsException("Motatt melding har utgått på tid.");
         }
 
         /// <summary>
@@ -95,49 +94,35 @@ namespace Difi.Oppslagstjeneste.Klient.Security
         {
             var targetNode = signedXml.GetIdElement(ResponseContainer.Envelope, elementId);
             if (targetNode != nodes[0])
-                throw new ValidationException(string.Format("Signaturreferansen med id '{0}' må refererer til node med sti '{1}'",
-                    elementId, elementXPath));
+                throw new ValideringsException($"Signaturreferansen med id '{elementId}' må referere til node med sti '{elementXPath}'");
         }
 
         private string NodeFinnesISignaturElement(XmlElement signature, XmlNodeList nodes, string elementXPath)
         {
             var elementId = nodes[0].Attributes["wsu:Id"].Value;
 
-            var references = signature.SelectNodes(
-                string.Format("./ds:SignedInfo/ds:Reference[@URI='#{0}']", elementId), ResponseContainer.Nsmgr);
-            if (references == null || references.Count == 0)
+            var references = signature.SelectNodes($"./ds:SignedInfo/ds:Reference[@URI='#{elementId}']", ResponseContainer.Nsmgr);
+            if ((references == null) || (references.Count == 0))
             {
-                throw new Exception(
-                    string.Format(
-                        "Kan ikke finne påkrevet refereanse til element '{0}' i signatur fra meldingsformidler.",
-                        elementXPath)
-                    );
+                throw new Exception($"Kan ikke finne påkrevet refereanse til element '{elementXPath}' i signatur fra meldingsformidler."
+                );
             }
             if (references.Count > 1)
-                throw new ValidationException(
-                    string.Format(
-                        "Påkrevet refereanse til element '{0}' kan kun forekomme én gang i signatur fra meldingsformidler. Ble funnet {1} ganger.",
-                        elementXPath, references.Count)
-                    );
+                throw new ValideringsException($"Påkrevet refereanse til element '{elementXPath}' kan kun forekomme én gang i signatur fra meldingsformidler. Ble funnet {references.Count} ganger.");
             return elementId;
         }
 
         private XmlNodeList InneholderNode(string elementXPath)
         {
             var nodes = ResponseContainer.Envelope.SelectNodes(elementXPath, ResponseContainer.Nsmgr);
-            if (nodes == null || nodes.Count == 0)
+            if ((nodes == null) || (nodes.Count == 0))
             {
-                throw new ValidationException(string.Format(
-                    "Kan ikke finne påkrevet element '{0}' i svar fra meldingsformidler.", elementXPath));
+                throw new ValideringsException($"Kan ikke finne påkrevet element '{elementXPath}' i svar fra meldingsformidler.");
             }
 
             if (nodes.Count > 1)
             {
-                throw new ValidationException(
-                    string.Format(
-                        "Påkrevet element '{0}' kan kun forekomme én gang i svar fra meldingsformidler. Ble funnet {1} ganger.",
-                        elementXPath, nodes.Count)
-                    );
+                throw new ValideringsException($"Påkrevet element '{elementXPath}' kan kun forekomme én gang i svar fra meldingsformidler. Ble funnet {nodes.Count} ganger.");
             }
 
             return nodes;
@@ -157,8 +142,7 @@ namespace Difi.Oppslagstjeneste.Klient.Security
 
             // match against sent signature
             if (signatureConfirmation != sentSignatureValue)
-                throw new ValidationException(string.Format("Motatt signaturbekreftelse '{0}' er ikke lik sendt signatur '{1}'.",
-                    signatureConfirmation, sentSignatureValue));
+                throw new ValideringsException($"Motatt signaturbekreftelse '{signatureConfirmation}' er ikke lik sendt signatur '{sentSignatureValue}'.");
         }
     }
 }

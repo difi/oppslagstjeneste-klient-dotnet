@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
 {
-    public class UventetFeilException : OppslagstjenesteException
+    public class UventetFeilException : SendException
     {
         public UventetFeilException(XmlDocument outerXml)
             : this(outerXml, null)
