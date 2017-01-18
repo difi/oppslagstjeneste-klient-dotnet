@@ -69,7 +69,7 @@
     <Compile Include="Exceptions\SendException.cs" />
     <Compile Include="Exceptions\SertifikatException.cs" />
     <Compile Include="Exceptions\UventetFeilException.cs" />
-    <Compile Include="Exceptions\ValidationException.cs" />
+    <Compile Include="Exceptions\ValideringsException.cs" />
     <Compile Include="Exceptions\XmlParseException.cs" />
     <Compile Include="Entiteter\Kontaktinformasjon.cs" />
     <Compile Include="Entiteter\Mobiltelefonnummer.cs" />
