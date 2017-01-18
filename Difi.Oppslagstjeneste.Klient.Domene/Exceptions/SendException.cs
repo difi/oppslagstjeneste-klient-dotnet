@@ -6,7 +6,7 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
     public class SendException : OppslagstjenesteException
     {
         public SendException(string message)
-            : base(message, null)
+            : base(message)
         {
         }
 
