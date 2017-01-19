@@ -85,7 +85,8 @@ namespace Difi.Oppslagstjeneste.Klient
         {
             var requestEnvelope = new EndringerEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, fraEndringsNummer, informasjonsbehov);
 
-            Log.Debug($"HentEndringerAsynkront(fraEndringsNummer:{fraEndringsNummer} , informasjonsbehov:{informasjonsbehov})");
+            Log.Debug($"HentEndringerAsynkront(fraEndringsNummer:{fraEndringsNummer} , informasjonsbehov:{string.Join(", ", informasjonsbehov)})");
+
             if (RequestAndResponseLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
                 RequestAndResponseLog.Debug(requestEnvelope.XmlDocument.OuterXml);
@@ -137,7 +138,7 @@ namespace Difi.Oppslagstjeneste.Klient
         public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
         {
             var requestEnvelope = new PersonsEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, personidentifikator, informasjonsbehov);
-            Log.Debug($"HentPersonerAsynkront(personidentifikator:{personidentifikator} , informasjonsbehov:{informasjonsbehov})");
+            Log.Debug($"HentPersonerAsynkront(personidentifikator:{string.Join(", ", personidentifikator)} , informasjonsbehov:{string.Join(", ", informasjonsbehov)}");
             if (RequestAndResponseLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
                 RequestAndResponseLog.Debug(requestEnvelope.XmlDocument.OuterXml);
