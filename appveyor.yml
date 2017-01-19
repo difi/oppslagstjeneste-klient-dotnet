@@ -12,7 +12,7 @@
   configuration: Release 
   environment:
     strong_name_signingkey_secret:
-      secure: klTrmUGElJ32M1IvA5ecksVOZoUhA22ZAEVhpi5qaZY=
+      secure: 4wF8ix3/VBpYybA16aSwl0cbpujX/ZOEwPKWkzW+7Go=
     virksomhetssertifikat_secret:
       secure: ***REMOVED***
     virksomhetssertifikat_pass:
@@ -62,7 +62,7 @@
   configuration: Release 
   environment:
     strong_name_signingkey_secret:
-      secure: klTrmUGElJ32M1IvA5ecksVOZoUhA22ZAEVhpi5qaZY=
+      secure: 4wF8ix3/VBpYybA16aSwl0cbpujX/ZOEwPKWkzW+7Go=
     virksomhetssertifikat_secret:
       secure: ***REMOVED***
     virksomhetssertifikat_pass:
