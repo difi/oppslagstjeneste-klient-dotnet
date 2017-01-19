@@ -16,6 +16,8 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
             ParseToClassMembers(xml);
         }
 
+        public override string Message => Beskrivelse;
+
         public XmlDocument Xml { get; set; }
 
         public string Skyldig { get; set; }

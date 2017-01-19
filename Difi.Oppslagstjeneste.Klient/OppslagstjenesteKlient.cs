@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Common.Logging;
@@ -50,12 +51,11 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     Forespørsel sendt fra Virksomhet for å hente endringer fra Oppslagstjenesten.
         /// </summary>
         /// <param name="fraEndringsNummer">
-        ///     Brukes i endringsforespørsler for å hente alle endringer fra og med et bestemt
-        ///     endringsNummer.
+        ///     Brukes i endringsforespørsler for å hente alle endringer fra og med et bestemt endringsnummer.
         /// </param>
         /// <param name="informasjonsbehov">
-        ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov
-        ///     f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.
+        ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi flere behov, som for eksempel
+        ///     <see cref="Informasjonsbehov.Kontaktinfo" /> eller <see cref="Informasjonsbehov.VarslingsStatus" />.
         /// </param>
         public EndringerSvar HentEndringer(long fraEndringsNummer, params Informasjonsbehov[] informasjonsbehov)
         {
@@ -74,18 +74,18 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     Forespørsel sendt fra Virksomhet for å hente endringer fra Oppslagstjenesten.
         /// </summary>
         /// <param name="fraEndringsNummer">
-        ///     Brukes i endringsforespørsler for å hente alle endringer fra og med et bestemt
-        ///     endringsNummer.
+        ///     Brukes i endringsforespørsler for å hente alle endringer fra og med et bestemt endringsnummer.
         /// </param>
         /// <param name="informasjonsbehov">
-        ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov
-        ///     f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.
+        ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi flere behov, som for eksempel
+        ///     <see cref="Informasjonsbehov.Kontaktinfo" /> eller <see cref="Informasjonsbehov.VarslingsStatus" />.
         /// </param>
         public async Task<EndringerSvar> HentEndringerAsynkront(long fraEndringsNummer, params Informasjonsbehov[] informasjonsbehov)
         {
             var requestEnvelope = new EndringerEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, fraEndringsNummer, informasjonsbehov);
 
-            Log.Debug($"HentEndringerAsynkront(fraEndringsNummer:{fraEndringsNummer} , informasjonsbehov:{informasjonsbehov})");
+            Log.Debug($"HentEndringerAsynkront(fraEndringsNummer:{fraEndringsNummer} , informasjonsbehov:{string.Join(", ", informasjonsbehov)})");
+
             if (RequestAndResponseLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
                 RequestAndResponseLog.Debug(requestEnvelope.XmlDocument.OuterXml);
@@ -103,12 +103,11 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     Forespørsel sendt fra Virksomhet for å hente Personer fra Oppslagstjenesten.
         /// </summary>
         /// <param name="personidentifikator">
-        ///     Identifikasjon av en person. Personidentifikator er er enten et fødselsnummer et
-        ///     gyldig D-nummer.
+        ///     Identifikasjon av en person. Personidentifikator er et fødselsnummer eller et gyldig D-nummer.
         /// </param>
         /// <param name="informasjonsbehov">
-        ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov
-        ///     f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.
+        ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi flere behov, som for eksempel
+        ///     <see cref="Informasjonsbehov.Kontaktinfo" /> eller <see cref="Informasjonsbehov.VarslingsStatus" />.
         /// </param>
         public IEnumerable<Person> HentPersoner(string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
         {
@@ -126,18 +125,20 @@ namespace Difi.Oppslagstjeneste.Klient
         /// <summary>
         ///     Forespørsel sendt fra Virksomhet for å hente Personer fra Oppslagstjenesten.
         /// </summary>
-        /// <param name="personidentifikator">
-        ///     Identifikasjon av en person. Personidentifikator er er enten et fødselsnummer et
-        ///     gyldig D-nummer.
+        /// <param name="personidentifikatorer">
+        ///     Identifikasjon av en person. Personidentifikator er et fødselsnummer eller et gyldig D-nummer.
         /// </param>
         /// <param name="informasjonsbehov">
-        ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi fler behov
-        ///     f.eks Informasjonsbehov.Kontaktinfo | Informasjonsbehov.SikkerDigitalPost.
+        ///     Beskriver det opplysningskrav som en Virksomhet har definert. Du kan angi flere behov, som for eksempel
+        ///     <see cref="Informasjonsbehov.Kontaktinfo" /> eller <see cref="Informasjonsbehov.VarslingsStatus" />.
         /// </param>
-        public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikator, params Informasjonsbehov[] informasjonsbehov)
+        public async Task<IEnumerable<Person>> HentPersonerAsynkront(string[] personidentifikatorer, params Informasjonsbehov[] informasjonsbehov)
         {
-            var requestEnvelope = new PersonsEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, personidentifikator, informasjonsbehov);
-            Log.Debug($"HentPersonerAsynkront(personidentifikator:{personidentifikator} , informasjonsbehov:{informasjonsbehov})");
+            var requestEnvelope = new PersonsEnvelope(OppslagstjenesteKonfigurasjon.Avsendersertifikat, OppslagstjenesteKonfigurasjon.SendPåVegneAv, personidentifikatorer, informasjonsbehov);
+
+            var maskertePersonIdentifikatorer = string.Join(", ", personidentifikatorer.Select(p => p.Substring(0, 6) + "*****"));
+            Log.Debug($"HentPersonerAsynkront(personidentifikator:{maskertePersonIdentifikatorer} , informasjonsbehov:{string.Join(", ", informasjonsbehov)}");
+
             if (RequestAndResponseLog.IsDebugEnabled && OppslagstjenesteKonfigurasjon.LoggForespørselOgRespons)
             {
                 RequestAndResponseLog.Debug(requestEnvelope.XmlDocument.OuterXml);
