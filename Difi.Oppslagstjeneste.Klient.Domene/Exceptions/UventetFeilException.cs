@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Xml;
-using Difi.Felles.Utility.Exceptions;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
 {
-    public class UventetFeilException : DifiException
+    public class UventetFeilException : SendException
     {
         public UventetFeilException(XmlDocument outerXml)
             : this(outerXml, null)

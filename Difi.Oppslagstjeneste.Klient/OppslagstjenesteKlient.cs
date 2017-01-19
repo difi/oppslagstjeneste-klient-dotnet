@@ -7,6 +7,7 @@ using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Scripts.XsdToCode.Code;
+using Difi.Oppslagstjeneste.Klient.Security;
 using Difi.Oppslagstjeneste.Klient.Svar;
 using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 
@@ -20,7 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient
     public class OppslagstjenesteKlient
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly ILog RequestAndResponseLog = LogManager.GetLogger($"{typeof (OppslagstjenesteKlient).Namespace}.RequestResponse");
+        private static readonly ILog RequestAndResponseLog = LogManager.GetLogger($"{typeof(OppslagstjenesteKlient).Namespace}.RequestResponse");
         private readonly OppslagstjenesteHelper _oppslagstjenesteHelper;
 
         /// <summary>
@@ -34,6 +35,8 @@ namespace Difi.Oppslagstjeneste.Klient
             Log.Debug(oppslagstjenesteKonfigurasjon.ToString());
             OppslagstjenesteKonfigurasjon = oppslagstjenesteKonfigurasjon;
             _oppslagstjenesteHelper = new OppslagstjenesteHelper(oppslagstjenesteKonfigurasjon);
+
+            SenderCertificateValidator.ValidateAndThrowIfInvalid(oppslagstjenesteKonfigurasjon.Avsendersertifikat, oppslagstjenesteKonfigurasjon.Miljø.GodkjenteKjedeSertifikaterForRequest);
         }
 
         public OppslagstjenesteKonfigurasjon OppslagstjenesteKonfigurasjon { get; }

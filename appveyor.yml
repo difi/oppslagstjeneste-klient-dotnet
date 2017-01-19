@@ -11,22 +11,24 @@
     - packages -> **\packages.config
   configuration: Release 
   environment:
-    strong_name_key_encryption_key:
+    strong_name_signingkey_secret:
       secure: klTrmUGElJ32M1IvA5ecksVOZoUhA22ZAEVhpi5qaZY=
-    virksomhetssertifikat_pass:
+    virksomhetssertifikat_secret:
       secure: ***REMOVED***
-    virksomhetssertifikat_encryption_key:
+    virksomhetssertifikat_pass:
       secure: ***REMOVED***
   install:
     - git submodule update --init --recursive
     - nuget install secure-file -ExcludeVersion
-    - secure-file\tools\secure-file -decrypt signingkey.snk.enc -secret %strong_name_key_encryption_key%
+    - secure-file\tools\secure-file -decrypt signingkey.snk.enc -secret %strong_name_signingkey_secret%
+    - secure-file\tools\secure-file -decrypt bring.p12.enc -secret %virksomhetssertifikat_secret%
   before_build:
   - ps: >-
+      .\appveyor-deploy\InstallVirksomhetssertifikat.ps1 -virksomhetssertifikat bring.p12;
       .\appveyor-deploy\MoveSigningKey.ps1 -signingKeyPath "$env:APPVEYOR_BUILD_FOLDER\signingkey.snk" -signingKeyDestination "C:\Keys\signingkey.snk";
       .\appveyor-deploy\NugetRestore.ps1;
       .\appveyor-deploy\AssemblyInfoVersionPatcher.ps1 -assemblyInfoPath  ".\SolutionItems\SharedAssemblyInfo.cs"; 
-      .\appveyor-deploy\BuildPreamble.ps1   
+      .\appveyor-deploy\BuildPreamble.ps1 
   build:
     verbosity: minimal  
   after_build:
@@ -59,18 +61,20 @@
     - packages -> **\packages.config
   configuration: Release 
   environment:
-    strong_name_key_encryption_key:
+    strong_name_signingkey_secret:
       secure: klTrmUGElJ32M1IvA5ecksVOZoUhA22ZAEVhpi5qaZY=
-    virksomhetssertifikat_pass:
+    virksomhetssertifikat_secret:
       secure: ***REMOVED***
-    virksomhetssertifikat_encryption_key:
+    virksomhetssertifikat_pass:
       secure: ***REMOVED***
   install:
     - git submodule update --init --recursive
     - nuget install secure-file -ExcludeVersion
-    - secure-file\tools\secure-file -decrypt signingkey.snk.enc -secret %strong_name_key_encryption_key%    
+    - secure-file\tools\secure-file -decrypt signingkey.snk.enc -secret %strong_name_signingkey_secret%    
+    - secure-file\tools\secure-file -decrypt bring.p12.enc -secret %virksomhetssertifikat_secret%
   before_build:
   - ps: >-
+      .\appveyor-deploy\InstallVirksomhetssertifikat.ps1 -virksomhetssertifikat bring.p12;
       .\appveyor-deploy\MoveSigningKey.ps1 -signingKeyPath "$env:APPVEYOR_BUILD_FOLDER\signingkey.snk" -signingKeyDestination "C:\Keys\signingkey.snk";
       .\appveyor-deploy\NugetRestore.ps1;
       .\appveyor-deploy\BuildPreamble.ps1          
