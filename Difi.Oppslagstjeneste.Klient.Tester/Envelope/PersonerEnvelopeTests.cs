@@ -15,7 +15,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Envelope
             public void Initializes_fields()
             {
                 //Arrange
-                var senderUnitTestCertificate = DomainUtility.GetSenderUnitTestCertificate();
+                var senderUnitTestCertificate = DomainUtility.GetSenderSelfSignedCertificate();
                 const string sendOnBehalfOf = "sendPåVegneAv";
                 var persons = new[] {"12312312312", "32132132132"};
                 var informationNeed = new[] {Informasjonsbehov.Person, Informasjonsbehov.Kontaktinfo};

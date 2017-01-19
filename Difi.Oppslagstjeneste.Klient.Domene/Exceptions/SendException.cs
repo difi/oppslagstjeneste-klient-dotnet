@@ -3,12 +3,8 @@ using Difi.Felles.Utility.Exceptions;
 
 namespace Difi.Oppslagstjeneste.Klient.Domene.Exceptions
 {
-    public class SendException : DifiException
+    public class SendException : OppslagstjenesteException
     {
-        public SendException()
-        {
-        }
-
         public SendException(string message)
             : base(message)
         {
