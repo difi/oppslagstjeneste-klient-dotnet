@@ -1,6 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
-using ApiClientShared;
-using ApiClientShared.Enums;
+using Digipost.Api.Client.Shared.Certificate;
 
 namespace Difi.Oppslagstjeneste.Klient
 {
@@ -39,7 +38,7 @@ namespace Difi.Oppslagstjeneste.Klient
         ///     <see cref="http://difi.github.io/oppslagstjeneste-klient-dotnet" />
         /// </param>
         public OppslagstjenesteKonfigurasjon(Miljø miljø, string avsendersertifikatThumbprint, string sendPåVegneAv = null)
-            : this(miljø, CertificateUtility.SenderCertificate(avsendersertifikatThumbprint, Language.Norwegian), sendPåVegneAv)
+            : this(miljø, CertificateUtility.SenderCertificate(avsendersertifikatThumbprint), sendPåVegneAv)
         {
         }
 

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using System.Xml;
-using ApiClientShared;
+using Digipost.Api.Client.Shared.Resources.Resource;
 
 namespace Difi.Oppslagstjeneste.Klient.Resources.Xml
 {

@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Xml;
-using ApiClientShared;
 using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene;
+using Digipost.Api.Client.Shared.Resources.Resource;
 
 namespace Difi.Oppslagstjeneste.Klient.XmlValidation
 {
