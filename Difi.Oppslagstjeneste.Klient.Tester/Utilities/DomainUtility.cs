@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
-using ApiClientShared;
-using ApiClientShared.Enums;
+
 using Difi.Oppslagstjeneste.Klient.Resources.Certificate;
+using Digipost.Api.Client.Shared.Certificate;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests.Utilities
 {
@@ -24,8 +24,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Utilities
 
         private static X509Certificate2 GetBringTestCertificate()
         {
-            var bringThumbprint = "2d7f30dd05d3b7fc7ae5973a73f849083b2040ed";
-            return CertificateUtility.SenderCertificate(bringThumbprint, Language.Norwegian);
+            var bringThumbprint = "88bdb74fadaed87f52d2f5c11aed607deb9700ba";
+            return CertificateUtility.SenderCertificate(bringThumbprint);
         }
 
         internal static string GetOrganisasjonsnummerBring()
