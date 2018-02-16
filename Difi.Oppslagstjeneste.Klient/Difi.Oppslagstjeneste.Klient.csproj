@@ -43,11 +43,9 @@
   <ItemGroup>
     <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Difi.Felles.Utility, Version=2.0.1.0, Culture=neutral, PublicKeyToken=03cc8be9ca792550, processorArchitecture=MSIL">
       <HintPath>..\packages\difi-felles-utility-dotnet.2.0.1\lib\net45\Difi.Felles.Utility.dll</HintPath>
@@ -104,9 +102,6 @@
     <None Include="C:\Keys\signingkey.snk">
       <Link>signingkey.snk</Link>
     </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="XmlValidation\Xsd\wssecurity\oasis-200401-wss-wssecurity-secext-1.0.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -131,6 +126,7 @@
     <EmbeddedResource Include="XmlValidation\Xsd\w3\xml.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
       <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
