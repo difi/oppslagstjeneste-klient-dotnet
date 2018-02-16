@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient", "Difi.Oppslagstjeneste.Klient\Difi.Oppslagstjeneste.Klient.csproj", "{13B840F4-199B-4482-B4A8-CB71AC1B0C99}"
 EndProject
@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		SolutionItems\App.config = SolutionItems\App.config
 		SolutionItems\SharedAssemblyInfo.cs = SolutionItems\SharedAssemblyInfo.cs
-		C:\Keys\signingkey.snk = C:\Keys\signingkey.snk
+		..\..\..\..\Keys\signingkey.snk = ..\..\..\..\Keys\signingkey.snk
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Difi.Oppslagstjeneste.Klient.Scripts", "Difi.Oppslagstjeneste.Klient.Scripts\Difi.Oppslagstjeneste.Klient.Scripts.csproj", "{2DD9A89B-E1B4-4DC4-BA46-1D58AB0B0200}"
@@ -55,5 +55,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8ABE4D2-4CC7-40D5-A617-766C061786D5}
 	EndGlobalSection
 EndGlobal
