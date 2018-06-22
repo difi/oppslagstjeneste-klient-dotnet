@@ -54,8 +54,8 @@
     <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Difi.Felles.Utility, Version=2.0.1.52, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\difi-felles-utility-dotnet.2.0.1.52-beta\lib\net45\Difi.Felles.Utility.dll</HintPath>
+    <Reference Include="Difi.Felles.Utility, Version=2.0.1.53, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\difi-felles-utility-dotnet.2.0.1.53-beta\lib\net45\Difi.Felles.Utility.dll</HintPath>
     </Reference>
     <Reference Include="Digipost.Api.Client.Shared, Version=3.0.0.0, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
       <HintPath>..\packages\api-client-shared.3.0.0\lib\net46\Digipost.Api.Client.Shared.dll</HintPath>
