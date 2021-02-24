@@ -5,7 +5,6 @@ using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -18,7 +17,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         public class SendAsyncMethod : OppslagstjenesteHelperTests
         {
             
-            [Ignore]
+            [Fact(Skip = "ignored")]
             public void Handles_generic_soap_fault_correctly()
             {
                 //Arrange

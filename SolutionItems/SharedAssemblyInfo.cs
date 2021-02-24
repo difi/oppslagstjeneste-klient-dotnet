@@ -7,5 +7,5 @@ using System.Reflection;
 [assembly: AssemblyVersion("7.0.0")]
 [assembly: AssemblyFileVersion("7.0.0")]
 [assembly: AssemblyInformationalVersion("7.0.0")]
-[assembly: AssemblyCopyright("© 2015-2017 Direktoratet for forvaltning og IKT (Difi)")]
+[assembly: AssemblyCopyright("Â© 2015-2021 Direktoratet for forvaltning og IKT (Difi)")]
 [assembly: AssemblyCulture("")]

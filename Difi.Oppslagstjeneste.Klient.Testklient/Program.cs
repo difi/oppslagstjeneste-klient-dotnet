@@ -3,8 +3,8 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using Common.Logging;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
+using log4net;
 
 namespace Difi.Oppslagstjeneste.Klient.Testklient
 {
@@ -28,7 +28,6 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
             //    Informasjonsbehov.Sertifikat,
             //    Informasjonsbehov.SikkerDigitalPost,
             //    Informasjonsbehov.VarslingsStatus
-            //    );
 
             var personer = register.HentPersoner(new[] {"08077000292"},
                 Informasjonsbehov.Kontaktinfo,

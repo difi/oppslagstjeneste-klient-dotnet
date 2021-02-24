@@ -1,15 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build">
+
+    <PropertyGroup>
+        <Title>Difi Oppslagstjeneste Klient Domene</Title>
+        <PackageId>Difi.Oppslagstjeneste.Klient.Domene</PackageId>
+        <SignAssembly>false</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>Difi.Oppslagstjeneste.Klient.Domene</RootNamespace>
+        <ProjectGuid>{3EC8D196-7BD8-4C88-B989-216801AD0840}</ProjectGuid>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.1" />
+        <PackageReference Include="Difi.Felles.Utility" Version="5.0.0" />
+    </ItemGroup>
+    
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3EC8D196-7BD8-4C88-B989-216801AD0840}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Difi.Oppslagstjeneste.Klient.Domene</RootNamespace>
     <AssemblyName>Difi.Oppslagstjeneste.Klient.Domene</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -34,49 +50,10 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Difi.Oppslagstjeneste.Klient.Domene.XML</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>C:\Keys\signingkey.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Difi.Felles.Utility, Version=2.0.1.53, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\difi-felles-utility-dotnet.2.0.1.53-beta\lib\net45\Difi.Felles.Utility.dll</HintPath>
-    </Reference>
-    <Reference Include="Digipost.Api.Client.Shared, Version=3.0.0.0, Culture=neutral, PublicKeyToken=13a04c7692843c1c, processorArchitecture=MSIL">
-      <HintPath>..\packages\api-client-shared.3.0.0\lib\net46\Digipost.Api.Client.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Entiteter\EndringsInfo.cs" />
-    <Compile Include="Entiteter\Enums\Informasjonsbehov.cs" />
-    <Compile Include="Entiteter\Enums\Status.cs" />
-    <Compile Include="Entiteter\Enums\Varslingsstatus.cs" />
-    <Compile Include="Entiteter\Epostadresse.cs" />
-    <Compile Include="Entiteter\Svar\EndringerSvar.cs" />
-    <Compile Include="Entiteter\Svar\PersonerSvar.cs" />
-    <Compile Include="Entiteter\Svar\PrintSertifikatSvar.cs" />
-    <Compile Include="Exceptions\OppslagstjenesteException.cs" />
-    <Compile Include="Exceptions\SikkerhetsException.cs" />
-    <Compile Include="Exceptions\SendException.cs" />
-    <Compile Include="Exceptions\SertifikatException.cs" />
-    <Compile Include="Exceptions\UventetFeilException.cs" />
-    <Compile Include="Exceptions\ValideringsException.cs" />
-    <Compile Include="Exceptions\XmlParseException.cs" />
-    <Compile Include="Entiteter\Kontaktinformasjon.cs" />
-    <Compile Include="Entiteter\Mobiltelefonnummer.cs" />
-    <Compile Include="Entiteter\Person.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="Navnerom.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entiteter\Sikkerdigitalpostadresse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\difi-oppslagstjeneste.pfx">
@@ -86,15 +63,6 @@
     <None Include="C:\Keys\signingkey.snk">
       <Link>signingkey.snk</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

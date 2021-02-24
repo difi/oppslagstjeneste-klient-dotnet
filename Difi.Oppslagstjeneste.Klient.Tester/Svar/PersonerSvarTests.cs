@@ -22,7 +22,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Svar
         [Fact]
         public void Hent_en_person_suksess()
         {
-            Assert.Equal(1, _personerSvar.Personer.Count());
+            Assert.Single(_personerSvar.Personer);
         }
     }
 }

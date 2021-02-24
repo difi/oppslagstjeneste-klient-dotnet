@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Common.Logging;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Enums;
 using Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar;
 using Difi.Oppslagstjeneste.Klient.Envelope;
 using Difi.Oppslagstjeneste.Klient.Scripts.XsdToCode.Code;
 using Difi.Oppslagstjeneste.Klient.Security;
 using Difi.Oppslagstjeneste.Klient.Svar;
+using log4net;
 using Person = Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Person;
 
 namespace Difi.Oppslagstjeneste.Klient

@@ -5,35 +5,37 @@ namespace Difi.Oppslagstjeneste.Klient.Resources.Certificate
 {
     internal class CertificateResource
     {
-        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Resources.Certificate.Data");
+        private static readonly ResourceUtility ResourceUtility = new ResourceUtility(
+            typeof(CertificateResource).Assembly
+            , "Difi.Oppslagstjeneste.Klient.Resources.Certificate.Data");
 
         internal static X509Certificate2 GetDifiTestCertificate()
         {
-            var bytes = ResourceUtility.ReadAllBytes(true, "DifiTestCertificateClient.p12");
+            var bytes = ResourceUtility.ReadAllBytes( "DifiTestCertificateClient.p12");
             return new X509Certificate2(bytes, "changeit", X509KeyStorageFlags.Exportable);
         }
 
         internal static X509Certificate2 GetEternalTestCertificateWithoutPrivateKey()
         {
-            var bytes = ResourceUtility.ReadAllBytes(true, "difi-enhetstester.cer");
+            var bytes = ResourceUtility.ReadAllBytes( "difi-enhetstester.cer");
             return new X509Certificate2(bytes, "", X509KeyStorageFlags.Exportable);
         }
 
         internal static X509Certificate2 GetEternalTestCertificateWithPrivateKey()
         {
-            var bytes = ResourceUtility.ReadAllBytes(true, "difi-enhetstester.p12");
+            var bytes = ResourceUtility.ReadAllBytes( "difi-enhetstester.p12");
             return new X509Certificate2(bytes, "", X509KeyStorageFlags.Exportable);
         }
 
         internal static X509Certificate2 GetTestMottakerCertificateFromOppslagstjenesten()
         {
-            var bytes = ResourceUtility.ReadAllBytes(true, "testmottakersertifikatFraOppslagstjenesten.pem");
+            var bytes = ResourceUtility.ReadAllBytes( "testmottakersertifikatFraOppslagstjenesten.pem");
             return new X509Certificate2(bytes);
         }
 
         internal static X509Certificate2 GetProductionMottakerCertificateFromOppslagstjenesten()
         {
-            var bytes = ResourceUtility.ReadAllBytes(true, "produksjonsmottakersertifikatFraOppslagstjenesten.pem");
+            var bytes = ResourceUtility.ReadAllBytes( "produksjonsmottakersertifikatFraOppslagstjenesten.pem");
             return new X509Certificate2(bytes);
         }
     }

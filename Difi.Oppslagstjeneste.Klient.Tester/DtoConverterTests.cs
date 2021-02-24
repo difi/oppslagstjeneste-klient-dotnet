@@ -44,7 +44,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 var comparator = new Comparator();
                 IEnumerable<IDifference> differences;
                 comparator.AreEqual(expected, result, out differences);
-                Assert.Equal(0, differences.Count());
+                Assert.Empty(differences);
             }
 
             [Fact]
@@ -82,7 +82,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
                 var comparator = new Comparator();
                 IEnumerable<IDifference> differences;
                 comparator.AreEqual(expected, result, out differences);
-                Assert.Equal(0, differences.Count());
+                Assert.Empty(differences);
             }
 
             private static Person GetDomenePerson(Scripts.XsdToCode.Code.Person kilde)
