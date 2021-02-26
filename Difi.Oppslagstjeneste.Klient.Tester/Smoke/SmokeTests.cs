@@ -21,6 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         }
 
         [Fact]
+        [Trait("Category", "testWithCert")]
         public async Task Get_persons_success()
         {
             //Arrange
@@ -37,6 +38,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         }
 
         [Fact]
+        [Trait("Category", "testWithCert")]
         public async Task Get_changes_success()
         {
             //Arrange
@@ -53,6 +55,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Smoke
         }
 
         [Fact]
+        [Trait("Category", "testWithCert")]
         public async Task Get_print_certificate_success()
         {
             var printCertificate = await _oppslagstjenesteKlient.HentPrintSertifikatAsynkront();

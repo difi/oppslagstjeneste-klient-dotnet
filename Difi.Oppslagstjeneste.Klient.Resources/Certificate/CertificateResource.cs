@@ -12,12 +12,12 @@ namespace Difi.Oppslagstjeneste.Klient.Resources.Certificate
 
         internal static X509Certificate2 GetDifiTestCertificate()
         {
-            var certificatePath = $"{Environment.GetEnvironmentVariable("HOME")}/Documents/sertifikater/Bring_Digital_Signature_Key_Encipherment_Data_Encipherment.p12";
-            var certificatePassword  = Environment.GetEnvironmentVariable("SMOKE_TEST_CERTIFICATE_PASSWORD");
-            if (certificatePassword == null)
-            {
-                throw new Exception("Env variable BRING_DIGITAL_KEY_PASSWORD is not set. Certificate can therefore not be read.");
-            }
+            var certificatePath = Environment.GetEnvironmentVariable("SMOKE_TEST_CERTIFICATE_PATH") ??
+                                  throw new Exception("Env variable SMOKE_TEST_CERTIFICATE_PATH is not set. Certificate can therefore not be read.");
+
+            var certificatePassword = Environment.GetEnvironmentVariable("SMOKE_TEST_CERTIFICATE_PASSWORD") ??
+                                      throw new Exception("Env variable SMOKE_TEST_CERTIFICATE_PASSWORD is not set. Certificate can therefore not be read.");
+            
             return new X509Certificate2(certificatePath, certificatePassword );
         }
         

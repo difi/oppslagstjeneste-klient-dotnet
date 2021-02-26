@@ -11,6 +11,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Security
         public class ValidateAndThrowIfInvalidMethod
         {
             [Fact]
+            [Trait("Category", "testWithCert")]
             public void No_exception_on_valid_certificate()
             {
                 SenderCertificateValidator.ValidateAndThrowIfInvalid(
@@ -19,6 +20,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests.Security
             }
 
             [Fact]
+            [Trait("Category", "testWithCert")]
             public void Sertifikat_exception_on_invalid_certificate()
             {
                 Assert.Throws<SertifikatException>(
