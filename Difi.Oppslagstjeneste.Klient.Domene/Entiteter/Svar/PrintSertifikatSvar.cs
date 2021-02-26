@@ -8,7 +8,6 @@ namespace Difi.Oppslagstjeneste.Klient.Domene.Entiteter.Svar
     /// </summary>
     public class PrintSertifikatSvar
     {
-        /// <summary>
         ///     <summary>
         ///         Et X509 Sertifikat.
         ///     </summary>
