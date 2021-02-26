@@ -46,7 +46,8 @@ namespace Difi.Oppslagstjeneste.Klient.Testklient
 
         private static string CertificateIssuedToPostenNorgeAsIssuedByBuypassClass3Test4Ca3()
         {
-            return "8702F5E55217EC88CF2CCBADAC290BB4312594AC";
+            // POSTEN NORGE AS TEST (Trusted in keychain)
+            return "875C927720AE3228BE73460940EB71E90D039F3B";
         }
 
         private static string CertificateIssuedToBringAsIssuedByBuypassClass3Test4Ca3()

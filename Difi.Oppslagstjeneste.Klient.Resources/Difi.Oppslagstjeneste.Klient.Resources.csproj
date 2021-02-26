@@ -57,8 +57,6 @@
     <EmbeddedResource Include="Xml\Data\Response\HentPersonerEncrypted.xml" />
     <EmbeddedResource Include="Xml\Data\Response\HentPrintSertifikat.xml" />
     <EmbeddedResource Include="Xml\Data\Response\SoapFault.xml" />
-    <EmbeddedResource Include="Certificate\Data\DifiTestCertificateClient.p12" />
-    <EmbeddedResource Include="Certificate\Data\difi-enhetstester.cer" />
     <EmbeddedResource Include="Certificate\Data\difi-enhetstester.p12" />
   </ItemGroup>
   <ItemGroup>

@@ -30,7 +30,7 @@ namespace Difi.Oppslagstjeneste.Klient.Handlers
         {
             var netVersion = Assembly
                 .GetExecutingAssembly()
-                .GetReferencedAssemblies().First(x => x.Name == "System.Core").Version.ToString();
+                .GetReferencedAssemblies().First(x => x.Name == "netstandard").Version.ToString();
 
             var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
 

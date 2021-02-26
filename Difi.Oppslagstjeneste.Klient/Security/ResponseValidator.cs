@@ -43,14 +43,14 @@ namespace Difi.Oppslagstjeneste.Klient.Security
 
         private AesManaged AesManaged(X509Certificate2 decryptionSertificate)
         {
-            var privateKey = decryptionSertificate.PrivateKey as RSACryptoServiceProvider;
+            var privateKey = decryptionSertificate.GetRSAPrivateKey();
 
             var aes = new AesManaged
             {
                 Mode = CipherMode.CBC,
                 KeySize = 256,
                 Padding = PaddingMode.None,
-                Key = privateKey.Decrypt(Convert.FromBase64String(ResponseContainer.Cipher), true)
+                Key = privateKey.Decrypt(Convert.FromBase64String(ResponseContainer.Cipher), RSAEncryptionPadding.OaepSHA1)
             };
             return aes;
         }
