@@ -1,6 +1,9 @@
 # Oppslagstjeneste-klient-dotnet
 
-[![Build status](https://ci.appveyor.com/api/projects/status/lddp0g47vbmig3n5/branch/master?svg=true)](https://ci.appveyor.com/project/difi/oppslagstjeneste-klient-dotnet/branch/master)
+[![Build status](https://github.com/difi/oppslagstjeneste-klient-dotnet/actions/workflows/release.yml/badge.svg)](https://github.com/difi/oppslagstjeneste-klient-dotnet/actions/workflows/release.yml)
+
+Nuget: https://www.nuget.org/packages/difi-oppslagstjeneste-klient/
+
 
 [Online dokumentasjon finner du her!](http://difi.github.io/oppslagstjeneste-klient-dotnet)
 
