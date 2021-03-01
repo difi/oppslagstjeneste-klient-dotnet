@@ -17,72 +17,72 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Difi.Felles.Utility.Resources" Version="5.0.1" />
-        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.1" />
-        <PackageReference Include="Difi.Felles.Utility" Version="5.0.1" />
-        <PackageReference Include="log4net" Version="2.0.12" />
+        <PackageReference Include="Difi.Felles.Utility.Resources" Version="5.0.1"/>
+        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.1"/>
+        <PackageReference Include="Difi.Felles.Utility" Version="5.0.1"/>
+        <PackageReference Include="log4net" Version="2.0.12"/>
     </ItemGroup>
-    
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Difi.Oppslagstjeneste.Klient.XML</DocumentationFile>
-  </PropertyGroup>
-    
-  <ItemGroup>
-    <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="XmlValidation\Xsd\wssecurity\oasis-200401-wss-wssecurity-secext-1.0.xsd">
-    </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidation\Xsd\wssecurity\oasis-200401-wss-wssecurity-utility-1.0.xsd">
-    </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidation\Xsd\soap\soap.xsd">
-    </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidation\Xsd\w3\xmldsig-core-schema.xsd">
-    </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidation\Xsd\w3\exc-c14n.xsd">
-    </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidation\Xsd\oppslagstjeneste-metadata-16-02.xsd">
-    </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidation\Xsd\oppslagstjeneste-ws-16-02.xsd">
-    </EmbeddedResource>
-    <EmbeddedResource Include="XmlValidation\Xsd\w3\xml.xsd">
-    </EmbeddedResource>
-    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
-      <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
-      <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Scripts\Difi.Oppslagstjeneste.Klient.Scripts.csproj">
-      <Project>{2dd9a89b-e1b4-4dc4-ba46-1d58ab0b0200}</Project>
-      <Name>Difi.Oppslagstjeneste.Klient.Scripts</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
+
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <FileAlignment>512</FileAlignment>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <TargetFrameworkProfile/>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <DocumentationFile>
+        </DocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <DocumentationFile>bin\Release\Difi.Oppslagstjeneste.Klient.XML</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
+            <Link>Properties\SharedAssemblyInfo.cs</Link>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="XmlValidation\Xsd\wssecurity\oasis-200401-wss-wssecurity-secext-1.0.xsd">
+        </EmbeddedResource>
+        <EmbeddedResource Include="XmlValidation\Xsd\wssecurity\oasis-200401-wss-wssecurity-utility-1.0.xsd">
+        </EmbeddedResource>
+        <EmbeddedResource Include="XmlValidation\Xsd\soap\soap.xsd">
+        </EmbeddedResource>
+        <EmbeddedResource Include="XmlValidation\Xsd\w3\xmldsig-core-schema.xsd">
+        </EmbeddedResource>
+        <EmbeddedResource Include="XmlValidation\Xsd\w3\exc-c14n.xsd">
+        </EmbeddedResource>
+        <EmbeddedResource Include="XmlValidation\Xsd\oppslagstjeneste-metadata-16-02.xsd">
+        </EmbeddedResource>
+        <EmbeddedResource Include="XmlValidation\Xsd\oppslagstjeneste-ws-16-02.xsd">
+        </EmbeddedResource>
+        <EmbeddedResource Include="XmlValidation\Xsd\w3\xml.xsd">
+        </EmbeddedResource>
+        <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
+            <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
+            <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Scripts\Difi.Oppslagstjeneste.Klient.Scripts.csproj">
+            <Project>{2dd9a89b-e1b4-4dc4-ba46-1d58ab0b0200}</Project>
+            <Name>Difi.Oppslagstjeneste.Klient.Scripts</Name>
+        </ProjectReference>
+    </ItemGroup>
+    <ItemGroup/>
 </Project>

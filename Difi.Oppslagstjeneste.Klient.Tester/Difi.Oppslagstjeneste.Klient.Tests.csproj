@@ -16,78 +16,78 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Difi.Felles.Utility.Resources" Version="5.0.1" />
-        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.1" />
-        <PackageReference Include="Difi.Felles.Utility" Version="5.0.1" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-        <PackageReference Include="xunit.assert" Version="2.4.1" />
-        <PackageReference Include="xunit.core" Version="2.4.1" />
+        <PackageReference Include="Difi.Felles.Utility.Resources" Version="5.0.1"/>
+        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.1"/>
+        <PackageReference Include="Difi.Felles.Utility" Version="5.0.1"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1"/>
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0"/>
+        <PackageReference Include="xunit.assert" Version="2.4.1"/>
+        <PackageReference Include="xunit.core" Version="2.4.1"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Moq" Version="4.16.1" />
-        <PackageReference Include="Castle.Core" Version="4.4.1" />
-        <PackageReference Include="CompareNETObjects" Version="4.72.0" />
+        <PackageReference Include="Moq" Version="4.16.1"/>
+        <PackageReference Include="Castle.Core" Version="4.4.1"/>
+        <PackageReference Include="CompareNETObjects" Version="4.72.0"/>
     </ItemGroup>
-    
+
     <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
-      <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
-      <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Resources\Difi.Oppslagstjeneste.Klient.Resources.csproj">
-      <Project>{a52aafce-14df-4a33-af7c-9209fcba646c}</Project>
-      <Name>Difi.Oppslagstjeneste.Klient.Resources</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Scripts\Difi.Oppslagstjeneste.Klient.Scripts.csproj">
-      <Project>{2dd9a89b-e1b4-4dc4-ba46-1d58ab0b0200}</Project>
-      <Name>Difi.Oppslagstjeneste.Klient.Scripts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient\Difi.Oppslagstjeneste.Klient.csproj">
-      <Project>{13B840F4-199B-4482-B4A8-CB71AC1B0C99}</Project>
-      <Name>Difi.Oppslagstjeneste.Klient</Name>
-    </ProjectReference>
-  </ItemGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <FileAlignment>512</FileAlignment>
+        <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+        <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+        <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+        <IsCodedUITest>False</IsCodedUITest>
+        <TestProjectType>UnitTest</TestProjectType>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <TargetFrameworkProfile/>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <DocumentationFile>
+        </DocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
+            <Link>Properties\SharedAssemblyInfo.cs</Link>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
+            <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
+            <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Resources\Difi.Oppslagstjeneste.Klient.Resources.csproj">
+            <Project>{a52aafce-14df-4a33-af7c-9209fcba646c}</Project>
+            <Name>Difi.Oppslagstjeneste.Klient.Resources</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Scripts\Difi.Oppslagstjeneste.Klient.Scripts.csproj">
+            <Project>{2dd9a89b-e1b4-4dc4-ba46-1d58ab0b0200}</Project>
+            <Name>Difi.Oppslagstjeneste.Klient.Scripts</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient\Difi.Oppslagstjeneste.Klient.csproj">
+            <Project>{13B840F4-199B-4482-B4A8-CB71AC1B0C99}</Project>
+            <Name>Difi.Oppslagstjeneste.Klient</Name>
+        </ProjectReference>
+    </ItemGroup>
 
 </Project>

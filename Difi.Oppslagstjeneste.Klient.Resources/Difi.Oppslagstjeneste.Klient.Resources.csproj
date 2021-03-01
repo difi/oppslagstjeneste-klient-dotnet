@@ -16,52 +16,52 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.1" />
+        <PackageReference Include="Digipost.Api.Client.Shared" Version="7.0.1"/>
     </ItemGroup>
-    
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Xml\Data\Request\HentPersoner.xml" />
-    <EmbeddedResource Include="Xml\Data\Response\HentEndringer.xml" />
-    <EmbeddedResource Include="Xml\Data\Response\HentPersoner.xml" />
-    <EmbeddedResource Include="Xml\Data\Response\HentPersonerEncrypted.xml" />
-    <EmbeddedResource Include="Xml\Data\Response\HentPrintSertifikat.xml" />
-    <EmbeddedResource Include="Xml\Data\Response\SoapFault.xml" />
-    <EmbeddedResource Include="Certificate\Data\difi-enhetstester.p12" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Certificate\Data\produksjonsmottakersertifikatFraOppslagstjenesten.pem" />
-    <None Include="Certificate\Data\testmottakersertifikatFraOppslagstjenesten.pem" />
-  </ItemGroup>
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <FileAlignment>512</FileAlignment>
+        <TargetFrameworkProfile/>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
+            <Link>Properties\SharedAssemblyInfo.cs</Link>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Xml\Data\Request\HentPersoner.xml"/>
+        <EmbeddedResource Include="Xml\Data\Response\HentEndringer.xml"/>
+        <EmbeddedResource Include="Xml\Data\Response\HentPersoner.xml"/>
+        <EmbeddedResource Include="Xml\Data\Response\HentPersonerEncrypted.xml"/>
+        <EmbeddedResource Include="Xml\Data\Response\HentPrintSertifikat.xml"/>
+        <EmbeddedResource Include="Xml\Data\Response\SoapFault.xml"/>
+        <EmbeddedResource Include="Certificate\Data\difi-enhetstester.p12"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="Certificate\Data\produksjonsmottakersertifikatFraOppslagstjenesten.pem"/>
+        <None Include="Certificate\Data\testmottakersertifikatFraOppslagstjenesten.pem"/>
+    </ItemGroup>
 
 </Project>
