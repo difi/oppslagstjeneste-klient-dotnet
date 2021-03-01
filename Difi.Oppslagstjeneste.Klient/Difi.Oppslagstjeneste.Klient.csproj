@@ -3,7 +3,8 @@
 
     <PropertyGroup>
         <Title>Difi Oppslagstjeneste Klient</Title>
-        <PackageId>Difi.Oppslagstjeneste.Klient</PackageId>
+        <!-- Bruk gammel packageID slik at vi ikke trenger å publishe på ny id-->
+        <PackageId>difi-oppslagstjeneste-klient</PackageId>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>

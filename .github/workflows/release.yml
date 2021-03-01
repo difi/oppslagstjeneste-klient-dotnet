@@ -41,7 +41,7 @@ jobs:
       - name: Push Klient to NuGet
         env:
           NUGET_API_KEY: ${{ secrets.NUGETAPIKEY }}
-        run: dotnet nuget push "digdir/packed/Difi.Oppslagstjeneste.Klient.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
+        run: dotnet nuget push "digdir/packed/difi-oppslagstjeneste-klient.$RELEASE_VERSION.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
       - name: Push Domene to NuGet
         env:
           NUGET_API_KEY: ${{ secrets.NUGETAPIKEY }}
