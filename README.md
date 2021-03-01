@@ -11,6 +11,11 @@
 - Kjør tester i container: `docker-compose up --build`
 - Push branch til github og lag PR.
 
+Sett `SignAssembly` til false i prosjektfilene for å deaktivere strong-named assemblies under utvikling.
+Har du tilgang til signingkey (digipost-utviklere) kan du evt dekryptere `signingkey.snk.enc` først.
+Man kan verifisere at DLL-en er strong-named ved å benytte `sn -v <path-to-dll>`.
+
+
 NB: på grunnn av begrensninger knyttet til kjøring på linux (Unix LocalMachine X509Store is limited to the Root and
 CertificateAuthority stores.) ifbm sertifikater er 7 tester utelatt ved docker-compose og github action kjøring. Det
 erikke prioritert å få disse testene til å kjøre på github actions da dette biblioteket snart skal erstattes. Sjekk

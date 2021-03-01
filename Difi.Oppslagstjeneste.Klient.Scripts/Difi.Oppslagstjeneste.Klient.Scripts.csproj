@@ -4,7 +4,7 @@
     <PropertyGroup>
         <Title>Difi Oppslagstjeneste Klient Scripts</Title>
         <PackageId>Difi.Oppslagstjeneste.Klient.Scripts</PackageId>
-        <SignAssembly>false</SignAssembly>
+        <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
@@ -46,9 +46,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Keys\signingkey.snk">
-      <Link>signingkey.snk</Link>
-    </None>
     <None Include="XsdToCode\GenerateClassesFromXsd.ps1" />
     <None Include="XsdToCode\Xsd\oppslagstjeneste-metadata-16-02.xsd">
     </None>

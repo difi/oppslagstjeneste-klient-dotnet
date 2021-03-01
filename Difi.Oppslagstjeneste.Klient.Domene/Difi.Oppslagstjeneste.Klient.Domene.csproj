@@ -4,7 +4,7 @@
     <PropertyGroup>
         <Title>Difi Oppslagstjeneste Klient Domene</Title>
         <PackageId>Difi.Oppslagstjeneste.Klient.Domene</PackageId>
-        <SignAssembly>false</SignAssembly>
+        <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
@@ -55,11 +55,6 @@
     <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="C:\Keys\signingkey.snk">
-      <Link>signingkey.snk</Link>
-    </None>
   </ItemGroup>
   <ItemGroup />
 </Project>

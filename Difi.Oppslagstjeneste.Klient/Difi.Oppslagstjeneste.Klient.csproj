@@ -4,7 +4,7 @@
     <PropertyGroup>
         <Title>Difi Oppslagstjeneste Klient</Title>
         <PackageId>Difi.Oppslagstjeneste.Klient</PackageId>
-        <SignAssembly>false</SignAssembly>
+        <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
@@ -58,9 +58,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Keys\signingkey.snk">
-      <Link>signingkey.snk</Link>
-    </None>
     <EmbeddedResource Include="XmlValidation\Xsd\wssecurity\oasis-200401-wss-wssecurity-secext-1.0.xsd">
     </EmbeddedResource>
     <EmbeddedResource Include="XmlValidation\Xsd\wssecurity\oasis-200401-wss-wssecurity-utility-1.0.xsd">

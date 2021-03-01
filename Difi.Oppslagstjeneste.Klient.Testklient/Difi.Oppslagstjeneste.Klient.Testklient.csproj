@@ -55,11 +55,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Keys\signingkey.snk">
-      <Link>signingkey.snk</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Difi.Oppslagstjeneste.Klient.Domene\Difi.Oppslagstjeneste.Klient.Domene.csproj">
       <Project>{3EC8D196-7BD8-4C88-B989-216801AD0840}</Project>
       <Name>Difi.Oppslagstjeneste.Klient.Domene</Name>

@@ -4,7 +4,7 @@
     <PropertyGroup>
         <Title>Difi Oppslagstjeneste Klient Tests</Title>
         <PackageId>Difi.Oppslagstjeneste.Klient.Tests</PackageId>
-        <SignAssembly>false</SignAssembly>
+        <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>..\signingkey.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
@@ -88,11 +88,6 @@
       <Project>{13B840F4-199B-4482-B4A8-CB71AC1B0C99}</Project>
       <Name>Difi.Oppslagstjeneste.Klient</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="C:\Keys\signingkey.snk">
-      <Link>signingkey.snk</Link>
-    </None>
   </ItemGroup>
 
 </Project>
