@@ -15,4 +15,4 @@ RUN mv ./Buypass_Class_3_Test4_Root_CA.cer /usr/local/share/ca-certificates/Buyp
 
 RUN update-ca-certificates
 
-ENTRYPOINT ["dotnet", "test", "-c", "Release", "--filter" "Category!=testWithCert"]
+ENTRYPOINT dotnet test -c Release --filter Category!=testWithCert
