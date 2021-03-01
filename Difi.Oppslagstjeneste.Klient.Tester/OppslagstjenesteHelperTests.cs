@@ -6,6 +6,7 @@ using Difi.Oppslagstjeneste.Klient.Domene.Exceptions;
 using Difi.Oppslagstjeneste.Klient.Resources.Xml;
 using Difi.Oppslagstjeneste.Klient.Tests.Utilities;
 using Xunit;
+using Assert = Xunit.Assert;
 
 namespace Difi.Oppslagstjeneste.Klient.Tests
 {
@@ -15,7 +16,8 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         
         public class SendAsyncMethod : OppslagstjenesteHelperTests
         {
-            [Fact]
+            
+            [Fact(Skip = "ignored")]
             public void Handles_generic_soap_fault_correctly()
             {
                 //Arrange

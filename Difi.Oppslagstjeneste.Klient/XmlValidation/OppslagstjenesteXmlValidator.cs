@@ -1,15 +1,17 @@
 ﻿using System.IO;
 using System.Xml;
-using ApiClientShared;
 using Difi.Felles.Utility;
 using Difi.Oppslagstjeneste.Klient.Domene;
+using Digipost.Api.Client.Shared.Resources.Resource;
 
 namespace Difi.Oppslagstjeneste.Klient.XmlValidation
 {
     internal class OppslagstjenesteXmlValidator : XmlValidator
     {
         private static readonly ResourceUtility ResourceUtility =
-            new ResourceUtility("Difi.Oppslagstjeneste.Klient.XmlValidation.Xsd");
+            new ResourceUtility(
+                typeof(OppslagstjenesteXmlValidator).Assembly
+                , "Difi.Oppslagstjeneste.Klient.XmlValidation.Xsd");
 
         public OppslagstjenesteXmlValidator()
         {
@@ -25,7 +27,7 @@ namespace Difi.Oppslagstjeneste.Klient.XmlValidation
 
         private static XmlReader HentRessurs(string path)
         {
-            var bytes = ResourceUtility.ReadAllBytes(true, path);
+            var bytes = ResourceUtility.ReadAllBytes( path);
             return XmlReader.Create(new MemoryStream(bytes));
         }
     }

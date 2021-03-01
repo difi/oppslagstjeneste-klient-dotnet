@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile_tests
+# Due to limitations on linux this is not necessary. Tests with certificates are skipped..
+# Smoketest requires some setup.  
+#    volumes:
+#      - $HOME/Documents/sertifikater/Bring_Digital_Signature_Key_Encipherment_Data_Encipherment.p12:/cert/Bring_Digital_Signature_Key_Encipherment_Data_Encipherment.p12:ro
+#    environment:
+#      - SMOKE_TEST_CERTIFICATE_PATH="/cert/Bring_Digital_Signature_Key_Encipherment_Data_Encipherment.p12"
+# TODO: uncomment and enter password for certificate. Do NOT commit. 
+#      - SMOKE_TEST_CERTIFICATE_PASSWORD=""

@@ -9,6 +9,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
         public class ConstructorMethod : OppslagstjenesteKlientTests
         {
             [Fact]
+            [Trait("Category", "testWithCert")]
             public void Calls_sender_certificate_validation()
             {
                 //Arrange
@@ -20,6 +21,7 @@ namespace Difi.Oppslagstjeneste.Klient.Tests
             }
 
             [Fact]
+            [Trait("Category", "testWithCert")]
             public void Initializes_with_certificates()
             {
                 //Arrange

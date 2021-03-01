@@ -1,3 +1,0 @@
-[submodule "appveyor-deploy"]
-	path = appveyor-deploy
-	url = https://github.com/digipost/appveyor-deploy.git

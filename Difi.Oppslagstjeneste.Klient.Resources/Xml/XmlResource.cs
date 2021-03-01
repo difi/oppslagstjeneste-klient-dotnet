@@ -1,16 +1,18 @@
 ﻿using System.Text;
 using System.Xml;
-using ApiClientShared;
+using Digipost.Api.Client.Shared.Resources.Resource;
 
 namespace Difi.Oppslagstjeneste.Klient.Resources.Xml
 {
     internal class XmlResource
     {
-        private static readonly ResourceUtility ResourceUtility = new ResourceUtility("Difi.Oppslagstjeneste.Klient.Resources.Xml.Data");
+        private static readonly ResourceUtility ResourceUtility = new ResourceUtility(
+            typeof(XmlResource).Assembly
+            , "Difi.Oppslagstjeneste.Klient.Resources.Xml.Data");
 
         private static XmlDocument GetResource(params string[] path)
         {
-            var bytes = ResourceUtility.ReadAllBytes(true, path);
+            var bytes = ResourceUtility.ReadAllBytes(path);
             return XmlUtility.ToXmlDocument(Encoding.UTF8.GetString(bytes));
         }
 

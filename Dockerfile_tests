@@ -1,0 +1,18 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+
+WORKDIR /difi-oppslagstjeneste-klient-dotnet
+
+COPY . .
+RUN dotnet restore
+
+
+COPY ./Difi.Oppslagstjeneste.Klient.Resources/Certificate/Data/TestChain/Buypass_Class_3_Test4_CA_3.cer .
+COPY ./Difi.Oppslagstjeneste.Klient.Resources/Certificate/Data/TestChain/Buypass_Class_3_Test4_Root_CA.cer .
+
+
+RUN mv ./Buypass_Class_3_Test4_CA_3.cer /usr/local/share/ca-certificates/Buypass_Class_3_Test4_CA_3.crt 
+RUN mv ./Buypass_Class_3_Test4_Root_CA.cer /usr/local/share/ca-certificates/Buypass_Class_3_Test4_ROOT_CA.crt 
+
+RUN update-ca-certificates
+
+ENTRYPOINT dotnet test -c Release --filter Category!=testWithCert
